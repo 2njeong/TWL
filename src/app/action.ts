@@ -6,7 +6,6 @@ import { revalidatePath } from 'next/cache';
 
 export const serverAdd = async (data: FormData) => {
   const formData = Object.fromEntries(data);
-
   try {
     const docRef = await addDoc(collection(db, 'test'), formData);
     revalidatePath('/daily');

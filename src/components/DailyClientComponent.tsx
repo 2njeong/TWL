@@ -1,13 +1,13 @@
 'use client';
 
 import { addDoc, collection } from 'firebase/firestore';
-import { FormEvent, useTransition } from 'react';
+import { FormEvent, useState, useTransition } from 'react';
 import { db } from '../../firebase';
 import { transitionAdd } from ' @/app/action';
 
 const DailyClientComponent = ({ propServerAction }: { propServerAction: any }) => {
   const [isPending, startTransition] = useTransition();
-  console.log('isPending', isPending);
+  const [input, setInput] = useState('');
 
   const anotherSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -50,6 +50,10 @@ const DailyClientComponent = ({ propServerAction }: { propServerAction: any }) =
       console.error(e);
     }
   };
+
+  const handleOnChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(value);
+  };
   return (
     <>
       <div>
@@ -83,8 +87,8 @@ const DailyClientComponent = ({ propServerAction }: { propServerAction: any }) =
       </div>
 
       <div>
-        <input type="text" name="3" className="border"></input>
-        <button className="border" onClick={async () => await propServerAction()}>
+        <input type="text" name="prop" className="border" onChange={handleOnChange}></input>
+        <button className="border" onClick={async () => await propServerAction(input)}>
           Props
         </button>
       </div>
