@@ -1,4 +1,4 @@
-import { collection, getDocs } from 'firebase/firestore';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import { beforeFormServerAction, serverAdd } from '../action';
 import DailyClientComponent from ' @/components/DailyClientComponent';
@@ -10,9 +10,18 @@ const DailyPage = async () => {
     testList.push({ id: doc.id, ...doc.data() });
   });
 
+  const propServerAction = async () => {
+    'use server';
+    try {
+      await addDoc(collection(db, 'props'), { name: 'props로 실행하기' });
+    } catch (error) {
+      throw new Error('props로 server-action Client한테 내리기 실패');
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4">
-      <DailyClientComponent />
+      <DailyClientComponent propServerAction={propServerAction} />
       <div>
         <form action={serverAdd}>
           <h1>Server-action: </h1>

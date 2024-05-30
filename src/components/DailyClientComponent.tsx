@@ -5,8 +5,9 @@ import { FormEvent, useTransition } from 'react';
 import { db } from '../../firebase';
 import { transitionAdd } from ' @/app/action';
 
-const DailyClientComponent = () => {
+const DailyClientComponent = ({ propServerAction }: { propServerAction: any }) => {
   const [isPending, startTransition] = useTransition();
+  console.log('isPending', isPending);
 
   const anotherSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -70,9 +71,21 @@ const DailyClientComponent = () => {
           <button className="border">send</button>
         </form>
       </div>
+
       <div>
-        <button className="border" onClick={() => startTransition(() => transitionAdd('트랜지션?'))}>
+        <button
+          className={`border ${isPending ? 'opacity-30' : null}`}
+          disabled={isPending}
+          onClick={() => startTransition(() => transitionAdd('트랜지션?'))}
+        >
           Transition
+        </button>
+      </div>
+
+      <div>
+        <input type="text" name="3" className="border"></input>
+        <button className="border" onClick={async () => await propServerAction()}>
+          Props
         </button>
       </div>
     </>

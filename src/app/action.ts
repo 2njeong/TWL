@@ -26,6 +26,7 @@ export const beforeFormServerAction = async () => {
 };
 
 export const transitionAdd = async (name: string) => {
+  await new Promise((_) => setTimeout(_, 1000));
   try {
     await addDoc(collection(db, 'transition'), { name });
   } catch (error) {
