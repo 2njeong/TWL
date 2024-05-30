@@ -13,6 +13,7 @@ export const serverAdd = async (data: FormData) => {
   if (zodErr) {
     return { error: zodErr.format() };
   }
+  await new Promise((_) => setTimeout(_, 1000));
 
   try {
     await addDoc(collection(db, 'test'), formData);
@@ -37,5 +38,30 @@ export const transitionAdd = async (name: string) => {
     await addDoc(collection(db, 'transition'), { name });
   } catch (error) {
     throw new Error('transition 사용해서 server-action 실패');
+  }
+};
+
+export const serverActionWithUseFormState = async (state: any, formData: FormData) => {
+  const data = Object.fromEntries(formData);
+
+  // 외부 통신 전 유효성 검사 먼저
+  const { error: zodErr } = testSchema.safeParse(data);
+  if (zodErr) {
+    return { error: zodErr.format() };
+  }
+  const result = testSchema.safeParse(data);
+  if (result.success) {
+    return { data: result.data };
+  }
+  if (result.error) {
+    return { data: result.data };
+  }
+
+  try {
+    await addDoc(collection(db, 'formAction'), data);
+    revalidatePath('/daily');
+  } catch (e) {
+    console.error(e);
+    throw new Error('fail to add a new item');
   }
 };

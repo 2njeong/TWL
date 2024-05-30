@@ -3,6 +3,7 @@ import { db } from '../../../firebase';
 import { beforeFormServerAction, serverAdd } from '../action';
 import DailyClientComponent from ' @/components/DailyClientComponent';
 import { revalidatePath } from 'next/cache';
+import SubmitBtn from ' @/components/SubmitBtn';
 
 const DailyPage = async () => {
   const querySnapShot = await getDocs(collection(db, 'test'));
@@ -26,9 +27,9 @@ const DailyPage = async () => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-8 w-full max-w-5xl mx-auto">
       <DailyClientComponent propServerAction={propServerAction} />
-      <div>
+      <div className="border-4 py-4 px-4">
         <form action={serverAdd}>
           <h1>Server-action: </h1>
           <input type="text" name="name" className="border"></input>
@@ -36,9 +37,10 @@ const DailyPage = async () => {
           <button className="border" formAction={beforeFormServerAction}>
             like
           </button>
-          <button className="border" type="submit">
+          {/* <button className="border" type="submit">
             send
-          </button>
+          </button> */}
+          <SubmitBtn />
         </form>
       </div>
       {testList.map((t: any) => (
