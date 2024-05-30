@@ -9,7 +9,6 @@ export const serverAdd = async (data: FormData) => {
 
   try {
     const docRef = await addDoc(collection(db, 'test'), formData);
-    console.log('Document written with ID: ', docRef.id);
     revalidatePath('/daily');
     return docRef.id;
   } catch (e) {
