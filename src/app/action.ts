@@ -3,13 +3,20 @@
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { revalidatePath } from 'next/cache';
+import { testSchema } from './lib/schema';
 
 export const serverAdd = async (data: FormData) => {
   const formData = Object.fromEntries(data);
+
+  // 외부 통신 전 유효성 검사 먼저
+  const { error: zodErr } = testSchema.safeParse(formData);
+  if (zodErr) {
+    return { error: zodErr.format() };
+  }
+
   try {
-    const docRef = await addDoc(collection(db, 'test'), formData);
+    await addDoc(collection(db, 'test'), formData);
     revalidatePath('/daily');
-    return docRef.id;
   } catch (e) {
     console.error(e);
     throw new Error('fail to add a new item');

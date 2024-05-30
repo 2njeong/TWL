@@ -14,7 +14,6 @@ const DailyPage = async () => {
   const propsSnapShot = await getDocs(collection(db, 'props'));
   const propsList: any = [];
   propsSnapShot.forEach((p) => propsList.push({ id: p.id, ...p.data() }));
-  console.log('propsList =>', propsList);
 
   const propServerAction = async (data: string) => {
     'use server';

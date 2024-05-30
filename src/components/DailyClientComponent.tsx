@@ -1,13 +1,17 @@
 'use client';
 
 import { addDoc, collection } from 'firebase/firestore';
-import { FormEvent, useState, useTransition } from 'react';
+import { FormEvent, useRef, useState, useTransition } from 'react';
 import { db } from '../../firebase';
-import { transitionAdd } from ' @/app/action';
+import { serverAdd, transitionAdd } from ' @/app/action';
+import { error } from 'console';
+import { ValidationErr } from ' @/types/testType';
 
 const DailyClientComponent = ({ propServerAction }: { propServerAction: any }) => {
   const [isPending, startTransition] = useTransition();
   const [input, setInput] = useState('');
+  const [validationErr, setValidationErr] = useState<ValidationErr | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const anotherSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -54,6 +58,17 @@ const DailyClientComponent = ({ propServerAction }: { propServerAction: any }) =
   const handleOnChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
     setInput(value);
   };
+
+  const serverActionWithZod = async (data: FormData) => {
+    const result = await serverAdd(data);
+    if (result?.error) {
+      setValidationErr(result.error);
+    } else {
+      setValidationErr(null);
+      formRef.current?.reset();
+    }
+  };
+
   return (
     <>
       <div>
@@ -64,6 +79,17 @@ const DailyClientComponent = ({ propServerAction }: { propServerAction: any }) =
           <input type="text" name="1" className="border"></input>
           {/* <input type="number" name="2" className="border" onChange={(e) => handleOnchange(formData, e)}></input> */}
           <input type="number" name="2" className="border"></input>
+          <button className="border">send</button>
+        </form>
+      </div>
+
+      <div>
+        <form action={serverActionWithZod} ref={formRef} className="flex flex-col gap-2">
+          <h1>server-action Imported with Zod: </h1>
+          <input type="text" name="name" className="border"></input>
+          {validationErr ? <p>{validationErr.name?._errors}</p> : null}
+          <input type="number" name="message" className="border"></input>
+          {validationErr ? <p>{validationErr.message?._errors}</p> : null}
           <button className="border">send</button>
         </form>
       </div>
