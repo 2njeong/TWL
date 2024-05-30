@@ -3,7 +3,7 @@
 import { addDoc, collection } from 'firebase/firestore';
 import { FormEvent, useRef, useState, useTransition } from 'react';
 import { db } from '../../firebase';
-import { serverActionWithUseFormState, serverAdd, transitionAdd } from ' @/app/action';
+import { deliverMessage, serverActionWithUseFormState, serverAdd, transitionAdd } from ' @/app/action';
 import { ValidationErr } from ' @/types/testType';
 import { useFormState } from 'react-dom';
 import SubmitBtn from './SubmitBtn';
@@ -75,7 +75,7 @@ const DailyClientComponent = ({ propServerAction }: { propServerAction: any }) =
   };
 
   const serverActionWithUseOptimistic = async (formData: FormData) => {
-    await serverAdd(formData);
+    await deliverMessage(msg, formData);
     setMsg((prev) => [...prev, { text: '이거 되나', sending: false }]);
     // setMsg로 실제 메세지를 추가 안해주면(주석처리 하면) 낙관적 업데이트 된 메세지만 뜨다가 사라짐
   };
