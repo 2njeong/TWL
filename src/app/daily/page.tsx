@@ -1,6 +1,6 @@
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../firebase';
-import { serverAdd } from '../action';
+import { beforeFormServerAction, serverAdd } from '../action';
 import DailyClientComponent from ' @/components/DailyClientComponent';
 
 const DailyPage = async () => {
@@ -18,7 +18,12 @@ const DailyPage = async () => {
           <h1>Server-action: </h1>
           <input type="text" name="name" className="border"></input>
           <input type="number" name="message" className="border"></input>
-          <button className="border">send</button>
+          <button className="border" formAction={beforeFormServerAction}>
+            like
+          </button>
+          <button className="border" type="submit">
+            send
+          </button>
         </form>
       </div>
       {testList.map((t: any) => (

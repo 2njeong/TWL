@@ -1,10 +1,13 @@
 'use client';
 
 import { addDoc, collection } from 'firebase/firestore';
-import { FormEvent } from 'react';
+import { FormEvent, useTransition } from 'react';
 import { db } from '../../firebase';
+import { transitionAdd } from ' @/app/action';
 
 const DailyClientComponent = () => {
+  const [isPending, startTransition] = useTransition();
+
   const anotherSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -66,6 +69,11 @@ const DailyClientComponent = () => {
           <input type="number" name="4" className="border"></input>
           <button className="border">send</button>
         </form>
+      </div>
+      <div>
+        <button className="border" onClick={() => startTransition(() => transitionAdd('트랜지션?'))}>
+          Transition
+        </button>
       </div>
     </>
   );

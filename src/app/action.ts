@@ -17,10 +17,18 @@ export const serverAdd = async (data: FormData) => {
   }
 };
 
-// export const beforeFormServerAction = async () => {
-//     try {
-//         const docRef = await addDoc(collection(db, "like"), {})
-//     } catch (error) {
+export const beforeFormServerAction = async () => {
+  try {
+    await addDoc(collection(db, 'like'), { name: 1 });
+  } catch (error) {
+    throw new Error('좋아요 업로드 실패');
+  }
+};
 
-//     }
-// }
+export const transitionAdd = async (name: string) => {
+  try {
+    await addDoc(collection(db, 'transition'), { name });
+  } catch (error) {
+    throw new Error('transition 사용해서 server-action 실패');
+  }
+};
