@@ -13,7 +13,7 @@ const SelectQuizType = () => {
   };
 
   return (
-    <section className="w-full max-w-[1000px] flex justify-end absolute -top-5">
+    <section className="w-full flex justify-end absolute -top-5">
       {quizTypeList.map((t) => (
         <button
           key={t}

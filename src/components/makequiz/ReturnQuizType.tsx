@@ -2,12 +2,13 @@
 
 import { quizTyper } from '@/atom/quizAtom';
 import { useAtom } from 'jotai';
-import SelectInput from './SelectInput';
+import MultipleType from './MutipleType';
+import SubjectiveType from './SubjectiveType';
 
 const ReturnQuizType = () => {
   const [quizType] = useAtom(quizTyper);
 
-  return quizType === '객관식' ? <SelectInput /> : <></>;
+  return <section>{quizType === '객관식' ? <MultipleType /> : <SubjectiveType />}</section>;
 };
 
 export default ReturnQuizType;

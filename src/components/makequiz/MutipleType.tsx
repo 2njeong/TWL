@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { CiCirclePlus } from 'react-icons/ci';
 import { MdCancel } from 'react-icons/md';
 
-const SelectInput = () => {
+const MultipleType = () => {
   const [inputArr, setInputArr] = useState([1]);
 
   const plusInputCount = () => {
@@ -35,4 +35,4 @@ const SelectInput = () => {
   );
 };
 
-export default SelectInput;
+export default MultipleType;

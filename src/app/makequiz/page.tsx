@@ -1,5 +1,4 @@
 import ReturnQuizType from '@/components/makequiz/ReturnQuizType';
-import SelectInput from '@/components/makequiz/SelectInput';
 import SelectQuizType from '@/components/makequiz/SelectQuizType';
 
 const MakeQuizPage = () => {
