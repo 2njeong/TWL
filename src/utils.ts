@@ -4,9 +4,7 @@ import { InputFormData } from './types/testType';
 
 export const addFireStore = async (data: InputFormData) => {
   try {
-    const docRef = await addDoc(collection(db, 'test'), data);
-    console.log('Document written with ID: ', docRef.id);
-    return docRef.id;
+    await addDoc(collection(db, 'test'), data);
   } catch (e) {
     console.error(e);
   }

@@ -19,7 +19,6 @@ export const serverAdd = async (data: FormData) => {
     await addDoc(collection(db, 'test'), formData);
     revalidatePath('/daily');
   } catch (e) {
-    console.error(e);
     throw new Error('fail to add a new item');
   }
 };
@@ -61,21 +60,20 @@ export const serverActionWithUseFormState = async (state: any, formData: FormDat
     await addDoc(collection(db, 'formAction'), data);
     revalidatePath('/daily');
   } catch (e) {
-    console.error(e);
     throw new Error('fail to add a new item');
   }
 };
 
 export const deliverMessage = async (message: { text: string | unknown; sending: boolean }[], data: FormData) => {
   await new Promise((res) => setTimeout(res, 1000));
-  const formData = Object.fromEntries(data);
+  // const formData = Object.fromEntries(data);
 
-  try {
-    await addDoc(collection(db, 'optimistic'), formData);
-    revalidatePath('/daily');
-  } catch (e) {
-    console.error(e);
-    throw new Error('fail to add a new item');
-  }
+  // try {
+  //   await addDoc(collection(db, 'optimistic'), formData);
+  //   revalidatePath('/daily');
+  // } catch (e) {
+  //   console.error(e);
+  //   throw new Error('fail to add a new item');
+  // }
   return message;
 };
