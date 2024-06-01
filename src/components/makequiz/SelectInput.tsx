@@ -19,17 +19,18 @@ const SelectInput = () => {
   return (
     <div className="flex flex-col gap-2">
       {inputArr.map((item, idx) => (
-        <div key={item} className="flex gap-1 items-center">
-          <input placeholder={`보기 ${idx + 1}`} name="보기"></input>
-          <button onClick={() => minusInputCount(idx)}>
-            <MdCancel />
+        <div key={item} className="flex flex-col gap-2">
+          <div className="flex gap-1 items-center">
+            <input placeholder={`보기 ${idx + 1}`} name="보기"></input>
+            <button onClick={() => minusInputCount(idx)}>
+              <MdCancel />
+            </button>
+          </div>
+          <button className={`mx-auto ${idx + 1 < inputArr.length ? 'hidden' : null}`} onClick={plusInputCount}>
+            <CiCirclePlus />
           </button>
         </div>
       ))}
-
-      <button className="mx-auto" onClick={plusInputCount}>
-        <CiCirclePlus />
-      </button>
     </div>
   );
 };
