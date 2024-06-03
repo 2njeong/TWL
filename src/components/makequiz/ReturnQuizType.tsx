@@ -8,7 +8,7 @@ import SubjectiveType from './SubjectiveType';
 const ReturnQuizType = () => {
   const [quizType] = useAtom(quizTyper);
 
-  return <section>{quizType === '객관식' ? <MultipleType /> : <SubjectiveType />}</section>;
+  return <section className="w-full">{quizType === '객관식' ? <MultipleType /> : <SubjectiveType />}</section>;
 };
 
 export default ReturnQuizType;

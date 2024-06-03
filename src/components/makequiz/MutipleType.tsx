@@ -21,7 +21,7 @@ const MultipleType = () => {
       {inputArr.map((item, idx) => (
         <div key={item} className="flex flex-col gap-2">
           <div className="flex gap-1 items-center">
-            <input placeholder={`보기 ${idx + 1}`} name="보기"></input>
+            <input placeholder={`보기 ${idx + 1}`} name={`select ${idx + 1}`}></input>
             <button onClick={() => minusInputCount(idx)}>
               <MdCancel />
             </button>

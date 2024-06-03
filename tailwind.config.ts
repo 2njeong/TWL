@@ -17,6 +17,7 @@ const config: Config = {
         yelTwo: '#FCED88',
         yelThree: '#FDFCB8',
         yelFour: '#F9F6AA',
+        yelFive: '#fee231',
         pinkOne: '#F2E9E9',
         beiOne: '#E1DAB9'
       }

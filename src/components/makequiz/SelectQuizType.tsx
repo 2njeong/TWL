@@ -6,7 +6,6 @@ import { useAtom } from 'jotai';
 const SelectQuizType = () => {
   const quizTypeList = ['객관식', '주관식'];
   const [_, setQuizType] = useAtom(quizTyper);
-  console.log(_);
 
   const handleQuizType = (type: string) => {
     setQuizType(type);
