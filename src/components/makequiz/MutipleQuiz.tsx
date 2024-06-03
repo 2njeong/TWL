@@ -7,7 +7,6 @@ import { MdCancel } from 'react-icons/md';
 
 const MultipleQuiz = () => {
   const [inputArr, setInputArr] = useAtom(inputList);
-  console.log(inputArr);
 
   const plusInputCount = () => {
     setInputArr((prev) => (prev.length < 5 ? [...prev, prev.length + 1] : prev));
@@ -24,11 +23,11 @@ const MultipleQuiz = () => {
         <div key={item} className="flex flex-col gap-2">
           <div className="flex gap-1 items-center">
             <input placeholder={`보기 ${idx + 1}`} name={`select ${idx + 1}`}></input>
-            <button onClick={() => minusInputCount(idx)}>
+            <button formAction={() => minusInputCount(idx)}>
               <MdCancel />
             </button>
           </div>
-          <button className={`mx-auto ${idx + 1 < inputArr.length ? 'hidden' : null}`} onClick={plusInputCount}>
+          <button className={`mx-auto ${idx + 1 < inputArr.length ? 'hidden' : null}`} formAction={plusInputCount}>
             <CiCirclePlus />
           </button>
         </div>
