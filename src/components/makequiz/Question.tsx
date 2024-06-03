@@ -2,21 +2,37 @@
 
 import ReturnQuizType from './ReturnQuizType';
 import { useAtom } from 'jotai';
-import { inputList } from '@/atom/quizAtom';
 import { submitAction } from '@/app/action';
-import { useRef } from 'react';
+import { useRef, useTransition } from 'react';
+import { answerAtom, inputAtom, quizTyper } from '@/atom/quizAtom';
+import SubmitBtn from './SubmitBtn';
 
 const Question = () => {
-  const [inputArr] = useAtom(inputList);
+  const [inputArr, setInputArr] = useAtom(inputAtom);
+  const [answer, setAnswer] = useAtom(answerAtom);
+  const [quizType] = useAtom(quizTyper);
   const formRef = useRef<HTMLFormElement>(null);
 
   const submitQuiz = async (data: FormData) => {
-    if (inputArr.length < 2) {
-      alert('객관식 문항은 최소 2개 이상이어야 합니다.');
-      return;
+    console.log('inputArr.length =>', inputArr.length);
+    console.log('typeOfAnswer => ', answer);
+
+    if (quizType === '객관식') {
+      if (inputArr.length < 2) {
+        alert('객관식 문항은 최소 2개 이상이어야 합니다.');
+        return;
+      } else if (!answer || !answer.length) {
+        alert('정답을 알려주세용');
+        return;
+      }
+    } else {
+      if (!data.get('candidates')) alert('답변을 입력해주세요.');
     }
-    await submitAction(data);
+    const submitActionWithAnswer = submitAction.bind(null, answer);
+    await submitActionWithAnswer(data);
     formRef.current?.reset();
+    setInputArr([1]);
+    setAnswer(null);
   };
 
   return (
@@ -26,6 +42,7 @@ const Question = () => {
         <input placeholder="질문을 입력해주세요!" name="question" className="w-full"></input>
       </section>
       <ReturnQuizType />
+      <SubmitBtn />
     </form>
   );
 };

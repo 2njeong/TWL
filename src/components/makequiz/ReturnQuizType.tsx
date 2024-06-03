@@ -11,7 +11,6 @@ const ReturnQuizType = () => {
   return (
     <>
       <section className="w-full">{quizType === '객관식' ? <MultipleQuiz /> : <SubjectiveQuiz />}</section>
-      <button>제출</button>
     </>
   );
 };

@@ -6,6 +6,7 @@ export type Database = {
       quiz: {
         Row: {
           answer: string[];
+          candidates: string[];
           created_at: string;
           isSubjective: boolean;
           question: string;
@@ -13,6 +14,7 @@ export type Database = {
         };
         Insert: {
           answer: string[];
+          candidates: string[];
           created_at?: string;
           isSubjective?: boolean;
           question: string;
@@ -20,6 +22,7 @@ export type Database = {
         };
         Update: {
           answer?: string[];
+          candidates?: string[];
           created_at?: string;
           isSubjective?: boolean;
           question?: string;

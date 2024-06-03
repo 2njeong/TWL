@@ -8,19 +8,23 @@ export const showText = async (formData: FormData) => {
   console.log('data =>', data);
 };
 
-export const submitAction = async (formData: FormData) => {
+export const submitAction = async (answer: null | string[], formData: FormData) => {
   const question = formData.get('question');
-  const data = Object.fromEntries(formData);
-  console.log(Object.values(data));
-  const answer = Object.values(data).slice(1);
+  const candidates = formData.getAll('candidates');
+  console.log('보기리스트 =>', formData.getAll('candidates'));
+  console.log('answer =>', answer);
+
   const supabase = serverSupabase();
 
   try {
-    const { error } = await supabase
-      .from('quiz')
-      .insert({ question, answer, isSubjective: answer.length > 1 ? false : true });
-    if (error) console.error('에러 =>', error.message);
-    revalidatePath('/makequiz');
+    // const { error } = await supabase.from('quiz').insert({
+    //   question,
+    //   candidates,
+    //   isSubjective: candidates.length > 1 ? false : true,
+    //   answer: candidates.length > 1 ? answer : [candidates[0]]
+    // });
+    // if (error) console.error('에러 =>', error.message);
+    // revalidatePath('/makequiz');
   } catch (e) {
     throw new Error('fail to add quiz');
   }
