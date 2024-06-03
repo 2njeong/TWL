@@ -1,11 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { inputList } from '@/atom/quizAtom';
+import { useAtom } from 'jotai';
 import { CiCirclePlus } from 'react-icons/ci';
 import { MdCancel } from 'react-icons/md';
 
-const MultipleType = () => {
-  const [inputArr, setInputArr] = useState([1]);
+const MultipleQuiz = () => {
+  const [inputArr, setInputArr] = useAtom(inputList);
+  console.log(inputArr);
 
   const plusInputCount = () => {
     setInputArr((prev) => (prev.length < 5 ? [...prev, prev.length + 1] : prev));
@@ -35,4 +37,4 @@ const MultipleType = () => {
   );
 };
 
-export default MultipleType;
+export default MultipleQuiz;
