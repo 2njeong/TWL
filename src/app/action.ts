@@ -17,14 +17,14 @@ export const submitAction = async (answer: null | string[], formData: FormData) 
   const supabase = serverSupabase();
 
   try {
-    // const { error } = await supabase.from('quiz').insert({
-    //   question,
-    //   candidates,
-    //   isSubjective: candidates.length > 1 ? false : true,
-    //   answer: candidates.length > 1 ? answer : [candidates[0]]
-    // });
-    // if (error) console.error('에러 =>', error.message);
-    // revalidatePath('/makequiz');
+    const { error } = await supabase.from('quiz').insert({
+      question,
+      candidates,
+      isSubjective: candidates.length > 1 ? false : true,
+      answer: candidates.length > 1 ? answer : [candidates[0]]
+    });
+    if (error) console.error('에러 =>', error.message);
+    revalidatePath('/makequiz');
   } catch (e) {
     throw new Error('fail to add quiz');
   }

@@ -2,14 +2,17 @@
 
 import { answerAtom, inputAtom } from '@/atom/quizAtom';
 import { useAtom } from 'jotai';
+import { useState } from 'react';
 import { CiCirclePlus } from 'react-icons/ci';
 import { MdCancel } from 'react-icons/md';
 
 const MultipleQuiz = () => {
   const [inputArr, setInputArr] = useAtom(inputAtom);
   const [answer, setAnswer] = useAtom(answerAtom);
+  const [animating, setAnimating] = useState(false);
   console.log('inputArr =>', inputArr);
   console.log('answer =>', answer);
+  console.log('animating =>', animating);
 
   const plusInputCount = () => {
     setInputArr((prev) => (prev.length < 5 ? [...prev, prev.length + 1] : prev));
@@ -17,6 +20,10 @@ const MultipleQuiz = () => {
 
   const minusInputCount = (idx: number) => {
     const noAnswer = String(idx);
+    if (!idx) setAnimating(true);
+    setTimeout(() => {
+      setAnimating(false);
+    }, 300);
     setInputArr((prev) => (prev.length > 1 ? prev.filter((_, i) => i !== idx) : prev));
     setAnswer((prev) => (prev?.includes(noAnswer) ? prev.filter((item) => item !== noAnswer) : prev));
   };
@@ -33,7 +40,11 @@ const MultipleQuiz = () => {
       {inputArr.map((item, idx) => (
         <div key={item} className="flex flex-col gap-2">
           <div className="flex gap-1 items-center">
-            <input placeholder={`보기 ${idx + 1}`} name="candidates"></input>
+            <input
+              placeholder={`보기 ${idx + 1}`}
+              name="candidates"
+              className={`${animating ? 'animate-vibration' : null} border`}
+            ></input>
             <button formAction={() => minusInputCount(idx)}>
               <MdCancel />
             </button>

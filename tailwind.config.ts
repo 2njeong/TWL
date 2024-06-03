@@ -20,6 +20,15 @@ const config: Config = {
         yelFive: '#fee231',
         pinkOne: '#F2E9E9',
         beiOne: '#E1DAB9'
+      },
+      keyframes: {
+        vibration: {
+          '0%': { transform: 'rotate(1deg)' },
+          '100%': { transform: 'rotate(-1deg)' }
+        }
+      },
+      animation: {
+        vibration: 'vibration 0.2s infinite'
       }
     }
   },
