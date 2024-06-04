@@ -39,21 +39,23 @@ const MultipleQuiz = () => {
     <div className="flex flex-col gap-2">
       {inputArr.map((item, idx) => (
         <div key={item} className="flex flex-col gap-2">
-          <div className="flex gap-2 items-center w-full">
+          <div className="flex gap-1 items-center w-full">
             <input
               placeholder={`보기 ${idx + 1}`}
               name="candidates"
               className={`${animating ? 'animate-vibration' : null} border w-10/12`}
             ></input>
-            <button formAction={() => minusInputCount(idx)}>
-              <MdCancel />
-            </button>
-            <button
-              formAction={() => handleAnswer(idx)}
-              className={`opacity-${answer && answer.includes(String(idx)) ? '1' : '50'}`}
-            >
-              정답
-            </button>
+            <div className="flex gap-2">
+              <button formAction={() => minusInputCount(idx)}>
+                <MdCancel />
+              </button>
+              <button
+                formAction={() => handleAnswer(idx)}
+                className={`opacity-${answer && answer.includes(String(idx)) ? '1' : '50'}`}
+              >
+                정답
+              </button>
+            </div>
           </div>
           <button className={`mx-auto ${idx + 1 < inputArr.length ? 'hidden' : null}`} formAction={plusInputCount}>
             <CiCirclePlus />
