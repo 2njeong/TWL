@@ -1,5 +1,14 @@
+import QuizList from '@/components/quiz/QuizList';
+import { Suspense } from 'react';
+
 const QuizPage = () => {
-  return <div>page</div>;
+  return (
+    <>
+      <Suspense>
+        <QuizList />
+      </Suspense>
+    </>
+  );
 };
 
 export default QuizPage;
