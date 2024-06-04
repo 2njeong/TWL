@@ -1,4 +1,4 @@
-import Question from '@/components/makequiz/Question';
+import MakeQuiz from '@/components/makequiz/MakeQuiz';
 import SelectQuizType from '@/components/makequiz/SelectQuizType';
 
 const MakeQuizPage = () => {
@@ -8,7 +8,7 @@ const MakeQuizPage = () => {
         <div className="w-full max-w-[1000px] relative">
           <SelectQuizType />
           <div className="w-full flex flex-col items-center p-8 absolute border-[6px] border-yelOne rounded-md">
-            <Question />
+            <MakeQuiz />
           </div>
         </div>
       </div>
