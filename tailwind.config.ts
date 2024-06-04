@@ -28,7 +28,7 @@ const config: Config = {
         }
       },
       animation: {
-        vibration: 'vibration 0.2s infinite'
+        vibration: 'vibration 0.15s infinite'
       }
     }
   },

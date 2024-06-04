@@ -39,11 +39,11 @@ const MultipleQuiz = () => {
     <div className="flex flex-col gap-2">
       {inputArr.map((item, idx) => (
         <div key={item} className="flex flex-col gap-2">
-          <div className="flex gap-1 items-center">
+          <div className="flex gap-2 items-center w-full">
             <input
               placeholder={`보기 ${idx + 1}`}
               name="candidates"
-              className={`${animating ? 'animate-vibration' : null} border`}
+              className={`${animating ? 'animate-vibration' : null} border w-10/12`}
             ></input>
             <button formAction={() => minusInputCount(idx)}>
               <MdCancel />
