@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
+import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
 
 const QuizList = () => {
@@ -27,13 +28,14 @@ const QuizList = () => {
   });
 
   return (
-    <div className="scroll-y">
+    <div className="flex flex-col w-full">
       {quizList?.map((quiz) => (
-        <div key={quiz.quiz_id}>{quiz.question}</div>
+        <div key={quiz.quiz_id} className="border-b flex items-start">
+          <Link href={`quiz/${quiz.quiz_id}`}>{quiz.question}</Link>
+        </div>
       ))}
-      <div className="h-screen"></div>
-      <div className="bg-pink-400 w-[300px] h-[300px]" ref={ref}></div>
-      <div className="h-[100px]"></div>
+      {/* <div className="bg-pink-400 w-[300px] h-[300px]" ref={ref}></div>
+      <div className="h-[100px]"></div> */}
     </div>
   );
 };
