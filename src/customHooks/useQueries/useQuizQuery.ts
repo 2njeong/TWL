@@ -14,7 +14,7 @@ export const useQuizListQuery = () => {
     hasNextPage,
     hasPreviousPage,
     isRefetching
-  } = useSuspenseInfiniteQuery({
+  } = useInfiniteQuery({
     queryKey: [QUIZLIST_QUERY_KEY],
     queryFn: fetchQuizList,
     initialPageParam: 1,

@@ -1,12 +1,12 @@
 import QuizList from '@/components/quiz/QuizList';
 import { Suspense } from 'react';
 
-const QuizPage = () => {
+const QuizPage = async () => {
   return (
     <>
-      <Suspense>
-        <QuizList />
-      </Suspense>
+      {/* <Suspense> */}
+      <QuizList />
+      {/* </Suspense> */}
     </>
   );
 };

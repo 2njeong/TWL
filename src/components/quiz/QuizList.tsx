@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuizListQuery } from '@/customHooks/query/useQuizQuery';
+import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
 import { useInView } from 'react-intersection-observer';
 
 const QuizList = () => {
@@ -28,7 +28,7 @@ const QuizList = () => {
 
   return (
     <div className="scroll-y">
-      {quizList.map((quiz) => (
+      {quizList?.map((quiz) => (
         <div key={quiz.quiz_id}>{quiz.question}</div>
       ))}
       <div className="h-screen"></div>

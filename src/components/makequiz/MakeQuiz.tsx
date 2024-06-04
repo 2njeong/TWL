@@ -7,12 +7,16 @@ import { useRef } from 'react';
 import { answerAtom, inputAtom, quizTyper } from '@/atom/quizAtom';
 import SubmitBtn from './SubmitBtn';
 import Question from './Question';
+import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
 
 const MakeQuiz = () => {
   const [inputArr, setInputArr] = useAtom(inputAtom);
   const [answer, setAnswer] = useAtom(answerAtom);
   const [quizType] = useAtom(quizTyper);
   const formRef = useRef<HTMLFormElement>(null);
+  // const { mutate: addNewQuiz } = useAddQuiz();
+
+  const { data: quizList } = useQuizListQuery();
 
   const submitQuiz = async (data: FormData) => {
     // console.log('inputArr.length =>', inputArr.length);
@@ -31,17 +35,20 @@ const MakeQuiz = () => {
     }
     const submitActionWithAnswer = submitAction.bind(null, answer);
     await submitActionWithAnswer(data);
+    // await addNewQuiz({ answer, data });
     formRef.current?.reset();
     setInputArr([1]);
     setAnswer(null);
   };
 
   return (
-    <form action={submitQuiz} ref={formRef} className="w-4/6 flex flex-col gap-6">
-      <Question />
-      <ReturnQuizType />
-      <SubmitBtn />
-    </form>
+    <>
+      <form action={submitQuiz} ref={formRef} className="w-4/6 flex flex-col gap-6">
+        <Question />
+        <ReturnQuizType />
+        <SubmitBtn />
+      </form>
+    </>
   );
 };
 
