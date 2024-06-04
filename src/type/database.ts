@@ -8,6 +8,7 @@ export type Database = {
           answer: string[];
           candidates: string[];
           created_at: string;
+          creator: string | null;
           isSubjective: boolean;
           question: string;
           quiz_id: number;
@@ -16,6 +17,7 @@ export type Database = {
           answer: string[];
           candidates: string[];
           created_at?: string;
+          creator?: string | null;
           isSubjective?: boolean;
           question: string;
           quiz_id?: number;
@@ -24,6 +26,7 @@ export type Database = {
           answer?: string[];
           candidates?: string[];
           created_at?: string;
+          creator?: string | null;
           isSubjective?: boolean;
           question?: string;
           quiz_id?: number;

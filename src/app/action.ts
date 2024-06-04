@@ -11,8 +11,10 @@ export const showText = async (formData: FormData) => {
 export const submitAction = async (answer: null | string[], formData: FormData) => {
   const question = formData.get('question');
   const candidates = formData.getAll('candidates');
+  const needHelpOrnot = formData.get('needHelp');
   console.log('보기리스트 =>', formData.getAll('candidates'));
   console.log('answer =>', answer);
+  console.log('needHelpOrnot =>', needHelpOrnot);
 
   const supabase = serverSupabase();
 
@@ -21,7 +23,9 @@ export const submitAction = async (answer: null | string[], formData: FormData) 
       question,
       candidates,
       isSubjective: candidates.length > 1 ? false : true,
-      answer: candidates.length > 1 ? answer : [candidates[0]]
+      answer: candidates.length > 1 ? answer : [candidates[0]],
+      creator: null,
+      needHelp: needHelpOrnot ?? false
     });
     if (error) console.error('에러 =>', error.message);
     revalidatePath('/makequiz');
