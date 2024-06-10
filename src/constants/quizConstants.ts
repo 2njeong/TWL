@@ -1,1 +1,1 @@
-export const FETCHMORENUM = 5;
+export const FETCHMORENUM = 20;
