@@ -4,22 +4,6 @@ import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
 import { useEffect, useRef, useState } from 'react';
 
 const HotQuizList = () => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const innerRef = useRef<HTMLDivElement | null>(null);
-  const testRef = useRef<(HTMLDivElement | null)[]>([]);
-
-  const [position, setPosition] = useState(0);
-  const [startMoveX, setStartMoveX] = useState(0);
-  const [mouseDown, setMouseDown] = useState(false);
-  const [movingX, setMovingX] = useState(0);
-
-  console.log('start--------------------------');
-  console.log('mouseDown =>', mouseDown);
-  console.log('startMoveX =>', startMoveX);
-  console.log('movingX =>', movingX);
-  console.log('position =>', position);
-
-  const [x, setX] = useState(0);
   const {
     data: quizList,
     isFetchingNextPage,
@@ -30,8 +14,29 @@ const HotQuizList = () => {
     hasPreviousPage,
     isRefetching
   } = useQuizListQuery();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const testRef = useRef<(HTMLDivElement | null)[]>([]);
 
-  const handleMouseDown = (clickEvent: React.MouseEvent<Element, MouseEvent>) => {
+  const [position, setPosition] = useState(0);
+  const [startMoveX, setStartMoveX] = useState(0);
+  const [mouseDown, setMouseDown] = useState(false);
+
+  console.log('start--------------------------');
+  console.log('mouseDown =>', mouseDown);
+  console.log('startMoveX =>', startMoveX);
+  console.log('position =>', position);
+  console.log('마지막 =>', testRef.current[19]?.getClientRects()[0].right);
+  console.log('이거봐바', containerRef.current?.getBoundingClientRect());
+  console.log('저거봐바', containerRef.current?.scrollWidth);
+
+  // useEffect(() => {
+  //   if (testRef.current[19] && testRef.current[19].getClientRects()[0].right < 1000) {
+  //     testRef.current[19]?.getClientRects()[0].right === 1000;
+  //   }
+  // }, [position, mouseDown]);
+
+  const handleMouseDown = (clickEvent: React.MouseEvent<Element, MouseEvent>, idx: number) => {
+    console.log('idx =>', idx);
     setStartMoveX(clickEvent.screenX);
     setMouseDown(true);
   };
@@ -39,8 +44,26 @@ const HotQuizList = () => {
   const handleMouseMove = (moveEvent: React.MouseEvent<Element, MouseEvent>) => {
     if (mouseDown) {
       const deltaX = moveEvent.screenX - startMoveX;
-      setPosition((prev) => prev + deltaX); // 이전 위치에 이동 거리를 더함
-      setStartMoveX(moveEvent.screenX); // 다음 이동을 위해 현재 마우스 위치로 업데이트
+      setPosition((prev) => {
+        console.log('prev =>', prev);
+        return prev + deltaX;
+      }); // 이전 위치에 이동 거리를 더함
+      setStartMoveX(moveEvent.screenX); //
+      requestAnimationFrame(() => {
+        if (!containerRef.current) return;
+        containerRef.current.style.transform = `translateX(${position}px)`;
+        containerRef.current.style.transition = 'transform 0.2s ease-in-out';
+      });
+    } else {
+      // position ?? setPosition(-3200);
+      requestAnimationFrame(() => {
+        if (!containerRef.current) return;
+        containerRef.current.style.transform = `translateX(${
+          position < -3200 ? -3200 : position > 40 ? 35 : position
+        }px)`;
+        containerRef.current.style.transition = 'transform 0.2s ease-in-out';
+      });
+      position < -3200 ? setPosition(-3200) : position > 40 ? setPosition(40) : null;
     }
   };
 
@@ -49,56 +72,28 @@ const HotQuizList = () => {
   };
 
   return (
-    <div className="w-full overflow-hidden" ref={containerRef}>
+    <div className="w-full overflow-hidden">
       <div
+        ref={containerRef}
         className="flex flex-nowrap gap-4 h-[300px] w-max overflow-x-visible"
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        style={{
-          transform: `translateX(${position}px)`
-        }}
-      >
-        <div className="h-10 w-20 bg-yelTwo">1</div>
-        <div className="h-10 w-20 bg-yelTwo">2</div>
-        <div className="h-10 w-20 bg-yelTwo" ref={innerRef}>
-          3
-        </div>
-        <div className="h-10 w-20 bg-yelTwo">4</div>
-        <div className="h-10 w-20 bg-yelTwo">5</div>
-        <div className="h-10 w-20 bg-yelTwo">6</div>
-        <div className="h-10 w-20 bg-yelTwo">7</div>
-        <div className="h-10 w-20 bg-yelTwo">8</div>
-        <div className="h-10 w-20 bg-yelTwo">9</div>
-        <div className="h-10 w-20 bg-yelTwo">10</div>
-        <div className="h-10 w-20 bg-yelTwo">11</div>
-        <div className="h-10 w-20 bg-yelTwo">12</div>
-        <div className="h-10 w-20 bg-yelTwo">13</div>
-        <div className="h-10 w-20 bg-yelTwo">14</div>
-        <div className="h-10 w-20 bg-yelTwo">15</div>
-        <div className="h-10 w-20 bg-yelTwo">16</div>
-        <div className="h-10 w-20 bg-yelTwo">17</div>
-        <div className="h-10 w-20 bg-yelTwo">18</div>
-        <div className="h-10 w-20 bg-yelTwo">19</div>
+        // style={{
+        //   transform: `translateX(${position > 40 ? 35 : position}px)`,
+        //   transition: 'transform 0.2s ease-in-out'
+        // }}
 
-        {/* <div
-        ref={thisRef}
-        className="h-10 w-10 bg-yelTwo"
-        style={{
-          transform: `translateX(${
-            mouseDown && endMoveX !== startMoveX ? movingX - (containerRef.current?.offsetLeft ?? 0) : null
-          }px)`
-        }}
-        onMouseMove={(moveEvent: React.MouseEvent<Element, MouseEvent>) => {
-          setMovingX(moveEvent.screenX);
-        }}
-      ></div> */}
-        {/* 
-      {quizList?.map((quiz, idx) => (
-        <div key={quiz.quiz_id} ref={(el) => (testRef.current[idx] = el)} className="h-12 w-12 bg-yelTwo">
-          {quiz.question}
-        </div>
-      ))} */}
+        onMouseUp={handleMouseUp}
+      >
+        {quizList?.map((quiz, idx) => (
+          <div
+            ref={(el: any) => (testRef.current[idx] = el)}
+            key={quiz.quiz_id}
+            className="h-48 w-48 bg-yelTwo select-none"
+            onMouseDown={(e) => handleMouseDown(e, idx)}
+            onMouseMove={handleMouseMove}
+          >
+            {quiz.question}
+          </div>
+        ))}
       </div>
     </div>
   );
