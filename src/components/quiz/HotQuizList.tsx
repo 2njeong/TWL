@@ -44,12 +44,12 @@ const HotQuizList = () => {
       requestAnimation();
     } else {
       requestAnimation();
-      position < -3200 ? setPosition(-3200) : position > 40 ? setPosition(40) : null;
     }
   };
 
   const handleMouseUp = () => {
     setMouseDown(false);
+    position < -3200 ? setPosition(-3200) : position > 40 ? setPosition(40) : null;
   };
 
   return (
