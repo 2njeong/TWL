@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 const HotQuizList = () => {
   const {
@@ -20,7 +20,6 @@ const HotQuizList = () => {
   const [position, setPosition] = useState(0);
   const [startMoveX, setStartMoveX] = useState(0);
   const [mouseDown, setMouseDown] = useState(false);
-  const [movingX, setMovingX] = useState(0);
   const containerWidth = containerRef?.current?.getBoundingClientRect().width;
 
   const handleMouseDown = (clickEvent: React.MouseEvent<Element, MouseEvent>) => {
@@ -49,7 +48,11 @@ const HotQuizList = () => {
 
   const handleMouseUp = () => {
     setMouseDown(false);
-    position < -3200 ? setPosition(-3200) : position > 40 ? setPosition(40) : null;
+    position < -(((containerWidth || 0) * 10) / 13)
+      ? setPosition(-(((containerWidth || 0) * 10) / 13))
+      : position > (containerRef.current?.offsetLeft || 0)
+      ? setPosition(containerRef.current?.offsetLeft || 0)
+      : null;
   };
 
   return (
@@ -58,6 +61,10 @@ const HotQuizList = () => {
         ref={containerRef}
         className="flex flex-nowrap gap-4 h-[300px] w-max overflow-x-visible"
         onMouseUp={handleMouseUp}
+        style={{
+          transform: `translateX(${position}px)`,
+          transition: 'transform 0.2s ease-in-out'
+        }}
       >
         {quizList?.map((quiz, idx) => (
           <div
