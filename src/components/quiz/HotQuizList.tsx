@@ -14,6 +14,7 @@ const HotQuizList = () => {
     hasPreviousPage,
     isRefetching
   } = useQuizListQuery();
+
   const containerRef = useRef<HTMLDivElement>(null);
   const testRef = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -27,22 +28,11 @@ const HotQuizList = () => {
     setStartMoveX(clickEvent.screenX);
   };
 
-  const requestAnimation = () => {
-    requestAnimationFrame(() => {
-      if (!containerRef.current) return;
-      containerRef.current.style.transform = `translateX(${position}px)`;
-      containerRef.current.style.transition = 'transform 0.2s ease-in-out';
-    });
-  };
-
   const handleMouseMove = (moveEvent: React.MouseEvent<Element, MouseEvent>) => {
     if (mouseDown) {
       const deltaX = moveEvent.screenX - startMoveX;
       setPosition((prev) => prev + deltaX); // 이전 위치에 이동 거리를 더함
       setStartMoveX(moveEvent.screenX);
-      requestAnimation();
-    } else {
-      requestAnimation();
     }
   };
 
