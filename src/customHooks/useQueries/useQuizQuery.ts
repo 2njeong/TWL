@@ -18,7 +18,7 @@ export const useQuizListQuery = () => {
     queryKey: [QUIZLIST_QUERY_KEY],
     queryFn: fetchQuizList,
     initialPageParam: 1,
-    getNextPageParam: (lastPage: any, lastPageParam, allPages: any) => {
+    getNextPageParam: (lastPage: any, _, allPages: any) => {
       if (lastPage.length >= FETCHMORENUM) {
         return allPages + 1;
       }

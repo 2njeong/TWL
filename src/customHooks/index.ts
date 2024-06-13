@@ -1,10 +1,5 @@
+import { EventHandlers } from '@/type/quizType';
 import { MutableRefObject, useEffect } from 'react';
-
-type EventHandlers = {
-  handleStart: (event: React.MouseEvent<Element, MouseEvent> | React.TouchEvent<Element>) => void;
-  handleMove: (event: React.MouseEvent<Element, MouseEvent> | React.TouchEvent<Element>) => void;
-  handleEnd: () => void;
-};
 
 export const useUnifiedHandler = ({
   ref,

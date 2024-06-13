@@ -10,6 +10,7 @@ export type Database = {
           created_at: string;
           creator: string | null;
           isSubjective: boolean;
+          needHelp: boolean;
           question: string;
           quiz_id: number;
         };
@@ -19,6 +20,7 @@ export type Database = {
           created_at?: string;
           creator?: string | null;
           isSubjective?: boolean;
+          needHelp?: boolean;
           question: string;
           quiz_id?: number;
         };
@@ -28,6 +30,7 @@ export type Database = {
           created_at?: string;
           creator?: string | null;
           isSubjective?: boolean;
+          needHelp?: boolean;
           question?: string;
           quiz_id?: number;
         };
