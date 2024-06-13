@@ -23,20 +23,41 @@ const HotQuizList = () => {
   const [mouseDown, setMouseDown] = useState(false);
   const containerWidth = containerRef?.current?.getBoundingClientRect().width;
 
-  const handleMouseDown = (clickEvent: React.MouseEvent<Element, MouseEvent>) => {
-    setMouseDown(true);
-    setStartMoveX(clickEvent.screenX);
+  const requestAnimation = () => {
+    requestAnimationFrame(() => {
+      if (!containerRef.current) return;
+      containerRef.current.style.transform = `translateX(${position}px)`;
+      containerRef.current.style.transition = 'transform 0.2s ease-in-out';
+    });
   };
 
-  const handleMouseMove = (moveEvent: React.MouseEvent<Element, MouseEvent>) => {
-    if (mouseDown) {
-      const deltaX = moveEvent.screenX - startMoveX;
-      setPosition((prev) => prev + deltaX); // 이전 위치에 이동 거리를 더함
-      setStartMoveX(moveEvent.screenX);
+  const handleStart = (event: React.MouseEvent<Element, MouseEvent> | React.TouchEvent<Element>) => {
+    setMouseDown(true);
+    if ('screenX' in event) {
+      setStartMoveX(event.screenX);
+    } else {
+      setStartMoveX(event.touches[0].screenX);
     }
   };
 
-  const handleMouseUp = () => {
+  const handleMove = (event: React.MouseEvent<Element, MouseEvent> | React.TouchEvent<Element>) => {
+    if (mouseDown) {
+      let deltaX;
+      if ('screenX' in event) {
+        deltaX = event.screenX - startMoveX;
+        setStartMoveX(event.screenX);
+      } else {
+        deltaX = event.touches[0].screenX - startMoveX;
+        setStartMoveX(event.touches[0].screenX);
+      }
+      setPosition((prev) => prev + deltaX); // 이전 위치에 이동 거리를 더함
+      requestAnimation();
+    } else {
+      requestAnimation();
+    }
+  };
+
+  const handleEnd = () => {
     setMouseDown(false);
     position < -(((containerWidth || 0) * 10) / 13)
       ? setPosition(-(((containerWidth || 0) * 10) / 13))
@@ -50,19 +71,18 @@ const HotQuizList = () => {
       <div
         ref={containerRef}
         className="flex flex-nowrap gap-4 h-[300px] w-max overflow-x-visible"
-        onMouseUp={handleMouseUp}
-        style={{
-          transform: `translateX(${position}px)`,
-          transition: 'transform 0.2s ease-in-out'
-        }}
+        onMouseDown={handleStart}
+        onMouseUp={handleEnd}
+        onTouchStart={handleStart}
+        onTouchEnd={handleEnd}
+        onMouseMove={handleMove}
+        onTouchMove={handleMove}
       >
         {quizList?.map((quiz, idx) => (
           <div
             ref={(el: any) => (testRef.current[idx] = el)}
             key={quiz.quiz_id}
             className="h-48 w-48 bg-yelTwo select-none"
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
           >
             {quiz.question}
           </div>
