@@ -1,0 +1,41 @@
+import { MutableRefObject, useEffect } from 'react';
+
+type EventHandlers = {
+  handleStart: (event: React.MouseEvent<Element, MouseEvent> | React.TouchEvent<Element>) => void;
+  handleMove: (event: React.MouseEvent<Element, MouseEvent> | React.TouchEvent<Element>) => void;
+  handleEnd: () => void;
+};
+
+export const useUnifiedHandler = ({
+  ref,
+  handlers
+}: {
+  ref: MutableRefObject<HTMLElement | null>;
+  handlers: EventHandlers;
+}) => {
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const { handleStart, handleMove, handleEnd } = handlers;
+
+    const eventHandlers = [
+      { type: 'mousedown', handler: handleStart },
+      { type: 'mousemove', handler: handleMove },
+      { type: 'mouseup', handler: handleEnd },
+      { type: 'touchstart', handler: handleStart },
+      { type: 'touchmove', handler: handleMove },
+      { type: 'touchend', handler: handleEnd }
+    ];
+
+    eventHandlers.forEach(({ type, handler }) => {
+      element.addEventListener(type as keyof HTMLElementEventMap, handler as any);
+    });
+
+    return () => {
+      eventHandlers.forEach(({ type, handler }) => {
+        element.removeEventListener(type as keyof HTMLElementEventMap, handler as any);
+      });
+    };
+  }, [ref, handlers]);
+};

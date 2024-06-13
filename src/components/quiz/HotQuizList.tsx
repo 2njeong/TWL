@@ -1,7 +1,8 @@
 'use client';
 
+import { useUnifiedHandler } from '@/customHooks';
 import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const HotQuizList = () => {
   const {
@@ -21,7 +22,24 @@ const HotQuizList = () => {
   const [position, setPosition] = useState(0);
   const [startMoveX, setStartMoveX] = useState(0);
   const [mouseDown, setMouseDown] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const containerWidth = containerRef?.current?.getBoundingClientRect().width;
+  console.log('position =>', position);
+  console.log('1 =>', containerRef.current?.offsetLeft);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (!window) return;
+      setIsMobile(window.innerWidth <= 768); // 예시로 768px 이하일 때 모바일로 간주
+    };
+
+    handleResize(); // 초기 한 번 호출
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const requestAnimation = () => {
     requestAnimationFrame(() => {
@@ -59,24 +77,33 @@ const HotQuizList = () => {
 
   const handleEnd = () => {
     setMouseDown(false);
-    position < -(((containerWidth || 0) * 10) / 13)
-      ? setPosition(-(((containerWidth || 0) * 10) / 13))
-      : position > (containerRef.current?.offsetLeft || 0)
-      ? setPosition(containerRef.current?.offsetLeft || 0)
+    const maxWhiteSpace = isMobile ? -3850 : -3200;
+    const minWhiteSpace = 40;
+    position < maxWhiteSpace
+      ? setPosition(maxWhiteSpace)
+      : position > minWhiteSpace
+      ? setPosition(minWhiteSpace)
       : null;
   };
+
+  useUnifiedHandler({ ref: containerRef, handlers: { handleStart, handleMove, handleEnd } });
+
+  // 모바일 화면일 때 추가할 스타일 객체
+  const mobileStyles = isMobile
+    ? {
+        transform: `translateX(${position}px)`,
+        transition: 'transform 0.2s ease-in-out'
+      }
+    : {};
 
   return (
     <div className="w-full overflow-hidden">
       <div
         ref={containerRef}
-        className="flex flex-nowrap gap-4 h-[300px] w-max overflow-x-visible"
-        onMouseDown={handleStart}
-        onMouseUp={handleEnd}
-        onTouchStart={handleStart}
-        onTouchEnd={handleEnd}
-        onMouseMove={handleMove}
-        onTouchMove={handleMove}
+        className="flex flex-nowrap gap-4 h-[300px] w-max overflow-x-visible cursor-pointer"
+        style={{
+          ...mobileStyles // 모바일 화면에서만 적용할 스타일 객체를 동적으로 설정
+        }}
       >
         {quizList?.map((quiz, idx) => (
           <div
