@@ -1,5 +1,6 @@
 'use client';
 
+import Modal from '@/components/utilComponents/Modal';
 import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
 import { useEffect, useState } from 'react';
 
@@ -65,6 +66,7 @@ const DetailQuizPage = ({ params }: { params: { id: string } }) => {
         <button>정답보기</button>
       </div>
       <div>Comments()</div>
+      <Modal />
     </div>
   );
 };
