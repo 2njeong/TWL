@@ -12,15 +12,15 @@ export const useUnifiedHandler = ({
     const element = ref.current;
     if (!element) return;
 
-    const { handleStart, handleMove, handleEnd } = handlers;
+    const { handleStart, handleMove } = handlers;
 
     const eventHandlers = [
       { type: 'mousedown', handler: handleStart },
       { type: 'mousemove', handler: handleMove },
-      { type: 'mouseup', handler: handleEnd },
+      // { type: 'mouseup', handler: handleEnd },
       { type: 'touchstart', handler: handleStart },
-      { type: 'touchmove', handler: handleMove },
-      { type: 'touchend', handler: handleEnd }
+      { type: 'touchmove', handler: handleMove }
+      // { type: 'touchend', handler: handleEnd }
     ];
 
     eventHandlers.forEach(({ type, handler }) => {

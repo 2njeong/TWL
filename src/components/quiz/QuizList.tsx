@@ -16,7 +16,7 @@ const QuizList = () => {
     isRefetching
   } = useQuizListQuery();
 
-  console.log('quizList => ', quizList);
+  // console.log('quizList => ', quizList);
   //   console.log('hasNextPage =>', hasNextPage);
 
   const { ref } = useInView({
