@@ -1,13 +1,13 @@
 'use client';
 
 import { answerAtom, inputAtom, quizTyper } from '@/atom/quizAtom';
-import { useAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 
 const SelectQuizType = () => {
   const quizTypeList = ['객관식', '주관식'];
-  const [_, setQuizType] = useAtom(quizTyper);
-  const [__, setInputArr] = useAtom(inputAtom);
-  const [___, setAnswer] = useAtom(answerAtom);
+  const setQuizType = useSetAtom(quizTyper);
+  const setInputArr = useSetAtom(inputAtom);
+  const setAnswer = useSetAtom(answerAtom);
 
   const handleQuizType = (type: string) => {
     setQuizType(type);

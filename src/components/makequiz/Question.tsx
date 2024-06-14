@@ -1,10 +1,10 @@
 'use client';
 
 import { needHelpAtom } from '@/atom/quizAtom';
-import { useAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 
 const Question = () => {
-  const [_, setNeedHelp] = useAtom(needHelpAtom);
+  const setNeedHelp = useSetAtom(needHelpAtom);
 
   const handleNeedAnswer = () => {
     setNeedHelp((prev) => !prev);
