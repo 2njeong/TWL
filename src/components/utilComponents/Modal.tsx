@@ -6,7 +6,7 @@ import { useAtom } from 'jotai';
 const Modal = () => {
   const [{ isOpen, type, name, text, onFunc, offFunc }, handleOpenModal] = useAtom(openModal);
 
-  console.log({ isOpen, type, name, text, onFunc, offFunc });
+  // console.log({ isOpen, type, name, text, onFunc, offFunc });
 
   if (!isOpen)
     return (

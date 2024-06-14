@@ -21,7 +21,7 @@ const HotQuizList = () => {
 
   const [position, setPosition] = useState(0);
   const [startMoveX, setStartMoveX] = useState(0);
-  const [mouseDown, setMouseDown] = useState(false);
+  const [clickDown, setClickDown] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const containerWidth = containerRef?.current?.getBoundingClientRect().width;
   console.log('position =>', position);
@@ -50,7 +50,7 @@ const HotQuizList = () => {
   };
 
   const handleStart = (event: React.MouseEvent<Element, MouseEvent> | React.TouchEvent<Element>) => {
-    setMouseDown(true);
+    setClickDown(true);
     if ('screenX' in event) {
       setStartMoveX(event.screenX);
     } else {
@@ -59,7 +59,7 @@ const HotQuizList = () => {
   };
 
   const handleMove = (event: React.MouseEvent<Element, MouseEvent> | React.TouchEvent<Element>) => {
-    if (mouseDown) {
+    if (clickDown) {
       let deltaX;
       if ('screenX' in event) {
         deltaX = event.screenX - startMoveX;
@@ -76,7 +76,7 @@ const HotQuizList = () => {
   };
 
   const handleEnd = () => {
-    setMouseDown(false);
+    setClickDown(false);
     const maxWhiteSpace = isMobile ? -3850 : -3200;
     const minWhiteSpace = 40;
     position < maxWhiteSpace
@@ -88,22 +88,19 @@ const HotQuizList = () => {
 
   useUnifiedHandler({ ref: containerRef, handlers: { handleStart, handleMove, handleEnd } });
 
-  // 모바일 화면일 때 추가할 스타일 객체
-  const mobileStyles = isMobile
-    ? {
-        transform: `translateX(${position}px)`,
-        transition: 'transform 0.2s ease-in-out'
-      }
-    : {};
-
   return (
     <div className="w-full overflow-hidden">
       <div
         ref={containerRef}
         className="flex flex-nowrap gap-4 h-[300px] w-max overflow-x-visible cursor-pointer"
-        style={{
-          ...mobileStyles // 모바일 화면에서만 적용할 스타일 객체를 동적으로 설정
-        }}
+        style={
+          isMobile
+            ? {
+                transform: `translateX(${position}px)`,
+                transition: 'transform 0.2s ease-in-out'
+              }
+            : {}
+        }
       >
         {quizList?.map((quiz, idx) => (
           <div

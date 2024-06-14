@@ -9,7 +9,7 @@ type ModalState = {
   offFunc?: () => void;
 };
 
-export const modalAtom = atom<ModalState>({
+export const modalState = atom<ModalState>({
   isOpen: false,
   type: 'alert',
   name: '',
@@ -19,9 +19,9 @@ export const modalAtom = atom<ModalState>({
 });
 
 export const openModal = atom(
-  (get) => get(modalAtom),
+  (get) => get(modalState),
   (get, set, { type, name, text, onFunc }) => {
-    set(modalAtom, (prev) => ({
+    set(modalState, (prev) => ({
       ...prev,
       isOpen: true,
       type,
@@ -29,9 +29,9 @@ export const openModal = atom(
       text,
       onFunc: () => {
         onFunc();
-        set(modalAtom, (prev) => ({ ...prev, isOpen: false }));
+        set(modalState, (prev) => ({ ...prev, isOpen: false }));
       },
-      offFunc: () => set(modalAtom, (prev) => ({ ...prev, isOpen: false }))
+      offFunc: () => set(modalState, (prev) => ({ ...prev, isOpen: false }))
     }));
   }
 );
