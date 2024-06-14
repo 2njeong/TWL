@@ -16,17 +16,18 @@ const HotQuizList = () => {
     isRefetching
   } = useQuizListQuery();
 
-  const threshold = 300;
+  const threshold = 100;
   const containerRef = useRef<HTMLDivElement>(null);
   const testRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const [position, setPosition] = useState(0);
   const [startMoveX, setStartMoveX] = useState(0);
-  const distance = useRef({ start: 0, end: 0 });
+  const movingRef = useRef({ start: 0, end: 0 });
+  const distance = movingRef.current.start - movingRef.current.end;
   const [clickDown, setClickDown] = useState({ isDown: false, idx: 0 });
   const [isMobile, setIsMobile] = useState(false);
-  console.log('clickDown =>', clickDown.isDown);
-  console.log('position =>', position);
+  console.log('clickDown.idx =>', clickDown.idx);
+  // console.log('position =>', position);
   // console.log('DeltaX =>', thedeltaX);
   // console.log('offsetLeft =>', containerRef.current?.offsetLeft);
   // console.log('-----------------------------------------');
@@ -40,9 +41,9 @@ const HotQuizList = () => {
   // console.log('3 =>', testRef.current[7]?.offsetLeft);
   // console.log('startMoveX =>', startMoveX);
   // console.log('endtMoveX =>', endtMoveX);
-  console.log('start =>', distance.current.start);
-  console.log('end =>', distance.current.end);
-  // console.log('움직인 거리 =>', distance.current.start - distance.current.end);
+  // console.log('start =>', movingRef.current.start);
+  console.log('idx =>', Math.min(testRef.current.length - 1, Math.max(clickDown.idx - 1, 0)));
+  console.log('움직인 거리 =>', distance);
 
   useEffect(() => {
     const handleResize = () => {
@@ -78,6 +79,11 @@ const HotQuizList = () => {
   useEffect(() => {
     if (!clickDown.isDown) {
       requestAnimation();
+      if (clickDown.idx >= testRef.current.length - 2) {
+        setPosition(
+          -(testRef.current[Math.min(testRef.current.length - 1, Math.max(clickDown.idx - 1, 0))]?.offsetLeft as number)
+        );
+      }
     }
   }, [clickDown]);
 
@@ -92,7 +98,7 @@ const HotQuizList = () => {
   const handleStart = (event: React.MouseEvent<Element, MouseEvent> | React.TouchEvent<Element>, idx: number) => {
     setClickDown({ isDown: true, idx });
     if ('screenX' in event) {
-      distance.current.start = event.screenX;
+      movingRef.current.start = event.screenX;
       setStartMoveX(event.screenX);
     } else {
       setStartMoveX(event.touches[0].screenX);
@@ -117,14 +123,15 @@ const HotQuizList = () => {
   const handleEnd = (event: React.MouseEvent<Element, MouseEvent> | React.TouchEvent<Element>) => {
     setClickDown((prev) => ({ ...prev, isDown: false }));
     if ('screenX' in event) {
-      distance.current.end = event.screenX;
+      movingRef.current.end = event.screenX;
       setPosition((prev) => {
-        if (Math.abs(distance.current.start - distance.current.end) < 300) {
+        if (Math.abs(distance) < threshold) {
           console.log('작아');
           return prev;
         } else {
           console.log('커');
-          return -((testRef.current[clickDown.idx - 2 || testRef.current.length - 1]?.offsetLeft || 0) as number);
+          return -(testRef.current[Math.min(testRef.current.length - 1, Math.max(clickDown.idx - 1, 0))]
+            ?.offsetLeft as number);
         }
       });
     }
