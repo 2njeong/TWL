@@ -47,16 +47,9 @@ const DetailQuizPage = ({ params }: { params: { id: string } }) => {
         return '오답입니다.';
       }
     } else {
-      return `정답은 ${theQuiz?.answer.length}개 입니다.`;
+      return `복수답변(${theQuiz?.answer.length}개) 질문입니다.`;
     }
-    // theQuiz?.answer.length === clickList.filter((click) => click).length
-    //   ? theQuiz?.answer.every((answer) => clickList[Number(answer) - 1])
-    //     ? '정답입니다!'
-    //     : '오답입니다.'
-    //   : `정답은 ${theQuiz?.answer.length}개 입니다.`;
   };
-
-  console.log('checkIfRight =>', checkIfRight());
 
   return (
     <div className="w-full bg-yelTwo flex flex-col gap-8 py-8 px-4">
@@ -75,9 +68,7 @@ const DetailQuizPage = ({ params }: { params: { id: string } }) => {
               type: 'alert',
               title: `${checkIfRight()}`,
               content: `${checkIfRight() === '정답입니다!' ? '축하합니다. 다른 문제도 도전해보세요:)' : '404..'}`,
-              onFunc: () => {
-                console.log('단단다');
-              }
+              onFunc: () => {}
             });
           }}
         >
