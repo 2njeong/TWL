@@ -20,9 +20,10 @@ const DetailQuizPage = ({ params }: { params: { id: string } }) => {
   } = useQuizListQuery();
 
   const theQuiz = quizList?.find((quiz) => quiz.quiz_id === Number(params.id));
-  console.log(theQuiz);
+  console.log(theQuiz?.answer);
 
   const [clickList, setClickList] = useState<boolean[]>([]);
+  console.log(clickList);
 
   useEffect(() => {
     if (theQuiz) {
@@ -38,12 +39,31 @@ const DetailQuizPage = ({ params }: { params: { id: string } }) => {
     });
   };
 
+  const checkIfRight = () => {
+    if (theQuiz?.answer.length === clickList.filter((click) => click).length) {
+      if (theQuiz?.answer.every((answer) => clickList[Number(answer) - 1])) {
+        return '정답입니다!';
+      } else {
+        return '오답입니다.';
+      }
+    } else {
+      return `정답은 ${theQuiz?.answer.length}개 입니다.`;
+    }
+    // theQuiz?.answer.length === clickList.filter((click) => click).length
+    //   ? theQuiz?.answer.every((answer) => clickList[Number(answer) - 1])
+    //     ? '정답입니다!'
+    //     : '오답입니다.'
+    //   : `정답은 ${theQuiz?.answer.length}개 입니다.`;
+  };
+
+  console.log('checkIfRight =>', checkIfRight());
+
   return (
-    <div className="w-full bg-yelTwo flex flex-col gap-8 p-2">
+    <div className="w-full bg-yelTwo flex flex-col gap-8 py-8 px-4">
       <div className="flex flex-col gap-1">
-        {!theQuiz?.needHelp ? (
+        {theQuiz?.needHelp && (
           <h2 className="mb-2">도움이 필요한 질문입니다! 답변이 옳지 않을 수 있으니 함께 완성해주세요:)</h2>
-        ) : null}
+        )}
         <h1 className="font-bold text-3xl">Q. {theQuiz?.question}</h1>
         {theQuiz && theQuiz.answer.length > 1 && (
           <h4 className="text-gray-600 text-sm">복수답변({theQuiz.answer.length}개) 질문입니다.</h4>
@@ -52,16 +72,16 @@ const DetailQuizPage = ({ params }: { params: { id: string } }) => {
           className="flex justify-end"
           onClick={() => {
             handleOpenModal({
-              type: 'confirm',
-              title: '정답은',
-              content: `${theQuiz?.answer} 입니다.`,
+              type: 'alert',
+              title: `${checkIfRight()}`,
+              content: `${checkIfRight() === '정답입니다!' ? '축하합니다. 다른 문제도 도전해보세요:)' : '404..'}`,
               onFunc: () => {
                 console.log('단단다');
               }
             });
           }}
         >
-          정답보기
+          정답제출
         </button>
       </div>
       <div>
@@ -81,7 +101,21 @@ const DetailQuizPage = ({ params }: { params: { id: string } }) => {
           </div>
         )}
       </div>
-
+      <button
+        className="flex justify-end"
+        onClick={() => {
+          handleOpenModal({
+            type: 'confirm',
+            title: '정답은',
+            content: `${theQuiz?.answer} 입니다.`,
+            onFunc: () => {
+              console.log('단단다');
+            }
+          });
+        }}
+      >
+        바로 정답보기
+      </button>
       <div>Comments()</div>
     </div>
   );

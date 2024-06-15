@@ -21,8 +21,8 @@ const Modal = () => {
       if (!modalRef.current) return;
       if (isOpen) {
         modalRef.current.style.transform = 'translate(-50%, -70%)';
-        modalRef.current.style.transition = 'transform 0.3s ease-in-out';
         modalRef.current.style.opacity = '1';
+        modalRef.current.style.transition = 'transform 0.3s ease-in-out';
       }
     });
   };
@@ -41,12 +41,12 @@ const Modal = () => {
             <ModalBackground />
             <animated.div
               ref={modalRef}
-              className="fixed top-1/2 left-1/2 flex flex-col gap-2 z-50 bg-white"
+              className="w-2/5 h-2/5 fixed top-1/2 left-1/2 flex flex-col gap-2 z-50 bg-white opacity-0 p-4"
               style={style}
             >
               Modal
-              <h3>모달 제목: {name}</h3>
-              <h5>모달 내용: {text}</h5>
+              <h3>모달 제목: {title}</h3>
+              <h5>모달 내용: {content}</h5>
               <div className="flex gap-2">
                 <button onClick={onFunc}>확인</button>
                 {type === 'alert' ? null : <button onClick={offFunc}>취소</button>}

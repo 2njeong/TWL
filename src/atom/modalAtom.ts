@@ -6,7 +6,7 @@ type ModalState = {
   title: string;
   content: string;
   onFunc?: any;
-  offFunc?: () => void;
+  offFunc?: () => void | undefined;
 };
 
 export const modalState = atom<ModalState>({
