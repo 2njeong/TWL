@@ -16,7 +16,7 @@ const HotQuizList = () => {
     isRefetching
   } = useQuizListQuery();
 
-  const threshold = 300;
+  const threshold = 400;
   const containerRef = useRef<HTMLDivElement>(null);
   const testRef = useRef<(HTMLDivElement | null)[]>([]);
 
