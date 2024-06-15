@@ -21,7 +21,6 @@ const DetailQuizPage = ({ params }: { params: { id: string } }) => {
 
   const theQuiz = quizList?.find((quiz) => quiz.quiz_id === Number(params.id));
   console.log(theQuiz);
-  console.log(theQuiz?.candidates.length);
 
   const [clickList, setClickList] = useState<boolean[]>([]);
 
@@ -40,11 +39,30 @@ const DetailQuizPage = ({ params }: { params: { id: string } }) => {
   };
 
   return (
-    <div className="w-full bg-yelTwo flex flex-col gap-8">
-      <div>
-        {!theQuiz?.needHelp ? <h2>도움이 필요한 질문입니다! 답변이 옳지 않을 수 있으니 함께 완성해주세요:)</h2> : null}
-        <h1>Q. {theQuiz?.question}</h1>
-        {theQuiz && theQuiz.answer.length > 1 ? <h4>복수답변</h4> : null}
+    <div className="w-full bg-yelTwo flex flex-col gap-8 p-2">
+      <div className="flex flex-col gap-1">
+        {!theQuiz?.needHelp ? (
+          <h2 className="mb-2">도움이 필요한 질문입니다! 답변이 옳지 않을 수 있으니 함께 완성해주세요:)</h2>
+        ) : null}
+        <h1 className="font-bold text-3xl">Q. {theQuiz?.question}</h1>
+        {theQuiz && theQuiz.answer.length > 1 && (
+          <h4 className="text-gray-600 text-sm">복수답변({theQuiz.answer.length}개) 질문입니다.</h4>
+        )}
+        <button
+          className="flex justify-end"
+          onClick={() => {
+            handleOpenModal({
+              type: 'confirm',
+              title: '정답은',
+              content: `${theQuiz?.answer} 입니다.`,
+              onFunc: () => {
+                console.log('단단다');
+              }
+            });
+          }}
+        >
+          정답보기
+        </button>
       </div>
       <div>
         {theQuiz?.isSubjective ? (
@@ -63,22 +81,7 @@ const DetailQuizPage = ({ params }: { params: { id: string } }) => {
           </div>
         )}
       </div>
-      <div>
-        <button
-          onClick={() => {
-            handleOpenModal({
-              type: 'confirm',
-              title: '정답은',
-              content: `${theQuiz?.answer} 입니다.`,
-              onFunc: () => {
-                console.log('단단다');
-              }
-            });
-          }}
-        >
-          정답보기
-        </button>
-      </div>
+
       <div>Comments()</div>
     </div>
   );

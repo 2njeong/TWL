@@ -20,7 +20,7 @@ const Modal = () => {
     requestAnimationFrame(() => {
       if (!modalRef.current) return;
       if (isOpen) {
-        modalRef.current.style.transform = 'translate(-50%, -50%)';
+        modalRef.current.style.transform = 'translate(-50%, -70%)';
         modalRef.current.style.transition = 'transform 0.3s ease-in-out';
         modalRef.current.style.opacity = '1';
       }
@@ -60,7 +60,7 @@ const Modal = () => {
         <ModalBackground />
         <div
           ref={modalRef}
-          className={`w-2/5 h-2/5 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[60%] flex flex-col gap-2 z-50 bg-white opacity-0 p-4`}
+          className={`w-2/5 h-2/5 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[80%] flex flex-col gap-2 z-50 bg-white opacity-0 p-4`}
         >
           <button className="w-full flex justify-end items-center" onClick={offFunc}>
             x
