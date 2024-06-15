@@ -39,8 +39,6 @@ const DetailQuizPage = ({ params }: { params: { id: string } }) => {
     });
   };
 
-  console.log('clickList =>', clickList);
-
   return (
     <div className="w-full bg-yelTwo flex flex-col gap-8">
       <div>
@@ -66,24 +64,22 @@ const DetailQuizPage = ({ params }: { params: { id: string } }) => {
         )}
       </div>
       <div>
-        <button>정답보기</button>
+        <button
+          onClick={() => {
+            handleOpenModal({
+              type: 'confirm',
+              title: '정답은',
+              content: `${theQuiz?.answer} 입니다.`,
+              onFunc: () => {
+                console.log('단단다');
+              }
+            });
+          }}
+        >
+          정답보기
+        </button>
       </div>
       <div>Comments()</div>
-      {/* <Modal /> */}
-      <button
-        onClick={() => {
-          handleOpenModal({
-            type: 'confirm',
-            name: '모달제목',
-            text: '모달내용',
-            onFunc: () => {
-              console.log('단단다');
-            }
-          });
-        }}
-      >
-        모달 열기
-      </button>
     </div>
   );
 };

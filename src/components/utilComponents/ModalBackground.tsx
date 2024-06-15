@@ -21,7 +21,7 @@ const ModalBackground = () => {
   }, [offFunc]);
 
   return (
-    <div className="fixed w-full h-full bg-black opacity-70 z-[49]" ref={backGroundRef}>
+    <div className="fixed w-full h-full bg-black opacity-40 z-[49]" ref={backGroundRef}>
       ModalBackground
     </div>
   );

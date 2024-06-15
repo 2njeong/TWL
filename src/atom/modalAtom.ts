@@ -3,8 +3,8 @@ import { atom } from 'jotai';
 type ModalState = {
   isOpen: boolean;
   type: string;
-  name: string;
-  text: string;
+  title: string;
+  content: string;
   onFunc?: any;
   offFunc?: () => void;
 };
@@ -12,21 +12,21 @@ type ModalState = {
 export const modalState = atom<ModalState>({
   isOpen: false,
   type: 'alert',
-  name: '',
-  text: '',
+  title: '',
+  content: '',
   onFunc: undefined,
   offFunc: undefined
 });
 
 export const openModal = atom(
   (get) => get(modalState),
-  (get, set, { type, name, text, onFunc }) => {
+  (get, set, { type, title, content, onFunc }) => {
     set(modalState, (prev) => ({
       ...prev,
       isOpen: true,
       type,
-      name,
-      text,
+      title,
+      content,
       onFunc: () => {
         onFunc();
         set(modalState, (prev) => ({ ...prev, isOpen: false }));
