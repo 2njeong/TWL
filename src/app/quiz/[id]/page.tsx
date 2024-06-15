@@ -1,10 +1,13 @@
 'use client';
 
+import { openModal } from '@/atom/modalAtom';
 import Modal from '@/components/utilComponents/Modal';
 import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
+import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 
 const DetailQuizPage = ({ params }: { params: { id: string } }) => {
+  const [_, handleOpenModal] = useAtom(openModal);
   const {
     data: quizList,
     isFetchingNextPage,
@@ -66,7 +69,21 @@ const DetailQuizPage = ({ params }: { params: { id: string } }) => {
         <button>정답보기</button>
       </div>
       <div>Comments()</div>
-      <Modal />
+      {/* <Modal /> */}
+      <button
+        onClick={() => {
+          handleOpenModal({
+            type: 'confirm',
+            name: '모달제목',
+            text: '모달내용',
+            onFunc: () => {
+              console.log('단단다');
+            }
+          });
+        }}
+      >
+        모달 열기
+      </button>
     </div>
   );
 };

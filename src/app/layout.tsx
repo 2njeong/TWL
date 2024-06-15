@@ -4,6 +4,7 @@ import './globals.css';
 import QueryProvider from '../provider/QueryProvider';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Provider } from 'jotai';
+import Modal from '@/components/utilComponents/Modal';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,7 +22,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <QueryProvider>
-          <Provider>{children}</Provider>
+          <Provider>
+            <Modal />
+            {children}
+          </Provider>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryProvider>
       </body>
