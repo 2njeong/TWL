@@ -19,23 +19,22 @@ const HotQuizList = () => {
   const threshold = 400;
   const containerRef = useRef<HTMLDivElement>(null);
   const testRef = useRef<(HTMLDivElement | null)[]>([]);
-
   const [clickDown, setClickDown] = useState({ isDown: false, idx: 0 });
   const [startMoveX, setStartMoveX] = useState(0);
   const [position, setPosition] = useState(0);
   const movingRef = useRef({ start: 0, end: 0 });
   const distance = movingRef.current.start - movingRef.current.end;
+  const safeDistance = testRef.current[Math.min(testRef.current.length, Math.max(clickDown.idx - 1, 0))]
+    ?.offsetLeft as number;
 
   useEffect(() => {
     const handleMouseLeave = () => {
       setClickDown((prev) => ({ ...prev, isDown: false }));
     };
-
     const container = containerRef.current;
     if (container) {
       containerRef.current.addEventListener('mouseleave', handleMouseLeave);
     }
-
     return () => {
       if (container) {
         container.removeEventListener('mouseleave', handleMouseLeave);
@@ -49,9 +48,7 @@ const HotQuizList = () => {
       requestAnimation();
       // 일정 이상 드래그 넘어갔을 때 안전장치
       if (testRef.current.length && (clickDown.idx >= testRef.current.length - 2 || clickDown.idx < 2)) {
-        setPosition(
-          -(testRef.current[Math.min(testRef.current.length, Math.max(clickDown.idx - 1, 0))]?.offsetLeft as number)
-        );
+        setPosition(-safeDistance);
       }
     }
   }, [clickDown]);
@@ -82,9 +79,10 @@ const HotQuizList = () => {
         deltaX = event.screenX - startMoveX;
         setStartMoveX(event.screenX);
       } else {
-        deltaX = event.touches[0].screenX - startMoveX;
-        setStartMoveX(event.touches[0].screenX);
-        movingRef.current.end = event.touches[0].screenX;
+        const touchScreenX = event.touches[0].screenX;
+        deltaX = touchScreenX - startMoveX;
+        setStartMoveX(touchScreenX);
+        movingRef.current.end = touchScreenX;
       }
       setPosition((prev) => prev + deltaX);
     }
@@ -102,8 +100,7 @@ const HotQuizList = () => {
         return prev;
       } else {
         // 기본적으로 distance의 절댓값이 threshold 보다 크면 그 전 요소로 드래그 되도록
-        return -(testRef.current[Math.min(testRef.current.length, Math.max(clickDown.idx - 1, 0))]
-          ?.offsetLeft as number);
+        return -safeDistance;
       }
     });
   };
