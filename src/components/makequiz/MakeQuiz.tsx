@@ -2,7 +2,7 @@
 
 import ReturnQuizType from './ReturnQuizType';
 import { useAtom } from 'jotai';
-import { submitAction } from '@/app/action';
+import { submitQuizAction } from '@/app/action';
 import { useRef } from 'react';
 import { answerAtom, inputAtom, quizTyper } from '@/atom/quizAtom';
 import SubmitBtn from './SubmitBtn';
@@ -33,7 +33,7 @@ const MakeQuiz = () => {
     } else {
       if (!data.get('candidates')) alert('답변을 입력해주세요.');
     }
-    const submitActionWithAnswer = submitAction.bind(null, answer);
+    const submitActionWithAnswer = submitQuizAction.bind(null, answer);
     await submitActionWithAnswer(data);
     // await addNewQuiz({ answer, data });
     formRef.current?.reset();

@@ -20,7 +20,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
   } = useQuizListQuery();
 
   const theQuiz = quizList?.find((quiz) => quiz.quiz_id === id);
-  console.log('theQuiz?.answe =>', theQuiz?.answer);
+  console.log('theQuiz?.answer =>', theQuiz?.answer);
 
   const [clickList, setClickList] = useState<boolean[]>([]);
   console.log(clickList);
@@ -108,6 +108,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
       >
         바로 정답보기
       </button>
+      <button>좋아요</button>
       <div>Comments()</div>
     </div>
   );
