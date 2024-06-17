@@ -6,7 +6,7 @@ import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
 import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 
-const DetailQuizPage = ({ params }: { params: { id: string } }) => {
+const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
   const [_, handleOpenModal] = useAtom(openModal);
   const {
     data: quizList,
@@ -19,8 +19,8 @@ const DetailQuizPage = ({ params }: { params: { id: string } }) => {
     isRefetching
   } = useQuizListQuery();
 
-  const theQuiz = quizList?.find((quiz) => quiz.quiz_id === Number(params.id));
-  console.log(theQuiz?.answer);
+  const theQuiz = quizList?.find((quiz) => quiz.quiz_id === id);
+  console.log('theQuiz?.answe =>', theQuiz?.answer);
 
   const [clickList, setClickList] = useState<boolean[]>([]);
   console.log(clickList);
@@ -41,7 +41,7 @@ const DetailQuizPage = ({ params }: { params: { id: string } }) => {
 
   const checkIfRight = () => {
     if (theQuiz?.answer.length === clickList.filter((click) => click).length) {
-      if (theQuiz?.answer.every((answer) => clickList[Number(answer) - 1])) {
+      if (theQuiz?.answer.every((answer) => clickList[Number(answer)])) {
         return '정답입니다!';
       } else {
         return '오답입니다.';

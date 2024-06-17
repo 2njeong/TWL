@@ -11,18 +11,18 @@ export type Database = {
           creator: string | null;
           isSubjective: boolean;
           needHelp: boolean;
-          question: string;
-          quiz_id: number;
+          question: string | null;
+          quiz_id: string;
         };
         Insert: {
           answer: string[];
           candidates: string[];
           created_at?: string;
           creator?: string | null;
-          isSubjective?: boolean;
-          needHelp?: boolean;
-          question: string;
-          quiz_id?: number;
+          isSubjective: boolean;
+          needHelp: boolean;
+          question?: string | null;
+          quiz_id?: string;
         };
         Update: {
           answer?: string[];
@@ -31,10 +31,39 @@ export type Database = {
           creator?: string | null;
           isSubjective?: boolean;
           needHelp?: boolean;
-          question?: string;
-          quiz_id?: number;
+          question?: string | null;
+          quiz_id?: string;
         };
         Relationships: [];
+      };
+      quiz_like: {
+        Row: {
+          created_at: string;
+          like_id: string;
+          quiz_id: string;
+          users: string[];
+        };
+        Insert: {
+          created_at?: string;
+          like_id?: string;
+          quiz_id: string;
+          users: string[];
+        };
+        Update: {
+          created_at?: string;
+          like_id?: string;
+          quiz_id?: string;
+          users?: string[];
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'quiz_like_quiz_id_fkey';
+            columns: ['quiz_id'];
+            isOneToOne: false;
+            referencedRelation: 'quiz';
+            referencedColumns: ['quiz_id'];
+          }
+        ];
       };
     };
     Views: {
