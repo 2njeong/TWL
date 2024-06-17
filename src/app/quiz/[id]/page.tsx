@@ -70,6 +70,7 @@ const DetailQuizPage = ({ params }: { params: { id: string } }) => {
               content: `${checkIfRight() === '정답입니다!' ? '축하합니다. 다른 문제도 도전해보세요:)' : '404..'}`,
               onFunc: () => {}
             });
+            setClickList(new Array(theQuiz?.candidates.length).fill(false));
           }}
         >
           정답제출
