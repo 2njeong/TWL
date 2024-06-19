@@ -2,7 +2,7 @@
 
 import ReturnQuizType from './ReturnQuizType';
 import { useAtom } from 'jotai';
-import { submitQuizAction } from '@/app/action';
+import { submitQuizAction } from '@/app/makequiz/action';
 import { useRef } from 'react';
 import { answerAtom, inputAtom, quizTyper } from '@/atom/quizAtom';
 import SubmitBtn from './SubmitBtn';
