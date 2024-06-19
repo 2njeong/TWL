@@ -6,6 +6,8 @@ export type AuthInput = {
   password: string;
 };
 
+export type AuthField = 'email' | 'nickname' | 'password';
+
 export type AuthResult =
   | {
       error: ZodFormattedError<
