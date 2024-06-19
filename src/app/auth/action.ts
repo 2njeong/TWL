@@ -21,12 +21,20 @@ export const handleSignIn = async (formData: FormData) => {
 };
 
 export const handleSignUp = async (formData: FormData) => {
-  const data = Object.fromEntries(formData);
-  const { error: zodErr } = authSchema.safeParse(data);
+  const email = formData.get('email') as string;
+  const nickname = formData.get('nickname') as string;
+  const password = formData.get('password') as string;
+  const { error: zodErr } = authSchema.safeParse({ email, nickname, password });
   if (zodErr) {
     return { error: zodErr.format() };
   }
-  const { error } = await supabase.auth.signUp(data as any);
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { nickname }
+    }
+  });
   if (error) throw new Error(error.message);
   return { message: '작성하신 이메일에서 회원가입을 완료해주세요!' };
 };

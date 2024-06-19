@@ -1,5 +1,4 @@
 import SocialLogin from '@/components/auth/socialLogin';
-import { handleSignOut } from './action';
 import SignInOrUp from '@/components/auth/SignInUp';
 import AuthForm from '@/components/auth/AuthForm';
 

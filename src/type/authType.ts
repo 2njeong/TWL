@@ -1,5 +1,11 @@
 import { ZodFormattedError } from 'zod';
 
+export type AuthInput = {
+  email: string;
+  nickname?: string;
+  password: string;
+};
+
 export type AuthResult =
   | {
       error: ZodFormattedError<

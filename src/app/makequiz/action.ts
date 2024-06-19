@@ -5,11 +5,6 @@ import { revalidatePath } from 'next/cache';
 
 const supabase = serverSupabase();
 
-export const showText = async (formData: FormData) => {
-  const data = Object.fromEntries(formData);
-  console.log('data =>', data);
-};
-
 export const submitQuizAction = async (answer: null | string[], formData: FormData) => {
   const question = formData.get('question');
   const candidates = formData.getAll('candidates');
