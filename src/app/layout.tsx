@@ -5,6 +5,7 @@ import QueryProvider from '../provider/QueryProvider';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Provider } from 'jotai';
 import Modal from '@/components/utilComponents/modal/Modal';
+import NavBar from '@/components/navBar/NavBar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
         <QueryProvider>
           <Provider>
             <Modal />
+            <NavBar />
             {children}
           </Provider>
           <ReactQueryDevtools initialIsOpen={false} />

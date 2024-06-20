@@ -7,6 +7,8 @@ import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 
 const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
+  console.log('id =>', id);
+
   const [_, handleOpenModal] = useAtom(openModal);
   const {
     data: quizList,
@@ -20,10 +22,10 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
   } = useQuizListQuery();
 
   const theQuiz = quizList?.find((quiz) => quiz.quiz_id === id);
-  console.log('theQuiz?.answer =>', theQuiz?.answer);
+  // console.log('theQuiz?.answer =>', theQuiz?.answer);
 
   const [clickList, setClickList] = useState<boolean[]>([]);
-  console.log(clickList);
+  // console.log(clickList);
 
   useEffect(() => {
     if (theQuiz) {

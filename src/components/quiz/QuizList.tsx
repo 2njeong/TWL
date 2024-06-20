@@ -31,7 +31,7 @@ const QuizList = () => {
     <div className="flex flex-col w-full">
       {quizList?.map((quiz) => (
         <div key={quiz.quiz_id} className="border-b flex items-start">
-          <Link href={`quiz/${quiz.quiz_id}`}>{quiz.question}</Link>
+          <Link href={`/quiz/solve/${quiz.quiz_id}`}>{quiz.question}</Link>
         </div>
       ))}
       {/* <div className="bg-pink-400 w-[300px] h-[300px]" ref={ref}></div>

@@ -5,6 +5,7 @@ import { useAtom } from 'jotai';
 import ModalBackground from './ModalBackground';
 import { useEffect, useRef } from 'react';
 import { animated, useTransition } from '@react-spring/web';
+import { ZINDEX } from '@/constants/commonConstants';
 
 const Modal = () => {
   const [{ isOpen, type, title, content, onFunc, offFunc }, _] = useAtom(openModal);
@@ -60,7 +61,7 @@ const Modal = () => {
         <ModalBackground />
         <div
           ref={modalRef}
-          className={`w-2/5 h-2/5 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[80%] flex flex-col gap-2 z-50 bg-white opacity-0 p-4`}
+          className={`w-2/5 h-2/5 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[80%] flex flex-col gap-2 bg-white opacity-0 p-4 z-[${ZINDEX.modalZ}]`}
         >
           <button className="w-full flex justify-end items-center" onClick={offFunc}>
             x

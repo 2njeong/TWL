@@ -1,4 +1,5 @@
 import { openModal } from '@/atom/modalAtom';
+import { ZINDEX } from '@/constants/commonConstants';
 import { useAtom } from 'jotai';
 import { useEffect, useRef } from 'react';
 
@@ -21,7 +22,7 @@ const ModalBackground = () => {
   }, [offFunc]);
 
   return (
-    <div className="fixed w-full h-full bg-black opacity-40 z-[49]" ref={backGroundRef}>
+    <div className={`fixed w-full h-full bg-black opacity-40 z-[${ZINDEX.modalZ - 1}]`} ref={backGroundRef}>
       ModalBackground
     </div>
   );

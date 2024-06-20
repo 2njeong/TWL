@@ -1,5 +1,6 @@
 'use client';
 
+import { ZINDEX } from '@/constants/commonConstants';
 import { useUnifiedHandler } from '@/customHooks';
 import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
 import { useEffect, useRef, useState } from 'react';
@@ -121,7 +122,7 @@ const HotQuizList = () => {
           <div
             ref={(el: any) => (testRef.current[idx] = el)}
             key={quiz.quiz_id}
-            className="h-48 w-48 bg-yelTwo select-none"
+            className={`h-48 w-48 bg-yelTwo select-none z-${ZINDEX.hotQuizZ}`}
             {...{
               ...eventHandlers,
               onMouseDown: (e) => eventHandlers.onMouseDown(e, idx),
