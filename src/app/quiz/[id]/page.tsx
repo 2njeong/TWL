@@ -1,7 +1,8 @@
 'use client';
 
 import { openModal } from '@/atom/modalAtom';
-import Modal from '@/components/utilComponents/Modal';
+import Modal from '@/components/utilComponents/modal/Modal';
+import OpenModalBtn from '@/components/utilComponents/modal/OpenModalBtn';
 import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
 import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
@@ -61,20 +62,17 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
         {theQuiz && theQuiz.answer.length > 1 && (
           <h4 className="text-gray-600 text-sm">복수답변({theQuiz.answer.length}개) 질문입니다.</h4>
         )}
-        <button
-          className="flex justify-end"
-          onClick={() => {
-            handleOpenModal({
-              type: 'alert',
-              title: `${checkIfRight()}`,
-              content: `${checkIfRight() === '정답입니다!' ? '축하합니다. 다른 문제도 도전해보세요:)' : '404..'}`,
-              onFunc: () => {}
-            });
-            setClickList(new Array(theQuiz?.candidates.length).fill(false));
+        <OpenModalBtn
+          modalProps={{
+            type: 'alert',
+            title: `${checkIfRight()}`,
+            content: `${checkIfRight() === '정답입니다!' ? '축하합니다. 다른 문제도 도전해보세요:)' : '404..'}`
           }}
+          moreFunc={() => setClickList(new Array(theQuiz?.candidates.length).fill(false))}
+          className="flex justify-end"
         >
           정답제출
-        </button>
+        </OpenModalBtn>
       </div>
       <div>
         {theQuiz?.isSubjective ? (
@@ -93,21 +91,19 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
           </div>
         )}
       </div>
-      <button
+      <OpenModalBtn
         className="flex justify-end"
-        onClick={() => {
-          handleOpenModal({
-            type: 'confirm',
-            title: '정답은',
-            content: `${theQuiz?.answer} 입니다.`,
-            onFunc: () => {
-              console.log('단단다');
-            }
-          });
+        modalProps={{
+          type: 'confirm',
+          title: '정답은',
+          content: `${theQuiz?.answer} 입니다.`,
+          onFunc: () => {
+            console.log('단단다');
+          }
         }}
       >
         바로 정답보기
-      </button>
+      </OpenModalBtn>
       <button>좋아요</button>
       <div>Comments()</div>
     </div>

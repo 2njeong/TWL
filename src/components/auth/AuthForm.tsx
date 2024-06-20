@@ -13,7 +13,6 @@ const AuthForm = () => {
   const [authType] = useAtom(authSelectAtom);
   const [validationErr, setValidationErr] = useState<AuthValiationErr | null>(null);
   const authFormRef = useRef<HTMLFormElement | null>(null);
-
   const authArr: AuthField[] = ['email', 'nickname', 'password'];
 
   const submitAuthForm = async (state: any, data: FormData) => {

@@ -4,7 +4,7 @@ import './globals.css';
 import QueryProvider from '../provider/QueryProvider';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Provider } from 'jotai';
-import Modal from '@/components/utilComponents/Modal';
+import Modal from '@/components/utilComponents/modal/Modal';
 
 const inter = Inter({ subsets: ['latin'] });
 

@@ -1,13 +1,5 @@
+import { ModalProps, ModalState } from '@/type/modalType';
 import { atom } from 'jotai';
-
-type ModalState = {
-  isOpen: boolean;
-  type: string;
-  title: string;
-  content: string;
-  onFunc?: any;
-  offFunc?: () => void | undefined;
-};
 
 export const modalState = atom<ModalState>({
   isOpen: false,
@@ -20,17 +12,19 @@ export const modalState = atom<ModalState>({
 
 export const openModal = atom(
   (get) => get(modalState),
-  (get, set, { type, title, content, onFunc }) => {
+  (get, set, { type, title, content, onFunc }: ModalProps) => {
     set(modalState, (prev) => ({
       ...prev,
       isOpen: true,
       type,
       title,
       content,
-      onFunc: () => {
-        onFunc();
-        set(modalState, (prev) => ({ ...prev, isOpen: false }));
-      },
+      onFunc: onFunc
+        ? () => {
+            onFunc();
+            set(modalState, (prev) => ({ ...prev, isOpen: false }));
+          }
+        : () => set(modalState, (prev) => ({ ...prev, isOpen: false })),
       offFunc: () => set(modalState, (prev) => ({ ...prev, isOpen: false }))
     }));
   }
