@@ -1,4 +1,4 @@
-import { submitQuizAction } from '@/app/makequiz/action';
+import { submitQuizAction } from '@/app/quiz/makequiz/action';
 import { QUIZLIST_QUERY_KEY } from '@/query/quizQueryKeys';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 

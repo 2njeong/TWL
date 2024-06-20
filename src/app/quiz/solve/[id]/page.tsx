@@ -1,7 +1,6 @@
 'use client';
 
 import { openModal } from '@/atom/modalAtom';
-import Modal from '@/components/utilComponents/modal/Modal';
 import OpenModalBtn from '@/components/utilComponents/modal/OpenModalBtn';
 import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
 import { useAtom } from 'jotai';
@@ -104,7 +103,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
       >
         바로 정답보기
       </OpenModalBtn>
-      <button>좋아요</button>
+      <button onClick={() => {}}>좋아요</button>
       <div>Comments()</div>
     </div>
   );
