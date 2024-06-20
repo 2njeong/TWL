@@ -3,7 +3,8 @@
 import { ZINDEX } from '@/constants/commonConstants';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import My from './My';
 
 const NavBar = () => {
   const navBarList = [
@@ -16,44 +17,66 @@ const NavBar = () => {
     { href: 'solve', name: '문제 풀기' },
     { href: 'makequiz', name: '문제 만들기' }
   ];
+
   const [quizDropOpen, setQuizDropOpen] = useState(false);
   // console.log('quizDropOpen =>', quizDropOpen);
 
-  const handleMouseEnter = () => {
-    setQuizDropOpen(true);
+  const handleMouseEnter = (navName: string) => {
+    if (navName === 'Quiz') setQuizDropOpen(true);
   };
 
-  const handleMouseLeave = () => {
-    setQuizDropOpen(false);
+  const handleMouseLeave = (navName: string) => {
+    if (navName === 'Quiz') setQuizDropOpen(false);
   };
+
+  const handleTouchMove = (e: React.TouchEvent<Element>) => {
+    if (e) {
+      setQuizDropOpen(true);
+    } else {
+      setQuizDropOpen(false);
+    }
+  };
+
+  const events = (navName: string) => ({
+    onMouseEnter: () => handleMouseEnter(navName),
+    onMouseLeave: () => handleMouseLeave(navName),
+    onTouchMove: (e: React.TouchEvent<Element>) => handleTouchMove(e)
+  });
 
   return (
-    <div className="flex gap-8">
-      {navBarList.map((nav) => {
-        return (
-          <div
-            key={nav.name}
-            onMouseEnter={nav.name === 'Quiz' ? handleMouseEnter : undefined}
-            onMouseLeave={nav.name === 'Quiz' ? handleMouseLeave : undefined}
-            className={`${nav.name === 'Quiz' ? 'relative' : ''}`}
-          >
-            <Link href={`/${nav.href}`} className={`${nav.name === 'Quiz' && 'pointer-events-none'}`}>
-              {nav.name}
-            </Link>
-            {nav.name === 'Quiz' && quizDropOpen ? (
-              <div
-                className={`flex flex-col gap-2 absolute w-32 h-20 bg-white top-full border p-2 rounded z-[${ZINDEX.navBarZ}]`}
-              >
-                {quizNavList.map((item) => (
-                  <Link key={item.name} href={`/quiz/${item.href}`} className="hover:bg-gray-200 rounded">
-                    {item.name}
-                  </Link>
-                ))}
+    <div className="flex justify-between items-center px-8 py-2">
+      <section className="flex gap-8 items-center">
+        {navBarList.map((nav) => {
+          return (
+            <div key={nav.name} {...events(nav.name)} className={`${nav.name === 'Quiz' ? 'relative' : ''}`}>
+              <div className="mb-2">
+                <Link href={`/${nav.href}`} className={`${nav.name === 'Quiz' && 'pointer-events-none'}`}>
+                  {nav.name}
+                </Link>
               </div>
-            ) : null}
-          </div>
-        );
-      })}
+
+              {nav.name === 'Quiz' && quizDropOpen && (
+                <div
+                  className={`flex flex-col justify-between gap-1 absolute w-28 h-24 bg-white top-full left-[-90%] border p-2 rounded z-[${ZINDEX.navBarZ}]`}
+                >
+                  {quizNavList.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={`/quiz/${item.href}`}
+                      className="hover:bg-gray-200 rounded p-1"
+                      onClick={() => setQuizDropOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </section>
+
+      <My />
     </div>
   );
 };

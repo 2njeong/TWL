@@ -7,8 +7,6 @@ import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 
 const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
-  console.log('id =>', id);
-
   const [_, handleOpenModal] = useAtom(openModal);
   const {
     data: quizList,
