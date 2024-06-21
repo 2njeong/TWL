@@ -37,20 +37,25 @@ const My = () => {
   });
 
   return (
-    <section {...events()} className="relative">
-      <div className="w-8 h-8 rounded-full bg-gray-500 mb-2"></div>
+    <section className="flex gap-8">
+      <div className="flex items-center">
+        <Link href="/auth">로그인/회원가입</Link>
+      </div>
 
-      {isMyListOpen && (
-        <div
-          className={`w-28 h-32 bg-white rounded absolute top-full right-[-30%] flex flex-col gap-1 border rounded p-2 justify-between z-[${ZINDEX.navBarZ}]`}
-        >
-          {myList.map((my) => (
-            <Link key={my.name} href={my.href} className="rounded p-1 hover:bg-gray-200" onClick={handleMouseLeave}>
-              {my.name}
-            </Link>
-          ))}
-        </div>
-      )}
+      <div {...events()} className="relative">
+        <div className="w-8 h-8 rounded-full bg-gray-500 my-2"></div>
+        {isMyListOpen && (
+          <div
+            className={`w-28 h-32 bg-white rounded absolute top-full right-[-30%] flex flex-col gap-1 border rounded p-2 justify-between z-[${ZINDEX.navBarZ}]`}
+          >
+            {myList.map((my) => (
+              <Link key={my.name} href={my.href} className="rounded p-1 hover:bg-gray-200" onClick={handleMouseLeave}>
+                {my.name}
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 };
