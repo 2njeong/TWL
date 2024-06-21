@@ -3,7 +3,7 @@
 import { ZINDEX } from '@/constants/commonConstants';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import My from './My';
 
 const NavBar = () => {
@@ -17,9 +17,7 @@ const NavBar = () => {
     { href: 'solve', name: '문제 풀기' },
     { href: 'makequiz', name: '문제 만들기' }
   ];
-
   const [quizDropOpen, setQuizDropOpen] = useState(false);
-  // console.log('quizDropOpen =>', quizDropOpen);
 
   const handleMouseEnter = (navName: string) => {
     if (navName === 'Quiz') setQuizDropOpen(true);
@@ -74,7 +72,6 @@ const NavBar = () => {
           );
         })}
       </section>
-
       <My />
     </div>
   );

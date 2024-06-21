@@ -1,5 +1,5 @@
 import { submitQuizAction } from '@/app/quiz/makequiz/action';
-import { QUIZLIST_QUERY_KEY } from '@/query/quizQueryKeys';
+import { QUIZLIST_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const useAddQuiz = () => {

@@ -9,14 +9,15 @@ const QuizPage = async () => {
         <section className="bg-beiOne">
           <h1 className="text-3xl font-bold">Hot Quiz</h1>
           <div className="w-full">
-            <HotQuizList />
+            <Suspense>
+              <HotQuizList />
+            </Suspense>
           </div>
         </section>
         <section className="flex flex-col gap-2">
           <h1 className="text-3xl font-bold">Quiz List</h1>
-          <Suspense>
-            <QuizList />
-          </Suspense>
+
+          <QuizList />
         </section>
       </div>
     </div>

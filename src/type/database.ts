@@ -39,29 +39,64 @@ export type Database = {
       quiz_like: {
         Row: {
           created_at: string;
-          like_id: string;
           quiz_id: string;
-          users: string[];
+          quiz_like_id: string;
+          users: string[] | null;
         };
         Insert: {
           created_at?: string;
-          like_id?: string;
           quiz_id: string;
-          users: string[];
+          quiz_like_id?: string;
+          users?: string[] | null;
         };
         Update: {
           created_at?: string;
-          like_id?: string;
           quiz_id?: string;
-          users?: string[];
+          quiz_like_id?: string;
+          users?: string[] | null;
         };
         Relationships: [
           {
             foreignKeyName: 'quiz_like_quiz_id_fkey';
             columns: ['quiz_id'];
-            isOneToOne: false;
+            isOneToOne: true;
             referencedRelation: 'quiz';
             referencedColumns: ['quiz_id'];
+          }
+        ];
+      };
+      users: {
+        Row: {
+          avatar: string | null;
+          created_at: string;
+          email: string;
+          github: string | null;
+          nickname: string | null;
+          user_id: string;
+        };
+        Insert: {
+          avatar?: string | null;
+          created_at?: string;
+          email: string;
+          github?: string | null;
+          nickname?: string | null;
+          user_id: string;
+        };
+        Update: {
+          avatar?: string | null;
+          created_at?: string;
+          email?: string;
+          github?: string | null;
+          nickname?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'users_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: true;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
           }
         ];
       };
@@ -70,7 +105,18 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      append_user_id_to_quiz_like: {
+        Args: {
+          quiz_id: string;
+          user_id: string;
+        };
+        Returns: {
+          created_at: string;
+          quiz_id: string;
+          quiz_like_id: string;
+          users: string[] | null;
+        };
+      };
     };
     Enums: {
       [_ in never]: never;

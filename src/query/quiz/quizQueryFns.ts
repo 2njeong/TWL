@@ -2,7 +2,7 @@ import { FETCHMORENUM } from '@/constants/quizConstants';
 import { clientSupabase } from '@/supabase/client';
 
 export const fetchQuizList = async ({ pageParam = 1 }: any) => {
-  console.log('pageParam => ', pageParam);
+  // console.log('pageParam => ', pageParam);
   const supabase = clientSupabase();
   const { data, error } = await supabase
     .from('quiz')

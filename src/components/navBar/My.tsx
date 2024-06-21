@@ -1,12 +1,13 @@
 'use client';
 
 import { ZINDEX } from '@/constants/commonConstants';
+import { useFetchCurrentUser } from '@/customHooks/useQueries/useAuthQuery';
 import Link from 'next/link';
 import { useState } from 'react';
 
 const My = () => {
+  const { isLoggedIn } = useFetchCurrentUser();
   const [isMyListOpen, setMyListOpen] = useState(false);
-  console.log('isMyListOpen =>', isMyListOpen);
 
   const myList = [
     { href: '/', name: '내 스터디' },
@@ -38,10 +39,11 @@ const My = () => {
 
   return (
     <section className="flex gap-8">
-      <div className="flex items-center">
-        <Link href="/auth">로그인/회원가입</Link>
-      </div>
-
+      {!isLoggedIn && (
+        <Link href="/auth" className="my-auto">
+          로그인/회원가입
+        </Link>
+      )}
       <div {...events()} className="relative">
         <div className="w-8 h-8 rounded-full bg-gray-500 my-2"></div>
         {isMyListOpen && (

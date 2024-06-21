@@ -1,6 +1,6 @@
 import { FETCHMORENUM } from '@/constants/quizConstants';
-import { fetchQuizList } from '@/query/quizQueryFns';
-import { QUIZLIST_QUERY_KEY } from '@/query/quizQueryKeys';
+import { fetchQuizList } from '@/query/quiz/quizQueryFns';
+import { QUIZLIST_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 import { Tables } from '@/type/database';
 import { useInfiniteQuery, useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 
