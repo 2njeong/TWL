@@ -51,6 +51,8 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
     }
   };
 
+  const boundQuizLike = async () => {};
+
   return (
     <div className="w-full bg-yelTwo flex flex-col gap-8 py-8 px-4">
       <div className="flex flex-col gap-1">
@@ -62,13 +64,13 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
           <h4 className="text-gray-600 text-sm">복수답변({theQuiz.answer.length}개) 질문입니다.</h4>
         )}
         <OpenModalBtn
+          className="flex justify-end"
           modalProps={{
             type: 'alert',
             title: `${checkIfRight()}`,
             content: `${checkIfRight() === '정답입니다!' ? '축하합니다. 다른 문제도 도전해보세요:)' : '404..'}`
           }}
           moreFunc={() => setClickList(new Array(theQuiz?.candidates.length).fill(false))}
-          className="flex justify-end"
         >
           정답제출
         </OpenModalBtn>
@@ -95,10 +97,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
         modalProps={{
           type: 'confirm',
           title: '정답은',
-          content: `${theQuiz?.answer} 입니다.`,
-          onFunc: () => {
-            console.log('단단다');
-          }
+          content: `${theQuiz?.answer} 입니다.`
         }}
       >
         바로 정답보기

@@ -54,7 +54,6 @@ const NavBar = () => {
                   {nav.name}
                 </Link>
               </div>
-
               {nav.name === 'Quiz' && quizDropOpen && (
                 <div
                   className={`flex flex-col justify-between gap-1 absolute w-28 h-24 bg-white top-full left-[-90%] border p-2 rounded z-[${ZINDEX.navBarZ}]`}

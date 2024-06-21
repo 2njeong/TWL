@@ -15,6 +15,12 @@ const AuthForm = () => {
   const authFormRef = useRef<HTMLFormElement | null>(null);
   const authArr: AuthField[] = ['email', 'nickname', 'password'];
 
+  const handleSignOut = async () => {
+    const supabase = clientSupabase();
+    const { error } = await supabase.auth.signOut();
+    if (error) throw new Error(error.message);
+  };
+
   const submitAuthForm = async (state: any, data: FormData) => {
     const result: AuthResult = authType === 'signIn' ? await handleSignIn(data) : await handleSignUp(data);
     authFormRef.current?.reset();
@@ -26,12 +32,6 @@ const AuthForm = () => {
     setValidationErr(null);
   };
   const [_, formAction] = useFormState(submitAuthForm, null);
-
-  const handleSignOut = async () => {
-    const supabase = clientSupabase();
-    const { error } = await supabase.auth.signOut();
-    if (error) throw new Error(error.message);
-  };
 
   return (
     <form className="flex flex-col gap-4" action={formAction} ref={authFormRef}>
