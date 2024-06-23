@@ -5,6 +5,7 @@ export const fetchCurrentUser = async () => {
   const {
     data: { user }
   } = await supabase.auth.getUser();
+
   if (user) {
     const { data: userData, error } = await supabase.from('users').select('*').eq('user_id', user.id).single();
     if (error) throw new Error(error.message);

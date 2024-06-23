@@ -25,9 +25,3 @@ export const submitQuizAction = async (answer: null | string[], formData: FormDa
     throw new Error('fail to add quiz');
   }
 };
-
-export const submitQuizLikeAction = async (quiz_id: string) => {
-  try {
-    const { error } = await supabase.from('quiz_like').insert({ quiz_id });
-  } catch (error) {}
-};

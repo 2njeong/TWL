@@ -14,14 +14,10 @@ const MakeQuiz = () => {
   const [answer, setAnswer] = useAtom(answerAtom);
   const [quizType] = useAtom(quizTyper);
   const formRef = useRef<HTMLFormElement>(null);
-  // const { mutate: addNewQuiz } = useAddQuiz();
 
   const { data: quizList } = useQuizListQuery();
 
   const submitQuiz = async (data: FormData) => {
-    // console.log('inputArr.length =>', inputArr.length);
-    // console.log('typeOfAnswer => ', answer);
-
     if (quizType === '객관식') {
       if (inputArr.length < 2) {
         alert('객관식 문항은 최소 2개 이상이어야 합니다.');
@@ -35,7 +31,7 @@ const MakeQuiz = () => {
     }
     const submitActionWithAnswer = submitQuizAction.bind(null, answer);
     await submitActionWithAnswer(data);
-    // await addNewQuiz({ answer, data });
+
     formRef.current?.reset();
     setInputArr([1]);
     setAnswer(null);

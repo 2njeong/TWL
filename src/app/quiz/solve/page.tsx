@@ -16,7 +16,6 @@ const QuizPage = async () => {
         </section>
         <section className="flex flex-col gap-2">
           <h1 className="text-3xl font-bold">Quiz List</h1>
-
           <QuizList />
         </section>
       </div>

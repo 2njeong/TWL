@@ -2,7 +2,7 @@ import { FETCHMORENUM } from '@/constants/quizConstants';
 import { fetchQuizList } from '@/query/quiz/quizQueryFns';
 import { QUIZLIST_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 import { Tables } from '@/type/database';
-import { useInfiniteQuery, useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 export const useQuizListQuery = () => {
   const {

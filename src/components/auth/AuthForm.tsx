@@ -7,19 +7,12 @@ import { useRef, useState } from 'react';
 import { AuthField, AuthResult, AuthValiationErr } from '@/type/authType';
 import { useFormState } from 'react-dom';
 import AuthFormBtn from './AuthFormBtn';
-import { clientSupabase } from '@/supabase/client';
 
 const AuthForm = () => {
   const [authType] = useAtom(authSelectAtom);
   const [validationErr, setValidationErr] = useState<AuthValiationErr | null>(null);
   const authFormRef = useRef<HTMLFormElement | null>(null);
   const authArr: AuthField[] = ['email', 'nickname', 'password'];
-
-  const handleSignOut = async () => {
-    const supabase = clientSupabase();
-    const { error } = await supabase.auth.signOut();
-    if (error) throw new Error(error.message);
-  };
 
   const submitAuthForm = async (state: any, data: FormData) => {
     const result: AuthResult = authType === 'signIn' ? await handleSignIn(data) : await handleSignUp(data);
@@ -46,7 +39,6 @@ const AuthForm = () => {
         );
       })}
       <AuthFormBtn />
-      <button onClick={handleSignOut}>로그아웃</button>
     </form>
   );
 };

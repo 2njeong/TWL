@@ -1,6 +1,7 @@
 'use client';
 
 import { openModal } from '@/atom/modalAtom';
+import LikeQuiz from '@/components/quiz/LikeQuiz';
 import OpenModalBtn from '@/components/utilComponents/modal/OpenModalBtn';
 import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
 import { useAtom } from 'jotai';
@@ -51,8 +52,6 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
     }
   };
 
-  const boundQuizLike = async () => {};
-
   return (
     <div className="w-full bg-yelTwo flex flex-col gap-8 py-8 px-4">
       <div className="flex flex-col gap-1">
@@ -102,7 +101,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
       >
         바로 정답보기
       </OpenModalBtn>
-      <button onClick={() => {}}>좋아요</button>
+      <LikeQuiz quiz_id={`${theQuiz?.quiz_id}`} />
       <div>Comments()</div>
     </div>
   );

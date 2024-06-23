@@ -2,6 +2,7 @@
 
 import { ZINDEX } from '@/constants/commonConstants';
 import { useFetchCurrentUser } from '@/customHooks/useQueries/useAuthQuery';
+import { clientSupabase } from '@/supabase/client';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -37,9 +38,17 @@ const My = () => {
     onTouchMove: (e: React.TouchEvent<Element>) => handleTouchMove(e)
   });
 
+  const handleSignOut = async () => {
+    const supabase = clientSupabase();
+    const { error } = await supabase.auth.signOut();
+    if (error) throw new Error(error.message);
+  };
+
   return (
     <section className="flex gap-8">
-      {!isLoggedIn && (
+      {isLoggedIn ? (
+        <button onClick={handleSignOut}>로그아웃</button>
+      ) : (
         <Link href="/auth" className="my-auto">
           로그인/회원가입
         </Link>

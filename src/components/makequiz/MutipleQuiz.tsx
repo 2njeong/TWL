@@ -11,6 +11,8 @@ const MultipleQuiz = () => {
   const [answer, setAnswer] = useAtom(answerAtom);
   const [animating, setAnimating] = useState(false);
 
+  // console.log('answer =>', answer);
+
   const plusInputCount = () => {
     setInputArr((prev) => (prev.length < 5 ? [...prev, prev.length + 1] : prev));
   };
