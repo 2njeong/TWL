@@ -9,10 +9,9 @@ import { useState } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 const LikeQuiz = ({ quiz_id }: { quiz_id: string }) => {
-  const [isLiked, setIsLiked] = useState(false);
   const { data, isLoggedIn } = useFetchCurrentUser();
-  const { data: quizLikeData, isLoading } = useQuizLike(quiz_id);
-
+  const { data: quizLikeData } = useQuizLike(quiz_id);
+  const [isLiked, setIsLiked] = useState(data && quizLikeData?.users.includes(data.user_id));
   const queryClient = useQueryClient();
 
   const handleSubmitLike = async () => {
@@ -20,8 +19,7 @@ const LikeQuiz = ({ quiz_id }: { quiz_id: string }) => {
       alert('로그인 후 이용해주세요.');
       return;
     }
-
-    await setIsLiked((prev) => !prev);
+    setIsLiked((prev) => !prev);
     await submitQuizLike(quiz_id, data?.user_id ?? '');
     queryClient.invalidateQueries({ queryKey: [QUIZLIKE_QUERY_KEY] });
   };
@@ -52,20 +50,13 @@ const LikeQuiz = ({ quiz_id }: { quiz_id: string }) => {
   //   }
   // };
 
-  if (isLoading) return;
   return (
     <>
       <form action={handleSubmitLike}>
         <button type="submit" name="like">
-          {(data && quizLikeData?.users.includes(data.user_id)) || isLiked ? (
-            <FaHeart className="text-red-500" />
-          ) : (
-            <FaRegHeart />
-          )}
+          {isLiked ? <FaHeart className="text-red-500" /> : <FaRegHeart />}
         </button>
       </form>
-
-      {/* <button onClick={async () => await submitQuizLikeClient(quiz_id, data.user_id)}>client 좋아요</button> */}
     </>
   );
 };

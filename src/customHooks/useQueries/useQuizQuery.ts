@@ -41,10 +41,10 @@ export const useQuizListQuery = () => {
 };
 
 export const useQuizLike = (quiz_id: string) => {
-  const { data, isLoading } = useQuery<QuizLikeList>({
+  const { data } = useSuspenseQuery<QuizLikeList>({
     queryKey: [QUIZLIKE_QUERY_KEY],
-    queryFn: () => fetchQuizLike(quiz_id),
-    enabled: !!quiz_id
+    queryFn: () => fetchQuizLike(quiz_id)
+    // enabled: !!quiz_id
   });
-  return { data, isLoading };
+  return { data };
 };
