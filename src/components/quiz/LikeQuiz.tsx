@@ -7,7 +7,6 @@ import { QUIZLIKE_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
-import { IoMdHeart } from 'react-icons/io';
 
 const LikeQuiz = ({ quiz_id }: { quiz_id: string }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -17,7 +16,12 @@ const LikeQuiz = ({ quiz_id }: { quiz_id: string }) => {
   const queryClient = useQueryClient();
 
   const handleSubmitLike = async () => {
-    setIsLiked((prev) => !prev);
+    if (!isLoggedIn) {
+      alert('로그인 후 이용해주세요.');
+      return;
+    }
+
+    await setIsLiked((prev) => !prev);
     await submitQuizLike(quiz_id, data?.user_id ?? '');
     queryClient.invalidateQueries({ queryKey: [QUIZLIKE_QUERY_KEY] });
   };
@@ -58,9 +62,6 @@ const LikeQuiz = ({ quiz_id }: { quiz_id: string }) => {
           ) : (
             <FaRegHeart />
           )}
-          {/* <IoMdHeart
-            className={`${quizLikeData?.users.includes(data?.user_id ?? '') || isLiked ? 'text-red-700' : ''}`}
-          /> */}
         </button>
       </form>
 
