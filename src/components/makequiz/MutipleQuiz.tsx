@@ -11,8 +11,6 @@ const MultipleQuiz = () => {
   const [answer, setAnswer] = useAtom(answerAtom);
   const [animating, setAnimating] = useState(false);
 
-  // console.log('answer =>', answer);
-
   const plusInputCount = () => {
     setInputArr((prev) => (prev.length < 5 ? [...prev, prev.length + 1] : prev));
   };
@@ -50,7 +48,7 @@ const MultipleQuiz = () => {
               </button>
               <button
                 formAction={() => handleAnswer(idx)}
-                className={`opacity-${answer && answer.includes(String(idx)) ? '1' : '50'}`}
+                className={`${answer && answer.includes(String(idx)) ? 'opacity-1' : 'opacity-50'}`}
               >
                 정답
               </button>
