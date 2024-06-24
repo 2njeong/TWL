@@ -3,7 +3,7 @@
 import { openModal } from '@/atom/modalAtom';
 import LikeQuiz from '@/components/quiz/LikeQuiz';
 import OpenModalBtn from '@/components/utilComponents/modal/OpenModalBtn';
-import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
+import { useQuizLike, useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
 import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 
@@ -19,6 +19,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
     hasPreviousPage,
     isRefetching
   } = useQuizListQuery();
+  const { data } = useQuizLike();
 
   const theQuiz = quizList?.find((quiz) => quiz.quiz_id === id);
   // console.log('theQuiz?.answer =>', theQuiz?.answer);

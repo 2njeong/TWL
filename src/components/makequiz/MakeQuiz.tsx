@@ -8,12 +8,15 @@ import { answerAtom, inputAtom, quizTyper } from '@/atom/quizAtom';
 import SubmitBtn from './SubmitBtn';
 import Question from './Question';
 import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
+import { useQueryClient } from '@tanstack/react-query';
+import { QUIZLIST_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 
 const MakeQuiz = () => {
   const [inputArr, setInputArr] = useAtom(inputAtom);
   const [answer, setAnswer] = useAtom(answerAtom);
   const [quizType] = useAtom(quizTyper);
   const formRef = useRef<HTMLFormElement>(null);
+  const quueryClient = useQueryClient();
 
   const { data: quizList } = useQuizListQuery();
 
@@ -31,7 +34,7 @@ const MakeQuiz = () => {
     }
     const submitActionWithAnswer = submitQuizAction.bind(null, answer);
     await submitActionWithAnswer(data);
-
+    quueryClient.invalidateQueries({ queryKey: [QUIZLIST_QUERY_KEY] });
     formRef.current?.reset();
     setInputArr([1]);
     setAnswer(null);

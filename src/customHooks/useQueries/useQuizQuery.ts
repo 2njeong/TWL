@@ -1,8 +1,8 @@
 import { FETCHMORENUM } from '@/constants/quizConstants';
-import { fetchQuizList } from '@/query/quiz/quizQueryFns';
-import { QUIZLIST_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
+import { fetchQuizLike, fetchQuizList } from '@/query/quiz/quizQueryFns';
+import { QUIZLIKE_QUERY_KEY, QUIZLIST_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 import { Tables } from '@/type/database';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 export const useQuizListQuery = () => {
   const {
@@ -35,4 +35,13 @@ export const useQuizListQuery = () => {
     hasPreviousPage,
     isRefetching
   };
+};
+
+export const useQuizLike = () => {
+  const { data } = useQuery({
+    queryKey: [QUIZLIKE_QUERY_KEY],
+    queryFn: fetchQuizLike
+  });
+
+  return { data };
 };

@@ -7,6 +7,10 @@ import { clientSupabase } from '@/supabase/client';
 const LikeQuiz = ({ quiz_id }: { quiz_id: string }) => {
   const { data, isLoggedIn } = useFetchCurrentUser();
 
+  const handleSubmitLike = async () => {
+    await submitQuizLike(quiz_id, data.user_id);
+  };
+
   const submitQuizLikeClient = async (quiz_id: string, user_id: string) => {
     // const supabase = clientSupabase();
     // const { error } = await supabase.rpc('append_user_id_to_quiz_like', { quiz_id, user_id });
@@ -35,16 +39,12 @@ const LikeQuiz = ({ quiz_id }: { quiz_id: string }) => {
 
   return (
     <>
-      <form
-        action={async () => {
-          await submitQuizLike(quiz_id, data.user_id);
-        }}
-      >
+      <form action={handleSubmitLike}>
         <button type="submit" name="like">
           Server 좋아요
         </button>
       </form>
-      <button onClick={async () => await submitQuizLikeClient(quiz_id, data.user_id)}>client 좋아요</button>
+      {/* <button onClick={async () => await submitQuizLikeClient(quiz_id, data.user_id)}>client 좋아요</button> */}
     </>
   );
 };

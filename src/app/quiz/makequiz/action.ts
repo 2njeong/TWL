@@ -1,7 +1,6 @@
 'use server';
 
 import { serverSupabase } from '@/supabase/server';
-import { revalidatePath } from 'next/cache';
 
 const supabase = serverSupabase();
 
@@ -19,8 +18,7 @@ export const submitQuizAction = async (answer: null | string[], formData: FormDa
       creator: null,
       needHelp: needHelpOrnot ?? false
     });
-    if (error) console.error('에러 =>', error.message);
-    revalidatePath('/makequiz');
+    if (error) throw new Error(error.message);
   } catch (e) {
     throw new Error('fail to add quiz');
   }
