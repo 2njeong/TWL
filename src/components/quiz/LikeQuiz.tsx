@@ -44,7 +44,7 @@ const LikeQuiz = ({ quiz_id }: { quiz_id: string }) => {
         }}
       >
         <button type="submit" name="like">
-          좋아요
+          Server 좋아요
         </button>
       </form>
       <button onClick={async () => await submitQuizLikeClient(quiz_id, data.user_id)}>client 좋아요</button>

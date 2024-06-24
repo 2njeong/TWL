@@ -9,9 +9,9 @@ import My from './My';
 const NavBar = () => {
   const navBarList = [
     { href: '/', name: '홈' },
+    { href: '/', name: 'Team' },
     { href: '/', name: 'Quiz' },
-    { href: '/', name: 'Algorithm' },
-    { href: '/', name: 'Todo' }
+    { href: '/', name: 'Algorithm' }
   ];
   const quizNavList = [
     { href: 'solve', name: '문제 풀기' },

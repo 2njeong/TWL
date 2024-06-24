@@ -7,8 +7,10 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 const My = () => {
-  const { isLoggedIn } = useFetchCurrentUser();
+  const { data, isLoggedIn } = useFetchCurrentUser();
   const [isMyListOpen, setMyListOpen] = useState(false);
+
+  console.log('유저 =>', data);
 
   const myList = [
     { href: '/', name: '내 스터디' },
