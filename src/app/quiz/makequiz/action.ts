@@ -4,7 +4,7 @@ import { serverSupabase } from '@/supabase/server';
 
 const supabase = serverSupabase();
 
-export const submitQuizAction = async (answer: null | string[], formData: FormData) => {
+export const submitQuizAction = async (answer: null | string[], user_id: string, formData: FormData) => {
   const question = formData.get('question');
   const candidates = formData.getAll('candidates');
   const needHelpOrnot = formData.get('needHelp');
@@ -15,7 +15,7 @@ export const submitQuizAction = async (answer: null | string[], formData: FormDa
       candidates,
       isSubjective: candidates.length > 1 ? false : true,
       answer: candidates.length > 1 ? answer : [candidates[0]],
-      creator: null,
+      creator: user_id,
       needHelp: needHelpOrnot ?? false
     });
     if (error) throw new Error(error.message);

@@ -9,9 +9,9 @@ import { useState } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 const LikeQuiz = ({ quiz_id }: { quiz_id: string }) => {
-  const { data, isLoggedIn } = useFetchCurrentUser();
+  const { userData, isLoggedIn } = useFetchCurrentUser();
   const { data: quizLikeData } = useQuizLike(quiz_id);
-  const [isLiked, setIsLiked] = useState(data && quizLikeData?.users.includes(data.user_id));
+  const [isLiked, setIsLiked] = useState(userData && quizLikeData.users?.includes(userData.user_id));
   const queryClient = useQueryClient();
 
   const handleSubmitLike = async () => {
@@ -20,7 +20,7 @@ const LikeQuiz = ({ quiz_id }: { quiz_id: string }) => {
       return;
     }
     setIsLiked((prev) => !prev);
-    await submitQuizLike(quiz_id, data?.user_id ?? '');
+    await submitQuizLike(quiz_id, userData?.user_id ?? '');
     queryClient.invalidateQueries({ queryKey: [QUIZLIKE_QUERY_KEY] });
   };
 

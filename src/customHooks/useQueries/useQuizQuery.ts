@@ -44,7 +44,6 @@ export const useQuizLike = (quiz_id: string) => {
   const { data } = useSuspenseQuery<QuizLikeList>({
     queryKey: [QUIZLIKE_QUERY_KEY],
     queryFn: () => fetchQuizLike(quiz_id)
-    // enabled: !!quiz_id
   });
   return { data };
 };

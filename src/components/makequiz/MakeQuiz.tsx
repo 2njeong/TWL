@@ -10,8 +10,10 @@ import Question from './Question';
 import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
 import { useQueryClient } from '@tanstack/react-query';
 import { QUIZLIST_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
+import { useFetchCurrentUser } from '@/customHooks/useQueries/useAuthQuery';
 
 const MakeQuiz = () => {
+  const { userData } = useFetchCurrentUser();
   const [inputArr, setInputArr] = useAtom(inputAtom);
   const [answer, setAnswer] = useAtom(answerAtom);
   const [quizType] = useAtom(quizTyper);
@@ -32,7 +34,7 @@ const MakeQuiz = () => {
     } else {
       if (!data.get('candidates')) alert('답변을 입력해주세요.');
     }
-    const submitActionWithAnswer = submitQuizAction.bind(null, answer);
+    const submitActionWithAnswer = submitQuizAction.bind(null, answer, userData?.user_id ?? '');
     await submitActionWithAnswer(data);
     quueryClient.invalidateQueries({ queryKey: [QUIZLIST_QUERY_KEY] });
     formRef.current?.reset();
