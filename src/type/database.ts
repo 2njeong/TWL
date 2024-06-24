@@ -105,7 +105,7 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      append_user_id_to_quiz_like: {
+      user_id_to_quiz_like: {
         Args: {
           quiz_id: string;
           user_id: string;
@@ -115,7 +115,7 @@ export type Database = {
           quiz_id: string;
           quiz_like_id: string;
           users: string[] | null;
-        };
+        }[];
       };
     };
     Enums: {

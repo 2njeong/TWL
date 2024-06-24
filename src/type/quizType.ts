@@ -3,3 +3,5 @@ export type EventHandlers = {
   handleMove: (event: React.MouseEvent<Element, MouseEvent> | React.TouchEvent<Element>) => void;
   handleEnd: (event: React.MouseEvent<Element, MouseEvent> | React.TouchEvent<Element>) => void;
 };
+
+export type QuizLikeList = { quiz_id: string; users: string[] };

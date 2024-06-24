@@ -3,9 +3,12 @@
 import { openModal } from '@/atom/modalAtom';
 import LikeQuiz from '@/components/quiz/LikeQuiz';
 import OpenModalBtn from '@/components/utilComponents/modal/OpenModalBtn';
-import { useQuizLike, useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
+import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
 import { useAtom } from 'jotai';
-import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
+import { Suspense, useEffect, useState } from 'react';
+
+const LikeQuizWrapper = dynamic(() => import('@/components/quiz/LikeQuiz'), { ssr: false });
 
 const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
   const [_, handleOpenModal] = useAtom(openModal);
@@ -17,9 +20,9 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
     fetchPreviousPage,
     hasNextPage,
     hasPreviousPage,
-    isRefetching
+    isRefetching,
+    isLoading
   } = useQuizListQuery();
-  const { data } = useQuizLike();
 
   const theQuiz = quizList?.find((quiz) => quiz.quiz_id === id);
   // console.log('theQuiz?.answer =>', theQuiz?.answer);
@@ -53,6 +56,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
     }
   };
 
+  if (isLoading) return;
   return (
     <div className="w-full bg-yelTwo flex flex-col gap-8 py-8 px-4">
       <div className="flex flex-col gap-1">
@@ -102,7 +106,10 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
       >
         바로 정답보기
       </OpenModalBtn>
-      <LikeQuiz quiz_id={`${theQuiz?.quiz_id}`} />
+      <Suspense>
+        <LikeQuizWrapper quiz_id={`${theQuiz?.quiz_id}`} />
+      </Suspense>
+
       <div>Comments()</div>
     </div>
   );

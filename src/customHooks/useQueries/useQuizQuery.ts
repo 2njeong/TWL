@@ -2,7 +2,8 @@ import { FETCHMORENUM } from '@/constants/quizConstants';
 import { fetchQuizLike, fetchQuizList } from '@/query/quiz/quizQueryFns';
 import { QUIZLIKE_QUERY_KEY, QUIZLIST_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 import { Tables } from '@/type/database';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { QuizLikeList } from '@/type/quizType';
+import { useInfiniteQuery, useQuery, useSuspenseQuery } from '@tanstack/react-query';
 
 export const useQuizListQuery = () => {
   const {
@@ -13,7 +14,8 @@ export const useQuizListQuery = () => {
     fetchPreviousPage,
     hasNextPage,
     hasPreviousPage,
-    isRefetching
+    isRefetching,
+    isLoading
   } = useInfiniteQuery({
     queryKey: [QUIZLIST_QUERY_KEY],
     queryFn: fetchQuizList,
@@ -33,15 +35,16 @@ export const useQuizListQuery = () => {
     fetchPreviousPage,
     hasNextPage,
     hasPreviousPage,
-    isRefetching
+    isRefetching,
+    isLoading
   };
 };
 
-export const useQuizLike = () => {
-  const { data } = useQuery({
+export const useQuizLike = (quiz_id: string) => {
+  const { data, isLoading } = useQuery<QuizLikeList>({
     queryKey: [QUIZLIKE_QUERY_KEY],
-    queryFn: fetchQuizLike
+    queryFn: () => fetchQuizLike(quiz_id),
+    enabled: !!quiz_id
   });
-
-  return { data };
+  return { data, isLoading };
 };

@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 const My = () => {
-  const { data, isLoggedIn } = useFetchCurrentUser();
+  const { isLoading, data, isLoggedIn } = useFetchCurrentUser();
   const [isMyListOpen, setMyListOpen] = useState(false);
 
   console.log('유저 =>', data);
@@ -46,6 +46,7 @@ const My = () => {
     if (error) throw new Error(error.message);
   };
 
+  if (isLoading) return;
   return (
     <section className="flex gap-8">
       {isLoggedIn ? (

@@ -1,4 +1,5 @@
 import { ZodFormattedError } from 'zod';
+import { Tables } from './database';
 
 export type AuthInput = {
   email: string;
