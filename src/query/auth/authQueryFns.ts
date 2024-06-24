@@ -1,15 +1,7 @@
-import { clientSupabase } from '@/supabase/client';
-
 export const fetchCurrentUser = async () => {
-  const supabase = clientSupabase();
-  const {
-    data: { user }
-  } = await supabase.auth.getUser();
-
-  if (user) {
-    const { data: userData, error } = await supabase.from('users').select('*').eq('user_id', user.id).single();
-    if (error) throw new Error(error.message);
-    return userData;
+  const response = await fetch('/auth/api');
+  if (!response.ok) {
+    throw new Error('UserData response was not ok');
   }
-  return null;
+  return response.json();
 };
