@@ -101,7 +101,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
         modalProps={{
           type: 'confirm',
           title: '정답은',
-          content: `${theQuiz?.answer} 입니다.`
+          content: `보기 ${theQuiz?.answer.map((item) => Number(item) + 1).join(', ')}번 입니다.`
         }}
       >
         바로 정답보기
