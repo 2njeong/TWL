@@ -1,15 +1,18 @@
 'use client';
 
 import { openModal } from '@/atom/modalAtom';
-import LikeQuiz from '@/components/quiz/LikeQuiz';
-import ShowCreator from '@/components/quiz/ShowCreator';
+import LikeQuiz from '@/components/quiz/detail/LikeQuiz';
+import QuizComments from '@/components/quiz/detail/QuizComments';
+
+import ShowCreator from '@/components/quiz/detail/ShowCreator';
 import OpenModalBtn from '@/components/utilComponents/modal/OpenModalBtn';
 import { useQuizListQuery } from '@/query/useQueries/useQuizQuery';
 import { useAtom } from 'jotai';
 import dynamic from 'next/dynamic';
 import { Suspense, useEffect, useState } from 'react';
 
-const LikeQuizWrapper = dynamic(() => import('@/components/quiz/LikeQuiz'), { ssr: false });
+const LikeQuizWrapper = dynamic(() => import('@/components/quiz/detail/LikeQuiz'), { ssr: false });
+const ShowCreatorWrapper = dynamic(() => import('@/components/quiz/detail/ShowCreator'), { ssr: false });
 
 const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
   const [_, handleOpenModal] = useAtom(openModal);
@@ -59,60 +62,65 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
 
   if (isLoading) return;
   return (
-    <div className="w-full bg-yelTwo flex flex-col gap-8 py-8 px-4">
-      <div className="flex flex-col gap-1">
-        {theQuiz?.needHelp && (
-          <h2 className="mb-2">도움이 필요한 질문입니다! 답변이 옳지 않을 수 있으니 함께 완성해주세요:)</h2>
-        )}
-        <h1 className="font-bold text-3xl">Q. {theQuiz?.question}</h1>
-        {theQuiz && theQuiz.answer.length > 1 && (
-          <h4 className="text-gray-600 text-sm">복수답변({theQuiz.answer.length}개) 질문입니다.</h4>
-        )}
-        <OpenModalBtn
-          className="flex justify-end"
-          modalProps={{
-            type: 'alert',
-            title: `${checkIfRight()}`,
-            content: `${checkIfRight() === '정답입니다!' ? '축하합니다. 다른 문제도 도전해보세요:)' : '404..'}`
-          }}
-          moreFunc={() => setClickList(new Array(theQuiz?.candidates.length).fill(false))}
-        >
-          정답제출
-        </OpenModalBtn>
-      </div>
-      <div>
-        {theQuiz?.isSubjective ? (
-          <div></div>
-        ) : (
-          <div className="flex flex-col gap-4">
-            {theQuiz?.candidates.map((candidate, idx) => (
-              <button
-                key={idx}
-                className={`border ${clickList[idx] && 'bg-gray-200'}`}
-                onClick={() => handleClick(idx)}
-              >
-                {candidate}
-              </button>
-            ))}
+    <div className="w-full flex flex-col gap-4">
+      <div className="bg-yelTwo flex flex-col gap-8 py-8 px-4">
+        <div className="flex flex-col gap-1">
+          {theQuiz?.needHelp && (
+            <h2 className="mb-2">도움이 필요한 질문입니다! 답변이 옳지 않을 수 있으니 함께 완성해주세요:)</h2>
+          )}
+          <h1 className="font-bold text-3xl">Q. {theQuiz?.question}</h1>
+          {theQuiz && theQuiz.answer.length > 1 && (
+            <h4 className="text-gray-600 text-sm">복수답변({theQuiz.answer.length}개) 질문입니다.</h4>
+          )}
+          <OpenModalBtn
+            className="flex justify-end"
+            modalProps={{
+              type: 'alert',
+              title: `${checkIfRight()}`,
+              content: `${checkIfRight() === '정답입니다!' ? '축하합니다. 다른 문제도 도전해보세요:)' : '404..'}`
+            }}
+            moreFunc={() => setClickList(new Array(theQuiz?.candidates.length).fill(false))}
+          >
+            정답제출
+          </OpenModalBtn>
+        </div>
+        <div>
+          {theQuiz?.isSubjective ? (
+            <div></div>
+          ) : (
+            <div className="flex flex-col gap-4">
+              {theQuiz?.candidates.map((candidate, idx) => (
+                <button
+                  key={idx}
+                  className={`border ${clickList[idx] && 'bg-gray-200'}`}
+                  onClick={() => handleClick(idx)}
+                >
+                  {candidate}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+        <div className="flex items-center justify-between">
+          <OpenModalBtn
+            className=""
+            modalProps={{
+              type: 'confirm',
+              title: '정답은',
+              content: `보기 ${theQuiz?.answer.map((item) => Number(item) + 1).join(', ')}번 입니다.`
+            }}
+          >
+            바로 정답보기
+          </OpenModalBtn>
+          <div className="flex gap-3 items-center">
+            <Suspense>
+              <LikeQuizWrapper quiz_id={`${theQuiz?.quiz_id}`} />
+              <ShowCreatorWrapper creator={`${theQuiz?.creator}`} />
+            </Suspense>
           </div>
-        )}
+        </div>
       </div>
-      <OpenModalBtn
-        className="flex justify-end"
-        modalProps={{
-          type: 'confirm',
-          title: '정답은',
-          content: `보기 ${theQuiz?.answer.map((item) => Number(item) + 1).join(', ')}번 입니다.`
-        }}
-      >
-        바로 정답보기
-      </OpenModalBtn>
-      <Suspense>
-        <ShowCreator creator={`${theQuiz?.creator}`} />
-        <LikeQuizWrapper quiz_id={`${theQuiz?.quiz_id}`} />
-      </Suspense>
-
-      <div>Comments()</div>
+      <QuizComments />
     </div>
   );
 };

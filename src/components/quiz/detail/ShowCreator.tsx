@@ -51,7 +51,7 @@ const ShowCreator = ({ creator }: { creator: string }) => {
       </div>
 
       {isCreatorOpen && (
-        <div className={`absolute left-full top-[-400%] flex pl-2 drop-shadow-xl z-[${ZINDEX.hoverZ}]`}>
+        <div className={`absolute right-[90%] top-[-350%] flex pr-4 drop-shadow-xl z-[${ZINDEX.hoverZ}]`}>
           <div className={`w-64 h-96 bg-gray-500 rounded-xl p-4 flex flex-col justify-between`}>
             <div className="flex justify-center gap-4 items-center w-full h-20 border p-2">
               <div className="relative w-12 h-12 rounded-full bg-gray-300">
