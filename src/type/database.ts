@@ -3,10 +3,43 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Database = {
   public: {
     Tables: {
+      comments: {
+        Row: {
+          comment_content: string | null;
+          comment_creator: string;
+          comments_id: string;
+          created_at: string;
+          quiz_id: string | null;
+        };
+        Insert: {
+          comment_content?: string | null;
+          comment_creator?: string;
+          comments_id?: string;
+          created_at?: string;
+          quiz_id?: string | null;
+        };
+        Update: {
+          comment_content?: string | null;
+          comment_creator?: string;
+          comments_id?: string;
+          created_at?: string;
+          quiz_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'comments_quiz_id_fkey';
+            columns: ['quiz_id'];
+            isOneToOne: false;
+            referencedRelation: 'quiz';
+            referencedColumns: ['quiz_id'];
+          }
+        ];
+      };
       quiz: {
         Row: {
           answer: string[];
-          candidates: string[];
+          candidates: string[] | null;
+          content: string | null;
           created_at: string;
           creator: string;
           isSubjective: boolean;
@@ -16,7 +49,8 @@ export type Database = {
         };
         Insert: {
           answer: string[];
-          candidates: string[];
+          candidates?: string[] | null;
+          content?: string | null;
           created_at?: string;
           creator: string;
           isSubjective: boolean;
@@ -26,7 +60,8 @@ export type Database = {
         };
         Update: {
           answer?: string[];
-          candidates?: string[];
+          candidates?: string[] | null;
+          content?: string | null;
           created_at?: string;
           creator?: string;
           isSubjective?: boolean;

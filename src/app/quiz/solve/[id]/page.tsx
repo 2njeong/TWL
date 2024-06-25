@@ -1,12 +1,10 @@
 'use client';
 
 import { openModal } from '@/atom/modalAtom';
-import LikeQuiz from '@/components/quiz/detail/LikeQuiz';
 import QuizComments from '@/components/quiz/detail/QuizComments';
-
-import ShowCreator from '@/components/quiz/detail/ShowCreator';
 import OpenModalBtn from '@/components/utilComponents/modal/OpenModalBtn';
 import { useQuizListQuery } from '@/query/useQueries/useQuizQuery';
+import { Tables } from '@/type/database';
 import { useAtom } from 'jotai';
 import dynamic from 'next/dynamic';
 import { Suspense, useEffect, useState } from 'react';
@@ -28,7 +26,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
     isLoading
   } = useQuizListQuery();
 
-  const theQuiz = quizList?.find((quiz) => quiz.quiz_id === id);
+  const theQuiz = quizList?.find((quiz: Tables<'quiz'>) => quiz.quiz_id === id);
   // console.log('theQuiz?.answer =>', theQuiz?.answer);
 
   const [clickList, setClickList] = useState<boolean[]>([]);
@@ -36,7 +34,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
 
   useEffect(() => {
     if (theQuiz) {
-      setClickList(new Array(theQuiz?.candidates.length).fill(false));
+      setClickList(new Array(theQuiz?.candidates?.length).fill(false));
     }
   }, [theQuiz]);
 
@@ -50,7 +48,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
 
   const checkIfRight = () => {
     if (theQuiz?.answer.length === clickList.filter((click) => click).length) {
-      if (theQuiz?.answer.every((answer) => clickList[Number(answer)])) {
+      if (theQuiz?.answer.every((answer: string) => clickList[Number(answer)])) {
         return '정답입니다!';
       } else {
         return '오답입니다.';
@@ -79,7 +77,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
               title: `${checkIfRight()}`,
               content: `${checkIfRight() === '정답입니다!' ? '축하합니다. 다른 문제도 도전해보세요:)' : '404..'}`
             }}
-            moreFunc={() => setClickList(new Array(theQuiz?.candidates.length).fill(false))}
+            moreFunc={() => setClickList(new Array(theQuiz?.candidates?.length).fill(false))}
           >
             정답제출
           </OpenModalBtn>
@@ -89,7 +87,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
             <div></div>
           ) : (
             <div className="flex flex-col gap-4">
-              {theQuiz?.candidates.map((candidate, idx) => (
+              {theQuiz?.candidates?.map((candidate: string, idx: number) => (
                 <button
                   key={idx}
                   className={`border ${clickList[idx] && 'bg-gray-200'}`}
@@ -107,7 +105,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
             modalProps={{
               type: 'confirm',
               title: '정답은',
-              content: `보기 ${theQuiz?.answer.map((item) => Number(item) + 1).join(', ')}번 입니다.`
+              content: `보기 ${theQuiz?.answer.map((item: string) => Number(item) + 1).join(', ')}번 입니다.`
             }}
           >
             바로 정답보기
