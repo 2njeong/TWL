@@ -2,7 +2,7 @@
 
 import { ZINDEX } from '@/constants/commonConstants';
 import { useUnifiedHandler } from '@/customHooks';
-import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
+import { useQuizListQuery } from '@/query/useQueries/useQuizQuery';
 import { useEffect, useRef, useState } from 'react';
 
 const HotQuizList = () => {

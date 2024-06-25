@@ -1,8 +1,8 @@
 'use client';
 
 import { submitQuizLike } from '@/app/quiz/solve/action';
-import { useFetchCurrentUser } from '@/customHooks/useQueries/useAuthQuery';
-import { useQuizLike } from '@/customHooks/useQueries/useQuizQuery';
+import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
+import { useQuizLike } from '@/query/useQueries/useQuizQuery';
 import { QUIZLIKE_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';

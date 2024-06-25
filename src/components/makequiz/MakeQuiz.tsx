@@ -7,10 +7,10 @@ import { useRef } from 'react';
 import { answerAtom, inputAtom, quizTyper } from '@/atom/quizAtom';
 import SubmitBtn from './SubmitBtn';
 import Question from './Question';
-import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
+import { useQuizListQuery } from '@/query/useQueries/useQuizQuery';
 import { useQueryClient } from '@tanstack/react-query';
 import { QUIZLIST_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
-import { useFetchCurrentUser } from '@/customHooks/useQueries/useAuthQuery';
+import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
 
 const MakeQuiz = () => {
   const { userData } = useFetchCurrentUser();

@@ -1,7 +1,7 @@
 'use client';
 
 import { ZINDEX } from '@/constants/commonConstants';
-import { useFetchCurrentUser } from '@/customHooks/useQueries/useAuthQuery';
+import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
 import { clientSupabase } from '@/supabase/client';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -14,7 +14,7 @@ const My = () => {
 
   const myList = [
     { href: '/', name: '내 스터디' },
-    { href: '/my/guestbook', name: '방명록' },
+    { href: `/guestbook/${userData?.user_id}`, name: '방명록' },
     { href: '/', name: '마이페이지' }
   ];
 

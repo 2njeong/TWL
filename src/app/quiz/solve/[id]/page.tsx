@@ -2,8 +2,9 @@
 
 import { openModal } from '@/atom/modalAtom';
 import LikeQuiz from '@/components/quiz/LikeQuiz';
+import ShowCreator from '@/components/quiz/ShowCreator';
 import OpenModalBtn from '@/components/utilComponents/modal/OpenModalBtn';
-import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
+import { useQuizListQuery } from '@/query/useQueries/useQuizQuery';
 import { useAtom } from 'jotai';
 import dynamic from 'next/dynamic';
 import { Suspense, useEffect, useState } from 'react';
@@ -107,6 +108,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
         바로 정답보기
       </OpenModalBtn>
       <Suspense>
+        <ShowCreator creator={`${theQuiz?.creator}`} />
         <LikeQuizWrapper quiz_id={`${theQuiz?.quiz_id}`} />
       </Suspense>
 

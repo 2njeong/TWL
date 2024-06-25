@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuizListQuery } from '@/customHooks/useQueries/useQuizQuery';
+import { useQuizListQuery } from '@/query/useQueries/useQuizQuery';
 import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
 
