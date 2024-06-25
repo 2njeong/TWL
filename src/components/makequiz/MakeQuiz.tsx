@@ -21,7 +21,9 @@ const MakeQuiz = () => {
   const quueryClient = useQueryClient();
 
   const submitQuiz = async (data: FormData) => {
-    if (!answer || !answer.length) {
+    const question = data.get('question');
+    if (!question) alert('질문을 입력해주세요.');
+    if (!answer || answer.join() === '<p><br></p>' || !answer.length) {
       alert(`정답을 알려주세요. 도움이 필요한 질문이라도 예상하는 답변을 남겨주세요!`);
       return;
     }

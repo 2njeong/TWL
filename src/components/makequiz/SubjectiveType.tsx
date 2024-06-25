@@ -6,15 +6,19 @@ import '@toast-ui/editor/dist/i18n/ko-kr';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import { useEffect, useRef, useState } from 'react';
 import { useAtom } from 'jotai';
-import { answerAtom, editorContentAtom } from '@/atom/quizAtom';
+import { answerAtom, editorContentAtom, quizTyper } from '@/atom/quizAtom';
 
 const SubjectiveQuiz = () => {
   const contentEditorRef = useRef<Editor>(null);
   const answerEditorRef = useRef<Editor>(null);
+  const [quizType] = useAtom(quizTyper);
   const [contentData, setContentData] = useAtom(editorContentAtom);
   const [answer, setAnswer] = useAtom(answerAtom);
   const [contentEditorType, setContentEditorType] = useState('wysiwyg');
   const [answerEditorType, setAnswerEditorType] = useState('wysiwyg');
+
+  console.log('answer =>', answer);
+  console.log('contentData =>', contentData);
 
   useEffect(() => {
     if (!contentData && !answer) {
@@ -26,7 +30,7 @@ const SubjectiveQuiz = () => {
         answerEditorRef.current.getInstance().reset();
       }
     }
-  }, [contentData, answer]);
+  }, [contentData, answer, quizType]);
 
   const onQuizChange = () => {
     let data;

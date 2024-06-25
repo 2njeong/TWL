@@ -9,6 +9,7 @@ const SubjectiveQuizWrapper = dynamic(() => import('./SubjectiveType'), { ssr: f
 
 const ReturnQuizType = () => {
   const [quizType] = useAtom(quizTyper);
+  console.log('quizType =>', quizType);
 
   return (
     <>
