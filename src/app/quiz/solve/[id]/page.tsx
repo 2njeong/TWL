@@ -1,6 +1,6 @@
 'use client';
 
-import QuizComments from '@/components/quiz/detail/QuizComments';
+import QuizComments from '@/components/quiz/detail/quizComment/QuizComments';
 import { useQuizListQuery } from '@/query/useQueries/useQuizQuery';
 import { Tables } from '@/type/database';
 import { useEffect, useState } from 'react';

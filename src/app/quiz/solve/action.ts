@@ -1,5 +1,6 @@
 'use server';
 
+import { quizCommentSchema } from '@/schema/quizCommentSchema';
 import { serverSupabase } from '@/supabase/server';
 
 const supabase = serverSupabase();
@@ -15,6 +16,11 @@ export const handleQuizComment = async (
   data: FormData
 ) => {
   const comment_content = data.get('comment_content');
+  const { error: zodErr } = quizCommentSchema.safeParse({ comment_content });
+  if (zodErr) {
+    console.log('에러');
+    return { error: zodErr.format() };
+  }
   const quizCommnetObj = { comment_creator, quiz_id, comment_content };
 
   try {
