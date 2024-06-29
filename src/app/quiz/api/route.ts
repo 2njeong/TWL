@@ -37,6 +37,17 @@ export async function GET(req: NextRequest) {
       if (error) return new Response('fail to select the quiz of this creator', { status: 500 });
       return Response.json(data);
     }
+    case '': {
+      const creator = searchParams.get('creator') as string;
+      const { data, error } = await supabase
+        .from('quiz')
+        .select('*')
+        .eq('creator', creator)
+        .order('created_at', { ascending: false });
+      if (error) throw new Error(error.message);
+      if (error) return new Response('fail to select the quiz of this creator', { status: 500 });
+      return Response.json(data);
+    }
     default:
       return new Response('Invalid type', { status: 400 });
   }

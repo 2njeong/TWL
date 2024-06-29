@@ -9,6 +9,7 @@ import '@toast-ui/editor/dist/i18n/ko-kr';
 import QuizHeader from '@/components/quiz/detail/QuizHeader';
 import QuizContent from '@/components/quiz/detail/QuizContent';
 import QuizFooter from '@/components/quiz/detail/QuizFooter';
+import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
 
 const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
   // console.log(id);
@@ -23,9 +24,10 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
     isRefetching,
     isLoading
   } = useQuizListQuery();
+  const { userData } = useFetchCurrentUser();
 
   const theQuiz = quizList?.find((quiz: Tables<'quiz'>) => quiz.quiz_id === id);
-  console.log('theQuiz?.answer =>', theQuiz?.answer);
+  // console.log('theQuiz?.answer =>', theQuiz?.answer);
 
   const [clickList, setClickList] = useState<boolean[]>([]);
   const [subjectiveAnswer, setSubjectiveAnswer] = useState('');
@@ -36,8 +38,8 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
     }
   }, [theQuiz]);
 
-  console.log('subjectiveAnswer', subjectiveAnswer);
-  console.log('theQuiz.answer.join() =>', theQuiz?.answer.join());
+  // console.log('subjectiveAnswer', subjectiveAnswer);
+  // console.log('theQuiz.answer.join() =>', theQuiz?.answer.join());
 
   const checkIfRight = () => {
     if (theQuiz?.isSubjective) {
@@ -68,7 +70,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
         />
         <QuizFooter theQuiz={theQuiz} />
       </div>
-      <QuizComments />
+      <QuizComments theQuiz={theQuiz} user_id={userData?.user_id} />
     </div>
   );
 };
