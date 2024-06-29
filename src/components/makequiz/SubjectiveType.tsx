@@ -11,14 +11,10 @@ import { answerAtom, editorContentAtom, quizTyper } from '@/atom/quizAtom';
 const SubjectiveQuiz = () => {
   const contentEditorRef = useRef<Editor>(null);
   const answerEditorRef = useRef<Editor>(null);
-  const [quizType] = useAtom(quizTyper);
   const [contentData, setContentData] = useAtom(editorContentAtom);
   const [answer, setAnswer] = useAtom(answerAtom);
   const [contentEditorType, setContentEditorType] = useState('wysiwyg');
   const [answerEditorType, setAnswerEditorType] = useState('wysiwyg');
-
-  console.log('answer =>', answer);
-  console.log('contentData =>', contentData);
 
   useEffect(() => {
     if (!contentData && !answer) {
@@ -30,7 +26,7 @@ const SubjectiveQuiz = () => {
         answerEditorRef.current.getInstance().reset();
       }
     }
-  }, [contentData, answer, quizType]);
+  }, [contentData, answer]);
 
   const onQuizChange = () => {
     let data;

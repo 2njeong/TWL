@@ -12,8 +12,8 @@ const ShowCreator = ({ creator }: { creator: string }) => {
   } = useCreatorNQuiz(creator);
   const [isCreatorOpen, setIsCreatorOpen] = useState(false);
 
-  console.log('user? =>', creatorData);
-  console.log('quizzes? =>', quizzes);
+  // console.log('user? =>', creatorData);
+  // console.log('quizzes? =>', quizzes);
 
   const handleMouseEnter = () => {
     setIsCreatorOpen(true);

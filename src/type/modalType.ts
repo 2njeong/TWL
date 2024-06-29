@@ -2,7 +2,7 @@ export type ModalState = {
   isOpen: boolean;
   type: string;
   title: string;
-  content: string;
+  content: string | string[];
   onFunc?: any;
   offFunc?: () => void | undefined;
 };

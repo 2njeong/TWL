@@ -6,6 +6,7 @@ import ModalBackground from './ModalBackground';
 import { useEffect, useRef } from 'react';
 import { animated, useTransition } from '@react-spring/web';
 import { ZINDEX } from '@/constants/commonConstants';
+import { Viewer } from '@toast-ui/react-editor';
 
 const Modal = () => {
   const [{ isOpen, type, title, content, onFunc, offFunc }, _] = useAtom(openModal);
@@ -68,7 +69,7 @@ const Modal = () => {
           </button>
           <div className="flex flex-col gap-2 h-4/5 p-2">
             <h3 className="text-2xl font-bold">{title}</h3>
-            <h5 className="">{content}</h5>
+            {typeof content === 'string' ? <h5 className="">{content}</h5> : <Viewer initialValue={content.join()} />}
           </div>
           <div className="flex gap-3 justify-end">
             <button onClick={onFunc}>확인</button>
