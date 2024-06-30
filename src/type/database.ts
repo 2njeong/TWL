@@ -7,22 +7,25 @@ export type Database = {
         Row: {
           comment_content: string | null;
           comment_creator: string;
-          comments_id: string;
+          comment_id: string;
           created_at: string;
+          isDeleted: boolean;
           quiz_id: string | null;
         };
         Insert: {
           comment_content?: string | null;
           comment_creator?: string;
-          comments_id?: string;
+          comment_id?: string;
           created_at?: string;
+          isDeleted: boolean;
           quiz_id?: string | null;
         };
         Update: {
           comment_content?: string | null;
           comment_creator?: string;
-          comments_id?: string;
+          comment_id?: string;
           created_at?: string;
+          isDeleted?: boolean;
           quiz_id?: string | null;
         };
         Relationships: [

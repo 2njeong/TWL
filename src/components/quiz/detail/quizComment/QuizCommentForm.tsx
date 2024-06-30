@@ -6,6 +6,8 @@ import { QuizCommentValidationErr } from '@/type/quizType';
 import { handleQuizComment } from '@/app/quiz/solve/action';
 import { useFormState } from 'react-dom';
 import { Tables } from '@/type/database';
+import { useQueryClient } from '@tanstack/react-query';
+import { QUIZ_COMMENTS_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 
 const QuizCommentForm = ({
   theQuiz,
@@ -19,6 +21,7 @@ const QuizCommentForm = ({
   const [isCommentOpen, setCommentOpen] = useState(false);
   const [commentValidationErr, setCommentValidationErr] = useState<QuizCommentValidationErr | null>(null);
   const commentTxtAreaRef = useRef<HTMLTextAreaElement | null>(null);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
@@ -43,6 +46,7 @@ const QuizCommentForm = ({
     const boundHandleQuizComment = handleQuizComment.bind(null, user_id, theQuiz?.quiz_id);
     const result = await boundHandleQuizComment(data);
     if (result?.error) setCommentValidationErr(result.error);
+    await queryClient.invalidateQueries({ queryKey: [QUIZ_COMMENTS_QUERY_KEY] });
     commentFormRef?.current?.reset();
   };
 

@@ -21,12 +21,27 @@ export const handleQuizComment = async (
     console.log('에러');
     return { error: zodErr.format() };
   }
-  const quizCommnetObj = { comment_creator, quiz_id, comment_content };
+  const quizCommnetObj = { comment_creator, quiz_id, comment_content, isDeleted: false };
 
   try {
     const { error } = await supabase.from('comments').insert(quizCommnetObj);
-    if (error) throw new Error(error);
+    if (error) {
+      console.error(error);
+      throw new Error(error);
+    }
   } catch (e) {
     throw new Error(`fail to insert quiz comment, ${e}`);
+  }
+};
+
+export const deleteComment = async (comment_id: string) => {
+  try {
+    const { error } = await supabase.from('comments').update({ isDeleted: true }).eq('comment_id', comment_id);
+    if (error) {
+      console.error(error);
+      throw new Error(error);
+    }
+  } catch (e) {
+    throw new Error(`fail to delete quiz comment, ${e}`);
   }
 };
