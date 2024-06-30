@@ -1,4 +1,4 @@
-import { FETCHMORENUM } from '@/constants/quizConstants';
+import { FETCHMORECOMMENTS, FETCHMOREQUIZLIST } from '@/constants/quizConstants';
 import { serverSupabase } from '@/supabase/server';
 import { NextRequest } from 'next/server';
 
@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
         .from('quiz')
         .select('*')
         .order('created_at', { ascending: false })
-        .range((page - 1) * FETCHMORENUM, page * FETCHMORENUM - 1);
+        .range((page - 1) * FETCHMOREQUIZLIST, page * FETCHMOREQUIZLIST - 1);
       if (error) throw new Error(error.message);
       if (error) return new Response('fail to select quizList', { status: 500 });
       return Response.json(data);
@@ -37,15 +37,15 @@ export async function GET(req: NextRequest) {
       if (error) return new Response('fail to select the quiz of this creator', { status: 500 });
       return Response.json(data);
     }
-    case '': {
-      const creator = searchParams.get('creator') as string;
+    case 'quizComments': {
+      const page = Number(searchParams.get('pageParam'));
       const { data, error } = await supabase
-        .from('quiz')
+        .from('comments')
         .select('*')
-        .eq('creator', creator)
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false })
+        .range((page - 1) * FETCHMORECOMMENTS, page * FETCHMORECOMMENTS - 1);
       if (error) throw new Error(error.message);
-      if (error) return new Response('fail to select the quiz of this creator', { status: 500 });
+      if (error) return new Response('fail to select quizComments', { status: 500 });
       return Response.json(data);
     }
     default:

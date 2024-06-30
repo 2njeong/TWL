@@ -1,6 +1,11 @@
-import { FETCHMORENUM } from '@/constants/quizConstants';
-import { fetchQuizLike, fetchQuizList, fetchThisCreatorsQuiz } from '@/query/quiz/quizQueryFns';
-import { QUIZLIKE_QUERY_KEY, QUIZLIST_QUERY_KEY, THE_QUIZ_OF_THIS_CREATOR } from '@/query/quiz/quizQueryKeys';
+import { FETCHMORECOMMENTS, FETCHMOREQUIZLIST } from '@/constants/quizConstants';
+import { fetchQueryComments, fetchQuizLike, fetchQuizList, fetchThisCreatorsQuiz } from '@/query/quiz/quizQueryFns';
+import {
+  QUIZLIKE_QUERY_KEY,
+  QUIZLIST_QUERY_KEY,
+  QUIZ_COMMENTS_QUERY_KEY,
+  THE_QUIZ_OF_THIS_CREATOR
+} from '@/query/quiz/quizQueryKeys';
 import { Tables } from '@/type/database';
 import { QuizLikeList } from '@/type/quizType';
 import { useInfiniteQuery, useQuery, useSuspenseQueries, useSuspenseQuery } from '@tanstack/react-query';
@@ -24,7 +29,7 @@ export const useQuizListQuery = () => {
     queryFn: fetchQuizList,
     initialPageParam: 1,
     getNextPageParam: (lastPage: any, _, allPages: any) => {
-      if (lastPage.length >= FETCHMORENUM) {
+      if (lastPage.length >= FETCHMOREQUIZLIST) {
         return allPages + 1;
       }
     },
@@ -76,4 +81,39 @@ export const useCreatorNQuiz = (creator: string) => {
 
   // return memoData;
   return { data };
+};
+
+export const useQuizCommentsQuery = () => {
+  const {
+    data: quizComments,
+    isFetchingNextPage,
+    isFetchingPreviousPage,
+    fetchNextPage,
+    fetchPreviousPage,
+    hasNextPage,
+    hasPreviousPage,
+    isRefetching,
+    isLoading
+  } = useInfiniteQuery({
+    queryKey: [QUIZ_COMMENTS_QUERY_KEY],
+    queryFn: fetchQueryComments,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage: any, _, allPages: any) => {
+      if (lastPage.length >= FETCHMORECOMMENTS) {
+        return allPages + 1;
+      }
+    },
+    select: (data) => data.pages.map((p) => p).flat() as Tables<'comments'>[]
+  });
+  return {
+    data: quizComments,
+    isFetchingNextPage,
+    isFetchingPreviousPage,
+    fetchNextPage,
+    fetchPreviousPage,
+    hasNextPage,
+    hasPreviousPage,
+    isRefetching,
+    isLoading
+  };
 };
