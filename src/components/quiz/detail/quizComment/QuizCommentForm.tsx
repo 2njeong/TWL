@@ -1,7 +1,7 @@
 'use client';
 
 import { RefObject, useEffect, useRef, useState } from 'react';
-import QuizCommentBtn from './QuizCommentBtn';
+import QuizCommentBtn from './QuizCommentSubmitBtn';
 import { QuizCommentValidationErr } from '@/type/quizType';
 import { handleQuizComment } from '@/app/quiz/solve/action';
 import { useFormState } from 'react-dom';
@@ -61,7 +61,6 @@ const QuizCommentForm = ({
       <div>
         <div className="w-14 h-14 rounded-full bg-gray-300">아바타</div>
       </div>
-
       <div className={`${isCommentOpen ? 'w-11/12' : 'w-full'} flex flex-col gap-1 w-full`}>
         <textarea
           name="comment_content"
