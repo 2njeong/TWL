@@ -44,7 +44,9 @@ const QuizCommetsList = () => {
                   </div>
                   <QuizCommentsDeleteBtn comment_id={comment.comment_id} />
                 </div>
-                <p className=""> {comment.comment_content}</p>
+                <div className="w-full px-2">
+                  <p className="break-all whitespace-normal overflow-wrap"> {comment.comment_content}</p>
+                </div>
               </div>
             </div>
           )

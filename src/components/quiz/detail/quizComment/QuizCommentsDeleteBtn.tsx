@@ -35,7 +35,7 @@ const QuizCommentsDeleteBtn = ({ comment_id }: { comment_id: string }) => {
   };
 
   return (
-    <div>
+    <div className="w-8">
       <button ref={cancelBtnRef} className="p-1 relative hover:rounded-full hover:border">
         <HiOutlineEllipsisVertical />
       </button>
