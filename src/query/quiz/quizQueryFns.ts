@@ -8,6 +8,14 @@ export const fetchQuizList = async ({ pageParam = 1 }: any) => {
   return response.json();
 };
 
+export const fetchthatQuiz = async (quiz_id: string) => {
+  const response = await fetch(`/quiz/api?type=thatQuiz&quiz_id=${quiz_id}`);
+  if (!response.ok) {
+    throw new Error('That quiz response was not ok');
+  }
+  return response.json();
+};
+
 export const fetchQuizLike = async (quiz_id: string) => {
   const response = await fetch(`/quiz/api?type=like&quiz_id=${quiz_id}`);
   if (!response.ok) {

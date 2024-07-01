@@ -11,9 +11,6 @@ const QuizHeader = ({
   setClickList: Dispatch<SetStateAction<boolean[]>>;
   checkIfRight: () => string | undefined;
 }) => {
-  const handleAfterSubmit = () => {
-    setClickList(new Array(theQuiz?.candidates?.length).fill(false));
-  };
   return (
     <div className="flex flex-col gap-1">
       {theQuiz?.needHelp && (

@@ -17,10 +17,10 @@ const QuizList = () => {
   } = useQuizListQuery();
 
   // console.log('quizList => ', quizList);
-  //   console.log('hasNextPage =>', hasNextPage);
+  console.log('hasNextPage =>', hasNextPage);
 
   const { ref } = useInView({
-    threshold: 1,
+    threshold: 0.5,
     onChange: (inView) => {
       if (!inView || !hasNextPage || isFetchingNextPage) return;
       fetchNextPage();
@@ -34,8 +34,8 @@ const QuizList = () => {
           <Link href={`/quiz/solve/${quiz.quiz_id}`}>{quiz.question}</Link>
         </div>
       ))}
-      {/* <div className="bg-pink-400 w-[300px] h-[300px]" ref={ref}></div>
-      <div className="h-[100px]"></div> */}
+      <div className="bg-pink-400 w-[300px] h-[600px]" ref={ref}></div>
+      {/* <div className="h-[100px]"></div> */}
     </div>
   );
 };

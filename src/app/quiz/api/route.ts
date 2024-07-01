@@ -19,6 +19,13 @@ export async function GET(req: NextRequest) {
       if (error) return new Response('fail to select quizList', { status: 500 });
       return Response.json(data);
     }
+    case 'thatQuiz': {
+      const quiz_id = searchParams.get('quiz_id') as string;
+      const { data, error } = await supabase.from('quiz').select('*').eq('quiz_id', quiz_id).single();
+      if (error) throw new Error(error.message);
+      if (error) return new Response('fail to select that quiz', { status: 500 });
+      return Response.json(data);
+    }
     case 'like': {
       const quiz_id = searchParams.get('quiz_id') as string;
       const { data, error } = await supabase.from('quiz_like').select('quiz_id, users').eq('quiz_id', quiz_id).single();

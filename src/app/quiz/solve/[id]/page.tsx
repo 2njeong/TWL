@@ -1,7 +1,7 @@
 'use client';
 
 import QuizComments from '@/components/quiz/detail/quizComment/QuizComments';
-import { useQuizListQuery } from '@/query/useQueries/useQuizQuery';
+import { useFetchThatQuiz, useQuizListQuery } from '@/query/useQueries/useQuizQuery';
 import { Tables } from '@/type/database';
 import { useEffect, useState } from 'react';
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -10,24 +10,26 @@ import QuizHeader from '@/components/quiz/detail/QuizHeader';
 import QuizContent from '@/components/quiz/detail/QuizContent';
 import QuizFooter from '@/components/quiz/detail/QuizFooter';
 import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
+import { useQueryClient } from '@tanstack/react-query';
+import { QUIZLIST_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 
 const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
-  // console.log(id);
-  const {
-    data: quizList,
-    isFetchingNextPage,
-    isFetchingPreviousPage,
-    fetchNextPage,
-    fetchPreviousPage,
-    hasNextPage,
-    hasPreviousPage,
-    isRefetching,
-    isLoading
-  } = useQuizListQuery();
-  const { userData } = useFetchCurrentUser();
+  console.log(id);
+  const { data: theQuiz, isLoading } = useFetchThatQuiz(id);
+  // const {
+  //   data: quizList,
+  //   isFetchingNextPage,
+  //   isFetchingPreviousPage,
+  //   fetchNextPage,
+  //   fetchPreviousPage,
+  //   hasNextPage,
+  //   hasPreviousPage,
+  //   isRefetching,
+  //   isLoading
+  // } = useQuizListQuery();
 
-  const theQuiz = quizList?.find((quiz: Tables<'quiz'>) => quiz.quiz_id === id);
-  // console.log('theQuiz?.answer =>', theQuiz?.answer);
+  const { userData } = useFetchCurrentUser();
+  console.log('DetailQuizPage ->', theQuiz);
 
   const [clickList, setClickList] = useState<boolean[]>([]);
   const [subjectiveAnswer, setSubjectiveAnswer] = useState('');
@@ -40,6 +42,8 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
 
   // console.log('subjectiveAnswer', subjectiveAnswer);
   // console.log('theQuiz.answer.join() =>', theQuiz?.answer.join());
+  // console.log('1 =>', window && window.innerHeight);
+  // console.log('2 =>', window && window.scrollY);
 
   const checkIfRight = () => {
     if (theQuiz?.isSubjective) {
@@ -57,7 +61,8 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
     }
   };
 
-  if (isLoading) return;
+  if (isLoading) return <div>로딩중..</div>;
+
   return (
     <div className="w-full flex flex-col gap-4">
       <div className="bg-yelTwo flex flex-col gap-8 py-8 px-4">

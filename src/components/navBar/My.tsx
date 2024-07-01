@@ -47,6 +47,7 @@ const My = () => {
   };
 
   if (isLoading) return;
+
   return (
     <section className="flex gap-8">
       {isLoggedIn ? (

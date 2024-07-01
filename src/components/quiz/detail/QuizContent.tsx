@@ -17,7 +17,6 @@ const QuizContent = ({
   setSubjectiveAnswer: Dispatch<SetStateAction<string>>;
 }) => {
   const subjectiveAnswerRef = useRef<Editor>(null);
-
   const [answerType, setAnswerType] = useState('wysiwyg');
 
   const onSubjectiveAnswerChange = () => {
