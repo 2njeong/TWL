@@ -5,7 +5,7 @@ import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
 import { useQuizLike } from '@/query/useQueries/useQuizQuery';
 import { QUIZLIKE_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 import { useQueryClient } from '@tanstack/react-query';
-import { FormEvent, useEffect, useState, useTransition } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 const LikeQuiz = ({ quiz_id }: { quiz_id: string }) => {
@@ -14,28 +14,26 @@ const LikeQuiz = ({ quiz_id }: { quiz_id: string }) => {
   const [isLiked, setIsLiked] = useState(userData && quizLikeData && quizLikeData.users?.includes(userData.user_id));
   const queryClient = useQueryClient();
   const [isPending, startTransition] = useTransition();
-  console.log('isLiked =>', isLiked);
+  console.log('isPending =>', isPending);
 
   useEffect(() => {
-    isPending && setIsLiked(!isLiked);
     setIsLiked(userData && quizLikeData && quizLikeData.users?.includes(userData.user_id));
-  }, [isPending, quizLikeData, userData]);
+  }, [quizLikeData, userData]);
 
-  const handleSubmitLike = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  useEffect(() => {
+    isPending && setIsLiked((prev) => !prev);
+  }, [isPending]);
 
+  const handleSubmitLike = async () => {
     startTransition(async () => {
       if (!isLoggedIn) {
         alert('로그인 후 이용해주세요.');
         return;
       }
-      setIsLiked((prev) => !prev);
       await submitQuizLike(quiz_id, userData?.user_id ?? '');
       queryClient.invalidateQueries({ queryKey: [QUIZLIKE_QUERY_KEY, quiz_id] });
     });
   };
-
-  const submit = async () => {};
 
   // const submitQuizLikeClient = async (quiz_id: string, user_id: string) => {
   //   // const supabase = clientSupabase();
@@ -63,9 +61,11 @@ const LikeQuiz = ({ quiz_id }: { quiz_id: string }) => {
   //   }
   // };
 
+  // console.log('isLiked ====>>', isLiked);
+  // console.log('-----------------------------------');
   return (
     <>
-      <form onSubmit={handleSubmitLike}>
+      <form action={handleSubmitLike}>
         <button type="submit" name="like">
           {isLiked ? <FaHeart className="text-red-500" /> : <FaRegHeart />}
         </button>

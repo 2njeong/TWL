@@ -66,7 +66,7 @@ export const useFetchThatQuiz = (quiz_id: string) => {
 
 export const useQuizLike = (quiz_id: string) => {
   const { data } = useSuspenseQuery<QuizLikeList[] | []>({
-    queryKey: [QUIZLIKE_QUERY_KEY],
+    queryKey: [QUIZLIKE_QUERY_KEY, quiz_id],
     queryFn: () => fetchQuizLike(quiz_id)
   });
   return { data: data[0] };

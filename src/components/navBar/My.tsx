@@ -10,7 +10,7 @@ const My = () => {
   const { isLoading, userData, isLoggedIn } = useFetchCurrentUser();
   const [isMyListOpen, setMyListOpen] = useState(false);
 
-  console.log('유저 =>', userData);
+  // console.log('유저 =>', userData);
 
   const myList = [
     { href: '/', name: '내 스터디' },

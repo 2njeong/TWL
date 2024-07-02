@@ -19,7 +19,7 @@ const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) 
   } = useQuizCommentsQuery(theQuiz?.quiz_id as string);
   const targetRef = useRef<HTMLDivElement | null>(null);
 
-  console.log('quizComments =>', quizComments);
+  // console.log('quizComments =>', quizComments);
 
   const handleScroll = useCallback(() => {
     const scrollPosition = window.scrollY;
