@@ -65,11 +65,11 @@ export const useFetchThatQuiz = (quiz_id: string) => {
 };
 
 export const useQuizLike = (quiz_id: string) => {
-  const { data } = useSuspenseQuery<QuizLikeList>({
+  const { data } = useSuspenseQuery<QuizLikeList[] | []>({
     queryKey: [QUIZLIKE_QUERY_KEY],
     queryFn: () => fetchQuizLike(quiz_id)
   });
-  return { data };
+  return { data: data[0] };
 };
 
 export const useCreatorNQuiz = (creator: string) => {
@@ -111,7 +111,7 @@ export const useQuizCommentsQuery = (quiz_id: string) => {
     isRefetching,
     isLoading
   } = useInfiniteQuery({
-    queryKey: [QUIZ_COMMENTS_QUERY_KEY],
+    queryKey: [QUIZ_COMMENTS_QUERY_KEY, quiz_id],
     queryFn: ({ pageParam = 1 }) => fetchQueryComments({ pageParam, quiz_id }),
     initialPageParam: 1,
     getNextPageParam: (lastPage: any, _, allPages: any) => {

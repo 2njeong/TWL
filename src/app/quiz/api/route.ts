@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
     }
     case 'like': {
       const quiz_id = searchParams.get('quiz_id') as string;
-      const { data, error } = await supabase.from('quiz_like').select('quiz_id, users').eq('quiz_id', quiz_id).single();
+      const { data, error } = await supabase.from('quiz_like').select('quiz_id, users').eq('quiz_id', quiz_id);
       if (error) throw new Error(error.message);
       if (error) return new Response('fail to select quiz_like', { status: 500 });
       return Response.json(data);
@@ -46,9 +46,11 @@ export async function GET(req: NextRequest) {
     }
     case 'quizComments': {
       const page = Number(searchParams.get('pageParam'));
+      const quiz_id = searchParams.get('quiz_id') as string;
       const { data, error } = await supabase
         .from('comments')
         .select('*')
+        .eq('quiz_id', quiz_id)
         .order('created_at', { ascending: false })
         .range((page - 1) * FETCHMORECOMMENTS, page * FETCHMORECOMMENTS - 1);
       if (error) throw new Error(error.message);

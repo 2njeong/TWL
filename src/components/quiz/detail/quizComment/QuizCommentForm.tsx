@@ -46,7 +46,7 @@ const QuizCommentForm = ({
     const boundHandleQuizComment = handleQuizComment.bind(null, user_id, theQuiz?.quiz_id);
     const result = await boundHandleQuizComment(data);
     if (result?.error) setCommentValidationErr(result.error);
-    await queryClient.invalidateQueries({ queryKey: [QUIZ_COMMENTS_QUERY_KEY] });
+    await queryClient.invalidateQueries({ queryKey: [QUIZ_COMMENTS_QUERY_KEY, theQuiz?.quiz_id] });
     commentFormRef?.current?.reset();
   };
 
