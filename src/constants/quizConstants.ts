@@ -1,3 +1,3 @@
-export const FETCHMOREQUIZLIST = 3;
+export const FETCHMOREQUIZLIST = 10;
 
-export const FETCHMORECOMMENTS = 5;
+export const FETCHMORECOMMENTS = 10;

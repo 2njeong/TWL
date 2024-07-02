@@ -52,12 +52,12 @@ const QuizCommentsList = () => {
         {quizComments?.map(
           (comment) =>
             !comment.isDeleted && (
-              <div key={comment.comment_id} className="flex gap-4 border-b p-2">
+              <div key={comment.comment_id} className="flex gap-4 border-b p-2 h-full min-h-20">
                 <div>
                   <div className="w-14 h-14 rounded-full bg-gray-300">아바타</div>
                 </div>
                 <div className="w-full flex flex-col gap-2">
-                  <div className="w-full flex gap-2 items-center justify-between">
+                  <div className="w-full flex gap-2 items-center justify-between min-h-8">
                     <div className="flex gap-2">
                       <p className="text-xs font-bold">@{comment.comment_creator}</p>
                       {/* <p>

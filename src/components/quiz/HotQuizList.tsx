@@ -1,7 +1,6 @@
 'use client';
 
 import { ZINDEX } from '@/constants/commonConstants';
-import { useUnifiedHandler } from '@/customHooks';
 import { useQuizListQuery } from '@/query/useQueries/useQuizQuery';
 import { useEffect, useRef, useState } from 'react';
 

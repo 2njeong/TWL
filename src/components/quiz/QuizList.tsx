@@ -17,7 +17,7 @@ const QuizList = () => {
   } = useQuizListQuery();
 
   // console.log('quizList => ', quizList);
-  console.log('hasNextPage =>', hasNextPage);
+  // console.log('hasNextPage =>', hasNextPage);
 
   const { ref } = useInView({
     threshold: 0.5,
@@ -34,8 +34,9 @@ const QuizList = () => {
           <Link href={`/quiz/solve/${quiz.quiz_id}`}>{quiz.question}</Link>
         </div>
       ))}
-      <div className="bg-pink-400 w-[300px] h-[600px]" ref={ref}></div>
-      {/* <div className="h-[100px]"></div> */}
+      <div ref={ref} className="w-96 h-28 flex justify-center items-center">
+        {isFetchingNextPage && <p>로딩중...</p>}
+      </div>
     </div>
   );
 };
