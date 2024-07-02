@@ -1,8 +1,7 @@
 'use client';
 
 import QuizComments from '@/components/quiz/detail/quizComment/QuizComments';
-import { useFetchThatQuiz, useQuizListQuery } from '@/query/useQueries/useQuizQuery';
-import { Tables } from '@/type/database';
+import { useFetchThatQuiz } from '@/query/useQueries/useQuizQuery';
 import { useEffect, useState } from 'react';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '@toast-ui/editor/dist/i18n/ko-kr';
@@ -10,27 +9,10 @@ import QuizHeader from '@/components/quiz/detail/QuizHeader';
 import QuizContent from '@/components/quiz/detail/QuizContent';
 import QuizFooter from '@/components/quiz/detail/QuizFooter';
 import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
-import { useQueryClient } from '@tanstack/react-query';
-import { QUIZLIST_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 
 const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
-  // console.log(id);
   const { data: theQuiz, isLoading } = useFetchThatQuiz(id);
-  // const {
-  //   data: quizList,
-  //   isFetchingNextPage,
-  //   isFetchingPreviousPage,
-  //   fetchNextPage,
-  //   fetchPreviousPage,
-  //   hasNextPage,
-  //   hasPreviousPage,
-  //   isRefetching,
-  //   isLoading
-  // } = useQuizListQuery();
-
   const { userData } = useFetchCurrentUser();
-  // console.log('DetailQuizPage ->', theQuiz);
-
   const [clickList, setClickList] = useState<boolean[]>([]);
   const [subjectiveAnswer, setSubjectiveAnswer] = useState('');
 
@@ -39,11 +21,6 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
       setClickList(new Array(theQuiz?.candidates?.length).fill(false));
     }
   }, [theQuiz]);
-
-  // console.log('subjectiveAnswer', subjectiveAnswer);
-  // console.log('theQuiz.answer.join() =>', theQuiz?.answer.join());
-  // console.log('1 =>', window && window.innerHeight);
-  // console.log('2 =>', window && window.scrollY);
 
   const checkIfRight = () => {
     if (theQuiz?.isSubjective) {
