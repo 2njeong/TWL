@@ -99,7 +99,7 @@ export const useCreatorNQuiz = (creator: string) => {
   return { data };
 };
 
-export const useQuizCommentsQuery = () => {
+export const useQuizCommentsQuery = (quiz_id: string) => {
   const {
     data: quizComments,
     isFetchingNextPage,
@@ -112,7 +112,7 @@ export const useQuizCommentsQuery = () => {
     isLoading
   } = useInfiniteQuery({
     queryKey: [QUIZ_COMMENTS_QUERY_KEY],
-    queryFn: fetchQueryComments,
+    queryFn: ({ pageParam = 1 }) => fetchQueryComments({ pageParam, quiz_id }),
     initialPageParam: 1,
     getNextPageParam: (lastPage: any, _, allPages: any) => {
       // lastPage: 캐시데이터 내 pages[0] 중 가장 최근에 가지고 온 page의 item 갯수
