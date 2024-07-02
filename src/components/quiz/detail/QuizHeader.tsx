@@ -26,7 +26,9 @@ const QuizHeader = ({
           type: 'alert',
           title: `${checkIfRight()}`,
           content: theQuiz?.isSubjective
-            ? '주관식은 답변이 다를 수 있으니 출제자의 정확한 정답을 확인해보세요!'
+            ? checkIfRight() === '정답을 입력해주세요.'
+              ? ''
+              : '주관식은 답변이 다를 수 있으니 출제자의 정확한 정답을 확인해보세요!'
             : `${checkIfRight() === '정답입니다!' ? '축하합니다. 다른 문제도 도전해보세요:)' : '404..'}`
         }}
         moreFunc={() => setClickList(new Array(theQuiz?.candidates?.length).fill(false))}

@@ -24,7 +24,12 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
 
   const checkIfRight = () => {
     if (theQuiz?.isSubjective) {
-      return subjectiveAnswer === theQuiz.answer.join() ? '정답입니다!' : '정답을 확인해주세요.';
+      console.log('subjectiveAnswer =>', subjectiveAnswer);
+      return subjectiveAnswer === '<p><br></p>'
+        ? '정답을 입력해주세요.'
+        : subjectiveAnswer === theQuiz.answer.join()
+        ? '정답입니다!'
+        : '정답을 확인해주세요.';
     } else {
       if (theQuiz?.answer.length === clickList.filter((click) => click).length) {
         if (theQuiz?.answer.every((answer: string) => clickList[Number(answer)])) {

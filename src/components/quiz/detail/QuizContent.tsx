@@ -34,7 +34,7 @@ const QuizContent = ({
     setAnswerType((prev) => (prev === 'wysiwyg' ? 'markdown' : 'wysiwyg'));
   };
 
-  const handleClick = (idx: number) => {
+  const handleSelectCandidates = (idx: number) => {
     setClickList((prev) => {
       const newClickList = [...prev];
       newClickList[idx] = !prev[idx];
@@ -76,7 +76,7 @@ const QuizContent = ({
             <button
               key={idx}
               className={`w-11/12 border ${clickList[idx] && 'bg-gray-200'}`}
-              onClick={() => handleClick(idx)}
+              onClick={() => handleSelectCandidates(idx)}
             >
               {candidate}
             </button>
