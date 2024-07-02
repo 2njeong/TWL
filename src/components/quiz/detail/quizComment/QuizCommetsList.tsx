@@ -27,9 +27,12 @@ const QuizCommentsList = () => {
       const rect = targetRef.current.getBoundingClientRect();
       const targetTop = rect.top + scrollPosition;
       const targetPosition = targetTop + rect.height * 0.5;
+      console.log(0);
 
       if (targetPosition <= scrollPosition + viewportHeight) {
+        console.log(1);
         if (!hasNextPage || isFetchingNextPage) return;
+        console.log(2);
         fetchNextPage();
       }
     }
@@ -83,7 +86,9 @@ const QuizCommentsList = () => {
             )
         )}
       </section>
-      <div ref={targetRef} className="w-[300px] h-[300px] bg-gray-300"></div>
+      <div ref={targetRef} className="w-96 h-28 flex justify-center items-center">
+        {isFetchingNextPage ? <p>로딩중...</p> : <></>}
+      </div>
     </>
   );
 };

@@ -9,7 +9,7 @@ const LikeQuizWrapper = dynamic(() => import('@/components/quiz/detail/LikeQuiz'
 const ShowCreatorWrapper = dynamic(() => import('@/components/quiz/detail/ShowCreator'), { ssr: false });
 
 const QuizFooter = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
-  console.log('이 theQuiz =>', theQuiz);
+  // console.log('이 theQuiz =>', theQuiz);
   return (
     <div className="flex items-center justify-between">
       <OpenModalBtn

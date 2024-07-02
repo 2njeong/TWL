@@ -14,7 +14,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { QUIZLIST_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 
 const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
-  console.log(id);
+  // console.log(id);
   const { data: theQuiz, isLoading } = useFetchThatQuiz(id);
   // const {
   //   data: quizList,
@@ -29,7 +29,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
   // } = useQuizListQuery();
 
   const { userData } = useFetchCurrentUser();
-  console.log('DetailQuizPage ->', theQuiz);
+  // console.log('DetailQuizPage ->', theQuiz);
 
   const [clickList, setClickList] = useState<boolean[]>([]);
   const [subjectiveAnswer, setSubjectiveAnswer] = useState('');
