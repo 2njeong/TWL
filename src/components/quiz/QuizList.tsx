@@ -34,7 +34,7 @@ const QuizList = () => {
           <Link href={`/quiz/solve/${quiz.quiz_id}`}>{quiz.question}</Link>
         </div>
       ))}
-      <div ref={ref} className="w-96 h-28 flex justify-center items-center">
+      <div ref={ref} className="w-96 h-28 flex justify-center items-center mx-auto">
         {isFetchingNextPage && <p>로딩중...</p>}
       </div>
     </div>

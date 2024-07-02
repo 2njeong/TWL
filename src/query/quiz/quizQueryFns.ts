@@ -30,8 +30,14 @@ export const fetchThisCreatorsQuiz = async (creator: string): Promise<Tables<'qu
   return response.json();
 };
 
-export const fetchQueryComments = async ({ pageParam = 1 }: any) => {
-  const response = await fetch(`/quiz/api?type=quizComments&pageParam=${pageParam}`);
+export const fetchQueryComments = async ({
+  pageParam = 1,
+  quiz_id
+}: {
+  pageParam: number;
+  quiz_id: string | undefined;
+}) => {
+  const response = await fetch(`/quiz/api?type=quizComments&pageParam=${pageParam}&quiz_id=${quiz_id}`);
   if (!response.ok) throw new Error(`QuizComments response was not ok`);
   return response.json();
 };

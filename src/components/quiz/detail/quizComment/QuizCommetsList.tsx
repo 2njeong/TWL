@@ -4,8 +4,9 @@ import { useEffect, useRef, useCallback } from 'react';
 import { useQuizCommentsQuery } from '@/query/useQueries/useQuizQuery';
 import { getHoursDifference } from '@/utils/utilFns';
 import QuizCommentsDeleteBtn from './QuizCommentsDeleteBtn';
+import { Tables } from '@/type/database';
 
-const QuizCommentsList = () => {
+const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
   const {
     data: quizComments,
     isFetchingNextPage,
@@ -15,7 +16,7 @@ const QuizCommentsList = () => {
     hasNextPage,
     hasPreviousPage,
     isRefetching
-  } = useQuizCommentsQuery();
+  } = useQuizCommentsQuery(theQuiz?.quiz_id);
 
   const targetRef = useRef<HTMLDivElement | null>(null);
 
