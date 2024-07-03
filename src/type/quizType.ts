@@ -15,20 +15,6 @@ export type QuizCommentValidationErr = ZodFormattedError<
   string
 >;
 
-export type MakeQuizZodErr =
-  | {
-      error: ZodFormattedError<
-        {
-          question: string;
-          candidates: string[];
-          content: string;
-          answer: [string, ...string[]];
-        },
-        string
-      >;
-    }
-  | undefined;
-
 export type ZodErrObj =
   | ZodFormattedError<
       {
@@ -41,39 +27,4 @@ export type ZodErrObj =
     >
   | undefined;
 
-// export type MakeQuizZodErr =
-//   | ZodFormattedError<
-//       {
-//         question: string;
-//       },
-//       string
-//     >
-//   | ZodFormattedError<
-//       {
-//         candidates: string[];
-//       },
-//       string
-//     >
-//   | ZodFormattedError<
-//       {
-//         content: string;
-//       },
-//       string
-//     >
-//   | ZodFormattedError<
-//       {
-//         answer: [string, ...string[]];
-//       },
-//       string
-//     >
-//   | undefined;
-
-type ExtractErrorType<T> = T extends { error: infer E } ? E : never;
-
-export type QuizValidationErr = ExtractErrorType<MakeQuizZodErr>;
-
 export type QuizField = 'question' | 'candidates' | 'content' | 'answer';
-
-// export type ZodErrorObj = {
-//   [key in QuizField]: ZodFormattedError<any, string>;
-// };
