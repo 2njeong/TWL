@@ -1,18 +1,18 @@
 'use client';
 
-import { answerAtom, inputAtom } from '@/atom/quizAtom';
+import { answerAtom, candidatesAtom } from '@/atom/quizAtom';
 import { useAtom } from 'jotai';
 import { useState } from 'react';
 import { CiCirclePlus } from 'react-icons/ci';
 import { MdCancel } from 'react-icons/md';
 
 const MultipleQuiz = () => {
-  const [inputArr, setInputArr] = useAtom(inputAtom);
+  const [candidates, setCandidates] = useAtom(candidatesAtom);
   const [answer, setAnswer] = useAtom(answerAtom);
   const [animating, setAnimating] = useState(false);
 
   const plusInputCount = () => {
-    setInputArr((prev) => (prev.length < 5 ? [...prev, prev.length + 1] : prev));
+    setCandidates((prev) => (prev.length < 5 ? [...prev, prev.length + 1] : prev));
   };
 
   const minusInputCount = (idx: number) => {
@@ -21,7 +21,7 @@ const MultipleQuiz = () => {
     setTimeout(() => {
       setAnimating(false);
     }, 300);
-    setInputArr((prev) => (prev.length > 1 ? prev.filter((_, i) => i !== idx) : prev));
+    setCandidates((prev) => (prev.length > 1 ? prev.filter((_, i) => i !== idx) : prev));
     setAnswer((prev) => (prev?.includes(noAnswer) ? prev.filter((item) => item !== noAnswer) : prev));
   };
 
@@ -34,7 +34,7 @@ const MultipleQuiz = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      {inputArr.map((item, idx) => (
+      {candidates.map((item, idx) => (
         <div key={item} className="flex flex-col gap-2">
           <div className="flex gap-1 items-center w-full">
             <input
@@ -54,7 +54,7 @@ const MultipleQuiz = () => {
               </button>
             </div>
           </div>
-          <button className={`mx-auto ${idx + 1 < inputArr.length ? 'hidden' : null}`} formAction={plusInputCount}>
+          <button className={`mx-auto ${idx + 1 < candidates.length ? 'hidden' : null}`} formAction={plusInputCount}>
             <CiCirclePlus />
           </button>
         </div>

@@ -14,7 +14,7 @@ const LikeQuiz = ({ quiz_id }: { quiz_id: string }) => {
   const [isLiked, setIsLiked] = useState(userData && quizLikeData && quizLikeData.users?.includes(userData.user_id));
   const queryClient = useQueryClient();
   const [isPending, startTransition] = useTransition();
-  console.log('isPending =>', isPending);
+  // console.log('isPending =>', isPending);
 
   useEffect(() => {
     setIsLiked(userData && quizLikeData && quizLikeData.users?.includes(userData.user_id));

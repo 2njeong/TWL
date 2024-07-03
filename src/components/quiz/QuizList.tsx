@@ -29,11 +29,19 @@ const QuizList = () => {
 
   return (
     <div className="flex flex-col w-full">
-      {quizList?.map((quiz) => (
-        <div key={quiz.quiz_id} className="border-b flex items-start">
-          <Link href={`/quiz/solve/${quiz.quiz_id}`}>{quiz.question}</Link>
+      {quizList?.length ? (
+        quizList.map((quiz) => (
+          <div key={quiz.quiz_id} className="border-b flex items-start">
+            <Link href={`/quiz/solve/${quiz.quiz_id}`}>{quiz.question}</Link>
+          </div>
+        ))
+      ) : (
+        <div className="w-full h-48 flex flex-col justify-center items-center text-gray-500">
+          <p>아직 출제된 문제가 없습니다.</p>
+          <p>여러분의 지식과 고민을 공유해보세요!</p>
         </div>
-      ))}
+      )}
+      {}
       <div ref={ref} className="w-96 h-28 flex justify-center items-center mx-auto">
         {isFetchingNextPage && <p>로딩중...</p>}
       </div>
