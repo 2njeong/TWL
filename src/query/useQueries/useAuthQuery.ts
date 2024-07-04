@@ -5,17 +5,14 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useFetchCurrentUser = () => {
   const queryClient = useQueryClient();
-  const isUserData = queryClient.getQueryData([CURRENT_USER_QUERY_KEY]);
-  console.log('isUserData =>', isUserData);
-  console.log('!!isUserData =>', !!isUserData);
+  const hasUserData = queryClient.getQueryData([CURRENT_USER_QUERY_KEY]);
 
   const { data: userData, isLoading } = useQuery<Tables<'users'>>({
     queryKey: [CURRENT_USER_QUERY_KEY],
     queryFn: fetchCurrentUser,
     select: (data) => data as Tables<'users'>,
-    retry: !!isUserData ? 3 : 1
+    retry: !!hasUserData ? 3 : 1
   });
-  console.log('userData =>', userData);
 
   const isLoggedIn = !isLoading && userData ? true : false;
 

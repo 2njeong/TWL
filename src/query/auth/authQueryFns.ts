@@ -1,4 +1,3 @@
-import { serverSupabase } from '@/supabase/server';
 import { Tables } from '@/type/database';
 
 export const fetchCurrentUser = async (): Promise<Tables<'users'>> => {

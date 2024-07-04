@@ -19,8 +19,6 @@ export const handleSignIn = async (formData: FormData) => {
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) throw new Error(error.message);
 
-  // const url = new URL(`${headers().get('referer')}`);
-  // redirect(url.origin);
   return { success: true };
 };
 
