@@ -1,3 +1,4 @@
+import { minify } from 'next/dist/build/swc';
 import { z } from 'zod';
 
 const htmlTagRegex = /<[^>]*>/g;
@@ -22,6 +23,7 @@ export const quizSchema = z.object({
       })
   ),
   candidates: z
+    // 객관식 보기
     .preprocess(
       (val) => (val === null ? [] : val),
       z.array(z.string().min(1, { message: '객관식 문항을 채워주세요.' }))

@@ -16,8 +16,6 @@ export const submitQuizAction = async (
   const candidates = formData.getAll('candidates');
   const needHelpOrnot = formData.get('needHelp');
 
-  console.log('answer =>', answer);
-
   const { error: quizZodErr } =
     quizType === '객관식'
       ? quizSchema.safeParse({ question, answer, candidates })

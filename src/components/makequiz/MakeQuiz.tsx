@@ -64,10 +64,10 @@ const MakeQuiz = () => {
         errorMsg && acc.push(errorMsg);
         return acc;
       }, []);
-      // console.log('errorMsgArr =>', errorMsgArr);
       errorMsgArr.length && alert(errorMsgArr[0]);
       return;
     }
+
     quueryClient.invalidateQueries({ queryKey: [QUIZLIST_QUERY_KEY] });
     formRef.current?.reset();
     setCandidates([1]);
