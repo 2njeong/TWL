@@ -1,20 +1,14 @@
 'use client';
 
 import { ZINDEX } from '@/constants/commonConstants';
-import { useQuizListQuery } from '@/query/useQueries/useQuizQuery';
+import { useFetchTopQuizLike } from '@/query/useQueries/useQuizQuery';
+import { TopLikesSingleQuiz } from '@/type/quizType';
 import { useEffect, useRef, useState } from 'react';
 
 const HotQuizList = () => {
-  const {
-    data: quizList,
-    isFetchingNextPage,
-    isFetchingPreviousPage,
-    fetchNextPage,
-    fetchPreviousPage,
-    hasNextPage,
-    hasPreviousPage,
-    isRefetching
-  } = useQuizListQuery();
+  const { data: TopLikeQuizList, isLoading } = useFetchTopQuizLike();
+
+  // console.log('quizList => ', TopLikeQuizList);
 
   const threshold = 400;
   const containerRef = useRef<HTMLDivElement>(null);
@@ -115,13 +109,21 @@ const HotQuizList = () => {
   };
 
   return (
-    <div className="w-full overflow-hidden">
-      <div ref={containerRef} className="flex flex-nowrap gap-4 h-[300px] w-max overflow-x-visible cursor-pointer">
-        {quizList?.map((quiz, idx) => (
+    <div className="w-full h-72 overflow-hidden">
+      {isLoading && (
+        <div className="w-full h-full flex justify-center items-center">
+          <p>인기 있는 질문들을 불러오고 있어요!</p>
+        </div>
+      )}
+      <div
+        ref={containerRef}
+        className="flex items-center flex-nowrap gap-4 h-64 w-max overflow-x-visible cursor-pointer"
+      >
+        {TopLikeQuizList?.map((quiz: TopLikesSingleQuiz, idx: number) => (
           <div
             ref={(el: any) => (testRef.current[idx] = el)}
             key={quiz.quiz_id}
-            className={`h-48 w-48 bg-yelTwo select-none z-${ZINDEX.hotQuizZ}`}
+            className={`w-48 h-48 bg-yelTwo select-none z-${ZINDEX.hotQuizZ}`}
             {...{
               ...eventHandlers,
               onMouseDown: (e) => eventHandlers.onMouseDown(e, idx),

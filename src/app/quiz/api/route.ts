@@ -1,4 +1,4 @@
-import { FETCHMORECOMMENTS, FETCHMOREQUIZLIST } from '@/constants/quizConstants';
+import { FETCHMORECOMMENTS, FETCHMOREQUIZLIST, TOPLIKESQUIZZES } from '@/constants/quizConstants';
 import { serverSupabase } from '@/supabase/server';
 import { NextRequest } from 'next/server';
 
@@ -20,7 +20,12 @@ export async function GET(req: NextRequest) {
       return Response.json(data);
     }
     case 'allLike': {
-      const { data, error } = await supabase.from('quiz_like').select('*');
+      const { data, error } = await supabase.rpc('get_top_likes_quizzes', { limit_value: TOPLIKESQUIZZES });
+      console.log('top likes data =>', data);
+
+      if (error) throw new Error(error.message);
+      if (error) return new Response('fail to select top quiz likes', { status: 500 });
+      return Response.json(data);
     }
     case 'thatQuiz': {
       const quiz_id = searchParams.get('quiz_id') as string;

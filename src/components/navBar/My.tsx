@@ -10,7 +10,6 @@ import { useState } from 'react';
 const My = () => {
   const { isLoading, userData, isLoggedIn } = useFetchCurrentUser();
   const [isMyListOpen, setMyListOpen] = useState(false);
-  // const router = useRouter();
 
   console.log('유저 =>', userData);
 

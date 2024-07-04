@@ -4,14 +4,16 @@ import {
   fetchThatQuizLike,
   fetchQuizList,
   fetchThisCreatorsQuiz,
-  fetchthatQuiz
+  fetchthatQuiz,
+  fetchTopQuizLikes
 } from '@/query/quiz/quizQueryFns';
 import {
   QUIZLIKE_QUERY_KEY,
   QUIZLIST_QUERY_KEY,
   QUIZ_COMMENTS_QUERY_KEY,
   THAT_QUIZ_QUERY_KEY,
-  THE_QUIZ_OF_THIS_CREATOR
+  THE_QUIZ_OF_THIS_CREATOR,
+  TOP_QUIZ_LIKE_QUERY_KEY
 } from '@/query/quiz/quizQueryKeys';
 import { Tables } from '@/type/database';
 import { QuizLikeList } from '@/type/quizType';
@@ -60,6 +62,14 @@ export const useFetchThatQuiz = (quiz_id: string) => {
     queryKey: [THAT_QUIZ_QUERY_KEY, quiz_id],
     queryFn: () => fetchthatQuiz(quiz_id),
     enabled: !!quiz_id
+  });
+  return { data, isLoading };
+};
+
+export const useFetchTopQuizLike = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: [TOP_QUIZ_LIKE_QUERY_KEY],
+    queryFn: fetchTopQuizLikes
   });
   return { data, isLoading };
 };

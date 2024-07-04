@@ -1,4 +1,5 @@
 import { ZodFormattedError } from 'zod';
+import { Database } from './database';
 
 export type EventHandlers = {
   handleStart: (event: React.MouseEvent<Element, MouseEvent> | React.TouchEvent<Element>, idx: number) => void;
@@ -28,3 +29,9 @@ export type ZodErrObj =
   | undefined;
 
 export type QuizField = 'question' | 'candidates' | 'content' | 'answer';
+
+export type TopLikesQuizList = Database['public']['Functions']['get_top_likes_quizzes']['Returns'];
+
+type WithoutArrayType<T> = T extends (infer U)[] ? U : T;
+
+export type TopLikesSingleQuiz = WithoutArrayType<TopLikesQuizList>;

@@ -143,6 +143,20 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      get_top_likes_quizzes: {
+        Args: {
+          limit_value: number;
+        };
+        Returns: {
+          quiz_id: string;
+          question: string;
+          issubjective: boolean;
+          needhelp: boolean;
+          creator: string;
+          created_at: string;
+          users: string[];
+        }[];
+      };
       user_id_to_quiz_like: {
         Args: {
           quiz_id: string;

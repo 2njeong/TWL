@@ -1,4 +1,5 @@
 import { Tables } from '@/type/database';
+import { TopLikesQuizList } from '@/type/quizType';
 
 export const fetchQuizList = async ({ pageParam = 1 }: any) => {
   const response = await fetch(`/quiz/api?type=list&pageParam=${pageParam}`);
@@ -8,17 +9,17 @@ export const fetchQuizList = async ({ pageParam = 1 }: any) => {
   return response.json();
 };
 
-export const fetchQuizLike = async () => {
-  const response = await fetch('quiz/api?type=allLike');
-  if (!response.ok) throw new Error('All QuizLike response was not ok');
-  return response.json();
-};
-
 export const fetchthatQuiz = async (quiz_id: string) => {
   const response = await fetch(`/quiz/api?type=thatQuiz&quiz_id=${quiz_id}`);
   if (!response.ok) {
     throw new Error('That quiz response was not ok');
   }
+  return response.json();
+};
+
+export const fetchTopQuizLikes = async (): Promise<TopLikesQuizList> => {
+  const response = await fetch('/quiz/api?type=allLike');
+  if (!response.ok) throw new Error('All QuizLike response was not ok');
   return response.json();
 };
 
