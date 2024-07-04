@@ -2,7 +2,7 @@
 
 import { submitQuizLike } from '@/app/quiz/solve/action';
 import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
-import { useQuizLike } from '@/query/useQueries/useQuizQuery';
+import { useFetchThatQuizLike } from '@/query/useQueries/useQuizQuery';
 import { QUIZLIKE_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState, useTransition } from 'react';
@@ -10,7 +10,7 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 const LikeQuiz = ({ quiz_id }: { quiz_id: string }) => {
   const { userData, isLoggedIn } = useFetchCurrentUser();
-  const { data: quizLikeData } = useQuizLike(quiz_id);
+  const { data: quizLikeData } = useFetchThatQuizLike(quiz_id);
   const [isLiked, setIsLiked] = useState(userData && quizLikeData && quizLikeData.users?.includes(userData.user_id));
   const queryClient = useQueryClient();
   const [isPending, startTransition] = useTransition();

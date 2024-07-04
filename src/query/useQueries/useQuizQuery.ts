@@ -1,7 +1,7 @@
 import { FETCHMORECOMMENTS, FETCHMOREQUIZLIST } from '@/constants/quizConstants';
 import {
   fetchQueryComments,
-  fetchQuizLike,
+  fetchThatQuizLike,
   fetchQuizList,
   fetchThisCreatorsQuiz,
   fetchthatQuiz
@@ -64,10 +64,10 @@ export const useFetchThatQuiz = (quiz_id: string) => {
   return { data, isLoading };
 };
 
-export const useQuizLike = (quiz_id: string) => {
+export const useFetchThatQuizLike = (quiz_id: string) => {
   const { data } = useSuspenseQuery<QuizLikeList[] | []>({
     queryKey: [QUIZLIKE_QUERY_KEY, quiz_id],
-    queryFn: () => fetchQuizLike(quiz_id)
+    queryFn: () => fetchThatQuizLike(quiz_id)
   });
   return { data: data[0] };
 };
@@ -88,6 +88,7 @@ export const useCreatorNQuiz = (creator: string) => {
     }, [])
   });
 
+  console.log('useCreatorNQuiz =>', data);
   // const mappedResults = results.map((result) => result.data);
 
   // const memoData = useMemo(() => {

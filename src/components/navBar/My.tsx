@@ -4,13 +4,15 @@ import { ZINDEX } from '@/constants/commonConstants';
 import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
 import { clientSupabase } from '@/supabase/client';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 const My = () => {
   const { isLoading, userData, isLoggedIn } = useFetchCurrentUser();
   const [isMyListOpen, setMyListOpen] = useState(false);
+  // const router = useRouter();
 
-  // console.log('유저 =>', userData);
+  console.log('유저 =>', userData);
 
   const myList = [
     { href: '/', name: '내 스터디' },
@@ -44,6 +46,7 @@ const My = () => {
     const supabase = clientSupabase();
     const { error } = await supabase.auth.signOut();
     if (error) throw new Error(error.message);
+    location.replace('/auth');
   };
 
   if (isLoading) return;

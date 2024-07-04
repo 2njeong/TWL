@@ -24,7 +24,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
 
   const checkIfRight = () => {
     if (theQuiz?.isSubjective) {
-      console.log('subjectiveAnswer =>', subjectiveAnswer);
+      // console.log('subjectiveAnswer =>', subjectiveAnswer);
       return subjectiveAnswer === '<p><br></p>'
         ? '정답을 입력해주세요.'
         : subjectiveAnswer === theQuiz.answer.join()
