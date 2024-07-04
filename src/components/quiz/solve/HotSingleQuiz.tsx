@@ -12,7 +12,7 @@ const HotSingleQuiz = ({
   eventHandlers: HotQuizDragEventHandlers;
   hotQuizzesRef: MutableRefObject<(HTMLDivElement | null)[]>;
 }) => {
-  const { data: TopLikeQuizList, isLoading } = useFetchTopQuizLike();
+  const { data: TopLikeQuizList } = useFetchTopQuizLike();
 
   return (
     <>

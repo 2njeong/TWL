@@ -4,11 +4,8 @@ import { ZINDEX } from '@/constants/commonConstants';
 import { useFetchTopQuizLike } from '@/query/useQueries/useQuizQuery';
 import { useEffect, useRef, useState } from 'react';
 import HotSingleQuiz from './HotSingleQuiz';
-import { TopLikesSingleQuiz } from '@/type/quizType';
 
 const HotQuizList = () => {
-  const { isLoading } = useFetchTopQuizLike();
-
   const threshold = 400;
   const containerRef = useRef<HTMLDivElement>(null);
   const hotQuizzesRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -16,6 +13,7 @@ const HotQuizList = () => {
   const [startMoveX, setStartMoveX] = useState(0);
   const [position, setPosition] = useState(0);
   const movingRef = useRef({ start: 0, end: 0 });
+  const { isLoading } = useFetchTopQuizLike();
   const distance = movingRef.current.start - movingRef.current.end;
   const safeDistance = hotQuizzesRef.current[Math.min(hotQuizzesRef.current.length, Math.max(clickDown.idx - 1, 0))]
     ?.offsetLeft as number;
