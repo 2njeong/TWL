@@ -2,23 +2,22 @@
 
 import { ZINDEX } from '@/constants/commonConstants';
 import { useFetchTopQuizLike } from '@/query/useQueries/useQuizQuery';
-import { TopLikesSingleQuiz } from '@/type/quizType';
 import { useEffect, useRef, useState } from 'react';
+import HotSingleQuiz from './HotSingleQuiz';
+import { TopLikesSingleQuiz } from '@/type/quizType';
 
 const HotQuizList = () => {
-  const { data: TopLikeQuizList, isLoading } = useFetchTopQuizLike();
-
-  // console.log('quizList => ', TopLikeQuizList);
+  const { isLoading } = useFetchTopQuizLike();
 
   const threshold = 400;
   const containerRef = useRef<HTMLDivElement>(null);
-  const testRef = useRef<(HTMLDivElement | null)[]>([]);
+  const hotQuizzesRef = useRef<(HTMLDivElement | null)[]>([]);
   const [clickDown, setClickDown] = useState({ isDown: false, idx: 0 });
   const [startMoveX, setStartMoveX] = useState(0);
   const [position, setPosition] = useState(0);
   const movingRef = useRef({ start: 0, end: 0 });
   const distance = movingRef.current.start - movingRef.current.end;
-  const safeDistance = testRef.current[Math.min(testRef.current.length, Math.max(clickDown.idx - 1, 0))]
+  const safeDistance = hotQuizzesRef.current[Math.min(hotQuizzesRef.current.length, Math.max(clickDown.idx - 1, 0))]
     ?.offsetLeft as number;
 
   useEffect(() => {
@@ -41,7 +40,7 @@ const HotQuizList = () => {
     if (!clickDown.isDown) {
       requestAnimation();
       // 일정 이상 드래그 넘어갔을 때 안전장치
-      if (testRef.current.length && (clickDown.idx >= testRef.current.length - 2 || clickDown.idx < 2)) {
+      if (hotQuizzesRef.current.length && (clickDown.idx >= hotQuizzesRef.current.length - 2 || clickDown.idx < 2)) {
         setPosition(-safeDistance);
       }
     }
@@ -117,22 +116,9 @@ const HotQuizList = () => {
       )}
       <div
         ref={containerRef}
-        className="flex items-center flex-nowrap gap-4 h-64 w-max overflow-x-visible cursor-pointer"
+        className="flex items-center flex-nowrap gap-6 h-64 w-max overflow-x-visible cursor-pointer"
       >
-        {TopLikeQuizList?.map((quiz: TopLikesSingleQuiz, idx: number) => (
-          <div
-            ref={(el: any) => (testRef.current[idx] = el)}
-            key={quiz.quiz_id}
-            className={`w-48 h-48 bg-yelTwo select-none z-${ZINDEX.hotQuizZ}`}
-            {...{
-              ...eventHandlers,
-              onMouseDown: (e) => eventHandlers.onMouseDown(e, idx),
-              onTouchStart: (e) => eventHandlers.onTouchStart(e, idx)
-            }}
-          >
-            {quiz.question}
-          </div>
-        ))}
+        <HotSingleQuiz eventHandlers={eventHandlers} hotQuizzesRef={hotQuizzesRef} />
       </div>
     </div>
   );

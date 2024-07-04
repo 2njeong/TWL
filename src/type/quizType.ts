@@ -35,3 +35,12 @@ export type TopLikesQuizList = Database['public']['Functions']['get_top_likes_qu
 type WithoutArrayType<T> = T extends (infer U)[] ? U : T;
 
 export type TopLikesSingleQuiz = WithoutArrayType<TopLikesQuizList>;
+
+export type HotQuizDragEventHandlers = {
+  onMouseDown: (e: React.MouseEvent<Element, MouseEvent>, idx: number) => void;
+  onMouseMove: (e: React.MouseEvent<Element, MouseEvent>) => void;
+  onMouseUp: (e: React.MouseEvent<Element, MouseEvent>) => void;
+  onTouchStart: (e: React.TouchEvent<Element>, idx: number) => void;
+  onTouchMove: (e: React.TouchEvent<Element>) => void;
+  onTouchEnd: (e: React.TouchEvent<Element>) => void;
+};
