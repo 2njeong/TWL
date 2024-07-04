@@ -1,6 +1,5 @@
 import HotQuizList from '@/components/quiz/solve/HotQuizList';
 import QuizList from '@/components/quiz/solve/QuizList';
-import { Suspense } from 'react';
 
 const QuizPage = async () => {
   return (
