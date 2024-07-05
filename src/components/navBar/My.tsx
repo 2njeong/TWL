@@ -4,14 +4,13 @@ import { ZINDEX } from '@/constants/commonConstants';
 import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
 import { clientSupabase } from '@/supabase/client';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 const My = () => {
   const { isLoading, userData, isLoggedIn } = useFetchCurrentUser();
   const [isMyListOpen, setMyListOpen] = useState(false);
 
-  console.log('유저 =>', userData);
+  // console.log('유저 =>', userData);
 
   const myList = [
     { href: '/', name: '내 스터디' },

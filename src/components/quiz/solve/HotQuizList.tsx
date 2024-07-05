@@ -1,6 +1,5 @@
 'use client';
 
-import { ZINDEX } from '@/constants/commonConstants';
 import { useFetchTopQuizLike } from '@/query/useQueries/useQuizQuery';
 import { useEffect, useRef, useState } from 'react';
 import HotSingleQuiz from './HotSingleQuiz';
