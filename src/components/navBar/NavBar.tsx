@@ -11,7 +11,7 @@ const NavBar = () => {
     { href: '/', name: '홈' },
     { href: '/', name: 'Team' },
     { href: '/', name: 'Quiz' },
-    { href: '/', name: 'Algorithm' }
+    { href: 'algorithm', name: 'Algorithm' }
   ];
   const quizNavList = [
     { href: 'solve', name: '문제 풀기' },

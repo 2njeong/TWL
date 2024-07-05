@@ -29,7 +29,7 @@ const HotSingleQuiz = ({
             onTouchStart: (e) => eventHandlers.onTouchStart(e, idx)
           }}
         >
-          <Link href={`/quiz/solve/${quiz.quiz_id}`}>
+          <Link href={`/quiz/solve/${quiz.quiz_id}`} className="border rounded">
             <p>{quiz.question}</p>
             <p>{quiz.issubjective ? '주관식' : '객관식'}</p>
             <p>{quiz.needhelp && '도움이 필요해요'}</p>
