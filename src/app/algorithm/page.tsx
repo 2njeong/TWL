@@ -1,5 +1,6 @@
 'use client';
 
+import { MINDIFFERENCE } from '@/constants/algorithmConstants';
 import { useEffect, useRef, useState } from 'react';
 
 const AlgorithmPage = () => {
@@ -16,26 +17,42 @@ const AlgorithmPage = () => {
 
   useEffect(() => {
     if (treeRef.current) {
-      const leftEndX = treeRef.current?.getBoundingClientRect().left + window.scrollX;
-      const rightEndX = treeRef.current?.getBoundingClientRect().right + window.scrollX;
-      const topEndY = treeRef.current?.getBoundingClientRect().top + window.scrollY;
-      const bottomEndY = treeRef.current?.getBoundingClientRect().bottom + window.scrollY;
+      const treeRect = treeRef.current.getBoundingClientRect();
+      const leftEndX = 0;
+      const rightEndX = treeRect.width - 40;
+      console.log('rightEndX =>', rightEndX);
+      const topEndY = 0;
+      const bottomEndY = treeRect.height - 40;
 
-      const appleXYArr = preApples.reduce((acc, _) => {
-        let appleX: number, appleY: number, appleXY;
+      //   const leftEndX = treeRef.current?.getBoundingClientRect().left + window.scrollX;
+      const treeRight = treeRef.current?.getBoundingClientRect().right + window.scrollX;
+      console.log('treeRight => ', treeRight);
+      //   const topEndY = treeRef.current?.getBoundingClientRect().top + window.scrollY;
+      const treeBottom = treeRef.current?.getBoundingClientRect().bottom + window.scrollY;
+      console.log('treeBottom =>', treeBottom);
+      // 트리 영역 내에 둘 거라면 굳이 트리 영역의 left와 top을 구할 필요도 없고,
+      // 트리영역 대비 상대 좌표이기 때문에 트리영역의 top, left를 더해줄 필요가 없음
 
-        do {
-          appleX = getRandomInt(leftEndX, rightEndX);
-          appleY = getRandomInt(topEndY, bottomEndY);
-          appleXY = { appleX, appleY };
-        } while (acc.some((item) => item.appleX === appleX && item.appleY === appleY));
-        acc.push(appleXY);
+      const getRandomAppleXYArr = () => {
+        const appleXYArr: { appleX: number; appleY: number }[] = [];
 
-        return acc;
-      }, [] as { appleX: number; appleY: number }[]);
+        while (appleXYArr.length < preApples.length) {
+          let appleX = getRandomInt(leftEndX, rightEndX);
+          let appleY = getRandomInt(topEndY, bottomEndY);
+          let appleXY = { appleX, appleY };
+          const isTooClose = appleXYArr.some(
+            (appleXY) =>
+              Math.abs(appleXY.appleX - appleX) < MINDIFFERENCE || Math.abs(appleXY.appleY - appleY) < MINDIFFERENCE
+          );
+          if (!isTooClose) {
+            appleXYArr.push(appleXY);
+          }
+        }
 
-      console.log('appleXYArr =>', appleXYArr);
-      setApples(appleXYArr);
+        setApples(appleXYArr);
+      };
+
+      getRandomAppleXYArr();
     }
     console.log('----------------------------------------------');
   }, [treeRef.current]);
@@ -48,8 +65,20 @@ const AlgorithmPage = () => {
     <div className="w-full flex justify-center">
       <div ref={treeRef} className="w-[500px] h-[450px] bg-gray-200 relative">
         트리영역
+        {apples.map((apple, index) => (
+          <div
+            key={index}
+            className={`absolute flex justify-center items-center w-10 h-10 bg-red-500 rounded-full`}
+            style={{
+              left: `${apple.appleX}px`,
+              top: `${apple.appleY}px`
+            }}
+          >
+            {index}
+          </div>
+        ))}
       </div>
-      {apples.map((apple, index) => (
+      {/* {apples.map((apple, index) => (
         <div
           key={index}
           className={`absolute w-10 h-10 left-${apple.appleX} top-${apple.appleY}`}
@@ -61,7 +90,7 @@ const AlgorithmPage = () => {
             borderRadius: '50%'
           }}
         ></div>
-      ))}
+      ))} */}
     </div>
   );
 };
