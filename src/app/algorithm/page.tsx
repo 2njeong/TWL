@@ -1,6 +1,6 @@
 'use client';
 
-import { MINDIFFERENCE } from '@/constants/algorithmConstants';
+import { APPLESIZE, MINDIFFERENCE } from '@/constants/algorithmConstants';
 import { useEffect, useRef, useState } from 'react';
 
 const AlgorithmPage = () => {
@@ -19,19 +19,9 @@ const AlgorithmPage = () => {
     if (treeRef.current) {
       const treeRect = treeRef.current.getBoundingClientRect();
       const leftEndX = 0;
-      const rightEndX = treeRect.width - 40;
-      console.log('rightEndX =>', rightEndX);
+      const rightEndX = treeRect.width - APPLESIZE * 16;
       const topEndY = 0;
-      const bottomEndY = treeRect.height - 40;
-
-      //   const leftEndX = treeRef.current?.getBoundingClientRect().left + window.scrollX;
-      const treeRight = treeRef.current?.getBoundingClientRect().right + window.scrollX;
-      console.log('treeRight => ', treeRight);
-      //   const topEndY = treeRef.current?.getBoundingClientRect().top + window.scrollY;
-      const treeBottom = treeRef.current?.getBoundingClientRect().bottom + window.scrollY;
-      console.log('treeBottom =>', treeBottom);
-      // 트리 영역 내에 둘 거라면 굳이 트리 영역의 left와 top을 구할 필요도 없고,
-      // 트리영역 대비 상대 좌표이기 때문에 트리영역의 top, left를 더해줄 필요가 없음
+      const bottomEndY = treeRect.height - APPLESIZE * 16;
 
       const getRandomAppleXYArr = () => {
         const appleXYArr: { appleX: number; appleY: number }[] = [];
@@ -68,7 +58,7 @@ const AlgorithmPage = () => {
         {apples.map((apple, index) => (
           <div
             key={index}
-            className={`absolute flex justify-center items-center w-10 h-10 bg-red-500 rounded-full`}
+            className={`absolute flex justify-center items-center w-${APPLESIZE} h-${APPLESIZE} bg-red-500 rounded-full`}
             style={{
               left: `${apple.appleX}px`,
               top: `${apple.appleY}px`
@@ -78,19 +68,6 @@ const AlgorithmPage = () => {
           </div>
         ))}
       </div>
-      {/* {apples.map((apple, index) => (
-        <div
-          key={index}
-          className={`absolute w-10 h-10 left-${apple.appleX} top-${apple.appleY}`}
-          style={{
-            position: 'absolute',
-            left: `${apple.appleX}px`,
-            top: `${apple.appleY}px`,
-            backgroundColor: 'red',
-            borderRadius: '50%'
-          }}
-        ></div>
-      ))} */}
     </div>
   );
 };
