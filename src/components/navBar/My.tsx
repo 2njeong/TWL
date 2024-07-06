@@ -50,7 +50,7 @@ const My = () => {
   if (isLoading) return;
 
   return (
-    <section className="flex gap-8">
+    <section className="flex gap-4">
       {isLoggedIn ? (
         <button onClick={handleSignOut}>로그아웃</button>
       ) : (

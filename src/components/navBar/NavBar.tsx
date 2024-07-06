@@ -9,7 +9,7 @@ import My from './My';
 const NavBar = () => {
   const navBarList = [
     { href: '/', name: '홈' },
-    { href: '/', name: 'Team' },
+    // { href: '/', name: 'Team' },
     { href: '/', name: 'Quiz' },
     { href: 'algorithm', name: 'Algorithm' }
   ];
@@ -47,7 +47,7 @@ const NavBar = () => {
         {navBarList.map((nav) => {
           return (
             <div key={nav.name} {...events(nav.name)} className={`${nav.name === 'Quiz' ? 'relative' : ''}`}>
-              <div className="mb-2">
+              <div className="my-2">
                 <Link href={`/${nav.href}`} className={`${nav.name === 'Quiz' && 'pointer-events-none'}`}>
                   {nav.name}
                 </Link>
