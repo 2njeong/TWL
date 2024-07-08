@@ -1,5 +1,5 @@
-import { fetchCurrentUser } from '@/query/auth/authQueryFns';
-import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
+import { fetchCurrentUser, fetchThatUser } from '@/query/auth/authQueryFns';
+import { CURRENT_USER_QUERY_KEY, THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 import { Tables } from '@/type/database';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -17,4 +17,14 @@ export const useFetchCurrentUser = () => {
   const isLoggedIn = !isLoading && userData ? true : false;
 
   return { isLoggedIn, userData, isLoading };
+};
+
+export const useFetchThatUser = (thatUser: string) => {
+  const { data: thatUserData, isLoading: isThatUserLoading } = useQuery<Tables<'users'>>({
+    queryKey: [THAT_USER_QUERY_KEY],
+    queryFn: () => fetchThatUser(thatUser),
+    enabled: !!thatUser
+  });
+
+  return { isThatUserLoading, thatUserData };
 };

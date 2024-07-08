@@ -1,11 +1,18 @@
 'use client';
 
 import { categoryAtom } from '@/atom/memberAtom';
+import MemberAlgorithm from '@/components/member/MemberAlgorithm';
+import { useFetchCurrentUser, useFetchThatUser } from '@/query/useQueries/useAuthQuery';
 import { useAtom } from 'jotai';
 
 const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
-  const categories = ['질문', '알고리즘', '방명록'];
+  const { isThatUserLoading, thatUserData } = useFetchThatUser(id);
+  const { isLoading, userData, isLoggedIn } = useFetchCurrentUser();
   const [theCategory, setTheCategory] = useAtom(categoryAtom);
+
+  console.log('id =>', id);
+
+  const categories = ['질문', '알고리즘', '방명록'];
 
   const handleCategory = (category: string) => {
     setTheCategory(category);
@@ -13,9 +20,10 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
 
   // console.log('theCategory =>', theCategory);
 
+  if (isThatUserLoading || isLoading) return;
   return (
     <>
-      <div className="border w-full min-h-[540px] flex justify-between gap-2 relative">
+      <div className="border w-full min-h-[580px] flex justify-between gap-2 relative">
         <section className="border w-2/6 flex flex-col gap-3 justify-around items-center p-2">
           <div className="h-3/6 border flex items-center">
             <div className="w-40 h-40 rounded-full bg-gray-200">avatar</div>
@@ -29,7 +37,18 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
 
         <section className="border w-4/6 flex flex-col justify-around">
           {theCategory ? (
-            <div>{theCategory}</div>
+            <div className="p-2 flex flex-col gap-2 justify-center">
+              <div>{theCategory}</div>
+              {theCategory === '질문' ? (
+                <></>
+              ) : '알고리즘' ? (
+                <MemberAlgorithm thatUserID={thatUserData?.user_id} currentUserID={userData?.user_id} />
+              ) : '방명록' ? (
+                <></>
+              ) : (
+                <></>
+              )}
+            </div>
           ) : (
             categories.map((cate) => (
               <div key={cate} className="border">

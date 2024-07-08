@@ -3,6 +3,44 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Database = {
   public: {
     Tables: {
+      algorithm: {
+        Row: {
+          algorithm_id: string;
+          content: string;
+          created_at: string;
+          level: string;
+          newLearn: string;
+          title: string;
+          user_id: string;
+        };
+        Insert: {
+          algorithm_id?: string;
+          content: string;
+          created_at?: string;
+          level: string;
+          newLearn: string;
+          title: string;
+          user_id?: string;
+        };
+        Update: {
+          algorithm_id?: string;
+          content?: string;
+          created_at?: string;
+          level?: string;
+          newLearn?: string;
+          title?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'algorithm_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['user_id'];
+          }
+        ];
+      };
       comments: {
         Row: {
           comment_content: string | null;

@@ -7,30 +7,57 @@ export async function GET(req: NextRequest) {
   const type = searchParams.get('type');
   const supabase = serverSupabase();
 
-  if (type === 'currentUser') {
-    const {
-      data: { user }
-    } = await supabase.auth.getUser();
-    // console.log('user =>', user);
-    if (user) {
-      const { data, error } = await supabase.from('users').select('*').eq('user_id', user.id).single();
+  switch (type) {
+    case 'currentUser': {
+      const {
+        data: { user }
+      } = await supabase.auth.getUser();
+      // console.log('user =>', user);
+      if (user) {
+        const { data, error } = await supabase.from('users').select('*').eq('user_id', user.id).single();
+        if (error) {
+          // console.log('currentUser Error =>', error);
+          throw new Error(error.message);
+        }
+        const userData = data as Tables<'users'>;
+        return Response.json(userData);
+      } else {
+        return Response.json({ error: 'User not found' }, { status: 404 });
+      }
+    }
+    case 'quizCreator': {
+      const creator = searchParams.get('creator');
+      const { data, error } = await supabase.from('users').select('*').eq('user_id', creator).single();
+      // console.log('route.ts data =>', data);
       if (error) {
-        // console.log('currentUser Error =>', error);
+        console.log('error =>', error);
         throw new Error(error.message);
       }
-      const userData = data as Tables<'users'>;
-      return Response.json(userData);
-    } else {
-      return Response.json({ error: 'User not found' }, { status: 404 });
+      return Response.json(data);
     }
-  } else if (type === 'quizCreator') {
-    const creator = searchParams.get('creator');
-    const { data, error } = await supabase.from('users').select('*').eq('user_id', creator).single();
-    console.log('route.ts data =>', data);
-    if (error) {
-      console.log('error =>', error);
-      throw new Error(error.message);
+    case 'thatUser': {
+      const thatUser = searchParams.get('thatUser');
+      const { data, error } = await supabase.from('users').select('*').eq('user_id', thatUser).single();
+      if (error) {
+        console.log('error =>', error);
+        throw new Error(error.message);
+      }
+      return Response.json(data);
     }
-    return Response.json(data);
+    default:
+      return new Response('Invalid type', { status: 400 });
   }
+
+  // if (type === 'currentUser') {
+
+  // } else if (type === 'quizCreator') {
+  //   const creator = searchParams.get('creator');
+  //   const { data, error } = await supabase.from('users').select('*').eq('user_id', creator).single();
+  //   console.log('route.ts data =>', data);
+  //   if (error) {
+  //     console.log('error =>', error);
+  //     throw new Error(error.message);
+  //   }
+  //   return Response.json(data);
+  // }
 }

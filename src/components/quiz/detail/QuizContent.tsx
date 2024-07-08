@@ -4,6 +4,9 @@ import { Tables } from '@/type/database';
 import { Editor, Viewer } from '@toast-ui/react-editor';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import '@toast-ui/editor/dist/i18n/ko-kr';
+import { useEditor } from '@/customHooks/common';
 
 const QuizContent = ({
   theQuiz,
@@ -16,23 +19,29 @@ const QuizContent = ({
   setClickList: Dispatch<SetStateAction<boolean[]>>;
   setSubjectiveAnswer: Dispatch<SetStateAction<string>>;
 }) => {
-  const subjectiveAnswerRef = useRef<Editor>(null);
-  const [answerType, setAnswerType] = useState('wysiwyg');
+  // const subjectiveAnswerRef = useRef<Editor>(null);
+  // const [answerType, setAnswerType] = useState('wysiwyg');
 
-  const onSubjectiveAnswerChange = () => {
-    let data;
-    if (answerType === 'wysiwyg') {
-      data = subjectiveAnswerRef.current?.getInstance().getHTML();
-      setSubjectiveAnswer(data);
-    } else {
-      data = subjectiveAnswerRef.current?.getInstance().getMarkdown();
-      setSubjectiveAnswer(data);
-    }
-  };
+  // const handleSubjectiveAnswerChange = () => {
+  //   let data;
+  //   if (answerType === 'wysiwyg') {
+  //     data = subjectiveAnswerRef.current?.getInstance().getHTML();
+  //     setSubjectiveAnswer(data);
+  //   } else {
+  //     data = subjectiveAnswerRef.current?.getInstance().getMarkdown();
+  //     setSubjectiveAnswer(data);
+  //   }
+  // };
 
-  const onAnswerChangeMarkdownToWysiwyg = () => {
-    setAnswerType((prev) => (prev === 'wysiwyg' ? 'markdown' : 'wysiwyg'));
-  };
+  // const handleAnswerChangeMarkdownToWysiwyg = () => {
+  //   setAnswerType((prev) => (prev === 'wysiwyg' ? 'markdown' : 'wysiwyg'));
+  // };
+
+  const {
+    editorRef: subjectiveAnswerRef,
+    handleContentResultChange: handleSubjectiveAnswerChange,
+    handleChangeMarkdownToWysiwyg: handleAnswerChangeMarkdownToWysiwyg
+  } = useEditor(setSubjectiveAnswer);
 
   const handleSelectCandidates = (idx: number) => {
     setClickList((prev) => {
@@ -66,8 +75,8 @@ const QuizContent = ({
             ]}
             plugins={[colorSyntax]}
             ref={subjectiveAnswerRef}
-            onChange={onSubjectiveAnswerChange}
-            onBeforeConvertWysiwygToMarkdown={onAnswerChangeMarkdownToWysiwyg}
+            onChange={handleSubjectiveAnswerChange}
+            onBeforeConvertWysiwygToMarkdown={handleAnswerChangeMarkdownToWysiwyg}
           />
         </div>
       ) : (
