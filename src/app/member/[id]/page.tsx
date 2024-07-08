@@ -23,7 +23,7 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
   if (isThatUserLoading || isLoading) return;
   return (
     <>
-      <div className="border w-full min-h-[580px] flex justify-between gap-2 relative">
+      <div className="border w-full min-h-[600px] flex justify-between gap-2 relative">
         <section className="border w-2/6 flex flex-col gap-3 justify-around items-center p-2">
           <div className="h-3/6 border flex items-center">
             <div className="w-40 h-40 rounded-full bg-gray-200">avatar</div>
@@ -35,9 +35,9 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
           </div>
         </section>
 
-        <section className="border w-4/6 flex flex-col justify-around">
+        <section className="border w-4/6 max-h-[600px] flex flex-col justify-around">
           {theCategory ? (
-            <div className="p-2 flex flex-col gap-2 justify-center">
+            <div className="h-full p-2 flex flex-col gap-2 justify-center">
               <div>{theCategory}</div>
               {theCategory === '질문' ? (
                 <></>

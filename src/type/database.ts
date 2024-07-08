@@ -9,7 +9,8 @@ export type Database = {
           content: string;
           created_at: string;
           level: string;
-          newLearn: string;
+          link: string;
+          newLearn: string | null;
           title: string;
           user_id: string;
         };
@@ -18,7 +19,8 @@ export type Database = {
           content: string;
           created_at?: string;
           level: string;
-          newLearn: string;
+          link: string;
+          newLearn?: string | null;
           title: string;
           user_id?: string;
         };
@@ -27,7 +29,8 @@ export type Database = {
           content?: string;
           created_at?: string;
           level?: string;
-          newLearn?: string;
+          link?: string;
+          newLearn?: string | null;
           title?: string;
           user_id?: string;
         };
@@ -143,6 +146,7 @@ export type Database = {
       };
       users: {
         Row: {
+          allowShow: boolean;
           avatar: string | null;
           created_at: string;
           email: string;
@@ -151,6 +155,7 @@ export type Database = {
           user_id: string;
         };
         Insert: {
+          allowShow?: boolean;
           avatar?: string | null;
           created_at?: string;
           email: string;
@@ -159,6 +164,7 @@ export type Database = {
           user_id: string;
         };
         Update: {
+          allowShow?: boolean;
           avatar?: string | null;
           created_at?: string;
           email?: string;

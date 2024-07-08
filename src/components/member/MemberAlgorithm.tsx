@@ -8,6 +8,8 @@ import '@toast-ui/editor/dist/i18n/ko-kr';
 import { useEditor } from '@/customHooks/common';
 import { submitAlgorithm } from '@/app/member/action';
 import AlgorithmQuestion from './algorithm/AlgorithmQuestion';
+import { useFetchThatUsersAlgorithm } from '@/query/useQueries/useMemberQuery';
+import SubmitAlgorithmBtn from './algorithm/SubmitAlgorithmBtn';
 
 const MemberAlgorithm = ({
   thatUserID,
@@ -20,11 +22,13 @@ const MemberAlgorithm = ({
   const [content, setContent] = useState<string | null>(null);
   const algorithmRef = useRef<HTMLFormElement | null>(null);
   const { editorRef, handleContentResultChange, handleChangeMarkdownToWysiwyg } = useEditor(setContent);
-
+  const { algorithmData, algorithmIsLoading } = useFetchThatUsersAlgorithm(thatUserID);
   const inputList = [
     { title: 'Lv', name: 'level', placeholder: '문제 level' },
     { title: '제목', name: 'title', placeholder: '문제의 제목을 알려주세요.' }
   ];
+
+  console.log('algorithmData =>', algorithmData);
 
   useEffect(() => {
     if (!content && editorRef.current) editorRef.current.getInstance().reset();
@@ -52,15 +56,15 @@ const MemberAlgorithm = ({
   };
 
   return (
-    <div className="w-full flex flex-col border min-h-[500px] h-[90%]">
+    <div className="w-full flex flex-col border min-h-[500px] h-full">
       <div className="w-full flex justify-end p-2">
         {thatUserID === currentUserID && (
           <button className="border" onClick={handleNewPost}>
-            오늘도 풀었다!
+            new 알고리즘
           </button>
         )}
       </div>
-      <div className="h-full overflow-y-auto">
+      <div className="h-full overflow-y-auto p-2">
         {writeNewPost ? (
           <form ref={algorithmRef} action={submitAlgorithmOnClient} className="flex flex-col gap-4 justify-around">
             <div className="h-auto flex flex-col gap-2">
@@ -107,7 +111,7 @@ const MemberAlgorithm = ({
                 className="resize-none min-h-28 h-auto"
               ></textarea>
             </div>
-            <button className="border">사과</button>
+            <SubmitAlgorithmBtn />
           </form>
         ) : (
           <></>
