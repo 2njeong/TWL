@@ -1,8 +1,5 @@
-import { minify } from 'next/dist/build/swc';
+import { htmlTagRegex } from '@/utils/common';
 import { z } from 'zod';
-
-const htmlTagRegex = /<[^>]*>/g;
-// HTML 태그를 포함하는지 확인하는 정규식
 
 export const quizSchema = z.object({
   question: z

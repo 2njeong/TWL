@@ -1,6 +1,5 @@
+import { htmlTagRegex } from '@/utils/common';
 import { z } from 'zod';
-
-const htmlTagRegex = /<[^>]*>/g;
 
 export const algorithmSchema = z.object({
   level: z

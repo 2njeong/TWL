@@ -18,7 +18,7 @@ const QuizFooter = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
           type: 'confirm',
           title: '정답은',
           content: theQuiz?.isSubjective
-            ? theQuiz.answer
+            ? theQuiz.answer[0]
             : `보기 ${theQuiz?.answer.map((item: string) => Number(item) + 1).join(', ')}번 입니다.`
         }}
       >
