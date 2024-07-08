@@ -2,10 +2,11 @@
 
 import { useState } from 'react';
 import { useFetchThatUsersAlgorithm } from '@/query/useQueries/useMemberQuery';
-import MakeNewAlgorithm from './algorithm/MakeNewAlgorithm';
-import AlgorithmList from './algorithm/AlgorithmList';
+import MakeNewAlgorithm from './MakeNewAlgorithm';
+import AlgorithmList from './AlgorithmList';
+import { MdOutlineCancel } from 'react-icons/md';
 
-const MemberAlgorithm = ({
+const Algorithm = ({
   thatUserID,
   currentUserID
 }: {
@@ -27,8 +28,8 @@ const MemberAlgorithm = ({
     <div className="w-full flex flex-col border min-h-[500px] h-full">
       <div className="w-full flex justify-end p-2">
         {thatUserID === currentUserID && (
-          <button className="border" onClick={handleNewPost}>
-            new 알고리즘
+          <button className={`${!writeNewPost && 'border'}`} onClick={handleNewPost}>
+            {writeNewPost ? <MdOutlineCancel className="text-2xl" /> : 'new 알고리즘'}
           </button>
         )}
       </div>
@@ -47,4 +48,4 @@ const MemberAlgorithm = ({
   );
 };
 
-export default MemberAlgorithm;
+export default Algorithm;

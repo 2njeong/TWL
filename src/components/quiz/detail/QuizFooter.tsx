@@ -15,6 +15,7 @@ const QuizFooter = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
       <OpenModalBtn
         className=""
         modalProps={{
+          layer: 0,
           type: 'confirm',
           title: '정답은',
           content: theQuiz?.isSubjective

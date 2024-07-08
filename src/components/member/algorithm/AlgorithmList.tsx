@@ -1,7 +1,9 @@
 'use client';
 
+import OpenModalBtn from '@/components/utilComponents/modal/OpenModalBtn';
 import { Tables } from '@/type/database';
 import { getformattedDate } from '@/utils/utilFns';
+import { useSetAtom } from 'jotai';
 import Link from 'next/link';
 
 const AlgorithmList = ({ algorithmData }: { algorithmData: Tables<'algorithm'>[] | undefined }) => {
@@ -9,21 +11,30 @@ const AlgorithmList = ({ algorithmData }: { algorithmData: Tables<'algorithm'>[]
     <div className="p-2 border grid grid-cols-2 max-sm:grid-cols-1 gap-4">
       {algorithmData?.map((item) => (
         <div key={item.algorithm_id} className="flex flex-col gap-2 p-4 h-60 justify-between border rounded">
-          <div className="flex flex-col gap-1">
-            <h2 className="font-bold text-2xl">{item.title}</h2>
-            <div className="flex gap-1 items-center">
-              <p className="font-semibold text-xl">Lv.</p>
-              <p className="text-blue-500">{item.level}</p>
+          <div className="flex flex-col gap-2">
+            <div>
+              <h2 className="font-bold text-2xl truncate">{item.title}</h2>
+              <div className="flex gap-1 items-center">
+                <p className="font-semibold">Lv.</p>
+                <p className="text-blue-500">{item.level}</p>
+              </div>
             </div>
 
             <Link href={item.link} className="underline text-sm text-gray-500">
               나도 풀어볼래!
             </Link>
           </div>
-
-          <div className={`${item.newLearn && 'border'} rounded h-full max-h-24`}>
+          <OpenModalBtn
+            className={`${item.newLearn && 'border'} rounded h-full max-h-24 flex justify-start items-center`}
+            modalProps={{
+              layer: 1,
+              type: 'alert',
+              title: '이 문제를 풀면서 배웠어요!',
+              content: item.newLearn && item.newLearn
+            }}
+          >
             <p className="overflow-hidden break-all whitespace-normal line-clamp-3">{item.newLearn && item.newLearn}</p>
-          </div>
+          </OpenModalBtn>
           <p className="text-sm text-gray-500">
             {getformattedDate(new Date(new Date(item.created_at).getTime() + 9 * 60 * 60 * 1000).toString())}
           </p>

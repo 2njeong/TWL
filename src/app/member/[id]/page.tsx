@@ -1,7 +1,7 @@
 'use client';
 
 import { categoryAtom } from '@/atom/memberAtom';
-import MemberAlgorithm from '@/components/member/MemberAlgorithm';
+import Algorithm from '@/components/member/algorithm/Algorithm';
 import { useFetchCurrentUser, useFetchThatUser } from '@/query/useQueries/useAuthQuery';
 import { useAtom } from 'jotai';
 
@@ -20,7 +20,7 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
 
   // console.log('theCategory =>', theCategory);
 
-  if (isThatUserLoading || isLoading) return;
+  if (isThatUserLoading || isLoading) return <>로딩중..</>;
   return (
     <>
       <div className="border w-full min-h-[600px] flex justify-between gap-2 relative">
@@ -42,7 +42,7 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
               {theCategory === '질문' ? (
                 <></>
               ) : '알고리즘' ? (
-                <MemberAlgorithm thatUserID={thatUserData?.user_id} currentUserID={userData?.user_id} />
+                <Algorithm thatUserID={thatUserData?.user_id} currentUserID={userData?.user_id} />
               ) : '방명록' ? (
                 <></>
               ) : (

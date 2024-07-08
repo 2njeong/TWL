@@ -23,6 +23,7 @@ const QuizHeader = ({
       <OpenModalBtn
         className="flex justify-end"
         modalProps={{
+          layer: 0,
           type: 'alert',
           title: `${checkIfRight()}`,
           content: theQuiz?.isSubjective

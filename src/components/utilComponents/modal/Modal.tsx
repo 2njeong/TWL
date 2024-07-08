@@ -10,7 +10,7 @@ import { Viewer } from '@toast-ui/react-editor';
 import { htmlTagRegex } from '@/utils/common';
 
 const Modal = () => {
-  const [{ isOpen, type, title, content, onFunc, offFunc }, _] = useAtom(openModal);
+  const [{ layer, isOpen, type, title, content, onFunc, offFunc }, _] = useAtom(openModal);
   const modalRef = useRef<HTMLDivElement>(null);
 
   const transition = useTransition(isOpen, {
@@ -65,14 +65,24 @@ const Modal = () => {
         <ModalBackground />
         <div
           ref={modalRef}
-          className={`min-w-[40%] max-w-[80%] max-h-[80vh] fixed top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col gap-2 bg-white opacity-0 p-4 z-[${ZINDEX.modalZ}] overflow-hidden`}
+          className={`min-w-[40%]  ${
+            layer > 0 ? 'max-w-[50%]' : 'max-w-[80%]'
+          } max-h-[80vh] fixed top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col gap-2 bg-white opacity-0 p-4 z-[${
+            layer > 0 ? ZINDEX.upperModalZ : ZINDEX.modalZ
+          }] overflow-hidden`}
         >
           <button className="w-full flex justify-end items-center" onClick={offFunc}>
             x
           </button>
-          <div className="flex flex-col gap-2 p-2 overflow-auto max-h-[calc(80vh-4rem)]">
+          <div className="flex flex-col gap-4 p-2 overflow-y-auto max-h-[calc(80vh-4rem)]">
             <h3 className="text-2xl font-bold">{title}</h3>
-            {htmlTagRegex.test(content) ? <Viewer initialValue={content} /> : <h5 className="">{content}</h5>}
+            {layer > 0 ? (
+              <p className="w-full h-full break-all whitespace-normal">{content}</p>
+            ) : content && htmlTagRegex.test(content) ? (
+              <Viewer initialValue={content} />
+            ) : (
+              <p className="w-full h-full break-all whitespace-normal">{content}</p>
+            )}
           </div>
           <div className="flex gap-3 justify-end">
             <button onClick={onFunc}>확인</button>

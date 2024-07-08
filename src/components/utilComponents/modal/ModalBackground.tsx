@@ -4,7 +4,7 @@ import { useAtom } from 'jotai';
 import { useEffect, useRef } from 'react';
 
 const ModalBackground = () => {
-  const [{ offFunc }, _] = useAtom(openModal);
+  const [{ layer, offFunc }, _] = useAtom(openModal);
   const backGroundRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -22,7 +22,12 @@ const ModalBackground = () => {
   }, [offFunc]);
 
   return (
-    <div className={`fixed w-full h-full bg-black opacity-40 z-[${ZINDEX.modalZ - 1}]`} ref={backGroundRef}>
+    <div
+      className={`fixed w-full h-full bg-black opacity-40 z-[${
+        layer > 0 ? ZINDEX.upperModalZ - 1 : ZINDEX.modalZ - 1
+      }]`}
+      ref={backGroundRef}
+    >
       ModalBackground
     </div>
   );
