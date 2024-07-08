@@ -10,7 +10,7 @@ const My = () => {
   const { isLoading, userData, isLoggedIn } = useFetchCurrentUser();
   const [isMyListOpen, setMyListOpen] = useState(false);
 
-  // console.log('유저 =>', userData);
+  console.log('유저 =>', userData);
 
   const myList = [
     { href: '/', name: '내 스터디' },
@@ -69,6 +69,15 @@ const My = () => {
                 {my.name}
               </Link>
             ))}
+            <button
+              onClick={() => {
+                const features =
+                  'width=2500,height=1000,resizable=yes,scrollbars=no,status=yes,toolbar=no,menubar=no,location=yes, noopener, noreferrer';
+                window.open(`/member/${userData?.user_id}`, '_blank', features);
+              }}
+            >
+              test
+            </button>
           </div>
         )}
       </div>
