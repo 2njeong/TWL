@@ -2,6 +2,7 @@
 
 import { algorithmSchema } from '@/schema/memberSchema';
 import { serverSupabase } from '@/supabase/server';
+import { revalidatePath } from 'next/cache';
 
 const supabase = serverSupabase();
 
