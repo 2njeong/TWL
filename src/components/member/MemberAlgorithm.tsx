@@ -7,6 +7,7 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import '@toast-ui/editor/dist/i18n/ko-kr';
 import { useEditor } from '@/customHooks/common';
 import { submitAlgorithm } from '@/app/member/action';
+import AlgorithmQuestion from './algorithm/AlgorithmQuestion';
 
 const MemberAlgorithm = ({
   thatUserID,
@@ -19,6 +20,11 @@ const MemberAlgorithm = ({
   const [content, setContent] = useState<string | null>(null);
   const algorithmRef = useRef<HTMLFormElement | null>(null);
   const { editorRef, handleContentResultChange, handleChangeMarkdownToWysiwyg } = useEditor(setContent);
+
+  const inputList = [
+    { title: 'Lv', name: 'level', placeholder: '문제 level' },
+    { title: '제목', name: 'title', placeholder: '문제의 제목을 알려주세요.' }
+  ];
 
   useEffect(() => {
     if (!content && editorRef.current) editorRef.current.getInstance().reset();
@@ -36,6 +42,10 @@ const MemberAlgorithm = ({
 
     const boundSubmitalgorithm = submitAlgorithm.bind(null, thatUserID as string, content as string);
     const result = await boundSubmitalgorithm(data);
+    if (result) {
+      alert(result.message);
+      return;
+    }
 
     algorithmRef.current?.reset();
     setContent(null);
@@ -53,15 +63,18 @@ const MemberAlgorithm = ({
       <div className="h-full overflow-y-auto">
         {writeNewPost ? (
           <form ref={algorithmRef} action={submitAlgorithmOnClient} className="flex flex-col gap-4 justify-around">
-            <div className="h-8 flex gap-2 items-center">
-              <div className="flex gap-2">
-                <h1>Lv.</h1>
-                <input name="level"></input>
+            <div className="h-auto flex flex-col gap-2">
+              <div className="flex gap-4 items-center">
+                {inputList.map((input) => (
+                  <AlgorithmQuestion
+                    key={input.name}
+                    title={input.title}
+                    name={input.name}
+                    placeholder={input.placeholder}
+                  />
+                ))}
               </div>
-              <div className="flex gap-2">
-                <h1>제목: </h1>
-                <input name="title"></input>
-              </div>
+              <AlgorithmQuestion title="Link" name="link" placeholder="알고리즘 문제의 링크를 복사해주세요." />
             </div>
             <div>
               <Editor
@@ -87,8 +100,12 @@ const MemberAlgorithm = ({
             </div>
 
             <div className="flex flex-col gap-2">
-              <h2>이 문제를 통해 알게된 점</h2>
-              <textarea name="newLearn" className="resize-none min-h-28 h-auto"></textarea>
+              <h2>Today I Learned...</h2>
+              <textarea
+                name="newLearn"
+                placeholder="이 문제를 통해 배운 점/ 알게된 점을 기록해보세요!"
+                className="resize-none min-h-28 h-auto"
+              ></textarea>
             </div>
             <button className="border">사과</button>
           </form>

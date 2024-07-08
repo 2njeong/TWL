@@ -16,7 +16,7 @@ export type QuizCommentValidationErr = ZodFormattedError<
   string
 >;
 
-export type ZodErrObj =
+export type MakeQuizZodErrObj =
   | ZodFormattedError<
       {
         question?: string;

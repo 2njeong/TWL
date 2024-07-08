@@ -10,7 +10,7 @@ import Question from './Question';
 import { useQueryClient } from '@tanstack/react-query';
 import { QUIZLIST_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
-import { QuizField, ZodErrObj } from '@/type/quizType';
+import { QuizField, MakeQuizZodErrObj } from '@/type/quizType';
 
 const MakeQuiz = () => {
   const { userData } = useFetchCurrentUser();
@@ -44,7 +44,7 @@ const MakeQuiz = () => {
     const result = await submitActionWithAnswer(data);
     // console.log('result?.error =>', result?.error);
 
-    const zodErrObj: ZodErrObj = result?.error;
+    const zodErrObj: MakeQuizZodErrObj = result?.error;
     if (zodErrObj) {
       const errorMsgArr = zodErrKeyArr.reduce<string[]>((acc, cur) => {
         let errorMsg;
