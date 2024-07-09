@@ -3,8 +3,8 @@
 import { Tables } from '@/type/database';
 import { useState } from 'react';
 import { GoGear } from 'react-icons/go';
-import UpdateUserForm from './updateUserForm';
 import ShowUserData from './ShowUserData';
+import UpdateUserForm from './UpdateUserForm';
 
 const UserInfo = ({
   thatUserData,
