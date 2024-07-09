@@ -7,7 +7,6 @@ import { useRef, useState } from 'react';
 import { AuthField, AuthResult, AuthValiationErr } from '@/type/authType';
 import { useFormState } from 'react-dom';
 import AuthFormBtn from './AuthFormBtn';
-import { authSchema } from '@/schema/authSchema';
 
 const AuthForm = () => {
   const [authType] = useAtom(authSelectAtom);

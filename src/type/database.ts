@@ -146,7 +146,7 @@ export type Database = {
       };
       users: {
         Row: {
-          allowShow: boolean;
+          allowshow: boolean;
           avatar: string | null;
           created_at: string;
           email: string;
@@ -155,7 +155,7 @@ export type Database = {
           user_id: string;
         };
         Insert: {
-          allowShow?: boolean;
+          allowshow?: boolean;
           avatar?: string | null;
           created_at?: string;
           email: string;
@@ -164,7 +164,7 @@ export type Database = {
           user_id: string;
         };
         Update: {
-          allowShow?: boolean;
+          allowshow?: boolean;
           avatar?: string | null;
           created_at?: string;
           email?: string;

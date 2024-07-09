@@ -8,9 +8,9 @@ import { submitAlgorithm } from '@/app/member/action';
 import { useEffect, useRef, useState } from 'react';
 import { useEditor } from '@/customHooks/common';
 import AlgorithmQuestion from './AlgorithmQuestion';
-import SubmitAlgorithmBtn from './SubmitAlgorithmBtn';
 import { useQueryClient } from '@tanstack/react-query';
 import { THAT_USERS_ALGORITHM } from '@/query/member/memberQueryKey';
+import SubmitBtn from '@/components/makequiz/SubmitBtn';
 
 const MakeNewAlgorithm = ({ thatUserID }: { thatUserID: string | undefined }) => {
   const algorithmRef = useRef<HTMLFormElement | null>(null);
@@ -27,11 +27,6 @@ const MakeNewAlgorithm = ({ thatUserID }: { thatUserID: string | undefined }) =>
   }, [content, editorRef]);
 
   const submitAlgorithmOnClient = async (data: FormData) => {
-    const level = data.get('level');
-    const title = data.get('title');
-    const newLearn = data.get('newLearn');
-    console.log(level, title, newLearn);
-
     const boundSubmitalgorithm = submitAlgorithm.bind(null, thatUserID as string, content as string);
     const result = await boundSubmitalgorithm(data);
     if (result) {
@@ -83,7 +78,7 @@ const MakeNewAlgorithm = ({ thatUserID }: { thatUserID: string | undefined }) =>
           className="resize-none min-h-28 h-auto"
         ></textarea>
       </div>
-      <SubmitAlgorithmBtn />
+      <SubmitBtn btnProps={{ pendingText: '사과가 열리고 있어요..!', doneText: '사과 만들기' }} />
     </form>
   );
 };

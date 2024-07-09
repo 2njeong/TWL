@@ -1,8 +1,8 @@
 'use server';
 
-import { algorithmSchema } from '@/schema/memberSchema';
+import { algorithmSchema, userInfoSchema } from '@/schema/memberSchema';
 import { serverSupabase } from '@/supabase/server';
-import { revalidatePath } from 'next/cache';
+import { UserInfoOBJ } from '@/type/memberType';
 
 const supabase = serverSupabase();
 
@@ -24,5 +24,21 @@ export const submitAlgorithm = async (user_id: string, content: string, data: Fo
     if (error) throw new Error(error.message);
   } catch (e) {
     throw new Error(`fail to add new algorithm, ${e}`);
+  }
+};
+
+export const updateUserInfo = async (userInfoObj: UserInfoOBJ) => {
+  const { user_id, ...rest } = userInfoObj;
+  const userObj = rest;
+  const result = userInfoSchema.safeParse(userObj);
+  if (!result.success) {
+    const errors = result.error.errors;
+    return errors[0];
+  }
+  try {
+    const { error } = await supabase.from('users').update(userObj).eq('user_id', user_id);
+    if (error) throw new Error(error.message);
+  } catch (e) {
+    throw new Error(`fail to update user Information, ${e}`);
   }
 };

@@ -25,7 +25,7 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
   return (
     <>
       <div className="border w-full min-h-[600px] flex justify-between gap-2 relative">
-        <UserInfo thatUserData={thatUserData} currentUserID={userData?.user_id} />
+        <UserInfo thatUserData={thatUserData} currentUser={userData} />
         <section className="border w-4/6 max-h-[600px] flex flex-col justify-around">
           {theCategory ? (
             <div className="h-full p-2 flex flex-col gap-2 justify-center">

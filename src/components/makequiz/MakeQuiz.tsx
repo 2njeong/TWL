@@ -80,7 +80,7 @@ const MakeQuiz = () => {
       <form action={submitQuiz} ref={formRef} className="w-4/6 flex flex-col gap-6">
         <Question />
         <ReturnQuizType />
-        <SubmitBtn />
+        <SubmitBtn btnProps={{ pendingText: '문제를 만드는 중...', doneText: '문제 만들기' }} />
       </form>
     </>
   );

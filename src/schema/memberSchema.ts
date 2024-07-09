@@ -16,3 +16,21 @@ export const algorithmSchema = z.object({
     message: '본인이 풀었던 코드를 입력해주세요.'
   })
 });
+
+export const userInfoSchema = z.object({
+  nickname: z
+    .string()
+    .min(1, { message: '닉네임을 입력해주세요.' })
+    .max(10, { message: '닉네임은 최대 10자까지 가능합니다.' })
+    .nullable(),
+  github: z
+    .string()
+    .url({ message: '올바른 gitjub 주소를 입력해주세요.' })
+    .min(1, { message: 'gitjub 주소를 입력해주세요' })
+    .nullable(),
+  email: z
+    .string()
+    .min(1, { message: '이메일을 입력해주세요.' })
+    .refine((value) => /^\S*$/.test(value), { message: '이메일에 공백을 포함할 수 없습니다.' })
+    .refine((value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), { message: '올바른 이메일 형식을 입력해주세요' })
+});
