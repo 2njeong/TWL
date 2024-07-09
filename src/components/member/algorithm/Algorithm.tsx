@@ -20,7 +20,7 @@ const Algorithm = ({
     setWriteNewPost((prev) => !prev);
   };
 
-  if (algorithmIsLoading) return null;
+  if (algorithmIsLoading) return <div>알고리즘 로딩중..</div>;
 
   return (
     <div className="w-full flex flex-col border min-h-[500px] h-full">
