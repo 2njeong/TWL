@@ -4,7 +4,7 @@ import { openModal } from '@/atom/modalAtom';
 import { useAtom } from 'jotai';
 import ModalBackground from './ModalBackground';
 import { useEffect, useRef } from 'react';
-import { animated, useTransition } from '@react-spring/web';
+// import { animated, useTransition } from '@react-spring/web';
 import { ZINDEX } from '@/constants/commonConstants';
 import { Viewer } from '@toast-ui/react-editor';
 import { htmlTagRegex } from '@/utils/common';
@@ -13,11 +13,11 @@ const Modal = () => {
   const [{ layer, isOpen, type, title, content, onFunc, offFunc }, _] = useAtom(openModal);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const transition = useTransition(isOpen, {
-    from: { opacity: 0, transform: 'translate3d(-50%, -60%, 0)' },
-    enter: { opacity: 1, transform: 'translate3d(-50%, -50%, 0)' },
-    leave: { opacity: 0, transform: 'translate3d(-50%, -60%, 0)' }
-  });
+  // const transition = useTransition(isOpen, {
+  //   from: { opacity: 0, transform: 'translate3d(-50%, -60%, 0)' },
+  //   enter: { opacity: 1, transform: 'translate3d(-50%, -50%, 0)' },
+  //   leave: { opacity: 0, transform: 'translate3d(-50%, -60%, 0)' }
+  // });
 
   const requestModalAnimation = () => {
     requestAnimationFrame(() => {

@@ -40,12 +40,7 @@ const UserInfo = ({
       <div className={`h-3/6 w-full border flex py-2 px-4`}>
         {userFormOpen ? (
           <>
-            <UpdateUserForm
-              currentUser={currentUser}
-              thatUserData={thatUserData}
-              userDataList={userDataList}
-              setUserFormOpen={setUserFormOpen}
-            />
+            <UpdateUserForm currentUser={currentUser} userDataList={userDataList} setUserFormOpen={setUserFormOpen} />
           </>
         ) : (
           <ShowUserData

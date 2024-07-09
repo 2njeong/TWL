@@ -14,7 +14,7 @@ const ShowUserData = ({
         <div key={data} className="flex gap-2 items-center">
           <p>{data}: </p>
           <p className="text-gray-500">
-            {userData?.allowshow ? (userData as any)[data.toLowerCase()] ?? '비공개' : '비공개'}
+            {userData?.allowshow ? (userData as any)[data.toLowerCase()] ?? '미작성' : '비공개'}
           </p>
         </div>
       ))}

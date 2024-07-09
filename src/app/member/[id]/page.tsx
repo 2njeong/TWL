@@ -5,6 +5,9 @@ import Algorithm from '@/components/member/algorithm/Algorithm';
 import UserInfo from '@/components/member/information/UserInfo';
 import { useFetchCurrentUser, useFetchThatUser } from '@/query/useQueries/useAuthQuery';
 import { useAtom } from 'jotai';
+import dynamic from 'next/dynamic';
+
+const AlgorithmWrapper = dynamic(() => import('@/components/member/algorithm/Algorithm'), { ssr: false });
 
 const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
   const { isThatUserLoading, thatUserData } = useFetchThatUser(id);
@@ -31,7 +34,7 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
               {theCategory === '질문' ? (
                 <></>
               ) : theCategory === '알고리즘' ? (
-                <Algorithm thatUserID={thatUserData?.user_id} currentUserID={userData?.user_id} />
+                <AlgorithmWrapper thatUserID={thatUserData?.user_id} currentUserID={userData?.user_id} />
               ) : theCategory === '방명록' ? (
                 <>ddd</>
               ) : (

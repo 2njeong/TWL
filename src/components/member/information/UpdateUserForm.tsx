@@ -1,7 +1,7 @@
 import { updateUserInfo } from '@/app/member/action';
 import { avatarAtom } from '@/atom/memberAtom';
 import SubmitBtn from '@/components/makequiz/SubmitBtn';
-import { CURRENT_USER_QUERY_KEY, THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
+import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 import { Tables } from '@/type/database';
 import { UserInfoOBJ } from '@/type/memberType';
 import { useQueryClient } from '@tanstack/react-query';
@@ -9,12 +9,10 @@ import { useAtom } from 'jotai';
 import React, { Dispatch, SetStateAction, useRef } from 'react';
 
 const UpdateUserForm = ({
-  thatUserData,
   currentUser,
   userDataList,
   setUserFormOpen
 }: {
-  thatUserData: Tables<'users'> | undefined;
   currentUser: Tables<'users'> | undefined;
   userDataList: string[];
   setUserFormOpen: Dispatch<SetStateAction<boolean>>;
@@ -53,10 +51,10 @@ const UpdateUserForm = ({
 
   const serverActionNAlert = async (userInfoObj: UserInfoOBJ, data: FormData) => {
     const result = await updateUserInfo(userInfoObj, data);
-    // if (result) {
-    //   alert(result.message);
-    //   return false;
-    // }
+    if (result) {
+      alert(result.message);
+      return false;
+    }
     return true;
   };
 
@@ -93,7 +91,7 @@ const UpdateUserForm = ({
               <p>{data}: </p>
               <input
                 name={data}
-                placeholder={(thatUserData as any)[data.toLowerCase()] ?? '정보를 입력해주세요.'}
+                placeholder={(currentUser as any)[data.toLowerCase()] ?? '정보를 입력해주세요.'}
               ></input>
             </div>
           ))}

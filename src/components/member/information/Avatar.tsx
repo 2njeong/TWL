@@ -9,6 +9,7 @@ import AvatarImage from './AvatarImage';
 const Avatar = ({ userFormOpen, currentUser }: { userFormOpen: boolean; currentUser: Tables<'users'> | undefined }) => {
   const imgRef = useRef(null);
   const [avatar, setAvatar] = useAtom(avatarAtom);
+  const basicAvatar = currentUser?.avatar || '/dog_avatar.jpg';
 
   const collectFile = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
@@ -31,7 +32,7 @@ const Avatar = ({ userFormOpen, currentUser }: { userFormOpen: boolean; currentU
           {avatar ? (
             <AvatarImage url={URL.createObjectURL(avatar)} alt="미리보기" />
           ) : (
-            <AvatarImage url={currentUser?.avatar as string} alt="업데이트 전 원래 아바타" />
+            <AvatarImage url={basicAvatar} alt="업데이트 전 원래 아바타" />
           )}
         </label>
       ) : (
@@ -39,7 +40,7 @@ const Avatar = ({ userFormOpen, currentUser }: { userFormOpen: boolean; currentU
           {currentUser?.avatar ? (
             <AvatarImage url={currentUser?.avatar as string} alt="업데이트 후 아바타" />
           ) : (
-            <div className="w-40 h-40 rounded-full bg-gray-200">avatar</div>
+            <AvatarImage url={basicAvatar} alt="업데이트 전 원래 아바타" />
           )}
         </div>
       )}

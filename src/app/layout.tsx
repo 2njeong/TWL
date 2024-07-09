@@ -6,6 +6,9 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Provider } from 'jotai';
 import Modal from '@/components/utilComponents/modal/Modal';
 import NavBar from '@/components/navBar/NavBar';
+import dynamic from 'next/dynamic';
+
+const ModalWrapper = dynamic(() => import('@/components/utilComponents/modal/Modal'), { ssr: false });
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,7 +27,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <QueryProvider>
           <Provider>
-            <Modal />
+            <ModalWrapper />
             <NavBar />
             {children}
           </Provider>
