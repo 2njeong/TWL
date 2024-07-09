@@ -8,10 +8,8 @@ import { useAtom } from 'jotai';
 
 const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
   const { isThatUserLoading, thatUserData } = useFetchThatUser(id);
-  const { isLoading, userData, isLoggedIn } = useFetchCurrentUser();
+  const { isLoading, userData } = useFetchCurrentUser();
   const [theCategory, setTheCategory] = useAtom(categoryAtom);
-
-  console.log('id =>', id);
 
   const categories = ['질문', '알고리즘', '방명록'];
 
@@ -19,7 +17,7 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
     setTheCategory(category);
   };
 
-  // console.log('theCategory =>', theCategory);
+  console.log('theCategory =>', theCategory);
 
   if (isThatUserLoading || isLoading) return <>로딩중..</>;
   return (
@@ -32,10 +30,10 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
               <div>{theCategory}</div>
               {theCategory === '질문' ? (
                 <></>
-              ) : '알고리즘' ? (
+              ) : theCategory === '알고리즘' ? (
                 <Algorithm thatUserID={thatUserData?.user_id} currentUserID={userData?.user_id} />
-              ) : '방명록' ? (
-                <></>
+              ) : theCategory === '방명록' ? (
+                <>ddd</>
               ) : (
                 <></>
               )}

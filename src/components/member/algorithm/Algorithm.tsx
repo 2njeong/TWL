@@ -16,8 +16,6 @@ const Algorithm = ({
   const [writeNewPost, setWriteNewPost] = useState(false);
   const { algorithmData, algorithmIsLoading } = useFetchThatUsersAlgorithm(thatUserID);
 
-  console.log('algorithmData =>', algorithmData);
-
   const handleNewPost = () => {
     setWriteNewPost((prev) => !prev);
   };
