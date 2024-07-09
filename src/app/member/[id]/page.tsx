@@ -17,7 +17,7 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
     setTheCategory(category);
   };
 
-  console.log('theCategory =>', theCategory);
+  // console.log('theCategory =>', theCategory);
 
   if (isThatUserLoading || isLoading) return <>로딩중..</>;
   return (

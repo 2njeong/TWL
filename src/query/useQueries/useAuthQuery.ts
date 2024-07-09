@@ -20,11 +20,12 @@ export const useFetchCurrentUser = () => {
 };
 
 export const useFetchThatUser = (thatUser: string) => {
-  const { data: thatUserData, isLoading: isThatUserLoading } = useQuery<Tables<'users'>>({
+  const { data, isLoading: isThatUserLoading } = useQuery<Tables<'users'>[]>({
     queryKey: [THAT_USER_QUERY_KEY, thatUser],
     queryFn: () => fetchThatUser(thatUser),
     enabled: !!thatUser
   });
 
+  const thatUserData = data ? data[0] : data;
   return { isThatUserLoading, thatUserData };
 };

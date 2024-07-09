@@ -12,11 +12,11 @@ export async function GET(req: NextRequest) {
       const {
         data: { user }
       } = await supabase.auth.getUser();
-      // console.log('user =>', user);
+
       if (user) {
         const { data, error } = await supabase.from('users').select('*').eq('user_id', user.id).single();
         if (error) {
-          // console.log('currentUser Error =>', error);
+          console.log('currentUser Error =>', error);
           throw new Error(error.message);
         }
         const userData = data as Tables<'users'>;
@@ -30,16 +30,16 @@ export async function GET(req: NextRequest) {
       const { data, error } = await supabase.from('users').select('*').eq('user_id', creator).single();
       // console.log('route.ts data =>', data);
       if (error) {
-        console.log('error =>', error);
+        console.log('quizCreator error =>', error);
         throw new Error(error.message);
       }
       return Response.json(data);
     }
     case 'thatUser': {
       const thatUser = searchParams.get('thatUser');
-      const { data, error } = await supabase.from('users').select('*').eq('user_id', thatUser).single();
+      const { data, error } = await supabase.from('users').select('*').eq('user_id', thatUser);
       if (error) {
-        console.log('error =>', error);
+        console.log('thatUser error =>', error);
         throw new Error(error.message);
       }
       return Response.json(data);

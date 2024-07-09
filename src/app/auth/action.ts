@@ -1,11 +1,7 @@
 'use server';
 
-import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 import { authSchema } from '@/schema/authSchema';
 import { serverSupabase } from '@/supabase/server';
-import { QueryClient } from '@tanstack/react-query';
-import { headers } from 'next/headers';
-import { redirect } from 'next/navigation';
 
 const supabase = serverSupabase();
 
@@ -17,7 +13,10 @@ export const handleSignIn = async (formData: FormData) => {
     return { error: zodErr.format() };
   }
   const { error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) throw new Error(error.message);
+  if (error) {
+    console.log('로그인 에러 =>', error.message);
+    return { success: false, message: error.message };
+  }
 
   return { success: true };
 };
@@ -39,9 +38,9 @@ export const handleSignUp = async (formData: FormData) => {
   });
   if (error) {
     console.log('회원가입 에러 =>', error.message);
-    throw new Error(error.message);
+    return { success: false, message: error.message };
   }
-  return { message: '작성하신 이메일에서 회원가입을 완료해주세요!' };
+  return { success: true, message: '작성하신 이메일에서 회원가입을 완료해주세요!' };
 };
 
 export const handleSignOut = async () => {

@@ -6,7 +6,8 @@ import { GoGear } from 'react-icons/go';
 import ShowUserData from './ShowUserData';
 import UpdateUserForm from './UpdateUserForm';
 import Avatar from './Avatar';
-import SubmitBtn from '@/components/makequiz/SubmitBtn';
+import { useAtom } from 'jotai';
+import { avatarAtom } from '@/atom/memberAtom';
 
 const UserInfo = ({
   thatUserData,
@@ -16,14 +17,17 @@ const UserInfo = ({
   currentUser: Tables<'users'> | undefined;
 }) => {
   const [userFormOpen, setUserFormOpen] = useState(false);
+  const [_, setAvatar] = useAtom(avatarAtom);
   const userDataList = ['nickname', 'Github', 'Email'];
 
   const handleUserFormOpen = () => {
+    setAvatar(null);
     setUserFormOpen((prev) => !prev);
   };
 
-  // console.log(111, new Set(userDataList));
-  // console.log(222, Array.from(new Set(userDataList)));
+  console.log('currentUser =>', currentUser?.avatar);
+  console.log('thatUserData =>', thatUserData?.avatar);
+  console.log('same? =>', currentUser?.avatar === thatUserData?.avatar);
 
   return (
     <section className="border w-2/6 flex flex-col justify-around items-center p-2">
@@ -33,8 +37,7 @@ const UserInfo = ({
         </button>
       )}
       <Avatar userFormOpen={userFormOpen} currentUser={currentUser} />
-      {/* <div className={`h-3/6 w-full border flex flex-col ${userFormOpen ? 'justify-end' : 'justify-center'} py-2 px-4`}> */}
-      <div className={`h-3/6 w-full border flex flex-col justify-center py-2 px-4`}>
+      <div className={`h-3/6 w-full border flex py-2 px-4`}>
         {userFormOpen ? (
           <>
             <UpdateUserForm
@@ -45,7 +48,10 @@ const UserInfo = ({
             />
           </>
         ) : (
-          <ShowUserData userDataList={userDataList} thatUserData={thatUserData} />
+          <ShowUserData
+            userDataList={userDataList}
+            userData={thatUserData?.user_id === currentUser?.user_id ? currentUser : thatUserData}
+          />
         )}
       </div>
     </section>

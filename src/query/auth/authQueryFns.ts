@@ -8,7 +8,7 @@ export const fetchCurrentUser = async (): Promise<Tables<'users'>> => {
   return response.json();
 };
 
-export const fetchThatUser = async (thatUser: string): Promise<Tables<'users'>> => {
+export const fetchThatUser = async (thatUser: string): Promise<Tables<'users'>[]> => {
   const response = await fetch(`/auth/api?type=thatUser&thatUser=${thatUser}`);
   if (!response.ok) {
     throw new Error('ThatUser response was not ok');

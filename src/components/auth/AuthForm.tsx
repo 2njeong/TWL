@@ -23,7 +23,13 @@ const AuthForm = () => {
     }
     setValidationErr(null);
     if (result.success) {
+      if (authType === 'signUp') {
+        alert(result.message);
+        return;
+      }
       location.replace('/');
+    } else {
+      alert(result.message);
     }
   };
   const [_, formAction] = useFormState(submitAuthForm, null);
