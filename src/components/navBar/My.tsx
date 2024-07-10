@@ -47,6 +47,12 @@ const My = () => {
     location.replace('/auth');
   };
 
+  const openNewWindow = () => {
+    const features =
+      'width=1400,height=800,resizable=yes,scrollbars=no,status=yes,toolbar=no,menubar=no,location=yes, noopener, noreferrer';
+    window.open(`/member/${userData?.user_id}`, '_blank', features);
+  };
+
   if (isLoading) return;
 
   return (
@@ -69,15 +75,7 @@ const My = () => {
                 {my.name}
               </Link>
             ))}
-            <button
-              onClick={() => {
-                const features =
-                  'width=1400,height=800,resizable=yes,scrollbars=no,status=yes,toolbar=no,menubar=no,location=yes, noopener, noreferrer';
-                window.open(`/member/${userData?.user_id}`, '_blank', features);
-              }}
-            >
-              test
-            </button>
+            <button onClick={openNewWindow}>test</button>
           </div>
         )}
       </div>

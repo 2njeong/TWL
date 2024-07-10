@@ -8,9 +8,10 @@ import { useEffect, useRef } from 'react';
 import { ZINDEX } from '@/constants/commonConstants';
 import { Viewer } from '@toast-ui/react-editor';
 import { htmlTagRegex } from '@/utils/common';
+import ModalPortal from './ModalPortal';
 
 const Modal = () => {
-  const [{ layer, isOpen, type, title, content, onFunc, offFunc }, _] = useAtom(openModal);
+  const [{ elementId, isOpen, type, title, content, onFunc, offFunc }, _] = useAtom(openModal);
   const modalRef = useRef<HTMLDivElement>(null);
 
   // const transition = useTransition(isOpen, {
@@ -23,7 +24,7 @@ const Modal = () => {
     requestAnimationFrame(() => {
       if (!modalRef.current) return;
       if (isOpen) {
-        modalRef.current.style.transform = 'translate(-50%, -60%)';
+        modalRef.current.style.transform = 'translate(-50%, -40%)';
         modalRef.current.style.opacity = '1';
         modalRef.current.style.transition = 'transform 0.3s ease-in-out';
       }
@@ -36,10 +37,39 @@ const Modal = () => {
 
   if (!isOpen) return;
 
-  console.log('content =>', content);
-  // console.log('content =>', content[0]);
   return (
     <>
+      <ModalPortal>
+        {/* <div className="fixed w-full h-full top-0 left-0 bg-gray-300">ddddd</div> */}
+        <ModalBackground />
+        <div
+          ref={modalRef}
+          className={`min-w-[40%]  ${elementId === 'new-root' ? 'max-w-[50%]' : `max-w-[80%]`} fixed z-[${
+            ZINDEX.modalZ
+          }]
+          max-h-[80vh] top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col gap-2 bg-white opacity-0 p-4 overflow-hidden`}
+        >
+          <button className="w-full flex justify-end items-center" onClick={offFunc}>
+            x
+          </button>
+          <div className="flex flex-col gap-4 p-2 overflow-y-auto max-h-[calc(80vh-4rem)]">
+            <h3 className="text-2xl font-bold">{title}</h3>
+            {elementId === 'new-root' ? (
+              // 새로운 창에서 모달 content
+              <p className="w-full h-full break-all whitespace-normal">{content}</p>
+            ) : // 원래 DOM에서의 모달 content
+            content && htmlTagRegex.test(content) ? (
+              <Viewer initialValue={content} />
+            ) : (
+              <p className="w-full h-full break-all whitespace-normal">{content}</p>
+            )}
+          </div>
+          <div className="flex gap-3 justify-end">
+            <button onClick={onFunc}>확인</button>
+            {type === 'alert' ? null : <button onClick={offFunc}>취소</button>}
+          </div>
+        </div>
+      </ModalPortal>
       {/* {transition((style, item) =>
         item ? (
           <>
@@ -60,36 +90,6 @@ const Modal = () => {
           </>
         ) : null
       )} */}
-
-      <>
-        <ModalBackground />
-        <div
-          ref={modalRef}
-          className={`min-w-[40%]  ${
-            layer > 0 ? 'max-w-[50%]' : 'max-w-[80%]'
-          } max-h-[80vh] fixed top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col gap-2 bg-white opacity-0 p-4 z-[${
-            layer > 0 ? ZINDEX.upperModalZ : ZINDEX.modalZ
-          }] overflow-hidden`}
-        >
-          <button className="w-full flex justify-end items-center" onClick={offFunc}>
-            x
-          </button>
-          <div className="flex flex-col gap-4 p-2 overflow-y-auto max-h-[calc(80vh-4rem)]">
-            <h3 className="text-2xl font-bold">{title}</h3>
-            {layer > 0 ? (
-              <p className="w-full h-full break-all whitespace-normal">{content}</p>
-            ) : content && htmlTagRegex.test(content) ? (
-              <Viewer initialValue={content} />
-            ) : (
-              <p className="w-full h-full break-all whitespace-normal">{content}</p>
-            )}
-          </div>
-          <div className="flex gap-3 justify-end">
-            <button onClick={onFunc}>확인</button>
-            {type === 'alert' ? null : <button onClick={offFunc}>취소</button>}
-          </div>
-        </div>
-      </>
     </>
   );
 };

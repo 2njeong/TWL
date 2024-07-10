@@ -1,5 +1,6 @@
 'use client';
 
+import OpenModalBtn from '@/components/utilComponents/modal/OpenModalBtn';
 import { useQuizListQuery } from '@/query/useQueries/useQuizQuery';
 import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';

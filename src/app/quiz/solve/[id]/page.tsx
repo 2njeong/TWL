@@ -3,12 +3,13 @@
 import QuizComments from '@/components/quiz/detail/quizComment/QuizComments';
 import { useFetchThatQuiz } from '@/query/useQueries/useQuizQuery';
 import { useEffect, useState } from 'react';
-import '@toast-ui/editor/dist/toastui-editor.css';
-import '@toast-ui/editor/dist/i18n/ko-kr';
 import QuizHeader from '@/components/quiz/detail/QuizHeader';
 import QuizContent from '@/components/quiz/detail/QuizContent';
 import QuizFooter from '@/components/quiz/detail/QuizFooter';
 import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
+import dynamic from 'next/dynamic';
+
+const QuizContentWrapper = dynamic(() => import('@/components/quiz/detail/QuizContent'), { ssr: false });
 
 const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
   const { data: theQuiz, isLoading } = useFetchThatQuiz(id);
@@ -49,7 +50,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
     <div className="w-full flex flex-col gap-4">
       <div className="bg-yelTwo flex flex-col gap-8 py-8 px-4">
         <QuizHeader theQuiz={theQuiz} setClickList={setClickList} checkIfRight={checkIfRight} />
-        <QuizContent
+        <QuizContentWrapper
           theQuiz={theQuiz}
           clickList={clickList}
           setClickList={setClickList}

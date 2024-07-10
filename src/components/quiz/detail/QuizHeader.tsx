@@ -21,9 +21,9 @@ const QuizHeader = ({
         <h4 className="text-gray-600 text-sm">복수답변({theQuiz.answer.length}개) 질문입니다.</h4>
       )}
       <OpenModalBtn
-        className="flex justify-end"
+        className="flex justify-end ml-auto"
         modalProps={{
-          layer: 0,
+          elementId: 'root',
           type: 'alert',
           title: `${checkIfRight()}`,
           content: theQuiz?.isSubjective

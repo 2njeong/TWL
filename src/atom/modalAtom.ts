@@ -2,7 +2,7 @@ import { ModalProps, ModalState } from '@/type/modalType';
 import { atom } from 'jotai';
 
 export const modalState = atom<ModalState>({
-  layer: 0,
+  elementId: 'root',
   isOpen: false,
   type: 'alert',
   title: '',
@@ -13,10 +13,10 @@ export const modalState = atom<ModalState>({
 
 export const openModal = atom(
   (get) => get(modalState),
-  (_, set, { layer, type, title, content, onFunc }: ModalProps) => {
+  (_, set, { elementId, type, title, content, onFunc }: ModalProps) => {
     set(modalState, (prev) => ({
       ...prev,
-      layer,
+      elementId,
       isOpen: true,
       type,
       title,

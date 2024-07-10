@@ -25,10 +25,6 @@ const UserInfo = ({
     setUserFormOpen((prev) => !prev);
   };
 
-  console.log('currentUser =>', currentUser?.avatar);
-  console.log('thatUserData =>', thatUserData?.avatar);
-  console.log('same? =>', currentUser?.avatar === thatUserData?.avatar);
-
   return (
     <>
       {currentUser?.user_id === thatUserData?.user_id && (

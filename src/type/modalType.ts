@@ -1,5 +1,5 @@
 export type ModalState = {
-  layer: number;
+  elementId: string;
   isOpen: boolean;
   type: string;
   title: string;
@@ -9,3 +9,5 @@ export type ModalState = {
 };
 
 export type ModalProps = Omit<ModalState, 'isOpen' | 'offFunc'>;
+
+export type ModalPortalProps = { elementId: string };

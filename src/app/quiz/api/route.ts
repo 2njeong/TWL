@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
     }
     case 'allLike': {
       const { data, error } = await supabase.rpc('get_top_likes_quizzes', { limit_value: TOPLIKESQUIZZES });
-      console.log('top likes data =>', data);
+      // console.log('top likes data =>', data);
 
       if (error) throw new Error(error.message);
       if (error) return new Response('fail to select top quiz likes', { status: 500 });

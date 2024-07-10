@@ -5,13 +5,13 @@ const ModalWrapper = dynamic(() => import('@/components/utilComponents/modal/Mod
 
 const MemberLayout = ({ children }: PropsWithChildren) => {
   return (
-    <>
-      <ModalWrapper />
-      <div className="w-full max-w-[1080px] h-full max-h-[600px] mx-auto flex flex-col justify-center">
+    <div>
+      <div className="w-full max-w-[1080px] h-full max-h-[600px] mx-auto flex flex-col justify-center ">
         멤버레이아웃
         {children}
       </div>
-    </>
+      <div id="new-root"></div>
+    </div>
   );
 };
 export default MemberLayout;

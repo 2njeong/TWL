@@ -26,7 +26,7 @@ const AlgorithmList = ({ algorithmData }: { algorithmData: Tables<'algorithm'>[]
           <OpenModalBtn
             className={`${item.newLearn && 'border'} rounded h-full max-h-24 flex justify-start items-center`}
             modalProps={{
-              layer: 1,
+              elementId: 'new-root',
               type: 'alert',
               title: '이 문제를 풀면서 배웠어요!',
               content: item.newLearn && item.newLearn

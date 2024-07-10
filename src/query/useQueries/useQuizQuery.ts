@@ -98,7 +98,7 @@ export const useCreatorNQuiz = (creator: string) => {
     }, [])
   });
 
-  console.log('useCreatorNQuiz =>', data);
+  // console.log('useCreatorNQuiz =>', data);
   // const mappedResults = results.map((result) => result.data);
 
   // const memoData = useMemo(() => {

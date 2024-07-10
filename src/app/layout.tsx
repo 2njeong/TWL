@@ -27,6 +27,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <QueryProvider>
           <Provider>
+            <div id="root"></div>
             <ModalWrapper />
             <NavBar />
             {children}
