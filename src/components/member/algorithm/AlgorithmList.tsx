@@ -10,16 +10,15 @@ const AlgorithmList = ({ algorithmData }: { algorithmData: Tables<'algorithm'>[]
   return (
     <div className="p-2 border grid grid-cols-2 max-sm:grid-cols-1 gap-4">
       {algorithmData?.map((item) => (
-        <div key={item.algorithm_id} className="flex flex-col gap-2 p-4 h-60 justify-between border rounded">
+        <div key={item.algorithm_id} className="flex flex-col gap-2 py-2 px-4 h-48 justify-between border rounded">
           <div className="flex flex-col gap-2">
             <div>
-              <h2 className="font-bold text-2xl truncate">{item.title}</h2>
+              <h2 className="font-bold text-xl truncate">{item.title}</h2>
               <div className="flex gap-1 items-center">
                 <p className="font-semibold">Lv.</p>
                 <p className="text-blue-500">{item.level}</p>
               </div>
             </div>
-
             <Link href={item.link} className="underline text-sm text-gray-500">
               나도 풀어볼래!
             </Link>
@@ -33,9 +32,11 @@ const AlgorithmList = ({ algorithmData }: { algorithmData: Tables<'algorithm'>[]
               content: item.newLearn && item.newLearn
             }}
           >
-            <p className="overflow-hidden break-all whitespace-normal line-clamp-3">{item.newLearn && item.newLearn}</p>
+            <p className="overflow-hidden break-all whitespace-normal line-clamp-2 text-sm">
+              {item.newLearn && item.newLearn}
+            </p>
           </OpenModalBtn>
-          <p className="text-sm text-gray-500">
+          <p className="text-xs text-gray-500">
             {getformattedDate(new Date(new Date(item.created_at).getTime() + 9 * 60 * 60 * 1000).toString())}
           </p>
         </div>

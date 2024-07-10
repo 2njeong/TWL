@@ -72,7 +72,7 @@ const My = () => {
             <button
               onClick={() => {
                 const features =
-                  'width=2500,height=1000,resizable=yes,scrollbars=no,status=yes,toolbar=no,menubar=no,location=yes, noopener, noreferrer';
+                  'width=1400,height=800,resizable=yes,scrollbars=no,status=yes,toolbar=no,menubar=no,location=yes, noopener, noreferrer';
                 window.open(`/member/${userData?.user_id}`, '_blank', features);
               }}
             >

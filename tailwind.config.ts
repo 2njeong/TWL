@@ -35,12 +35,12 @@ const config: Config = {
   plugins: [
     function ({ addUtilities }: { addUtilities: any }) {
       addUtilities({
-        '.line-clamp-3': {
+        '.line-clamp-2': {
           display: '-webkit-box',
           '-webkit-box-orient': 'vertical',
           overflow: 'hidden',
           'text-overflow': 'ellipsis',
-          '-webkit-line-clamp': '3'
+          '-webkit-line-clamp': '2'
         }
       });
     }

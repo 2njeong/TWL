@@ -23,7 +23,7 @@ const Algorithm = ({
   if (algorithmIsLoading) return <div>알고리즘 로딩중..</div>;
 
   return (
-    <div className="w-full flex flex-col border min-h-[500px] h-full">
+    <div className="w-full h-full max-h-[90%] flex flex-col border">
       <div className="w-full flex justify-end p-2">
         {thatUserID === currentUserID && (
           <button className={`${!writeNewPost && 'border'}`} onClick={handleNewPost}>

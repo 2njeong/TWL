@@ -30,7 +30,7 @@ const UserInfo = ({
   console.log('same? =>', currentUser?.avatar === thatUserData?.avatar);
 
   return (
-    <section className="border w-2/6 flex flex-col justify-around items-center p-2">
+    <>
       {currentUser?.user_id === thatUserData?.user_id && (
         <button onClick={handleUserFormOpen} className="ml-auto">
           {userFormOpen ? '수정취소' : <GoGear className="text-xl" />}
@@ -49,7 +49,7 @@ const UserInfo = ({
           />
         )}
       </div>
-    </section>
+    </>
   );
 };
 

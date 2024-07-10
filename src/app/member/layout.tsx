@@ -7,7 +7,7 @@ const MemberLayout = ({ children }: PropsWithChildren) => {
   return (
     <>
       <ModalWrapper />
-      <div className="w-full max-w-[1200px] w-9/12 mx-auto flex flex-col justify-center">
+      <div className="w-full max-w-[1080px] h-full max-h-[600px] mx-auto flex flex-col justify-center">
         멤버레이아웃
         {children}
       </div>
