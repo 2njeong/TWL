@@ -1,10 +1,10 @@
 import Image from 'next/image';
 
-const AvatarImage = ({ url, alt }: { url: string; alt: string }) => {
+const AvatarImage = ({ src, alt, size }: { src: string; alt: string; size: string }) => {
   return (
-    <div className="relative w-52 h-52 rounded-full">
+    <div className={`relative w-${size} h-${size} rounded-full`}>
       <Image
-        src={url}
+        src={src}
         alt={alt}
         fill={true}
         className="rounded-full object-cover"

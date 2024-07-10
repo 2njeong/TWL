@@ -2,6 +2,7 @@
 
 import { categoryAtom } from '@/atom/memberAtom';
 import Algorithm from '@/components/member/algorithm/Algorithm';
+import GuestBook from '@/components/member/guestbook/GuestBook';
 import UserInfo from '@/components/member/information/UserInfo';
 import { useFetchCurrentUser, useFetchThatUser } from '@/query/useQueries/useAuthQuery';
 import { useAtom } from 'jotai';
@@ -39,7 +40,7 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
               ) : theCategory === '알고리즘' ? (
                 <AlgorithmWrapper thatUserID={thatUserData?.user_id} currentUserID={userData?.user_id} />
               ) : theCategory === '방명록' ? (
-                <>ddd</>
+                <GuestBook userData={userData} />
               ) : (
                 <></>
               )}

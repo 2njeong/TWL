@@ -9,9 +9,6 @@ const ModalPortal = ({ children }: PropsWithChildren) => {
   const [{ elementId }, _] = useAtom(openModal);
   const element = document.getElementById(elementId);
 
-  console.log('elementId =>', elementId);
-  console.log('element =>', element);
-
   return element ? createPortal(children, element) : <></>;
 };
 

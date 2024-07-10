@@ -30,17 +30,17 @@ const Avatar = ({ userFormOpen, currentUser }: { userFormOpen: boolean; currentU
             onChange={(e) => collectFile(e)}
           />
           {avatar ? (
-            <AvatarImage url={URL.createObjectURL(avatar)} alt="미리보기" />
+            <AvatarImage src={URL.createObjectURL(avatar)} alt="미리보기" size="52" />
           ) : (
-            <AvatarImage url={basicAvatar} alt="업데이트 전 원래 아바타" />
+            <AvatarImage src={basicAvatar} alt="업데이트 전 원래 아바타" size="52" />
           )}
         </label>
       ) : (
         <div>
           {currentUser?.avatar ? (
-            <AvatarImage url={currentUser?.avatar as string} alt="업데이트 후 아바타" />
+            <AvatarImage src={currentUser?.avatar as string} alt="업데이트 후 아바타" size="52" />
           ) : (
-            <AvatarImage url={basicAvatar} alt="업데이트 전 원래 아바타" />
+            <AvatarImage src={basicAvatar} alt="업데이트 전 원래 아바타" size="52" />
           )}
         </div>
       )}
