@@ -14,6 +14,18 @@ export const GET = async (req: NextRequest) => {
       }
       return Response.json(data);
     }
+    case 'guestbook': {
+      const thatUser = searchParams.get('thatUser');
+      const { data, error } = await supabase
+        .from('guestbook')
+        .select('*')
+        .eq('creator', thatUser)
+        .order('created_at', { ascending: false });
+      if (error) {
+        throw new Error(error.message);
+      }
+      return Response.json(data);
+    }
 
     default:
       return new Response('Invalid type', { status: 400 });

@@ -3,7 +3,6 @@
 import OpenModalBtn from '@/components/utilComponents/modal/OpenModalBtn';
 import { Tables } from '@/type/database';
 import { getformattedDate } from '@/utils/utilFns';
-import { useSetAtom } from 'jotai';
 import Link from 'next/link';
 
 const AlgorithmList = ({ algorithmData }: { algorithmData: Tables<'algorithm'>[] | undefined }) => {

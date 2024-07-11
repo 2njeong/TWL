@@ -33,7 +33,7 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
 
         <section className="border w-4/6 flex flex-col justify-around">
           {theCategory ? (
-            <div className="h-full p-2 flex flex-col gap-2 justify-center">
+            <div className="h-full overflow-y-auto p-2 flex flex-col gap-2">
               <div>{theCategory}</div>
               {theCategory === '질문' ? (
                 <></>

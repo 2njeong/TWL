@@ -12,7 +12,7 @@ const ShowCreator = ({ creator }: { creator: string }) => {
   } = useCreatorNQuiz(creator);
   const [isCreatorOpen, setIsCreatorOpen] = useState(false);
 
-  // console.log('가져온 애 ===>', [creatorData, quizzes]);
+  console.log('가져온 애 ===>', [creatorData, quizzes]);
   // console.log('creatorData? =>', creatorData);
   // console.log('quizzes? =>', quizzes);
 

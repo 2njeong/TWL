@@ -11,7 +11,7 @@ import { TbCubeSend } from 'react-icons/tb';
 const GuestBookForm = ({ id }: { id: string }) => {
   const queryClient = useQueryClient();
   const { user_id: creator, avatar } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
-  const [thatUserData] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
+  const [{ nickname }] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
   const guestBookRef = useRef<HTMLFormElement | null>(null);
 
   const guestBookBtnProps = {
@@ -38,7 +38,7 @@ const GuestBookForm = ({ id }: { id: string }) => {
       id="guestbook"
       ref={guestBookRef}
       action={submitGeustBookForm}
-      className="border w-[85%] h-48 flex flex-col items-center justify-center gap-2 pt-10 pb-4 px-2"
+      className="border w-full max-w-[35rem] h-48 flex flex-col items-center justify-center gap-2 pt-10 pb-4 px-2"
     >
       <div className="w-full flex items-center gap-6 justify-center">
         <div>
@@ -46,7 +46,7 @@ const GuestBookForm = ({ id }: { id: string }) => {
         </div>
         <textarea
           name="content"
-          placeholder={`${thatUserData?.nickname}님께 글을 남겨주세요!`}
+          placeholder={`${nickname}님께 글을 남겨주세요!`}
           className="border rounded w-4/6 h-full resize-none p-2 focus:outline-none"
         ></textarea>
       </div>

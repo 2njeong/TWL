@@ -4,7 +4,6 @@ import { useAtom } from 'jotai';
 import { useEffect, useRef } from 'react';
 
 const ModalBackground = () => {
-  console.log('백');
   const [{ offFunc }, _] = useAtom(openModal);
   const backGroundRef = useRef<HTMLDivElement>(null);
 
