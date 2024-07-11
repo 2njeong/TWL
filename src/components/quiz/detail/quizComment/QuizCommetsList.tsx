@@ -3,8 +3,9 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { useQuizCommentsQuery } from '@/query/useQueries/useQuizQuery';
 import { getHoursDifference } from '@/utils/utilFns';
-import QuizCommentsDeleteBtn from './QuizCommentsDeleteBtn';
+import DeleteBtn from '../../../utilComponents/DeleteBtn';
 import { Tables } from '@/type/database';
+import { QUIZ_COMMENTS_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 
 const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
   const {
@@ -48,6 +49,15 @@ const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) 
     };
   }, [handleScroll]);
 
+  const deleteBtnProps = {
+    queryKey: [QUIZ_COMMENTS_QUERY_KEY],
+    containerClassName: 'w-8',
+    btnContainerClassName: 'w-7 h-7',
+    btnClassName: 'text-xl cursor-pointer',
+    hoverContainerClassName: 'w-14 h-7 p-1 -bottom-8 -left-6',
+    hoverBtnClassName: 'text-sm'
+  };
+
   return (
     <>
       <section className="flex flex-col gap-2 w-11/12">
@@ -67,15 +77,17 @@ const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) 
             {getformattedDate(new Date(new Date(comment.created_at).getTime() + 9 * 60 * 60 * 1000).toString())}
           </p> */}
                         <p className="text-xs text-gray-500">
-                          {Math.floor(
-                            getHoursDifference(
-                              new Date(new Date(comment.created_at).getTime() + 9 * 60 * 60 * 1000).toString()
+                          {
+                            -Math.floor(
+                              getHoursDifference(
+                                new Date(new Date(comment.created_at).getTime() + 9 * 60 * 60 * 1000).toString()
+                              )
                             )
-                          )}
+                          }
                           시간 전
                         </p>
                       </div>
-                      <QuizCommentsDeleteBtn comment_id={comment.comment_id} />
+                      <DeleteBtn item_id={comment.comment_id} {...deleteBtnProps} />
                     </div>
                     <div className="w-full px-2">
                       <p className="break-all whitespace-normal overflow-wrap"> {comment.comment_content}</p>

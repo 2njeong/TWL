@@ -9,6 +9,8 @@ import { getformattedDate } from '@/utils/utilFns';
 import { HiOutlineEllipsisVertical } from 'react-icons/hi2';
 import { useState } from 'react';
 import { submitDeleteGuestBook } from '@/app/member/action';
+import { THAT_USERS_GUESTBOOK } from '@/query/member/memberQueryKey';
+import DeleteBtn from '@/components/utilComponents/DeleteBtn';
 
 const GuestBookList = ({ id }: { id: string }) => {
   const queryClient = useQueryClient();
@@ -25,6 +27,15 @@ const GuestBookList = ({ id }: { id: string }) => {
     await submitDeleteGuestBook(id);
   };
 
+  const deleteBtnProps = {
+    queryKey: [THAT_USERS_GUESTBOOK, thatUserId],
+    containerClassName: 'w-full flex justify-end',
+    btnContainerClassName: 'w-7 h-7',
+    btnClassName: 'text-xl cursor-pointer',
+    hoverContainerClassName: 'w-12 h-6 -bottom-6',
+    hoverBtnClassName: 'text-sm'
+  };
+
   console.log('guestbookData =>', guestbookData);
 
   if (guestbookLoading) return <>방명록 로딩중..</>;
@@ -32,10 +43,12 @@ const GuestBookList = ({ id }: { id: string }) => {
     <>
       {guestbookData?.map((book) => (
         <div key={book.id} className="border w-full max-w-[35rem] flex flex-col items-center gap-2 pt-4 pb-2 px-2">
-          <div className="w-full flex justify-end relative">
-            <HiOutlineEllipsisVertical onClick={handleDeleteOpen} className="text-xl cursor-pointer" />
+          {/* <div className="relative w-full flex justify-end">
+            <button className="flex justify-center items-center hover:rounded-full hover:border w-7 h-7 ">
+              <HiOutlineEllipsisVertical onClick={handleDeleteOpen} className="text-xl cursor-pointer" />
+            </button>
             {deleteOpen && (
-              <div className="w-10 h-6 border rounded-md absolute -bottom-7 flex justify-center bg-white">
+              <div className="border rounded-md absolute flex justify-center bg-white w-10 h-6 -bottom-6">
                 <button
                   className="hover:bg-gray-200 hover:w-full rounded text-sm"
                   onClick={async () => await handleDeleteGuestBook(book.id)}
@@ -44,7 +57,8 @@ const GuestBookList = ({ id }: { id: string }) => {
                 </button>
               </div>
             )}
-          </div>
+          </div> */}
+          <DeleteBtn item_id={thatUserId} {...deleteBtnProps} />
 
           <div className="w-full flex items-center gap-6 justify-center">
             <div>

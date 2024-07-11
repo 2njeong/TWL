@@ -14,11 +14,6 @@ const QuizCommentBtn = ({
 }) => {
   const { pending } = useFormStatus();
 
-  const handleCancleBtn = () => {
-    setCommentOpen(false);
-    commentFormRef?.current?.reset();
-  };
-
   return (
     <>
       {isCommentOpen && (
