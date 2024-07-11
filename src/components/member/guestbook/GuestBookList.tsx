@@ -17,22 +17,14 @@ const GuestBookList = ({ id }: { id: string }) => {
   const { user_id: creator } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
   const [{ user_id: thatUserId }] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
   const { guestbookData, guestbookLoading } = useFetchGuestBook(thatUserId);
-  const [deleteOpen, setDeleteOpen] = useState(false);
-
-  const handleDeleteOpen = () => {
-    setDeleteOpen((prev) => !prev);
-  };
-
-  const handleDeleteGuestBook = async (id: string) => {
-    await submitDeleteGuestBook(id);
-  };
 
   const deleteBtnProps = {
+    item: 'guestbook',
     queryKey: [THAT_USERS_GUESTBOOK, thatUserId],
     containerClassName: 'w-full flex justify-end',
-    btnContainerClassName: 'w-7 h-7',
+    btnContainerClassName: 'w-6 h-6',
     btnClassName: 'text-xl cursor-pointer',
-    hoverContainerClassName: 'w-12 h-6 -bottom-6',
+    hoverContainerClassName: 'w-12 h-6 -bottom-8',
     hoverBtnClassName: 'text-sm'
   };
 
@@ -41,40 +33,28 @@ const GuestBookList = ({ id }: { id: string }) => {
   if (guestbookLoading) return <>방명록 로딩중..</>;
   return (
     <>
-      {guestbookData?.map((book) => (
-        <div key={book.id} className="border w-full max-w-[35rem] flex flex-col items-center gap-2 pt-4 pb-2 px-2">
-          {/* <div className="relative w-full flex justify-end">
-            <button className="flex justify-center items-center hover:rounded-full hover:border w-7 h-7 ">
-              <HiOutlineEllipsisVertical onClick={handleDeleteOpen} className="text-xl cursor-pointer" />
-            </button>
-            {deleteOpen && (
-              <div className="border rounded-md absolute flex justify-center bg-white w-10 h-6 -bottom-6">
-                <button
-                  className="hover:bg-gray-200 hover:w-full rounded text-sm"
-                  onClick={async () => await handleDeleteGuestBook(book.id)}
-                >
-                  삭제
-                </button>
+      {guestbookData?.map(
+        (book) =>
+          !book.isDeleted && (
+            <div
+              key={book.guestbook_id}
+              className="border w-full max-w-[35rem] flex flex-col items-center gap-2 pt-4 pb-2 px-2"
+            >
+              {creator === book.creator && <DeleteBtn item_id={book.guestbook_id} {...deleteBtnProps} />}
+              <div className="w-full flex items-center gap-6 justify-center">
+                <AvatarImage src={book.avatar || '/dog_avatar.jpg'} alt="방명록 아바타" size="28" />
+                <div className="border rounded w-4/6 h-full resize-none p-2 focus:outline-none">
+                  {book.allowShow ? book.content : '비공개 글 입니다.'}
+                </div>
               </div>
-            )}
-          </div> */}
-          <DeleteBtn item_id={thatUserId} {...deleteBtnProps} />
-
-          <div className="w-full flex items-center gap-6 justify-center">
-            <div>
-              <AvatarImage src={book.avatar || '/dog_avatar.jpg'} alt="방명록 아바타" size="28" />
+              <div className="w-full flex items-center justify-end">
+                <p className="text-gray-500 text-sm">
+                  {getformattedDate(new Date(new Date(book.created_at).getTime() + 9 * 60 * 60 * 1000).toString())}
+                </p>
+              </div>
             </div>
-            <div className="border rounded w-4/6 h-full resize-none p-2 focus:outline-none">
-              {book.allowShow ? book.content : '비공개 글 입니다.'}
-            </div>
-          </div>
-          <div className="w-full flex items-center justify-end">
-            <p className="text-gray-500 text-sm">
-              {getformattedDate(new Date(new Date(book.created_at).getTime() + 9 * 60 * 60 * 1000).toString())}
-            </p>
-          </div>
-        </div>
-      ))}
+          )
+      )}
     </>
   );
 };

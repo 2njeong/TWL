@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import { HiOutlineEllipsisVertical } from 'react-icons/hi2';
 
 type DelteBtnProps = {
+  item: string;
   item_id: string;
   queryKey: string[];
   containerClassName?: string;
@@ -18,6 +19,7 @@ type DelteBtnProps = {
 
 const DeleteBtn = (deleteBtnProps: DelteBtnProps) => {
   const {
+    item,
     item_id,
     queryKey,
     containerClassName,
@@ -49,7 +51,7 @@ const DeleteBtn = (deleteBtnProps: DelteBtnProps) => {
   }, []);
 
   const handleDeleteComment = async (item_id: string) => {
-    await deleteComment(item_id);
+    await deleteComment(item, item_id);
     queryClient.invalidateQueries({ queryKey });
   };
 

@@ -16,7 +16,8 @@ const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) 
     fetchPreviousPage,
     hasNextPage,
     hasPreviousPage,
-    isRefetching
+    isRefetching,
+    isLoading
   } = useQuizCommentsQuery(theQuiz?.quiz_id as string);
   const targetRef = useRef<HTMLDivElement | null>(null);
 
@@ -50,6 +51,7 @@ const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) 
   }, [handleScroll]);
 
   const deleteBtnProps = {
+    item: 'comments',
     queryKey: [QUIZ_COMMENTS_QUERY_KEY],
     containerClassName: 'w-8',
     btnContainerClassName: 'w-7 h-7',
@@ -58,10 +60,11 @@ const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) 
     hoverBtnClassName: 'text-sm'
   };
 
+  if (isLoading) return <div>댓글 로딩중..</div>;
   return (
     <>
       <section className="flex flex-col gap-2 w-11/12">
-        {quizComments?.length ? (
+        {quizComments?.filter((comment) => !comment.isDeleted).length ? (
           quizComments?.map(
             (comment) =>
               !comment.isDeleted && (
@@ -72,19 +75,14 @@ const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) 
                   <div className="w-full flex flex-col gap-2">
                     <div className="w-full flex gap-2 items-center justify-between min-h-8">
                       <div className="flex gap-2">
-                        <p className="text-xs font-bold">@{comment.comment_creator}</p>
+                        <p className="text-xs font-bold">@{comment.created_at}</p>
                         {/* <p>
             {getformattedDate(new Date(new Date(comment.created_at).getTime() + 9 * 60 * 60 * 1000).toString())}
           </p> */}
                         <p className="text-xs text-gray-500">
-                          {
-                            -Math.floor(
-                              getHoursDifference(
-                                new Date(new Date(comment.created_at).getTime() + 9 * 60 * 60 * 1000).toString()
-                              )
-                            )
-                          }
-                          시간 전
+                          {getHoursDifference(comment.created_at).hours > 0 &&
+                            `${getHoursDifference(comment.created_at).hours}시간`}{' '}
+                          {getHoursDifference(comment.created_at).minutes}분 전
                         </p>
                       </div>
                       <DeleteBtn item_id={comment.comment_id} {...deleteBtnProps} />

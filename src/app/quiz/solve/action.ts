@@ -33,9 +33,29 @@ export const handleQuizComment = async (
   }
 };
 
-export const deleteComment = async (comment_id: string) => {
+export const deleteComment = async (item: string, item_id: string) => {
+  let tableName;
+  let itemName;
+
+  switch (item) {
+    case 'comments': {
+      tableName = 'comments';
+      itemName = 'comment_id';
+      break;
+    }
+    case 'guestbook': {
+      tableName = 'guestbook';
+      itemName = 'guestbook_id';
+      break;
+    }
+    default: {
+      tableName = '';
+      itemName = '';
+    }
+  }
+
   try {
-    const { error } = await supabase.from('comments').update({ isDeleted: true }).eq('comment_id', comment_id);
+    const { error } = await supabase.from(tableName).update({ isDeleted: true }).eq(itemName, item_id);
     if (error) {
       console.error(error);
       throw new Error(error.message);

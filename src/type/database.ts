@@ -86,7 +86,8 @@ export type Database = {
           content: string;
           created_at: string;
           creator: string;
-          id: string;
+          guestbook_id: string;
+          isDeleted: boolean;
         };
         Insert: {
           allowShow: boolean;
@@ -94,7 +95,8 @@ export type Database = {
           content: string;
           created_at?: string;
           creator?: string;
-          id?: string;
+          guestbook_id?: string;
+          isDeleted?: boolean;
         };
         Update: {
           allowShow?: boolean;
@@ -102,7 +104,8 @@ export type Database = {
           content?: string;
           created_at?: string;
           creator?: string;
-          id?: string;
+          guestbook_id?: string;
+          isDeleted?: boolean;
         };
         Relationships: [
           {
