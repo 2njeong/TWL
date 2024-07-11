@@ -1,8 +1,8 @@
 'use server';
 
-import { algorithmSchema, userInfoSchema } from '@/schema/memberSchema';
+import { algorithmSchema, guestbookSchema, userInfoSchema } from '@/schema/memberSchema';
 import { serverSupabase } from '@/supabase/server';
-import { UserInfoOBJ } from '@/type/memberType';
+import { GuestBookObj, UserInfoOBJ } from '@/type/memberType';
 
 const supabase = serverSupabase();
 
@@ -27,7 +27,7 @@ export const submitAlgorithm = async (user_id: string, content: string, data: Fo
   }
 };
 
-const makeUrl = async (avatarFile: FormDataEntryValue, user_id: string | undefined) => {
+const makeAvatarUrl = async (avatarFile: FormDataEntryValue, user_id: string | undefined) => {
   const uuid = crypto.randomUUID();
   const imgUrlPath = `avatar/${user_id}/${uuid}`;
   if (avatarFile instanceof File) {
@@ -50,7 +50,8 @@ const makeUrl = async (avatarFile: FormDataEntryValue, user_id: string | undefin
 export const updateUserInfo = async (userInfoObj: UserInfoOBJ, data: FormData) => {
   const avatarFile = data.get('avatar');
   const { user_id, avatar, ...rest } = userInfoObj;
-  const avatarUrl = avatarFile instanceof File && avatarFile.size > 0 ? await makeUrl(avatarFile, user_id) : avatar;
+  const avatarUrl =
+    avatarFile instanceof File && avatarFile.size > 0 ? await makeAvatarUrl(avatarFile, user_id) : avatar;
   const userObj = rest;
   const result = userInfoSchema.safeParse(userObj);
   if (!result.success) {
@@ -65,5 +66,22 @@ export const updateUserInfo = async (userInfoObj: UserInfoOBJ, data: FormData) =
     if (error) throw new Error(error.message);
   } catch (e) {
     throw new Error(`fail to update user Information, ${e}`);
+  }
+};
+
+export const submitGuestBook = async (guestBookObj: GuestBookObj, data: FormData) => {
+  const content = data.get('content');
+  const result = guestbookSchema.safeParse({ content });
+  if (!result.success) {
+    const errors = result.error.errors;
+    return errors[0];
+  }
+
+  try {
+    const newGuestBookOnj = { ...guestBookObj, content };
+    const { error } = await supabase.from('guestbook').insert(newGuestBookOnj);
+    if (error) throw new Error(error.message);
+  } catch (e) {
+    throw new Error(`fail to insert guestbook, ${e}`);
   }
 };

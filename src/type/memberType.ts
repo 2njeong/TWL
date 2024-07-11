@@ -6,3 +6,9 @@ export type UserInfoOBJ = {
   email: string | null;
   allowshow: boolean;
 };
+
+export type GuestBookObj = {
+  creator: string | undefined;
+  avatar: string | null | undefined;
+  allowShow: boolean;
+};

@@ -34,3 +34,12 @@ export const userInfoSchema = z.object({
     .refine((value) => /^\S*$/.test(value), { message: '이메일에 공백을 포함할 수 없습니다.' })
     .refine((value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), { message: '올바른 이메일 형식을 입력해주세요' })
 });
+
+export const guestbookSchema = z.object({
+  content: z
+    .string()
+    .min(1, { message: '방명록을 작성해주세요.' })
+    .refine((val) => val.trim().length > 0, {
+      message: '방명록은 공백일 수 없습니다.'
+    })
+});

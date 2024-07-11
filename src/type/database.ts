@@ -79,6 +79,41 @@ export type Database = {
           }
         ];
       };
+      guestbook: {
+        Row: {
+          allowShow: boolean;
+          avatar: string;
+          content: string;
+          created_at: string;
+          creator: string;
+          id: string;
+        };
+        Insert: {
+          allowShow: boolean;
+          avatar: string;
+          content: string;
+          created_at?: string;
+          creator?: string;
+          id?: string;
+        };
+        Update: {
+          allowShow?: boolean;
+          avatar?: string;
+          content?: string;
+          created_at?: string;
+          creator?: string;
+          id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'guestbook_creator_fkey';
+            columns: ['creator'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['user_id'];
+          }
+        ];
+      };
       quiz: {
         Row: {
           answer: string[];

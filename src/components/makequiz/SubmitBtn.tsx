@@ -6,7 +6,6 @@ import { useFormStatus } from 'react-dom';
 const SubmitBtn = ({ btnProps }: { btnProps: BtnProps }) => {
   const { pending } = useFormStatus();
   const { formId, sectionClasName, buttonClassName, pendingText, doneText } = btnProps;
-
   return (
     <section className={`${sectionClasName ?? 'w-full flex justify-center'}`}>
       <button

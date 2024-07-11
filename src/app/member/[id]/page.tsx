@@ -38,9 +38,9 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
               {theCategory === '질문' ? (
                 <></>
               ) : theCategory === '알고리즘' ? (
-                <AlgorithmWrapper thatUserID={thatUserData?.user_id} currentUserID={userData?.user_id} />
+                <AlgorithmWrapper id={id} />
               ) : theCategory === '방명록' ? (
-                <GuestBook userData={userData} />
+                <GuestBook id={id} />
               ) : (
                 <></>
               )}

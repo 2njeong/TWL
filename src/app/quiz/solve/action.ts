@@ -18,7 +18,6 @@ export const handleQuizComment = async (
   const comment_content = data.get('comment_content');
   const { error: zodErr } = quizCommentSchema.safeParse({ comment_content });
   if (zodErr) {
-    console.log('에러');
     return { error: zodErr.format() };
   }
   const quizCommnetObj = { comment_creator, quiz_id, comment_content, isDeleted: false };
@@ -27,7 +26,7 @@ export const handleQuizComment = async (
     const { error } = await supabase.from('comments').insert(quizCommnetObj);
     if (error) {
       console.error(error);
-      throw new Error(error);
+      throw new Error(error.message);
     }
   } catch (e) {
     throw new Error(`fail to insert quiz comment, ${e}`);
@@ -39,7 +38,7 @@ export const deleteComment = async (comment_id: string) => {
     const { error } = await supabase.from('comments').update({ isDeleted: true }).eq('comment_id', comment_id);
     if (error) {
       console.error(error);
-      throw new Error(error);
+      throw new Error(error.message);
     }
   } catch (e) {
     throw new Error(`fail to delete quiz comment, ${e}`);
