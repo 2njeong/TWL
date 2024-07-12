@@ -78,39 +78,34 @@ const UpdateUserForm = ({
   };
 
   return (
-    <>
-      <form
-        id="updateUserForm"
-        ref={userFormRef}
-        action={updateUserInfoOnClientSide}
-        className="h-full relative flex flex-col px-4 justify-center gap-3"
-      >
-        <div className="flex flex-col justify-center gap-2">
-          {userDataList.map((data) => (
-            <div key={data} className="flex gap-2 items-center">
-              <p>{data}: </p>
-              <input
-                name={data}
-                placeholder={(currentUser as any)[data.toLowerCase()] ?? '정보를 입력해주세요.'}
-              ></input>
-            </div>
-          ))}
-        </div>
-        <div className="flex gap-1 items-center text-sm text-gray-600 ml-auto">
-          <input type="checkbox" name="allowshow"></input>
-          <p>프로필 비공개를 원해요(현재: {currentUser?.allowshow ? '공개' : '비공개'})</p>
-        </div>
-        <SubmitBtn
-          btnProps={{
-            formId: 'updateUserForm',
-            sectionClasName: 'absolute bottom-0 right-0',
-            buttonClassName: 'ml-auto',
-            pendingText: '수정 중...',
-            doneText: '수정'
-          }}
-        />
-      </form>
-    </>
+    <form
+      id="updateUserForm"
+      ref={userFormRef}
+      action={updateUserInfoOnClientSide}
+      className="h-full relative flex flex-col px-4 justify-center gap-3"
+    >
+      <div className="flex flex-col justify-center gap-2">
+        {userDataList.map((data) => (
+          <div key={data} className="flex gap-2 items-center">
+            <p>{data}: </p>
+            <input name={data} placeholder={(currentUser as any)[data.toLowerCase()] ?? '정보를 입력해주세요.'}></input>
+          </div>
+        ))}
+      </div>
+      <div className="flex gap-1 items-center text-sm text-gray-600 ml-auto">
+        <input type="checkbox" name="allowshow"></input>
+        <p>프로필 비공개를 원해요(현재: {currentUser?.allowshow ? '공개' : '비공개'})</p>
+      </div>
+      <SubmitBtn
+        btnProps={{
+          formId: 'updateUserForm',
+          sectionClasName: 'absolute bottom-0 right-0',
+          buttonClassName: 'ml-auto',
+          pendingText: '수정 중...',
+          doneText: '수정'
+        }}
+      />
+    </form>
   );
 };
 

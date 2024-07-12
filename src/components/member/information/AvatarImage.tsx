@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const AvatarImage = ({ src, alt, size }: { src: string; alt: string; size: string }) => {
   return (
-    <div className={`relative w-${size} h-${size} rounded-full`}>
+    <div className={`relative rounded-full`} style={{ width: `${size}rem`, height: `${size}rem` }}>
       <Image
         src={src}
         alt={alt}

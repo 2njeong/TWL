@@ -17,9 +17,16 @@ export const useFetchThatUsersAlgorithm = (thatUser: string | undefined) => {
 };
 
 export const useFetchGuestBook = (thatUser: string | undefined, newPage: number) => {
-  const [page, _] = useAtom(pageAtom);
+  const [page, setPage] = useAtom(pageAtom);
   const [totalPage, setTotalPage] = useState(1);
   const queryClient = useQueryClient();
+
+  const handlePlusPage = (pageNum: number) => {
+    setPage(pageNum);
+  };
+
+  console.log('newPage =>', newPage);
+  console.log('page =>', page);
 
   const { data: guestbookData, isLoading: guestbookLoading } = useQuery<Tables<'guestbook'>[]>({
     queryKey: [THAT_USERS_GUESTBOOK, thatUser, newPage],

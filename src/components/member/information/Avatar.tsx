@@ -11,13 +11,14 @@ const Avatar = ({ userFormOpen, currentUser }: { userFormOpen: boolean; currentU
   const [avatar, setAvatar] = useAtom(avatarAtom);
   const basicAvatar = currentUser?.avatar || '/dog_avatar.jpg';
 
+  console.log('basicAvatar =>', basicAvatar);
   const collectFile = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
     setAvatar(file);
   };
 
   return (
-    <div className="h-3/6 border flex items-center">
+    <div className="w-full h-3/6 border flex justify-center items-center">
       {userFormOpen ? (
         <label className="flex items-center cursor-pointer">
           <input
@@ -30,17 +31,17 @@ const Avatar = ({ userFormOpen, currentUser }: { userFormOpen: boolean; currentU
             onChange={(e) => collectFile(e)}
           />
           {avatar ? (
-            <AvatarImage src={URL.createObjectURL(avatar)} alt="미리보기" size="52" />
+            <AvatarImage src={URL.createObjectURL(avatar)} alt="미리보기" size="13" />
           ) : (
-            <AvatarImage src={basicAvatar} alt="업데이트 전 원래 아바타" size="52" />
+            <AvatarImage src={basicAvatar} alt="업데이트 전 원래 아바타" size="13" />
           )}
         </label>
       ) : (
         <div>
           {currentUser?.avatar ? (
-            <AvatarImage src={currentUser?.avatar as string} alt="업데이트 후 아바타" size="52" />
+            <AvatarImage src={currentUser?.avatar as string} alt="업데이트 후 아바타" size="13" />
           ) : (
-            <AvatarImage src={basicAvatar} alt="업데이트 전 원래 아바타" size="52" />
+            <AvatarImage src={basicAvatar} alt="업데이트 전 원래 아바타" size="13" />
           )}
         </div>
       )}

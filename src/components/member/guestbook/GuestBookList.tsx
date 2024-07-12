@@ -46,7 +46,7 @@ const GuestBookList = ({ id }: { id: string }) => {
               >
                 {creator === book.creator && <DeleteBtn item_id={book.guestbook_id} {...deleteBtnProps} />}
                 <div className="w-full flex items-center gap-6 justify-center">
-                  <AvatarImage src={book.avatar || '/dog_avatar.jpg'} alt="방명록 아바타" size="28" />
+                  <AvatarImage src={book.avatar || '/dog_avatar.jpg'} alt="방명록 아바타" size="7" />
                   <div className="border rounded w-4/6 h-full resize-none p-2 focus:outline-none">
                     {book.allowShow ? book.content : '비공개 글 입니다.'}
                   </div>

@@ -19,6 +19,7 @@ const GuestBookForm = ({ id }: { id: string }) => {
     queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
   const guestBookRef = useRef<HTMLFormElement | null>(null);
 
+  // 데이터를 삭제한 뒤 추가해야 setTotalpage가 의도대로 동작할 수 있음
   const findEmptyQueryNRemove = async (userId: string) => {
     // 모든 쿼리 캐시 항목을 가져옴
     const allQueries = queryClient.getQueryCache().findAll();
@@ -34,6 +35,7 @@ const GuestBookForm = ({ id }: { id: string }) => {
         typeof queryKey[2] === 'number';
       // 데이터가 배열이고 길이가 0인지 확인
       const isEmptyData = Array.isArray(data) && data.length === 0;
+      // 길이가 0이면 해당 쿼리데이터 제거
       if (matchesPattern && isEmptyData) {
         queryClient.removeQueries({ queryKey: query.queryKey });
       }
@@ -72,7 +74,7 @@ const GuestBookForm = ({ id }: { id: string }) => {
       >
         <div className="w-full flex items-center gap-6 justify-center">
           <div>
-            <AvatarImage src={avatar || '/dog_avatar.jpg'} alt="방명록 아바타" size="28" />
+            <AvatarImage src={avatar || '/dog_avatar.jpg'} alt="방명록 아바타" size="7" />
           </div>
           <textarea
             name="content"
