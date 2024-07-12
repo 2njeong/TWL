@@ -1,4 +1,4 @@
-export const FETCHMOREQUIZNUM = 10;
+export const NUMOFFETCHMOREQUIZ = 10;
 
 export const FETCHMORECOMMENTSNUM = 10;
 

@@ -65,32 +65,32 @@ const GuestBookForm = ({ id }: { id: string }) => {
 
   return (
     <>
-      {/* {creator !== thstUserId && ( */}
-      <form
-        id="guestbook"
-        ref={guestBookRef}
-        action={submitGeustBookForm}
-        className="border w-full max-w-[35rem] h-48 flex flex-col items-center justify-center gap-2 pt-10 pb-4 px-2"
-      >
-        <div className="w-full flex items-center gap-6 justify-center">
-          <div>
-            <AvatarImage src={avatar || '/dog_avatar.jpg'} alt="방명록 아바타" size="7" />
+      {creator !== thstUserId && (
+        <form
+          id="guestbook"
+          ref={guestBookRef}
+          action={submitGeustBookForm}
+          className="border w-full max-w-[35rem] h-48 flex flex-col items-center justify-center gap-2 pt-10 pb-4 px-2"
+        >
+          <div className="w-full flex items-center gap-6 justify-center">
+            <div>
+              <AvatarImage src={avatar || '/dog_avatar.jpg'} alt="방명록 아바타" size="7" />
+            </div>
+            <textarea
+              name="content"
+              placeholder={`${nickname}님께 글을 남겨주세요!`}
+              className="border rounded w-4/6 h-full resize-none p-2 focus:outline-none"
+            ></textarea>
           </div>
-          <textarea
-            name="content"
-            placeholder={`${nickname}님께 글을 남겨주세요!`}
-            className="border rounded w-4/6 h-full resize-none p-2 focus:outline-none"
-          ></textarea>
-        </div>
-        <div className="w-full flex items-center justify-end gap-1">
-          <div className="flex gap-2">
-            <input type="checkbox" name="allowShow"></input>
-            <p className="text-gray-500">비공개</p>
+          <div className="w-full flex items-center justify-end gap-1">
+            <div className="flex gap-2">
+              <input type="checkbox" name="allowShow"></input>
+              <p className="text-gray-500">비공개</p>
+            </div>
+            <SubmitBtn btnProps={guestBookBtnProps} />
           </div>
-          <SubmitBtn btnProps={guestBookBtnProps} />
-        </div>
-      </form>
-      {/* )} */}
+        </form>
+      )}
     </>
   );
 };

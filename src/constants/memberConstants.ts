@@ -1,1 +1,3 @@
+export const NUMOFFETCHMOREALGORITHM = 6;
+
 export const NUMOFFETCHMOREGUESTBOOK = 5;

@@ -7,7 +7,7 @@ import { useRef, useState } from 'react';
 import { AuthField, AuthResult, AuthValiationErr } from '@/type/authType';
 import { useFormState } from 'react-dom';
 import AuthFormBtn from './AuthFormBtn';
-import { invalidUserData, notYetConfirm } from '@/constants/authConstants';
+import { INVALIDUSERDATA, NOTYETCONFIRM } from '@/constants/authConstants';
 
 const AuthForm = () => {
   const [authType] = useAtom(authSelectAtom);
@@ -31,9 +31,9 @@ const AuthForm = () => {
       location.replace('/');
     } else {
       const alertMsg =
-        result.message === invalidUserData
+        result.message === INVALIDUSERDATA
           ? '잘못된 회원정보 입니다.'
-          : notYetConfirm
+          : NOTYETCONFIRM
           ? '이메일에서 회원가입을 완료해주세요!'
           : result.message;
       alert(alertMsg);

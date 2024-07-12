@@ -1,4 +1,4 @@
-import { FETCHMORECOMMENTSNUM, FETCHMOREQUIZNUM } from '@/constants/quizConstants';
+import { FETCHMORECOMMENTSNUM, NUMOFFETCHMOREQUIZ } from '@/constants/quizConstants';
 import {
   fetchQueryComments,
   fetchThatQuizLike,
@@ -38,7 +38,7 @@ export const useQuizListQuery = () => {
     queryFn: fetchQuizList,
     initialPageParam: 1,
     getNextPageParam: (lastPage: any, _, allPages: any) => {
-      if (lastPage.length >= FETCHMOREQUIZNUM) {
+      if (lastPage.length >= NUMOFFETCHMOREQUIZ) {
         return allPages + 1;
       }
     },

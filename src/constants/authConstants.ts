@@ -1,2 +1,2 @@
-export const invalidUserData = 'Invalid login credentials';
-export const notYetConfirm = 'Email not confirmed';
+export const INVALIDUSERDATA = 'Invalid login credentials';
+export const NOTYETCONFIRM = 'Email not confirmed';
