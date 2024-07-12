@@ -4,20 +4,44 @@ import { BALLSIZE, color_arr, MINDIFFERENCE } from '@/constants/algorithmConstan
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useFetchAlgorithm } from '@/query/useQueries/useAlgorithmQuery';
+import { ZINDEX } from '@/constants/commonConstants';
+import AvatarImage from '@/components/member/information/AvatarImage';
+import BallBtn from '@/components/algorithm/BallBtn';
 
 const AlgorithmPage = () => {
   const { data: balls, isLoading } = useFetchAlgorithm();
   const [apples, setApples] = useState<{ appleX: number; appleY: number }[]>([]);
+  const [userOpenArr, setUserOpenArr] = useState<boolean[] | null>(null);
   const treeRef = useRef<HTMLDivElement | null>(null);
+  const btnRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  console.log('data => ', balls);
-  console.log('color_arr =>', color_arr);
+  console.log('userOpenArr =>', userOpenArr);
 
-  function getRandomInt(min: number, max: number) {
+  useEffect(() => {
+    if (!isLoading && balls) {
+      setUserOpenArr(Array.from({ length: balls.length }, () => false));
+    }
+  }, [isLoading]);
+
+  const handleUserOpenArr = (idx: number) => {
+    if (userOpenArr && userOpenArr?.filter((item, i) => i !== idx && item).length > 0) return;
+    setUserOpenArr((prev) => {
+      if (prev === null) return null;
+      return prev?.map((item, i) => (i === idx ? !item : item));
+    });
+  };
+
+  const goToStudyZone = (creator: string) => {
+    const features =
+      'width=1400,height=800,resizable=yes,scrollbars=no,status=yes,toolbar=no,menubar=no,location=yes, noopener, noreferrer';
+    window.open(`/member/${creator}`, '_blank', features);
+  };
+
+  const getRandomInt = (min: number, max: number) => {
     const minCeiled = Math.ceil(min);
     const maxFloored = Math.floor(max);
     return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
-  }
+  };
 
   // 사각형 내부에 무작위 점을 생성하는 함수
   const generateRandomPointInPolygon = (points: { x: number; y: number }[]) => {
@@ -66,15 +90,17 @@ const AlgorithmPage = () => {
       const getRandomAppleXYArr = () => {
         const appleXYArr: { appleX: number; appleY: number }[] = [];
 
-        while (appleXYArr.length < balls.length) {
-          let { x: appleX, y: appleY } = generateRandomPointInPolygon(points);
-          let appleXY = { appleX, appleY };
-          const isTooClose = appleXYArr.some(
-            (appleXY) =>
-              Math.abs(appleXY.appleX - appleX) < MINDIFFERENCE || Math.abs(appleXY.appleY - appleY) < MINDIFFERENCE
-          );
-          if (!isTooClose) {
-            appleXYArr.push(appleXY);
+        if (balls) {
+          while (appleXYArr.length < balls.length) {
+            let { x: appleX, y: appleY } = generateRandomPointInPolygon(points);
+            let appleXY = { appleX, appleY };
+            const isTooClose = appleXYArr.some(
+              (appleXY) =>
+                Math.abs(appleXY.appleX - appleX) < MINDIFFERENCE || Math.abs(appleXY.appleY - appleY) < MINDIFFERENCE
+            );
+            if (!isTooClose) {
+              appleXYArr.push(appleXY);
+            }
           }
         }
 
@@ -123,11 +149,6 @@ const AlgorithmPage = () => {
     }
   }, [treeRef.current]);
 
-  // useEffect(() => {
-  //   console.log('appleXYArr =>', apples);
-  // }, [apples]);
-
-  // if (isLoading) return <div>알고리즘 로딩중..</div>;
   return (
     <div className="w-full h-screen flex justify-center">
       <div ref={treeRef} className="w-full max-w-[32rem] h-full max-h-[90%] relative">
@@ -141,15 +162,15 @@ const AlgorithmPage = () => {
           blurDataURL="/loading_img.gif"
           placeholder="blur"
         />
-        트리영역
         {apples.map((apple, index) => (
-          <div
+          <button
             key={index}
             className={`absolute flex justify-center items-center w-${BALLSIZE} h-${BALLSIZE} rounded-full`}
             style={{
               left: `${apple.appleX}px`,
               top: `${apple.appleY}px`
             }}
+            onClick={() => handleUserOpenArr(index)}
           >
             <Image
               src={color_arr[index]}
@@ -161,7 +182,10 @@ const AlgorithmPage = () => {
               blurDataURL="/loading_img.gif"
               placeholder="blur"
             />
-          </div>
+            {balls && userOpenArr && userOpenArr[index] && (
+              <BallBtn balls={balls} index={index} userOpenArr={userOpenArr} setUserOpenArr={setUserOpenArr} />
+            )}
+          </button>
         ))}
       </div>
     </div>

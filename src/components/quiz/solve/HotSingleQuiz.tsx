@@ -22,7 +22,7 @@ const HotSingleQuiz = ({
         <div
           ref={(el: any) => (hotQuizzesRef.current[idx] = el)}
           key={quiz.quiz_id}
-          className={`w-72 h-48 flex flex-col gap-2 bg-yelTwo rounded select-none z-${ZINDEX.hotQuizZ}`}
+          className={`max-sm:w-40 w-72 h-48 flex flex-col gap-2 bg-yelTwo rounded select-none z-${ZINDEX.hotQuizZ}`}
           {...{
             ...eventHandlers,
             onMouseDown: (e) => eventHandlers.onMouseDown(e, idx),

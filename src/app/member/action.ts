@@ -6,12 +6,20 @@ import { GuestBookObj, UserInfoOBJ } from '@/type/memberType';
 
 const supabase = serverSupabase();
 
-export const submitAlgorithm = async (user_id: string, content: string, data: FormData) => {
+type SubmitAlgorithmObj = {
+  creator: string;
+  creator_nickname: string | null;
+  creator_avatar: string | null;
+  content: string | null;
+};
+
+export const submitAlgorithm = async (submitAlgorithmObj: SubmitAlgorithmObj, data: FormData) => {
   const level = data.get('level');
   const title = data.get('title');
   const link = data.get('link');
   const newLearn = data.get('newLearn');
-  const algorithmObj = { user_id, level, title, link, content, newLearn };
+  const { content } = submitAlgorithmObj;
+  const algorithmObj = { ...submitAlgorithmObj, level, title, link, newLearn };
 
   const result = algorithmSchema.safeParse({ level, title, link, content });
   if (!result.success) {

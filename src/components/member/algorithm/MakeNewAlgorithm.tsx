@@ -11,8 +11,10 @@ import AlgorithmQuestion from './AlgorithmQuestion';
 import { useQueryClient } from '@tanstack/react-query';
 import { ALGORITHM_OF_THATUSER } from '@/query/member/memberQueryKey';
 import SubmitBtn from '@/components/makequiz/SubmitBtn';
+import { Tables } from '@/type/database';
 
-const MakeNewAlgorithm = ({ thatUserID }: { thatUserID: string | undefined }) => {
+const MakeNewAlgorithm = ({ userData }: { userData: Tables<'users'> }) => {
+  const { user_id: creator, nickname: creator_nickname, avatar: creator_avatar } = userData;
   const algorithmRef = useRef<HTMLFormElement | null>(null);
   const [content, setContent] = useState<string | null>(null);
   const { editorRef, handleContentResultChange, handleChangeMarkdownToWysiwyg } = useEditor(setContent);
@@ -27,8 +29,13 @@ const MakeNewAlgorithm = ({ thatUserID }: { thatUserID: string | undefined }) =>
   }, [content, editorRef]);
 
   const submitAlgorithmOnClient = async (data: FormData) => {
-    const boundSubmitalgorithm = submitAlgorithm.bind(null, thatUserID as string, content as string);
-    const result = await boundSubmitalgorithm(data);
+    const algorithmSubmitObj = {
+      creator,
+      creator_nickname,
+      creator_avatar,
+      content
+    };
+    const result = await submitAlgorithm(algorithmSubmitObj, data);
     if (result) {
       alert(result.message);
       return;

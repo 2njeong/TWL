@@ -37,7 +37,7 @@ const QuizList = () => {
         </div>
       ) : quizList?.length ? (
         quizList.map((quiz) => (
-          <div key={quiz.quiz_id} className="border-b flex items-start">
+          <div key={quiz.quiz_id} className="w-full border-b flex items-start">
             <Link href={`/quiz/solve/${quiz.quiz_id}`}>{quiz.question}</Link>
           </div>
         ))
@@ -47,7 +47,7 @@ const QuizList = () => {
           <p>여러분의 지식과 고민을 공유해보세요!</p>
         </div>
       )}
-      <div ref={ref} className="w-96 h-28 flex justify-center items-center mx-auto">
+      <div ref={ref} className="w-3/6 h-28 flex justify-center items-center mx-auto">
         {isFetchingNextPage && <p>로딩중...</p>}
       </div>
     </div>

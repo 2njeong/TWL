@@ -1,6 +1,6 @@
 'use client';
 
-import { deleteComment } from '@/app/quiz/solve/action';
+import { deleteItem } from '@/app/quiz/solve/action';
 import { QUIZ_COMMENTS_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
@@ -53,7 +53,7 @@ const DeleteBtn = (deleteBtnProps: DelteBtnProps) => {
   }, []);
 
   const handleDeleteComment = async (item_id: string) => {
-    await deleteComment(item, item_id);
+    await deleteItem(item, item_id);
     queryClient.invalidateQueries({ queryKey: additionalKey ? [queryKey, ...additionalKey] : [queryKey] });
   };
 

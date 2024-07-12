@@ -8,36 +8,42 @@ export type Database = {
           algorithm_id: string;
           content: string;
           created_at: string;
+          creator: string;
+          creator_avatar: string | null;
+          creator_nickname: string | null;
           level: string;
           link: string;
           newLearn: string | null;
           title: string;
-          user_id: string;
         };
         Insert: {
           algorithm_id?: string;
           content: string;
           created_at?: string;
+          creator?: string;
+          creator_avatar?: string | null;
+          creator_nickname?: string | null;
           level: string;
           link: string;
           newLearn?: string | null;
           title: string;
-          user_id?: string;
         };
         Update: {
           algorithm_id?: string;
           content?: string;
           created_at?: string;
+          creator?: string;
+          creator_avatar?: string | null;
+          creator_nickname?: string | null;
           level?: string;
           link?: string;
           newLearn?: string | null;
           title?: string;
-          user_id?: string;
         };
         Relationships: [
           {
-            foreignKeyName: 'algorithm_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: 'algorithm_creator_fkey';
+            columns: ['creator'];
             isOneToOne: false;
             referencedRelation: 'users';
             referencedColumns: ['user_id'];

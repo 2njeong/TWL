@@ -31,7 +31,7 @@ export const GET = async (req: NextRequest) => {
       const { data, error } = await supabase
         .from('algorithm')
         .select('*')
-        .eq('user_id', thatUser)
+        .eq('creator', thatUser)
         .order('created_at', { ascending: false })
         .range((page - 1) * NUM_OF_FETCHMOREALGORITHM, page * NUM_OF_FETCHMOREALGORITHM - 1);
       if (error) {

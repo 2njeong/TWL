@@ -13,10 +13,10 @@ import { useInView } from 'react-intersection-observer';
 const Algorithm = ({ id }: { id: string }) => {
   const queryClient = useQueryClient();
   const { user_id: currentUserID } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
-  const [{ user_id: thatUserID }] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
+  const [data] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
   const [writeNewPost, setWriteNewPost] = useState(false);
   const { algorithmData, algorithmIsLoading, hasNextPage, isFetchingNextPage, fetchNextPage } =
-    useFetchThatUsersAlgorithm(thatUserID);
+    useFetchThatUsersAlgorithm(data.user_id);
 
   const handleNewPost = () => {
     setWriteNewPost((prev) => !prev);
@@ -35,16 +35,16 @@ const Algorithm = ({ id }: { id: string }) => {
   return (
     <div className="w-full h-full max-h-[90%] flex flex-col border">
       <div className="w-full flex justify-end p-2">
-        {thatUserID === currentUserID && (
+        {data.user_id === currentUserID && (
           <button className={`${!writeNewPost && 'border'}`} onClick={handleNewPost}>
             {writeNewPost ? <MdOutlineCancel className="text-2xl" /> : 'new 알고리즘'}
           </button>
         )}
       </div>
       <div className="h-full overflow-y-auto p-2">
-        {thatUserID === currentUserID ? (
+        {data.user_id === currentUserID ? (
           writeNewPost ? (
-            <MakeNewAlgorithm thatUserID={thatUserID} />
+            <MakeNewAlgorithm userData={data} />
           ) : (
             <AlgorithmList algorithmData={algorithmData} />
           )

@@ -1,8 +1,8 @@
 'use client';
 
+import AvatarImage from '@/components/member/information/AvatarImage';
 import { ZINDEX } from '@/constants/commonConstants';
 import { useCreatorNQuiz } from '@/query/useQueries/useQuizQuery';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -40,31 +40,17 @@ const ShowCreator = ({ creator }: { creator: string }) => {
 
   return (
     <div className="relative w-12" {...events()}>
-      <div className="relative w-12 h-12 rounded-full bg-gray-300">
-        {/* <Image
-          src={creatorData.avatar ?? ''}
-          alt="유저 이미지"
-          fill={true}
-          style={{ objectFit: 'contain', borderRadius: '3px', pointerEvents: 'none' }}
-          sizes="500px"
-          priority={true}
-        ></Image> */}
-      </div>
-
+      <AvatarImage src={creatorData.avatar ?? ''} alt="quiz creator" size="3" className="pointer-events-none" />
       {isCreatorOpen && (
         <div className={`absolute right-[90%] top-[-350%] flex pr-4 drop-shadow-xl z-[${ZINDEX.hoverZ}]`}>
           <div className={`w-64 h-96 bg-gray-500 rounded-xl p-4 flex flex-col justify-between`}>
             <div className="flex justify-center gap-4 items-center w-full h-20 border p-2">
-              <div className="relative w-12 h-12 rounded-full bg-gray-300">
-                {/* <Image
-                  src={creatorData.avatar ?? ''}
-                  alt="유저 이미지"
-                  fill={true}
-                  style={{ objectFit: 'contain', borderRadius: '3px', pointerEvents: 'none' }}
-                  sizes="500px"
-                  priority={true}
-                ></Image> */}
-              </div>
+              <AvatarImage
+                src={creatorData.avatar ?? ''}
+                alt="quiz creator"
+                size="3.5"
+                className="pointer-events-none"
+              />
               <div className="w-32 text-center">{creatorData.nickname}</div>
             </div>
             <button className="w-full h-12 border">

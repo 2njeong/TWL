@@ -33,7 +33,7 @@ export const handleQuizComment = async (
   }
 };
 
-export const deleteComment = async (item: string, item_id: string) => {
+export const deleteItem = async (item: string, item_id: string) => {
   let tableName;
   let itemName;
 
