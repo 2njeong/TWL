@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 const AlgorithmList = ({ algorithmData }: { algorithmData: Tables<'algorithm'>[] | undefined }) => {
   return (
-    <div className="p-2 border grid grid-cols-2 max-sm:grid-cols-1 gap-4">
+    <div className="p-2 border grid grid-cols-2 max-sm:grid-cols-1 gap-x-6 gap-y-8">
       {algorithmData?.map((item) => (
         <div key={item.algorithm_id} className="flex flex-col gap-2 py-2 px-4 h-48 justify-between border rounded">
           <div className="flex flex-col gap-2">

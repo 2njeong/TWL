@@ -9,7 +9,7 @@ import { VscSend } from 'react-icons/vsc';
 import { TbCubeSend } from 'react-icons/tb';
 import { useAtom } from 'jotai';
 import { pageAtom } from '@/atom/memberAtom';
-import { THAT_USERS_GUESTBOOK } from '@/query/member/memberQueryKey';
+import { GUESTBOOK_OF_THATUSER } from '@/query/member/memberQueryKey';
 
 const GuestBookForm = ({ id }: { id: string }) => {
   const [page, _] = useAtom(pageAtom);
@@ -30,7 +30,7 @@ const GuestBookForm = ({ id }: { id: string }) => {
       // 쿼리 키가 특정 패턴과 일치하는지 확인
       const matchesPattern =
         Array.isArray(queryKey) &&
-        queryKey[0] === THAT_USERS_GUESTBOOK &&
+        queryKey[0] === GUESTBOOK_OF_THATUSER &&
         queryKey[1] === userId &&
         typeof queryKey[2] === 'number';
       // 데이터가 배열이고 길이가 0인지 확인
@@ -52,7 +52,7 @@ const GuestBookForm = ({ id }: { id: string }) => {
     }
     guestBookRef.current?.reset();
     await findEmptyQueryNRemove(thstUserId);
-    queryClient.invalidateQueries({ queryKey: [THAT_USERS_GUESTBOOK, thstUserId, page] });
+    queryClient.invalidateQueries({ queryKey: [GUESTBOOK_OF_THATUSER, thstUserId, page] });
   };
 
   const guestBookBtnProps = {

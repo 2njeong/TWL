@@ -1,4 +1,19 @@
 import { Tables } from '@/type/database';
+import { QuizListOfThatUser } from '@/type/memberType';
+
+export const fetchThatUsersQuizList = async ({
+  pageParam = 1,
+  thatUser
+}: {
+  pageParam: number;
+  thatUser: string | undefined;
+}): Promise<QuizListOfThatUser[]> => {
+  const response = await fetch(`/member/api?type=thatUsersQuizList&thatUser=${thatUser}&pageParam=${pageParam}`);
+  if (!response.ok) {
+    throw new Error('ThatUser_s quizList response was not ok');
+  }
+  return response.json();
+};
 
 export const fetchThatUsersAlgorithm = async ({
   pageParam = 1,

@@ -82,7 +82,7 @@ const UpdateUserForm = ({
       id="updateUserForm"
       ref={userFormRef}
       action={updateUserInfoOnClientSide}
-      className="h-full relative flex flex-col px-4 justify-center gap-3"
+      className="w-full h-full relative flex flex-col px-4 justify-center gap-3"
     >
       <div className="flex flex-col justify-center gap-2">
         {userDataList.map((data) => (

@@ -1,4 +1,8 @@
-import { NUMOFFETCHMOREALGORITHM, NUMOFFETCHMOREGUESTBOOK } from '@/constants/memberConstants';
+import {
+  NUM_OF_FETCHMOREALGORITHM,
+  NUM_OF_FETCHMOREGUESTBOOK,
+  NUM_OF_FETCHMOREQUIZLISTOFTHATUSER
+} from '@/constants/memberConstants';
 import { serverSupabase } from '@/supabase/server';
 import { NextRequest } from 'next/server';
 
@@ -7,6 +11,20 @@ export const GET = async (req: NextRequest) => {
   const type = searchParams.get('type');
   const supabase = serverSupabase();
   switch (type) {
+    case 'thatUsersQuizList': {
+      const page = Number(searchParams.get('pageParam'));
+      const thatUser = searchParams.get('thatUser');
+      const { data, error } = await supabase
+        .from('quiz')
+        .select('*, quiz_like(users), comments(comment_id)')
+        .eq('creator', thatUser)
+        .order('created_at', { ascending: false })
+        .range((page - 1) * NUM_OF_FETCHMOREQUIZLISTOFTHATUSER, page * NUM_OF_FETCHMOREQUIZLISTOFTHATUSER - 1);
+      if (error) {
+        throw new Error(error.message);
+      }
+      return Response.json(data);
+    }
     case 'thatUsersAlgorithm': {
       const page = Number(searchParams.get('pageParam'));
       const thatUser = searchParams.get('thatUser');
@@ -15,7 +33,7 @@ export const GET = async (req: NextRequest) => {
         .select('*')
         .eq('user_id', thatUser)
         .order('created_at', { ascending: false })
-        .range((page - 1) * NUMOFFETCHMOREALGORITHM, page * NUMOFFETCHMOREALGORITHM - 1);
+        .range((page - 1) * NUM_OF_FETCHMOREALGORITHM, page * NUM_OF_FETCHMOREALGORITHM - 1);
       if (error) {
         throw new Error(error.message);
       }
@@ -30,7 +48,7 @@ export const GET = async (req: NextRequest) => {
         .eq('creator', thatUser)
         .eq('isDeleted', false)
         .order('created_at', { ascending: false })
-        .range((page - 1) * NUMOFFETCHMOREGUESTBOOK, page * NUMOFFETCHMOREGUESTBOOK - 1);
+        .range((page - 1) * NUM_OF_FETCHMOREGUESTBOOK, page * NUM_OF_FETCHMOREGUESTBOOK - 1);
       if (error) {
         throw new Error(error.message);
       }

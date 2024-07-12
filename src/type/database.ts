@@ -158,19 +158,19 @@ export type Database = {
           created_at: string;
           quiz_id: string;
           quiz_like_id: string;
-          users: string[] | null;
+          users: string[];
         };
         Insert: {
           created_at?: string;
           quiz_id: string;
           quiz_like_id?: string;
-          users?: string[] | null;
+          users: string[];
         };
         Update: {
           created_at?: string;
           quiz_id?: string;
           quiz_like_id?: string;
-          users?: string[] | null;
+          users?: string[];
         };
         Relationships: [
           {
@@ -248,7 +248,7 @@ export type Database = {
           created_at: string;
           quiz_id: string;
           quiz_like_id: string;
-          users: string[] | null;
+          users: string[];
         }[];
       };
     };

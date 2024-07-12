@@ -6,10 +6,10 @@ import { ChangeEvent, useRef } from 'react';
 import { Tables } from '@/type/database';
 import AvatarImage from './AvatarImage';
 
-const Avatar = ({ userFormOpen, currentUser }: { userFormOpen: boolean; currentUser: Tables<'users'> | undefined }) => {
+const Avatar = ({ userFormOpen, userData }: { userFormOpen: boolean; userData: Tables<'users'> | undefined }) => {
   const imgRef = useRef(null);
   const [avatar, setAvatar] = useAtom(avatarAtom);
-  const basicAvatar = currentUser?.avatar || '/dog_avatar.jpg';
+  const basicAvatar = userData?.avatar || '/dog_avatar.jpg';
 
   console.log('basicAvatar =>', basicAvatar);
   const collectFile = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,8 +38,8 @@ const Avatar = ({ userFormOpen, currentUser }: { userFormOpen: boolean; currentU
         </label>
       ) : (
         <div>
-          {currentUser?.avatar ? (
-            <AvatarImage src={currentUser?.avatar as string} alt="업데이트 후 아바타" size="13" />
+          {userData?.avatar ? (
+            <AvatarImage src={userData?.avatar as string} alt="업데이트 후 아바타" size="13" />
           ) : (
             <AvatarImage src={basicAvatar} alt="업데이트 전 원래 아바타" size="13" />
           )}

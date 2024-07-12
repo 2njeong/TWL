@@ -1,3 +1,5 @@
-export const THAT_USERS_ALGORITHM = 'that_user_s_algorithm';
+export const QUIZLIST_OF_THATUSER = 'quizlist_of_thatUser';
 
-export const THAT_USERS_GUESTBOOK = 'that_user_s_guestbook';
+export const ALGORITHM_OF_THATUSER = 'algorithm_of_thatUser';
+
+export const GUESTBOOK_OF_THATUSER = 'guestbook_of_thatUser';

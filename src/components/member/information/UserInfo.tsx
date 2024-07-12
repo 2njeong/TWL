@@ -32,7 +32,10 @@ const UserInfo = ({
           {userFormOpen ? '수정취소' : <GoGear className="text-xl" />}
         </button>
       )}
-      <Avatar userFormOpen={userFormOpen} currentUser={currentUser} />
+      <Avatar
+        userFormOpen={userFormOpen}
+        userData={thatUserData?.user_id === currentUser?.user_id ? currentUser : thatUserData}
+      />
       <div className={`h-3/6 w-full border flex py-2 px-4`}>
         {userFormOpen ? (
           <>

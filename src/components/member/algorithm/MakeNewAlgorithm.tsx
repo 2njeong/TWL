@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useEditor } from '@/customHooks/common';
 import AlgorithmQuestion from './AlgorithmQuestion';
 import { useQueryClient } from '@tanstack/react-query';
-import { THAT_USERS_ALGORITHM } from '@/query/member/memberQueryKey';
+import { ALGORITHM_OF_THATUSER } from '@/query/member/memberQueryKey';
 import SubmitBtn from '@/components/makequiz/SubmitBtn';
 
 const MakeNewAlgorithm = ({ thatUserID }: { thatUserID: string | undefined }) => {
@@ -33,7 +33,7 @@ const MakeNewAlgorithm = ({ thatUserID }: { thatUserID: string | undefined }) =>
       alert(result.message);
       return;
     }
-    queryClient.invalidateQueries({ queryKey: [THAT_USERS_ALGORITHM] });
+    queryClient.invalidateQueries({ queryKey: [ALGORITHM_OF_THATUSER] });
     algorithmRef.current?.reset();
     setContent(null);
   };

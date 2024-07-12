@@ -4,6 +4,7 @@ import { categoryAtom } from '@/atom/memberAtom';
 import Algorithm from '@/components/member/algorithm/Algorithm';
 import GuestBook from '@/components/member/guestbook/GuestBook';
 import UserInfo from '@/components/member/information/UserInfo';
+import QuizListOfThatUser from '@/components/member/quiz/QuizListOfThatUser';
 import { useFetchCurrentUser, useFetchThatUser } from '@/query/useQueries/useAuthQuery';
 import { useAtom } from 'jotai';
 import dynamic from 'next/dynamic';
@@ -33,10 +34,10 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
 
         <section className="border w-4/6 flex flex-col justify-around">
           {theCategory ? (
-            <div className="h-full overflow-y-auto p-2 flex flex-col gap-2">
+            <div className="w-full h-full overflow-y-auto p-2 flex flex-col gap-2">
               <div>{theCategory}</div>
               {theCategory === '질문' ? (
-                <></>
+                <QuizListOfThatUser id={id} />
               ) : theCategory === '알고리즘' ? (
                 <AlgorithmWrapper id={id} />
               ) : theCategory === '방명록' ? (

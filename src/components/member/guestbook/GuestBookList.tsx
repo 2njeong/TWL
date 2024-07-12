@@ -6,7 +6,7 @@ import { Tables } from '@/type/database';
 import { useQueryClient } from '@tanstack/react-query';
 import AvatarImage from '../information/AvatarImage';
 import { getformattedDate } from '@/utils/utilFns';
-import { THAT_USERS_GUESTBOOK } from '@/query/member/memberQueryKey';
+import { GUESTBOOK_OF_THATUSER } from '@/query/member/memberQueryKey';
 import DeleteBtn from '@/components/utilComponents/DeleteBtn';
 import { useAtom } from 'jotai';
 import { pageAtom } from '@/atom/memberAtom';
@@ -21,7 +21,7 @@ const GuestBookList = ({ id }: { id: string }) => {
 
   const deleteBtnProps = {
     item: 'guestbook',
-    queryKey: THAT_USERS_GUESTBOOK,
+    queryKey: GUESTBOOK_OF_THATUSER,
     additionalKey: [thatUserId, page],
     containerClassName: 'w-full flex justify-end',
     btnContainerClassName: 'w-6 h-6',
