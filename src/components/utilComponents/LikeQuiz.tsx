@@ -9,17 +9,17 @@ import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 
 type LikeQuizProps = {
   quiz_id: string | undefined;
+  creator: string | undefined;
   quizLikeUsers: string[];
   queryKey: (string | undefined)[];
 };
 
 const LikeQuiz = (likeQuizProps: LikeQuizProps) => {
-  const { quiz_id, quizLikeUsers, queryKey } = likeQuizProps;
+  const { quiz_id, creator, quizLikeUsers, queryKey } = likeQuizProps;
   const queryClient = useQueryClient();
   const { user_id: currentUserID } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
   const [isLiked, setIsLiked] = useState(currentUserID && quizLikeUsers && quizLikeUsers.includes(currentUserID));
   const [isPending, startTransition] = useTransition();
-  console.log('isLiked =>', isLiked);
 
   useEffect(() => {
     setIsLiked(currentUserID && quizLikeUsers && quizLikeUsers.includes(currentUserID));
@@ -30,6 +30,10 @@ const LikeQuiz = (likeQuizProps: LikeQuizProps) => {
   }, [isPending]);
 
   const handleSubmitLike = async () => {
+    if (creator === currentUserID) {
+      alert('본인의 퀴즈에 좋아요를 누를 수 없습니다.');
+      return;
+    }
     startTransition(async () => {
       if (currentUserID) {
         await submitQuizLike(quiz_id, currentUserID);

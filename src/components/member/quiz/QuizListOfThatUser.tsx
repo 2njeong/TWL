@@ -1,7 +1,7 @@
 'use client';
 
 import LikeQuiz from '@/components/utilComponents/LikeQuiz';
-import { CURRENT_USER_QUERY_KEY, THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
+import { THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 import { QUIZLIST_OF_THATUSER } from '@/query/member/memberQueryKey';
 import { useFetchQuizlistOfThatUser } from '@/query/useQueries/useMemberQuery';
 import { Tables } from '@/type/database';
@@ -11,12 +11,9 @@ import { useInView } from 'react-intersection-observer';
 
 const QuizListOfThatUser = ({ id }: { id: string }) => {
   const queryClient = useQueryClient();
-  const { user_id: currentUserID } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
   const [{ user_id: thatUserID }] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
   const { quizListOfThatUser, hasNextPage, isFetchingNextPage, fetchNextPage, quizListOfThatUserLoading } =
     useFetchQuizlistOfThatUser(thatUserID);
-
-  console.log('quizListOfThatUser =>', quizListOfThatUser);
 
   const { ref } = useInView({
     threshold: 0.5,
@@ -43,6 +40,7 @@ const QuizListOfThatUser = ({ id }: { id: string }) => {
             <div className="flex items-center gap-2">
               <LikeQuiz
                 quiz_id={quiz.quiz_id}
+                creator={quiz.creator}
                 quizLikeUsers={quiz.quiz_like?.users ?? []}
                 queryKey={[QUIZLIST_OF_THATUSER, thatUserID]}
               />

@@ -16,6 +16,7 @@ const QuizFooter = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
 
   const likeQuizProps = {
     quiz_id: theQuiz?.quiz_id,
+    creator: theQuiz?.creator,
     quizLikeUsers: quizLikeData.users,
     queryKey: [QUIZLIKE_QUERY_KEY, theQuiz?.quiz_id]
   };
