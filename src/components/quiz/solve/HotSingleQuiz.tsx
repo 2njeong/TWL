@@ -15,7 +15,7 @@ const HotSingleQuiz = ({
 }) => {
   const { data: TopLikeQuizList } = useFetchTopQuizLike();
 
-  console.log('TopLikeQuizList =>', TopLikeQuizList);
+  // console.log('TopLikeQuizList =>', TopLikeQuizList);
   return (
     <>
       {TopLikeQuizList?.map((quiz: TopLikesSingleQuiz, idx: number) => (

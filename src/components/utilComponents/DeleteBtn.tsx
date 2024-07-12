@@ -9,7 +9,8 @@ import { HiOutlineEllipsisVertical } from 'react-icons/hi2';
 type DelteBtnProps = {
   item: string;
   item_id: string;
-  queryKey: string[];
+  additionalKey?: (string | number)[];
+  queryKey: string;
   containerClassName?: string;
   btnContainerClassName?: string;
   btnClassName?: string;
@@ -22,6 +23,7 @@ const DeleteBtn = (deleteBtnProps: DelteBtnProps) => {
     item,
     item_id,
     queryKey,
+    additionalKey,
     containerClassName,
     btnContainerClassName,
     btnClassName,
@@ -52,7 +54,7 @@ const DeleteBtn = (deleteBtnProps: DelteBtnProps) => {
 
   const handleDeleteComment = async (item_id: string) => {
     await deleteComment(item, item_id);
-    queryClient.invalidateQueries({ queryKey });
+    queryClient.invalidateQueries({ queryKey: additionalKey ? [queryKey, ...additionalKey] : [queryKey] });
   };
 
   return (

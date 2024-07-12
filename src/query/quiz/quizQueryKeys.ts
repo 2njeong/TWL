@@ -6,6 +6,6 @@ export const TOP_QUIZ_LIKE_QUERY_KEY = 'top_quiz_like_query_key';
 
 export const QUIZLIKE_QUERY_KEY = 'quiz_like_query_key';
 
-export const THE_QUIZ_OF_THIS_CREATOR = 'the_quiz_of_this_creator';
+export const THE_QUIZ_OF_THIS_CREATOR = 'the_quizzes_of_this_creator';
 
 export const QUIZ_COMMENTS_QUERY_KEY = `quiz_comments_query_key`;

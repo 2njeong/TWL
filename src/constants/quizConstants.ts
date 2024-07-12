@@ -1,5 +1,5 @@
-export const FETCHMOREQUIZLIST = 10;
+export const FETCHMOREQUIZNUM = 10;
 
-export const FETCHMORECOMMENTS = 10;
+export const FETCHMORECOMMENTSNUM = 10;
 
 export const TOPLIKESQUIZZES = 10;

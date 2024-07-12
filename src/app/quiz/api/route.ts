@@ -1,4 +1,4 @@
-import { FETCHMORECOMMENTS, FETCHMOREQUIZLIST, TOPLIKESQUIZZES } from '@/constants/quizConstants';
+import { FETCHMORECOMMENTSNUM, FETCHMOREQUIZNUM, TOPLIKESQUIZZES } from '@/constants/quizConstants';
 import { serverSupabase } from '@/supabase/server';
 import { NextRequest } from 'next/server';
 
@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
         .from('quiz')
         .select('*')
         .order('created_at', { ascending: false })
-        .range((page - 1) * FETCHMOREQUIZLIST, page * FETCHMOREQUIZLIST - 1);
+        .range((page - 1) * FETCHMOREQUIZNUM, page * FETCHMOREQUIZNUM - 1);
       if (error) throw new Error(error.message);
       if (error) return new Response('fail to select quizList', { status: 500 });
       return Response.json(data);
@@ -60,7 +60,7 @@ export async function GET(req: NextRequest) {
         .select('*')
         .eq('quiz_id', quiz_id)
         .order('created_at', { ascending: false })
-        .range((page - 1) * FETCHMORECOMMENTS, page * FETCHMORECOMMENTS - 1);
+        .range((page - 1) * FETCHMORECOMMENTSNUM, page * FETCHMORECOMMENTSNUM - 1);
       if (error) throw new Error(error.message);
       if (error) return new Response('fail to select quizComments', { status: 500 });
       return Response.json(data);

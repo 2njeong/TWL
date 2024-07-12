@@ -52,7 +52,8 @@ const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) 
 
   const deleteBtnProps = {
     item: 'comments',
-    queryKey: [QUIZ_COMMENTS_QUERY_KEY],
+    queryKey: QUIZ_COMMENTS_QUERY_KEY,
+    additionalKey: [theQuiz?.quiz_id as string],
     containerClassName: 'w-8',
     btnContainerClassName: 'w-7 h-7',
     btnClassName: 'text-xl cursor-pointer',

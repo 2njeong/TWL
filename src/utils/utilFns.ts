@@ -7,13 +7,6 @@ export const getformattedDate = (date: string) =>
     minute: '2-digit'
   });
 
-const convertUTCtoKST = (dateStr: string) => {
-  const utcDate = new Date(dateStr);
-  console.log('utcDate =>', utcDate);
-  const kstDate = new Date(utcDate.getTime() + 9 * 60 * 60 * 1000);
-  return kstDate;
-};
-
 export const getHoursDifference = (dateStr: string) => {
   const givenDate = new Date(dateStr);
   console.log('한국시간으로  =>', givenDate);

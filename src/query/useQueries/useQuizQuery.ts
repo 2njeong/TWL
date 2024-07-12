@@ -1,4 +1,4 @@
-import { FETCHMORECOMMENTS, FETCHMOREQUIZLIST } from '@/constants/quizConstants';
+import { FETCHMORECOMMENTSNUM, FETCHMOREQUIZNUM } from '@/constants/quizConstants';
 import {
   fetchQueryComments,
   fetchThatQuizLike,
@@ -38,7 +38,7 @@ export const useQuizListQuery = () => {
     queryFn: fetchQuizList,
     initialPageParam: 1,
     getNextPageParam: (lastPage: any, _, allPages: any) => {
-      if (lastPage.length >= FETCHMOREQUIZLIST) {
+      if (lastPage.length >= FETCHMOREQUIZNUM) {
         return allPages + 1;
       }
     },
@@ -128,7 +128,7 @@ export const useQuizCommentsQuery = (quiz_id: string) => {
     getNextPageParam: (lastPage: any, _, allPages: any) => {
       // lastPage: 캐시데이터 내 pages[0] 중 가장 최근에 가지고 온 page의 item 갯수
       // allPages: 캐시데이터의 pages의 갯수
-      if (lastPage.length >= FETCHMORECOMMENTS) {
+      if (lastPage.length >= FETCHMORECOMMENTSNUM) {
         return allPages + 1;
       }
     },

@@ -76,7 +76,6 @@ export const submitGuestBook = async (guestBookObj: GuestBookObj, data: FormData
     const errors = result.error.errors;
     return errors[0];
   }
-
   try {
     const newGuestBookOnj = { ...guestBookObj, content };
     const { error } = await supabase.from('guestbook').insert(newGuestBookOnj);
@@ -85,3 +84,5 @@ export const submitGuestBook = async (guestBookObj: GuestBookObj, data: FormData
     throw new Error(`fail to insert guestbook, ${e}`);
   }
 };
+
+export const submitDeleteGuestBook = async (id: string) => {};
