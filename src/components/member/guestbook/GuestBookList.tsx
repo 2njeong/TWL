@@ -10,17 +10,14 @@ import { THAT_USERS_GUESTBOOK } from '@/query/member/memberQueryKey';
 import DeleteBtn from '@/components/utilComponents/DeleteBtn';
 import { useAtom } from 'jotai';
 import { pageAtom } from '@/atom/memberAtom';
+import PageNation from './PageNation';
 
 const GuestBookList = ({ id }: { id: string }) => {
-  const [page, setPage] = useAtom(pageAtom);
+  const [page, _] = useAtom(pageAtom);
   const queryClient = useQueryClient();
   const { user_id: creator } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
   const [{ user_id: thatUserId }] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
-  const { guestbookData, guestbookLoading, totalPage } = useFetchGuestBook(thatUserId, page);
-
-  const handlePlusPage = (pageNum: number) => {
-    setPage(pageNum);
-  };
+  const { guestbookData, guestbookLoading } = useFetchGuestBook(thatUserId, page);
 
   const deleteBtnProps = {
     item: 'guestbook',
@@ -62,20 +59,7 @@ const GuestBookList = ({ id }: { id: string }) => {
       ) : (
         <div>더 이상 불러올 데이터가 없습니다.</div>
       )}
-
-      <div className="w-full flex items-center justify-center gap-4">
-        {Array.from({ length: totalPage })
-          .map((_, idx) => idx + 1)
-          .map((pageNum) => (
-            <button
-              key={pageNum}
-              onClick={() => handlePlusPage(pageNum)}
-              className={`${pageNum === page && 'text-lg font-bold'} ${pageNum === totalPage && 'text-gray-500'}`}
-            >
-              {pageNum}
-            </button>
-          ))}
-      </div>
+      <PageNation />
     </>
   );
 };
