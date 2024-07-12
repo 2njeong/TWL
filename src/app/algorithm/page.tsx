@@ -1,13 +1,16 @@
 'use client';
 
-import { APPLESIZE, MINDIFFERENCE } from '@/constants/algorithmConstants';
+import { BALLSIZE, MINDIFFERENCE } from '@/constants/algorithmConstants';
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { useFetchAlgorithm } from '@/query/useQueries/useAlgorithmQuery';
 
 const AlgorithmPage = () => {
-  const preApples = ['a', 'b', 'c', 'd', 'e'];
+  const { data: balls, isLoading } = useFetchAlgorithm();
   const [apples, setApples] = useState<{ appleX: number; appleY: number }[]>([]);
   const treeRef = useRef<HTMLDivElement | null>(null);
+
+  console.log('data => ', balls);
 
   function getRandomInt(min: number, max: number) {
     const minCeiled = Math.ceil(min);
@@ -62,7 +65,7 @@ const AlgorithmPage = () => {
       const getRandomAppleXYArr = () => {
         const appleXYArr: { appleX: number; appleY: number }[] = [];
 
-        while (appleXYArr.length < preApples.length) {
+        while (appleXYArr.length < balls.length) {
           let { x: appleX, y: appleY } = generateRandomPointInPolygon(points);
           let appleXY = { appleX, appleY };
           const isTooClose = appleXYArr.some(
@@ -77,7 +80,7 @@ const AlgorithmPage = () => {
         setApples(appleXYArr);
       };
 
-      getRandomAppleXYArr();
+      if (!isLoading && balls) getRandomAppleXYArr();
 
       // 사각형 꼭짓점 표시
       const treeElement = treeRef.current;
@@ -123,6 +126,7 @@ const AlgorithmPage = () => {
   //   console.log('appleXYArr =>', apples);
   // }, [apples]);
 
+  // if (isLoading) return <div>알고리즘 로딩중..</div>;
   return (
     <div className="w-full h-screen flex justify-center">
       <div ref={treeRef} className="w-full max-w-[32rem] h-full max-h-[90%] relative">
@@ -140,7 +144,7 @@ const AlgorithmPage = () => {
         {apples.map((apple, index) => (
           <div
             key={index}
-            className={`absolute flex justify-center items-center w-${APPLESIZE} h-${APPLESIZE} bg-red-500 rounded-full`}
+            className={`absolute flex justify-center items-center w-${BALLSIZE} h-${BALLSIZE} bg-red-500 rounded-full`}
             style={{
               left: `${apple.appleX}px`,
               top: `${apple.appleY}px`
