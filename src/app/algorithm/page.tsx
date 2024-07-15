@@ -13,9 +13,6 @@ const AlgorithmPage = () => {
   const [apples, setApples] = useState<{ appleX: number; appleY: number }[]>([]);
   const [userOpenArr, setUserOpenArr] = useState<boolean[] | null>(null);
   const treeRef = useRef<HTMLDivElement | null>(null);
-  const btnRefs = useRef<(HTMLButtonElement | null)[]>([]);
-
-  console.log('userOpenArr =>', userOpenArr);
 
   useEffect(() => {
     if (!isLoading && balls) {
@@ -29,12 +26,6 @@ const AlgorithmPage = () => {
       if (prev === null) return null;
       return prev?.map((item, i) => (i === idx ? !item : item));
     });
-  };
-
-  const goToStudyZone = (creator: string) => {
-    const features =
-      'width=1400,height=800,resizable=yes,scrollbars=no,status=yes,toolbar=no,menubar=no,location=yes, noopener, noreferrer';
-    window.open(`/member/${creator}`, '_blank', features);
   };
 
   const getRandomInt = (min: number, max: number) => {

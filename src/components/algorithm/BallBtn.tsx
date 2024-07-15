@@ -41,7 +41,7 @@ const BallBtn = ({ balls, index, userOpenArr, setUserOpenArr }: BallBtnProps) =>
 
   return (
     <div
-      className={`flex flex-col gap-2 border rounded absolute bg-gray-200 opacity-90 w-44 max-sm:28 h-30 -translate-y-2/3 translate-x-1/2 p-2 drop-shadow-2xl`}
+      className={`flex flex-col gap-2 border rounded absolute bg-gray-200 opacity-90 w-44 max-sm:28 h-30 -translate-y-2/3 translate-x-1/2 py-2 px-1 drop-shadow-2xl`}
       style={{ zIndex: ZINDEX.ballZ }}
     >
       <div className="flex w-full items-center justify-center gap-1">
@@ -51,7 +51,6 @@ const BallBtn = ({ balls, index, userOpenArr, setUserOpenArr }: BallBtnProps) =>
       <div className="w-full">
         <p className="truncate text-xs">Q. {balls[index].title}</p>
       </div>
-
       <button
         ref={btnRef}
         onClick={() => goToStudyZone(balls[index].creator)}
