@@ -16,27 +16,23 @@ export async function GET(req: NextRequest) {
         .order('created_at', { ascending: false })
         .range((page - 1) * NUMOFFETCHMOREQUIZ, page * NUMOFFETCHMOREQUIZ - 1);
       if (error) throw new Error(error.message);
-      if (error) return new Response('fail to select quizList', { status: 500 });
       return Response.json(data);
     }
     case 'allLike': {
       const { data, error } = await supabase.rpc('get_top_quizzes_with_comment_ids', { limit_value: TOPLIKESQUIZZES });
       if (error) throw new Error(error.message);
-      if (error) return new Response('fail to select top quiz likes', { status: 500 });
       return Response.json(data);
     }
     case 'thatQuiz': {
       const quiz_id = searchParams.get('quiz_id') as string;
       const { data, error } = await supabase.from('quiz').select('*').eq('quiz_id', quiz_id).single();
       if (error) throw new Error(error.message);
-      if (error) return new Response('fail to select that quiz', { status: 500 });
       return Response.json(data);
     }
     case 'thatQuizlike': {
       const quiz_id = searchParams.get('quiz_id') as string;
       const { data, error } = await supabase.from('quiz_like').select('quiz_id, users').eq('quiz_id', quiz_id);
       if (error) throw new Error(error.message);
-      if (error) return new Response('fail to select quiz_like', { status: 500 });
       return Response.json(data);
     }
     case 'thisCreatorQuiz': {
@@ -47,7 +43,6 @@ export async function GET(req: NextRequest) {
         .eq('creator', creator)
         .order('created_at', { ascending: false });
       if (error) throw new Error(error.message);
-      if (error) return new Response('fail to select the quiz of this creator', { status: 500 });
       return Response.json(data);
     }
     case 'quizComments': {
@@ -60,7 +55,6 @@ export async function GET(req: NextRequest) {
         .order('created_at', { ascending: false })
         .range((page - 1) * FETCHMORECOMMENTSNUM, page * FETCHMORECOMMENTSNUM - 1);
       if (error) throw new Error(error.message);
-      if (error) return new Response('fail to select quizComments', { status: 500 });
       return Response.json(data);
     }
     default:

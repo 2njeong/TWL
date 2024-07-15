@@ -15,7 +15,7 @@ const GuestBookForm = ({ id }: { id: string }) => {
   const [page, _] = useAtom(pageAtom);
   const queryClient = useQueryClient();
   const { user_id: creator, avatar } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
-  const [{ user_id: thstUserId, nickname }] =
+  const [{ user_id: thatUserId, nickname }] =
     queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
   const guestBookRef = useRef<HTMLFormElement | null>(null);
 
@@ -32,11 +32,13 @@ const GuestBookForm = ({ id }: { id: string }) => {
         Array.isArray(queryKey) &&
         queryKey[0] === GUESTBOOK_OF_THATUSER &&
         queryKey[1] === userId &&
-        typeof queryKey[2] === 'number';
+        typeof queryKey[2] === 'number' &&
+        queryKey[2] !== 1;
       // 데이터가 배열이고 길이가 0인지 확인
       const isEmptyData = Array.isArray(data) && data.length === 0;
       // 길이가 0이면 해당 쿼리데이터 제거
       if (matchesPattern && isEmptyData) {
+        console.log('찾음?');
         queryClient.removeQueries({ queryKey: query.queryKey });
       }
     });
@@ -44,15 +46,15 @@ const GuestBookForm = ({ id }: { id: string }) => {
 
   const submitGeustBookForm = async (data: FormData) => {
     const allowShow = data.get('allowShow');
-    const guestBookObj = { creator, allowShow: !allowShow, dear: thstUserId };
+    const guestBookObj = { creator, allowShow: !allowShow, dear: thatUserId };
     const result = await submitGuestBook(guestBookObj, data);
     if (result) {
       alert(result.message);
       return;
     }
     guestBookRef.current?.reset();
-    await findEmptyQueryNRemove(thstUserId);
-    queryClient.invalidateQueries({ queryKey: [GUESTBOOK_OF_THATUSER, thstUserId, page] });
+    await findEmptyQueryNRemove(thatUserId);
+    queryClient.invalidateQueries({ queryKey: [GUESTBOOK_OF_THATUSER, thatUserId, page] });
   };
 
   const guestBookBtnProps = {
@@ -65,7 +67,7 @@ const GuestBookForm = ({ id }: { id: string }) => {
 
   return (
     <>
-      {creator !== thstUserId && (
+      {creator !== thatUserId && (
         <form
           id="guestbook"
           ref={guestBookRef}

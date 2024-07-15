@@ -42,17 +42,12 @@ export const GET = async (req: NextRequest) => {
     case 'guestbook': {
       const thatUser = searchParams.get('thatUser');
       const page = Number(searchParams.get('page'));
-
-      console.log('thatUser =>', thatUser);
-
       const { data, error } = await supabase.rpc('get_guestbook', {
         that_user: thatUser,
         is_deleted: false,
         offset_value: (page - 1) * NUM_OF_FETCHMOREGUESTBOOK,
         limit_value: NUM_OF_FETCHMOREGUESTBOOK
       });
-
-      console.log('결과 =>', data);
       if (error) {
         throw new Error(error.message);
       }

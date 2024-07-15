@@ -20,8 +20,7 @@ const GuestBookList = ({ id }: { id: string }) => {
   const { guestbookData, guestbookLoading } = useFetchGuestBook(thatUserId, page);
 
   console.log('guestbookData =>', guestbookData);
-  console.log('thatUserId =>', thatUserId);
-  console.log('creator =>', creator);
+  console.log('page =>', page);
 
   const deleteBtnProps = {
     item: 'guestbook',
