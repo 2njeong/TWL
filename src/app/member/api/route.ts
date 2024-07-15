@@ -44,9 +44,10 @@ export const GET = async (req: NextRequest) => {
       const page = Number(searchParams.get('page'));
       const { data, error } = await supabase
         .from('guestbook')
-        .select('*')
+        .select('*,  users(avatar)')
         .eq('creator', thatUser)
         .eq('isDeleted', false)
+        .eq('users.user_id', thatUser)
         .order('created_at', { ascending: false })
         .range((page - 1) * NUM_OF_FETCHMOREGUESTBOOK, page * NUM_OF_FETCHMOREGUESTBOOK - 1);
       if (error) {

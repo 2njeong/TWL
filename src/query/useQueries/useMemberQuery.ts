@@ -10,7 +10,7 @@ import {
 } from '@/constants/memberConstants';
 import { useAtom } from 'jotai';
 import { totalPageAtom } from '@/atom/memberAtom';
-import { QuizListOfThatUser } from '@/type/memberType';
+import { ExtendedGuestBook, QuizListOfThatUser } from '@/type/memberType';
 
 export const useFetchQuizlistOfThatUser = (thatUser: string | undefined) => {
   const {
@@ -89,7 +89,7 @@ export const useFetchGuestBook = (thatUser: string | undefined, newPage: number)
   const [totalPage, setTotalPage] = useAtom(totalPageAtom);
   const queryClient = useQueryClient();
 
-  const { data: guestbookData, isLoading: guestbookLoading } = useQuery<Tables<'guestbook'>[]>({
+  const { data: guestbookData, isLoading: guestbookLoading } = useQuery<ExtendedGuestBook[]>({
     queryKey: [GUESTBOOK_OF_THATUSER, thatUser, newPage],
     queryFn: () => fetchThatUsersGuestbook(thatUser, newPage),
     enabled: !!thatUser

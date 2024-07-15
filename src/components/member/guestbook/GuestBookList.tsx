@@ -19,6 +19,8 @@ const GuestBookList = ({ id }: { id: string }) => {
   const [{ user_id: thatUserId }] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
   const { guestbookData, guestbookLoading } = useFetchGuestBook(thatUserId, page);
 
+  console.log('guestbookData =>', guestbookData);
+
   const deleteBtnProps = {
     item: 'guestbook',
     queryKey: GUESTBOOK_OF_THATUSER,
@@ -43,15 +45,17 @@ const GuestBookList = ({ id }: { id: string }) => {
               >
                 {creator === book.creator && <DeleteBtn item_id={book.guestbook_id} {...deleteBtnProps} />}
                 <div className="w-full flex items-center gap-6 justify-center">
-                  <AvatarImage src={book.avatar || '/dog_avatar.jpg'} alt="방명록 아바타" size="7" />
-                  <div className="border rounded w-4/6 h-full resize-none p-2 focus:outline-none">
+                  <AvatarImage src={book.users.avatar || '/dog_avatar.jpg'} alt="방명록 아바타" size="7" />
+                  <div
+                    className={`border rounded w-4/6 h-full resize-none p-2 focus:outline-none ${
+                      !book.allowShow && 'text-gray-500'
+                    }`}
+                  >
                     {book.allowShow ? book.content : '비공개 글 입니다.'}
                   </div>
                 </div>
                 <div className="w-full flex items-center justify-end">
-                  <p className="text-gray-500 text-sm">
-                    {getformattedDate(new Date(new Date(book.created_at).getTime() + 9 * 60 * 60 * 1000).toString())}
-                  </p>
+                  <p className="text-gray-500 text-sm">{getformattedDate(book.created_at)}</p>
                 </div>
               </div>
             )

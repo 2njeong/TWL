@@ -35,9 +35,7 @@ const AlgorithmList = ({ algorithmData }: { algorithmData: Tables<'algorithm'>[]
               {item.newLearn && item.newLearn}
             </p>
           </OpenModalBtn>
-          <p className="text-xs text-gray-500 text-end">
-            {getformattedDate(new Date(new Date(item.created_at).getTime() + 9 * 60 * 60 * 1000).toString())}
-          </p>
+          <p className="text-xs text-gray-500 text-end">{getformattedDate(item.created_at)}</p>
         </div>
       ))}
     </div>

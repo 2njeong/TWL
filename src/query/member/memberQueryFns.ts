@@ -1,5 +1,5 @@
 import { Tables } from '@/type/database';
-import { QuizListOfThatUser } from '@/type/memberType';
+import { ExtendedGuestBook, QuizListOfThatUser } from '@/type/memberType';
 
 export const fetchThatUsersQuizList = async ({
   pageParam = 1,
@@ -29,10 +29,7 @@ export const fetchThatUsersAlgorithm = async ({
   return response.json();
 };
 
-export const fetchThatUsersGuestbook = async (
-  thatUser: string | undefined,
-  page = 1
-): Promise<Tables<'guestbook'>[]> => {
+export const fetchThatUsersGuestbook = async (thatUser: string | undefined, page = 1): Promise<ExtendedGuestBook[]> => {
   const response = await fetch(`/member/api?type=guestbook&thatUser=${thatUser}&page=${page}`);
   if (!response.ok) {
     throw new Error('ThatUser_s guestbook response was not ok');

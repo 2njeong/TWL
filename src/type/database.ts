@@ -88,7 +88,6 @@ export type Database = {
       guestbook: {
         Row: {
           allowShow: boolean;
-          avatar: string;
           content: string;
           created_at: string;
           creator: string;
@@ -97,7 +96,6 @@ export type Database = {
         };
         Insert: {
           allowShow: boolean;
-          avatar: string;
           content: string;
           created_at?: string;
           creator?: string;
@@ -106,7 +104,6 @@ export type Database = {
         };
         Update: {
           allowShow?: boolean;
-          avatar?: string;
           content?: string;
           created_at?: string;
           creator?: string;

@@ -11,7 +11,6 @@ export type UserInfoOBJ = {
 
 export type GuestBookObj = {
   creator: string | undefined;
-  avatar: string | null | undefined;
   allowShow: boolean;
 };
 
@@ -24,3 +23,5 @@ export type Ball = Pick<
   Tables<'algorithm'>,
   'algorithm_id' | 'title' | 'creator' | 'creator_avatar' | 'creator_nickname'
 >;
+
+export type ExtendedGuestBook = Tables<'guestbook'> & { users: { avatar: string | null } };
