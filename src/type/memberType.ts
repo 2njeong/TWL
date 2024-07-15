@@ -19,3 +19,8 @@ export type QuizListOfThatUser = Tables<'quiz'> & {
   quiz_like: { users: string[] };
   comments: string[];
 };
+
+export type Ball = Pick<
+  Tables<'algorithm'>,
+  'algorithm_id' | 'title' | 'creator' | 'creator_avatar' | 'creator_nickname'
+>;

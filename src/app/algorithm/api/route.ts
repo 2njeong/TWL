@@ -18,10 +18,6 @@ export async function GET(req: NextRequest) {
     .order('created_at', { ascending: false })
     .range(0, 9);
 
-  if (error) {
-    console.error('알고리즘 데이터를 가져오는 중 오류 발생:', error.message);
-    throw new Error(error.message);
-  }
   if (error) return new Response('fail to select algorithm', { status: 500 });
   return Response.json(data);
 }

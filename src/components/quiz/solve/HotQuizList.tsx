@@ -17,6 +17,7 @@ const HotQuizList = ({
   const queryClient = useQueryClient();
   const TopLikeQuizList = queryClient.getQueryData<TopLikesQuizList>([TOP_QUIZ_LIKE_QUERY_KEY]);
 
+  console.log('TopLikeQuizList =>', TopLikeQuizList);
   return (
     <>
       {TopLikeQuizList?.map((quiz: TopLikesSingleQuiz, idx: number) => (
