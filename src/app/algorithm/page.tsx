@@ -4,8 +4,6 @@ import { BALLSIZE, color_arr, MINDIFFERENCE } from '@/constants/algorithmConstan
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useFetchAlgorithm } from '@/query/useQueries/useAlgorithmQuery';
-import { ZINDEX } from '@/constants/commonConstants';
-import AvatarImage from '@/components/member/information/AvatarImage';
 import BallBtn from '@/components/algorithm/BallBtn';
 
 const AlgorithmPage = () => {
@@ -153,6 +151,7 @@ const AlgorithmPage = () => {
           blurDataURL="/loading_img.gif"
           placeholder="blur"
         />
+        {isLoading && <div className="h-20 h-20 bg-gray-300 absoulte">트리에 장식이 달리고 있어요...!</div>}
         {apples.map((apple, index) => (
           <button
             key={index}
