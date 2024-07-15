@@ -11,16 +11,26 @@ import DeleteBtn from '@/components/utilComponents/DeleteBtn';
 import { useAtom } from 'jotai';
 import { pageAtom } from '@/atom/memberAtom';
 import PageNation from './PageNation';
+import { useEffect } from 'react';
 
 const GuestBookList = ({ id }: { id: string }) => {
-  const [page, _] = useAtom(pageAtom);
+  const [page, setPage] = useAtom(pageAtom);
   const queryClient = useQueryClient();
   const { user_id: creator } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
   const [{ user_id: thatUserId }] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
-  const { guestbookData, guestbookLoading } = useFetchGuestBook(thatUserId, page);
+  const { guestbookData, guestbookLoading, totalPage } = useFetchGuestBook(thatUserId, page);
+
+  useEffect(() => {
+    if (page > 1 && guestbookData && guestbookData?.length < 1) {
+      console.log('들어오나?');
+      setPage((prev) => prev - 1);
+    }
+  }, [guestbookData, page, setPage]);
 
   console.log('guestbookData =>', guestbookData);
   console.log('page =>', page);
+  console.log('totalPage =>', totalPage);
+  console.log('---------------------------');
 
   const deleteBtnProps = {
     item: 'guestbook',

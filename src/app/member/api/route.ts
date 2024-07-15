@@ -46,8 +46,10 @@ export const GET = async (req: NextRequest) => {
         that_user: thatUser,
         is_deleted: false,
         offset_value: (page - 1) * NUM_OF_FETCHMOREGUESTBOOK,
-        limit_value: NUM_OF_FETCHMOREGUESTBOOK
+        limit_value: NUM_OF_FETCHMOREGUESTBOOK + 1
       });
+
+      console.log('data =>', data.length);
       if (error) {
         throw new Error(error.message);
       }
