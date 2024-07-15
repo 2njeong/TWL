@@ -42,14 +42,17 @@ export const GET = async (req: NextRequest) => {
     case 'guestbook': {
       const thatUser = searchParams.get('thatUser');
       const page = Number(searchParams.get('page'));
-      const { data, error } = await supabase
-        .from('guestbook')
-        .select('*,  users(avatar)')
-        .eq('creator', thatUser)
-        .eq('isDeleted', false)
-        .eq('users.user_id', thatUser)
-        .order('created_at', { ascending: false })
-        .range((page - 1) * NUM_OF_FETCHMOREGUESTBOOK, page * NUM_OF_FETCHMOREGUESTBOOK - 1);
+
+      console.log('thatUser =>', thatUser);
+
+      const { data, error } = await supabase.rpc('get_guestbook', {
+        that_user: thatUser,
+        is_deleted: false,
+        offset_value: (page - 1) * NUM_OF_FETCHMOREGUESTBOOK,
+        limit_value: NUM_OF_FETCHMOREGUESTBOOK
+      });
+
+      console.log('결과 =>', data);
       if (error) {
         throw new Error(error.message);
       }

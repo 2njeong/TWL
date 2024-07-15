@@ -97,11 +97,7 @@ export const useFetchGuestBook = (thatUser: string | undefined, newPage: number)
 
   useEffect(() => {
     const hasMoreData = guestbookData && guestbookData.length >= NUM_OF_FETCHMOREGUESTBOOK;
-    const nextPageData = queryClient.getQueryData<Tables<'guestbook'>[]>([
-      GUESTBOOK_OF_THATUSER,
-      thatUser,
-      newPage + 1
-    ]);
+    const nextPageData = queryClient.getQueryData<ExtendedGuestBook[]>([GUESTBOOK_OF_THATUSER, thatUser, newPage + 1]);
     if (hasMoreData) {
       if (nextPageData && nextPageData.length < 1) {
         setTotalPage(newPage);

@@ -72,11 +72,11 @@ const My = () => {
             <div
               className={`w-28 h-20 bg-white rounded absolute top-full right-[-30%] flex flex-col justify-around gap-1 border rounded px-3 py-2 z-[${ZINDEX.navBarZ}]`}
             >
-              <button onClick={handleSignOut} className="rounded hover:bg-gray-200">
-                로그아웃
-              </button>
               <button onClick={openNewWindow} className="rounded hover:bg-gray-200">
                 내 스터디
+              </button>
+              <button onClick={handleSignOut} className="rounded hover:bg-gray-200">
+                로그아웃
               </button>
             </div>
           )}

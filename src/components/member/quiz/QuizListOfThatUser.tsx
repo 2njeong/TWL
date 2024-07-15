@@ -5,6 +5,7 @@ import { THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 import { QUIZLIST_OF_THATUSER } from '@/query/member/memberQueryKey';
 import { useFetchQuizlistOfThatUser } from '@/query/useQueries/useMemberQuery';
 import { Tables } from '@/type/database';
+import { getformattedDate } from '@/utils/utilFns';
 import { useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
@@ -36,22 +37,25 @@ const QuizListOfThatUser = ({ id }: { id: string }) => {
           <div className="w-full flex justify-start items-center">
             <div className="border rounded-lg px-1">{quiz.isSubjective ? '주관식' : '객관식'}</div>
           </div>
-          <div className="w-full flex justify-end items-center gap-2">
-            <div className="flex items-center gap-2">
-              <LikeQuiz
-                quiz_id={quiz.quiz_id}
-                creator={quiz.creator}
-                quizLikeUsers={quiz.quiz_like?.users ?? []}
-                queryKey={[QUIZLIST_OF_THATUSER, thatUserID]}
-              />
-              <h5>
-                {quiz.quiz_like &&
-                  quiz.quiz_like.users &&
-                  quiz.quiz_like.users.length > 0 &&
-                  quiz.quiz_like.users.length}
-              </h5>
+          <div className="w-full flex justify-between items-center gap-2">
+            <p className="text-sm text-gray-500">{getformattedDate(quiz.created_at)}</p>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <LikeQuiz
+                  quiz_id={quiz.quiz_id}
+                  creator={quiz.creator}
+                  quizLikeUsers={quiz.quiz_like?.users ?? []}
+                  queryKey={[QUIZLIST_OF_THATUSER, thatUserID]}
+                />
+                <h5>
+                  {quiz.quiz_like &&
+                    quiz.quiz_like.users &&
+                    quiz.quiz_like.users.length > 0 &&
+                    quiz.quiz_like.users.length}
+                </h5>
+              </div>
+              <h5>댓글 {quiz.comments.length}</h5>
             </div>
-            <h5>댓글 {quiz.comments.length}</h5>
           </div>
         </div>
       ))}

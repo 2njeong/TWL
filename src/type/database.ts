@@ -91,6 +91,7 @@ export type Database = {
           content: string;
           created_at: string;
           creator: string;
+          dear: string;
           guestbook_id: string;
           isDeleted: boolean;
         };
@@ -99,6 +100,7 @@ export type Database = {
           content: string;
           created_at?: string;
           creator?: string;
+          dear: string;
           guestbook_id?: string;
           isDeleted?: boolean;
         };
@@ -107,6 +109,7 @@ export type Database = {
           content?: string;
           created_at?: string;
           creator?: string;
+          dear?: string;
           guestbook_id?: string;
           isDeleted?: boolean;
         };
@@ -228,6 +231,24 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      get_guestbook: {
+        Args: {
+          that_user: string;
+          is_deleted: boolean;
+          offset_value: number;
+          limit_value: number;
+        };
+        Returns: {
+          allowShow: boolean;
+          content: string;
+          created_at: string;
+          creator: string;
+          dear: string;
+          guestbook_id: string;
+          isDeleted: boolean;
+          avatar: string;
+        }[];
+      };
       get_top_quizzes_with_comment_ids: {
         Args: {
           limit_value: number;

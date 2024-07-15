@@ -44,7 +44,7 @@ const GuestBookForm = ({ id }: { id: string }) => {
 
   const submitGeustBookForm = async (data: FormData) => {
     const allowShow = data.get('allowShow');
-    const guestBookObj = { creator, allowShow: !allowShow };
+    const guestBookObj = { creator, allowShow: !allowShow, dear: thstUserId };
     const result = await submitGuestBook(guestBookObj, data);
     if (result) {
       alert(result.message);

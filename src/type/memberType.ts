@@ -24,4 +24,4 @@ export type Ball = Pick<
   'algorithm_id' | 'title' | 'creator' | 'creator_avatar' | 'creator_nickname'
 >;
 
-export type ExtendedGuestBook = Tables<'guestbook'> & { users: { avatar: string | null } };
+export type ExtendedGuestBook = Tables<'guestbook'> & { avatar: string | null };
