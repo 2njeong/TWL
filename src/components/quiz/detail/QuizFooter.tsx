@@ -12,7 +12,6 @@ const ShowCreatorWrapper = dynamic(() => import('@/components/quiz/detail/ShowCr
 
 const QuizFooter = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
   const { data: quizLikeData } = useFetchThatQuizLike(theQuiz?.quiz_id || '');
-  // console.log('이 theQuiz =>', theQuiz);
 
   const likeQuizProps = {
     quiz_id: theQuiz?.quiz_id,

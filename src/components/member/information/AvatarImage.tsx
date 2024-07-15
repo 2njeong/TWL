@@ -6,7 +6,7 @@ const AvatarImage = ({
   size,
   className
 }: {
-  src: string | null;
+  src?: string | null;
   alt: string;
   size: string;
   className?: string;

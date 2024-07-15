@@ -3,7 +3,6 @@
 import AvatarImage from '@/components/member/information/AvatarImage';
 import { ZINDEX } from '@/constants/commonConstants';
 import { useCreatorNQuiz } from '@/query/useQueries/useQuizQuery';
-import Link from 'next/link';
 import { useState } from 'react';
 
 const ShowCreator = ({ creator }: { creator: string }) => {
@@ -12,9 +11,9 @@ const ShowCreator = ({ creator }: { creator: string }) => {
   } = useCreatorNQuiz(creator);
   const [isCreatorOpen, setIsCreatorOpen] = useState(false);
 
-  // console.log('가져온 애 ===>', [creatorData, quizzes]);
-  // console.log('creatorData? =>', creatorData);
-  // console.log('quizzes? =>', quizzes);
+  console.log('둘 다 ===>', [creatorData, quizzes]);
+  console.log('creatorData? =>', creatorData);
+  console.log('quizzes? =>', quizzes);
 
   const handleMouseEnter = () => {
     setIsCreatorOpen(true);

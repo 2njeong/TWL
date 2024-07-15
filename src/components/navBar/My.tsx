@@ -1,13 +1,16 @@
 'use client';
 
+import { checkLoginAtom } from '@/atom/authAtom';
 import { ZINDEX } from '@/constants/commonConstants';
 import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
 import { clientSupabase } from '@/supabase/client';
+import { useAtom } from 'jotai';
 import Link from 'next/link';
 import { useState } from 'react';
 
 const My = () => {
-  const { isLoading, userData, isLoggedIn } = useFetchCurrentUser();
+  const { isLoading, userData } = useFetchCurrentUser();
+  const [isLoggedIn, _] = useAtom(checkLoginAtom);
   const [isMyListOpen, setMyListOpen] = useState(false);
 
   console.log('유저 =>', userData);
@@ -57,28 +60,28 @@ const My = () => {
 
   return (
     <section className="flex gap-4">
-      {isLoggedIn ? (
-        <button onClick={handleSignOut}>로그아웃</button>
-      ) : (
+      {!isLoggedIn && (
         <Link href="/auth" className="my-auto">
           로그인/회원가입
         </Link>
       )}
-      <div {...events()} className="relative">
-        <div className="w-8 h-8 rounded-full bg-gray-500 my-2"></div>
-        {isMyListOpen && (
-          <div
-            className={`w-28 h-32 bg-white rounded absolute top-full right-[-30%] flex flex-col gap-1 border rounded p-2 justify-between z-[${ZINDEX.navBarZ}]`}
-          >
-            {myList.map((my) => (
-              <Link key={my.name} href={my.href} className="rounded p-1 hover:bg-gray-200" onClick={handleMouseLeave}>
-                {my.name}
-              </Link>
-            ))}
-            <button onClick={openNewWindow}>test</button>
-          </div>
-        )}
-      </div>
+      {isLoggedIn && (
+        <div {...events()} className="relative">
+          <div className="w-8 h-8 rounded-full bg-gray-500 my-2"></div>
+          {isMyListOpen && (
+            <div
+              className={`w-28 h-20 bg-white rounded absolute top-full right-[-30%] flex flex-col justify-around gap-1 border rounded px-3 py-2 z-[${ZINDEX.navBarZ}]`}
+            >
+              <button onClick={handleSignOut} className="rounded hover:bg-gray-200">
+                로그아웃
+              </button>
+              <button onClick={openNewWindow} className="rounded hover:bg-gray-200">
+                내 스터디
+              </button>
+            </div>
+          )}
+        </div>
+      )}
     </section>
   );
 };

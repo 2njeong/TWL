@@ -19,10 +19,16 @@ const UpdateUserForm = ({
 }) => {
   const userFormRef = useRef<HTMLFormElement | null>(null);
   const queryClient = useQueryClient();
-  const [avatar, setAvatar] = useAtom(avatarAtom);
+  const [_, setAvatar] = useAtom(avatarAtom);
 
   const getUserInfoObj = (data: FormData) => {
-    const allowshow = data.get('allowshow');
+    const allowshow = currentUser?.allowshow
+      ? data.get('allowshow')
+        ? false
+        : true
+      : data.get('allowshow')
+      ? true
+      : false;
     const userInfoObj = userDataList.reduce(
       (acc, cur) => {
         (acc as any)[cur.toLowerCase()] =
@@ -31,7 +37,7 @@ const UpdateUserForm = ({
             : (currentUser as any)[cur.toLowerCase()];
         return acc;
       },
-      { user_id: currentUser?.user_id, allowshow: !allowshow, avatar: currentUser?.avatar } as UserInfoOBJ
+      { user_id: currentUser?.user_id, allowshow, avatar: currentUser?.avatar } as UserInfoOBJ
     );
     return userInfoObj;
   };
@@ -94,7 +100,10 @@ const UpdateUserForm = ({
       </div>
       <div className="flex gap-1 items-center text-sm text-gray-600 ml-auto">
         <input type="checkbox" name="allowshow"></input>
-        <p>프로필 비공개를 원해요(현재: {currentUser?.allowshow ? '공개' : '비공개'})</p>
+        <p>
+          프로필 {currentUser?.allowshow ? '비공개' : '공개'}를 원해요(현재:{' '}
+          {currentUser?.allowshow ? '공개' : '비공개'})
+        </p>
       </div>
       <SubmitBtn
         btnProps={{

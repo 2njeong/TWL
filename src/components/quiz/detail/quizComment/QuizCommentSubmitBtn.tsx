@@ -1,5 +1,7 @@
 'use client';
 
+import { checkLoginAtom } from '@/atom/authAtom';
+import { useAtom } from 'jotai';
 import { Dispatch, RefObject, SetStateAction } from 'react';
 import { useFormStatus } from 'react-dom';
 
@@ -13,6 +15,7 @@ const QuizCommentSubmitBtn = ({
   commentFormRef: RefObject<HTMLFormElement> | null;
 }) => {
   const { pending } = useFormStatus();
+  const [isLoggedIn, _] = useAtom(checkLoginAtom);
 
   const handleCancleBtn = () => {
     setCommentOpen(false);
@@ -21,7 +24,7 @@ const QuizCommentSubmitBtn = ({
 
   return (
     <>
-      {isCommentOpen && (
+      {isLoggedIn && isCommentOpen && (
         <div className="flex gap-1 items-center">
           <button className="border" onClick={handleCancleBtn}>
             취소

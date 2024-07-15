@@ -6,6 +6,8 @@ import { useEffect, useState, useTransition } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { Tables } from '@/type/database';
 import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
+import { useAtom } from 'jotai';
+import { checkLoginAtom } from '@/atom/authAtom';
 
 type LikeQuizProps = {
   quiz_id: string | undefined;
@@ -16,6 +18,7 @@ type LikeQuizProps = {
 
 const LikeQuiz = (likeQuizProps: LikeQuizProps) => {
   const { quiz_id, creator, quizLikeUsers, queryKey } = likeQuizProps;
+  const [isLoggedIn, _] = useAtom(checkLoginAtom);
   const queryClient = useQueryClient();
   const { user_id: currentUserID } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
   const [isLiked, setIsLiked] = useState(currentUserID && quizLikeUsers && quizLikeUsers.includes(currentUserID));
@@ -30,6 +33,10 @@ const LikeQuiz = (likeQuizProps: LikeQuizProps) => {
   }, [isPending]);
 
   const handleSubmitLike = async () => {
+    if (!isLoggedIn) {
+      alert('로그인 후 이용해주세요.');
+      return;
+    }
     if (creator === currentUserID) {
       alert('본인의 퀴즈에 좋아요를 누를 수 없습니다.');
       return;

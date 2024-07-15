@@ -27,10 +27,9 @@ export async function GET(req: NextRequest) {
     }
     case 'quizCreator': {
       const creator = searchParams.get('creator');
-      const { data, error } = await supabase.from('users').select('*').eq('user_id', creator).single();
-      // console.log('route.ts data =>', data);
+      const { data, error } = await supabase.from('users').select('*').eq('user_id', creator);
       if (error) {
-        console.log('quizCreator error =>', error);
+        console.log('quizCreator error =>', error.message);
         throw new Error(error.message);
       }
       return Response.json(data);

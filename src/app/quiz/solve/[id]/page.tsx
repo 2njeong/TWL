@@ -24,14 +24,17 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
   }, [theQuiz]);
 
   const checkIfRight = () => {
+    // setClickList(new Array(theQuiz?.candidates?.length).fill(false));
     if (theQuiz?.isSubjective) {
-      // console.log('subjectiveAnswer =>', subjectiveAnswer);
       return subjectiveAnswer === '<p><br></p>'
         ? '정답을 입력해주세요.'
         : subjectiveAnswer === theQuiz.answer.join()
         ? '정답입니다!'
         : '정답을 확인해주세요.';
     } else {
+      if (clickList.filter((click) => click).length < 1) {
+        return '정답을 맞혀주세요!';
+      }
       if (theQuiz?.answer.length === clickList.filter((click) => click).length) {
         if (theQuiz?.answer.every((answer: string) => clickList[Number(answer)])) {
           return '정답입니다!';
@@ -39,7 +42,11 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
           return '오답입니다.';
         }
       } else {
-        return `복수답변(${theQuiz?.answer.length}개) 질문입니다.`;
+        if (theQuiz?.answer.length > clickList.filter((click) => click).length) {
+          return `복수답변(${theQuiz?.answer.length}개) 질문입니다.`;
+        } else {
+          return `오답입니다. (정답: ${theQuiz?.answer.length}개)`;
+        }
       }
     }
   };

@@ -8,6 +8,9 @@ import { useFormState } from 'react-dom';
 import { Tables } from '@/type/database';
 import { useQueryClient } from '@tanstack/react-query';
 import { QUIZ_COMMENTS_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
+import { useAtom } from 'jotai';
+import { checkLoginAtom } from '@/atom/authAtom';
+import AvatarImage from '@/components/member/information/AvatarImage';
 
 const QuizCommentForm = ({
   theQuiz,
@@ -22,6 +25,7 @@ const QuizCommentForm = ({
   const [commentValidationErr, setCommentValidationErr] = useState<QuizCommentValidationErr | null>(null);
   const commentTxtAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const queryClient = useQueryClient();
+  const [isLoggedIn, __] = useAtom(checkLoginAtom);
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
@@ -62,14 +66,15 @@ const QuizCommentForm = ({
 
   return (
     <form ref={commentFormRef} action={formAction} className="w-11/12 flex gap-4 items-center border h-auto p-4">
-      <div>
-        <div className="w-14 h-14 rounded-full bg-gray-300">아바타</div>
+      <div className="w-14 h-14">
+        <AvatarImage alt="유저이미지" size="3.5" />
       </div>
       <div className={`${isCommentOpen ? 'w-11/12' : 'w-full'} flex flex-col gap-1 w-full`}>
         <textarea
           name="comment_content"
-          placeholder="댓글 작성..."
+          placeholder={`${isLoggedIn ? '댓글 작성...' : '로그인 후 이용 가능합니다.'}`}
           ref={commentTxtAreaRef}
+          disabled={!isLoggedIn}
           className="border-b focus:outline-none resize-none min-h-5 overflow-y-hidden"
           onInput={handleTextareaInput}
           rows={1}

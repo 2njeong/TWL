@@ -93,12 +93,15 @@ export const useCreatorNQuiz = (creator: string) => {
     ],
     combine: useCallback((results: any) => {
       return {
-        data: results.map((result: any) => result.data) as [Tables<'users'>, Tables<'quiz'>[]]
+        data: results.map((result: any, i: number) => (i < 1 ? result.data[0] : result.data)) as [
+          Tables<'users'>,
+          Tables<'quiz'>[]
+        ]
       };
     }, [])
   });
 
-  // console.log('useCreatorNQuiz =>', data);
+  console.log('useCreatorNQuiz =>', data);
   // const mappedResults = results.map((result) => result.data);
 
   // const memoData = useMemo(() => {

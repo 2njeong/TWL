@@ -11,7 +11,6 @@ const Avatar = ({ userFormOpen, userData }: { userFormOpen: boolean; userData: T
   const [avatar, setAvatar] = useAtom(avatarAtom);
   const basicAvatar = userData?.avatar || '/dog_avatar.jpg';
 
-  console.log('basicAvatar =>', basicAvatar);
   const collectFile = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
     setAvatar(file);

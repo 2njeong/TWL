@@ -56,7 +56,7 @@ const QuizListOfThatUser = ({ id }: { id: string }) => {
         </div>
       ))}
       <div ref={ref} className="w-full h-20 flex justify-center items-center">
-        {isFetchingNextPage && <p>로딩중...</p>}
+        {hasNextPage ? isFetchingNextPage ? <p>로딩중...</p> : <p>더보기</p> : null}
       </div>
     </div>
   );
