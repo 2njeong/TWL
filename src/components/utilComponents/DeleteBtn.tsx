@@ -1,7 +1,6 @@
 'use client';
 
 import { deleteItem } from '@/app/quiz/solve/action';
-import { QUIZ_COMMENTS_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
 import { HiOutlineEllipsisVertical } from 'react-icons/hi2';

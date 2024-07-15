@@ -5,8 +5,11 @@ import { ZINDEX } from '@/constants/commonConstants';
 import Link from 'next/link';
 import { useState } from 'react';
 import My from './My';
+import { usePathname } from 'next/navigation';
 
 const NavBar = () => {
+  const [quizDropOpen, setQuizDropOpen] = useState(false);
+  const pathname = usePathname();
   const navBarList = [
     { href: '/', name: '홈' },
     // { href: '/', name: 'Team' },
@@ -17,7 +20,6 @@ const NavBar = () => {
     { href: 'solve', name: '문제 풀기' },
     { href: 'makequiz', name: '문제 만들기' }
   ];
-  const [quizDropOpen, setQuizDropOpen] = useState(false);
 
   const handleMouseEnter = (navName: string) => {
     if (navName === 'Quiz') setQuizDropOpen(true);
@@ -40,6 +42,8 @@ const NavBar = () => {
     onMouseLeave: () => handleMouseLeave(navName),
     onTouchMove: (e: React.TouchEvent<Element>) => handleTouchMove(e)
   });
+
+  if (pathname.startsWith('/member')) return null;
 
   return (
     <div className="flex justify-between items-center px-8 py-2">

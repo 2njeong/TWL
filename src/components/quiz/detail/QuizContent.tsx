@@ -19,24 +19,6 @@ const QuizContent = ({
   setClickList: Dispatch<SetStateAction<boolean[]>>;
   setSubjectiveAnswer: Dispatch<SetStateAction<string>>;
 }) => {
-  // const subjectiveAnswerRef = useRef<Editor>(null);
-  // const [answerType, setAnswerType] = useState('wysiwyg');
-
-  // const handleSubjectiveAnswerChange = () => {
-  //   let data;
-  //   if (answerType === 'wysiwyg') {
-  //     data = subjectiveAnswerRef.current?.getInstance().getHTML();
-  //     setSubjectiveAnswer(data);
-  //   } else {
-  //     data = subjectiveAnswerRef.current?.getInstance().getMarkdown();
-  //     setSubjectiveAnswer(data);
-  //   }
-  // };
-
-  // const handleAnswerChangeMarkdownToWysiwyg = () => {
-  //   setAnswerType((prev) => (prev === 'wysiwyg' ? 'markdown' : 'wysiwyg'));
-  // };
-
   const {
     editorRef: subjectiveAnswerRef,
     handleContentResultChange: handleSubjectiveAnswerChange,

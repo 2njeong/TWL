@@ -231,7 +231,7 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      get_top_likes_quizzes: {
+      get_top_quizzes_with_comment_ids: {
         Args: {
           limit_value: number;
         };
@@ -243,6 +243,7 @@ export type Database = {
           creator: string;
           created_at: string;
           users: string[];
+          comment_ids: string[];
         }[];
       };
       user_id_to_quiz_like: {

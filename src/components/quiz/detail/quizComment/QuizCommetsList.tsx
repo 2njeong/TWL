@@ -6,8 +6,12 @@ import { getHoursDifference } from '@/utils/utilFns';
 import DeleteBtn from '../../../utilComponents/DeleteBtn';
 import { Tables } from '@/type/database';
 import { QUIZ_COMMENTS_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
+import { useQueryClient } from '@tanstack/react-query';
+import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 
 const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
+  const queryClient = useQueryClient();
+  const { user_id: currentUserId } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
   const {
     data: quizComments,
     isFetchingNextPage,
@@ -86,7 +90,9 @@ const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) 
                           {getHoursDifference(comment.created_at).minutes}분 전
                         </p>
                       </div>
-                      <DeleteBtn item_id={comment.comment_id} {...deleteBtnProps} />
+                      {comment.comment_creator === currentUserId && (
+                        <DeleteBtn item_id={comment.comment_id} {...deleteBtnProps} />
+                      )}
                     </div>
                     <div className="w-full px-2">
                       <p className="break-all whitespace-normal overflow-wrap"> {comment.comment_content}</p>

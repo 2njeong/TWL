@@ -30,7 +30,7 @@ export type MakeQuizZodErrObj =
 
 export type QuizField = 'question' | 'candidates' | 'content' | 'answer';
 
-export type TopLikesQuizList = Database['public']['Functions']['get_top_likes_quizzes']['Returns'];
+export type TopLikesQuizList = Database['public']['Functions']['get_top_quizzes_with_comment_ids']['Returns'];
 
 type WithoutArrayType<T> = T extends (infer U)[] ? U : T;
 
