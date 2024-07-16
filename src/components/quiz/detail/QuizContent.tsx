@@ -63,11 +63,13 @@ const QuizContent = ({
           />
         </div>
       ) : (
-        <div className="flex flex-col gap-4 w-full items-center">
+        <div className="flex flex-col gap-3 w-4/5 mx-auto items-center">
           {theQuiz?.candidates?.map((candidate: string, idx: number) => (
             <button
               key={idx}
-              className={`w-11/12 border ${clickList[idx] && 'bg-gray-200'}`}
+              className={`w-11/12 border-2 border-gray-200 rounded text-lg ${clickList[idx] && 'bg-gray-200'} ${
+                !clickList[idx] && 'hover:bg-gray-100'
+              }`}
               onClick={() => handleSelectCandidates(idx)}
             >
               {candidate}
