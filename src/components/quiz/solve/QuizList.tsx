@@ -37,7 +37,10 @@ const QuizList = () => {
         </div>
       ) : quizList?.length ? (
         quizList.map((quiz) => (
-          <div key={quiz.quiz_id} className="w-full border-b flex items-start">
+          <div
+            key={quiz.quiz_id}
+            className="w-full border-b-2 rounded flex items-start hover:bg-gray-100 pt-2 pb-1 px-3"
+          >
             <Link href={`/quiz/solve/${quiz.quiz_id}`}>{quiz.question}</Link>
           </div>
         ))

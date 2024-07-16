@@ -16,14 +16,13 @@ const QuizPage = async () => {
             className="object-cover w-full h-full rounded"
           />
           <div className="w-full h-[70%]">
-            {/* <h1 className="text-3xl font-bold">Hot Quiz(좋아요 많은 순 - 나열 갯수 수정가능)</h1> */}
             <HotQuiz />
           </div>
         </section>
-        {/* <section className="w-full flex flex-col gap-2">
-          <h1 className="text-3xl font-bold">Quiz List(전체 문제들 - 무한스크롤)</h1>
+        <section className="w-full flex flex-col gap-2">
+          <h1 className="text-3xl font-bold">Quiz List</h1>
           <QuizList />
-        </section> */}
+        </section>
       </div>
     </div>
   );
