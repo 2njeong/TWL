@@ -22,44 +22,37 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
     setTheCategory(category);
   };
 
-  // console.log('theCategory =>', theCategory);
-
-  if (isThatUserLoading || isLoading) return <>로딩중..</>;
+  if (isThatUserLoading || isLoading) return <></>;
   return (
     <>
-      <div className="border w-full min-h-[550px] flex justify-between gap-2 relative">
-        <section className="border w-2/6 flex flex-col justify-around items-center p-2">
+      <div className="border border-2 rounded w-full min-h-[550px] h-full max-h-[90%] flex justify-between relative">
+        <section className="w-2/6 flex flex-col justify-around items-center justify-center px-4 py-2">
           <UserInfo thatUserData={thatUserData} currentUser={userData} />
         </section>
 
-        <section className="border w-4/6 flex flex-col justify-around">
-          {theCategory ? (
-            <div className="w-full h-full overflow-y-auto p-2 flex flex-col gap-2">
-              <div>{theCategory}</div>
-              {theCategory === '질문' ? (
-                <QuizListOfThatUser id={id} />
-              ) : theCategory === '알고리즘' ? (
-                <AlgorithmWrapper id={id} />
-              ) : theCategory === '방명록' ? (
-                <GuestBook id={id} />
-              ) : (
-                <></>
-              )}
-            </div>
-          ) : (
-            categories.map((cate) => (
-              <div key={cate} className="border">
-                {cate}
-                <div>내용</div>
-              </div>
-            ))
-          )}
+        <section className="border-l-2 w-4/6 flex flex-col justify-around">
+          <div className="w-full h-full overflow-y-auto p-2 flex flex-col gap-2">
+            <div>{theCategory}</div>
+            {theCategory === '질문' ? (
+              <QuizListOfThatUser id={id} />
+            ) : theCategory === '알고리즘' ? (
+              <AlgorithmWrapper id={id} />
+            ) : theCategory === '방명록' ? (
+              <GuestBook id={id} />
+            ) : (
+              <></>
+            )}
+          </div>
         </section>
 
         <div className="flex flex-col absolute top-0 right-0 transform translate-x-full">
-          {categories.map((cate) => (
-            <button key={cate} className="border" onClick={() => handleCategory(cate)}>
-              {cate}
+          {categories.map((category) => (
+            <button
+              key={category}
+              className={`border rounded px-1 py-0.5 ${category === theCategory && 'bg-gray-200'}`}
+              onClick={() => handleCategory(category)}
+            >
+              {category}
             </button>
           ))}
         </div>

@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 const AlgorithmList = ({ algorithmData }: { algorithmData: Tables<'algorithm'>[] | undefined }) => {
   return (
-    <div className="p-2 border grid grid-cols-2 max-sm:grid-cols-1 gap-x-6 gap-y-8">
+    <div className="p-2 grid grid-cols-2 max-sm:grid-cols-1 gap-x-6 gap-y-8">
       {algorithmData?.map((item) => (
         <div key={item.algorithm_id} className="flex flex-col gap-2 py-2 px-4 h-48 justify-between border rounded">
           <div className="flex flex-col gap-2">
@@ -22,19 +22,22 @@ const AlgorithmList = ({ algorithmData }: { algorithmData: Tables<'algorithm'>[]
               나도 풀어볼래!
             </Link>
           </div>
-          <OpenModalBtn
-            className={`${item.newLearn && 'border'} rounded h-full max-h-24 flex justify-start items-center`}
-            modalProps={{
-              elementId: 'new-root',
-              type: 'alert',
-              title: '이 문제를 풀면서 배웠어요!',
-              content: item.newLearn && item.newLearn
-            }}
-          >
-            <p className="overflow-hidden break-all whitespace-normal line-clamp-2 text-sm">
-              {item.newLearn && item.newLearn}
-            </p>
-          </OpenModalBtn>
+          {item.newLearn && (
+            <OpenModalBtn
+              className="border rounded h-full max-h-24 flex justify-start items-center p-2"
+              modalProps={{
+                elementId: 'new-root',
+                type: 'alert',
+                title: '이 문제를 풀면서 배웠어요!',
+                content: item.newLearn && item.newLearn
+              }}
+            >
+              <p className="overflow-hidden break-all whitespace-normal line-clamp-2 text-sm">
+                {item.newLearn && item.newLearn}
+              </p>
+            </OpenModalBtn>
+          )}
+
           <p className="text-xs text-gray-500 text-end">{getformattedDate(item.created_at)}</p>
         </div>
       ))}

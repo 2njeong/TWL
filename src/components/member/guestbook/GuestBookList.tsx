@@ -27,11 +27,6 @@ const GuestBookList = ({ id }: { id: string }) => {
     }
   }, [guestbookData, page, setPage]);
 
-  console.log('guestbookData =>', guestbookData);
-  console.log('page =>', page);
-  console.log('totalPage =>', totalPage);
-  console.log('---------------------------');
-
   const deleteBtnProps = {
     item: 'guestbook',
     queryKey: GUESTBOOK_OF_THATUSER,
@@ -72,7 +67,9 @@ const GuestBookList = ({ id }: { id: string }) => {
             )
         )
       ) : (
-        <div>더 이상 불러올 데이터가 없습니다.</div>
+        <div className="w-full h-full flex justify-center items-center">
+          <p className="text-gray-500">불러올 데이터가 없습니다.</p>
+        </div>
       )}
       <PageNation />
     </>

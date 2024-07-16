@@ -12,6 +12,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { ALGORITHM_OF_THATUSER } from '@/query/member/memberQueryKey';
 import SubmitBtn from '@/components/makequiz/SubmitBtn';
 import { Tables } from '@/type/database';
+import { TbChristmasTree } from 'react-icons/tb';
 
 const MakeNewAlgorithm = ({ userData }: { userData: Tables<'users'> }) => {
   const { user_id: creator, nickname: creator_nickname, avatar: creator_avatar } = userData;
@@ -82,10 +83,16 @@ const MakeNewAlgorithm = ({ userData }: { userData: Tables<'users'> }) => {
         <textarea
           name="newLearn"
           placeholder="이 문제를 통해 배운 점/ 알게된 점을 기록해보세요!"
-          className="resize-none min-h-28 h-auto"
+          className="border rounded resize-none min-h-28 h-auto p-2"
         ></textarea>
       </div>
-      <SubmitBtn btnProps={{ pendingText: '사과가 열리고 있어요..!', doneText: '사과 만들기' }} />
+      <SubmitBtn
+        btnProps={{
+          buttonClassName: 'w-2/6 border border-2 rounded rounded-md text-lg p-1',
+          pendingText: <TbChristmasTree className="text-3xl mx-auto" />,
+          doneText: '트리 장식하기'
+        }}
+      />
     </form>
   );
 };

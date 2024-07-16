@@ -17,9 +17,9 @@ const Avatar = ({ userFormOpen, userData }: { userFormOpen: boolean; userData: T
   };
 
   return (
-    <div className="w-full h-3/6 border flex justify-center items-center">
+    <div className="w-full h-3/6 flex justify-center items-center">
       {userFormOpen ? (
-        <label className="flex items-center cursor-pointer">
+        <label className="border border-4 rounded-full flex items-center cursor-pointer">
           <input
             type="file"
             accept="image/*"
@@ -36,7 +36,7 @@ const Avatar = ({ userFormOpen, userData }: { userFormOpen: boolean; userData: T
           )}
         </label>
       ) : (
-        <div>
+        <div className="border border-4 rounded-full flex items-center">
           {userData?.avatar ? (
             <AvatarImage src={userData?.avatar as string} alt="업데이트 후 아바타" size="13" />
           ) : (

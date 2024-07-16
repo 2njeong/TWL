@@ -28,7 +28,10 @@ const QuizListOfThatUser = ({ id }: { id: string }) => {
   return (
     <div className="w-full h-full overflow-y-auto flex flex-col items-center gap-3">
       {quizListOfThatUser?.map((quiz) => (
-        <div key={quiz.quiz_id} className="border w-full max-w-[35rem] flex flex-col items-center p-4 gap-2">
+        <div
+          key={quiz.quiz_id}
+          className="border rounded drop-shadow-sm w-full max-w-[35rem] flex flex-col items-center p-4 gap-2"
+        >
           <div className="w-full flex items-center">
             <Link href={`/quiz/solve/${quiz.quiz_id}`}>
               <h3 className="font-bold text-xl truncate">Q. {quiz.question}</h3>

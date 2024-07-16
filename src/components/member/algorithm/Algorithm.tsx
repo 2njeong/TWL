@@ -36,12 +36,15 @@ const Algorithm = ({ id }: { id: string }) => {
     <div className="w-full h-full max-h-[90%] flex flex-col border">
       <div className="w-full flex justify-end p-2">
         {data.user_id === currentUserID && (
-          <button className={`${!writeNewPost && 'border'}`} onClick={handleNewPost}>
+          <button
+            className={`${!writeNewPost && 'border rounded px-1 py-0.5'} flex items-center`}
+            onClick={handleNewPost}
+          >
             {writeNewPost ? <MdOutlineCancel className="text-2xl" /> : 'new 알고리즘'}
           </button>
         )}
       </div>
-      <div className="h-full overflow-y-auto p-2">
+      <div className="h-full overflow-y-auto px-2 py-4">
         {data.user_id === currentUserID ? (
           writeNewPost ? (
             <MakeNewAlgorithm userData={data} />
@@ -51,9 +54,11 @@ const Algorithm = ({ id }: { id: string }) => {
         ) : (
           <AlgorithmList algorithmData={algorithmData} />
         )}
-        <div ref={ref} className="w-full h-20 flex justify-center items-center">
-          {isFetchingNextPage && <p>로딩중...</p>}
-        </div>
+        {!writeNewPost && hasNextPage && (
+          <div ref={ref} className="w-full h-20 flex justify-center items-center">
+            {isFetchingNextPage && <p>로딩중...</p>}
+          </div>
+        )}
       </div>
     </div>
   );

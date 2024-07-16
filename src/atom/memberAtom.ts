@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 
-export const categoryAtom = atom<string | null>(null);
+export const categoryAtom = atom<string>('질문');
 
 export const avatarAtom = atom<File | null>(null);
 

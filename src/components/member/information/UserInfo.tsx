@@ -36,7 +36,7 @@ const UserInfo = ({
         userFormOpen={userFormOpen}
         userData={thatUserData?.user_id === currentUser?.user_id ? currentUser : thatUserData}
       />
-      <div className={`h-3/6 w-full border flex py-2 px-4`}>
+      <div className={`h-[40%] border border-2 rounded-md w-full flex justify-center py-2 px-4`}>
         {userFormOpen ? (
           <>
             <UpdateUserForm currentUser={currentUser} userDataList={userDataList} setUserFormOpen={setUserFormOpen} />
