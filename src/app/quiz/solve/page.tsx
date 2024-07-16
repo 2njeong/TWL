@@ -1,5 +1,6 @@
 import HotQuiz from '@/components/quiz/solve/HotQuiz';
 import QuizList from '@/components/quiz/solve/QuizList';
+import { ZINDEX } from '@/constants/commonConstants';
 import Image from 'next/image';
 
 const QuizPage = async () => {
@@ -13,7 +14,7 @@ const QuizPage = async () => {
             fill={true}
             sizes="500px"
             priority={true}
-            className="object-cover w-full h-full rounded"
+            className={`object-cover w-full h-full rounded`}
           />
           <div className="w-full h-[70%]">
             <HotQuiz />

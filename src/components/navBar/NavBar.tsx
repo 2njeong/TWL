@@ -6,15 +6,16 @@ import Link from 'next/link';
 import { useState } from 'react';
 import My from './My';
 import { usePathname } from 'next/navigation';
+import { TbChristmasBall, TbChristmasTree } from 'react-icons/tb';
+import { HiOutlineHome } from 'react-icons/hi';
 
 const NavBar = () => {
   const [quizDropOpen, setQuizDropOpen] = useState(false);
   const pathname = usePathname();
   const navBarList = [
-    { href: '/', name: '홈' },
-    // { href: '/', name: 'Team' },
-    { href: '/', name: 'Quiz' },
-    { href: 'algorithm', name: 'Algorithm' }
+    { href: '/', name: 'Home', icon: <HiOutlineHome className="text-blue-900" /> },
+    { href: '/', name: 'Quiz', icon: <TbChristmasBall className="text-red-500" /> },
+    { href: 'algorithm', name: 'Algorithm', icon: <TbChristmasTree className="text-green-500" /> }
   ];
   const quizNavList = [
     { href: 'solve', name: '문제 풀기' },
@@ -52,13 +53,17 @@ const NavBar = () => {
           return (
             <div key={nav.name} {...events(nav.name)} className={`${nav.name === 'Quiz' ? 'relative' : ''}`}>
               <div className="my-2">
-                <Link href={`/${nav.href}`} className={`${nav.name === 'Quiz' && 'pointer-events-none'}`}>
+                <Link
+                  href={`/${nav.href}`}
+                  className={`${nav.name === 'Quiz' && 'pointer-events-none'} text-lg flex items-center gap-0.5`}
+                >
                   {nav.name}
+                  {nav.icon}
                 </Link>
               </div>
               {nav.name === 'Quiz' && quizDropOpen && (
                 <div
-                  className={`flex flex-col justify-between gap-1 absolute w-28 h-22 bg-white top-full left-[-90%] border p-2 rounded z-[${ZINDEX.navBarZ}]`}
+                  className={`flex flex-col justify-between gap-1 absolute w-28 h-22 bg-white top-full left-[-50%] border p-2 rounded z-[${ZINDEX.navBarZ}]`}
                 >
                   {quizNavList.map((item) => (
                     <Link
