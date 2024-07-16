@@ -34,10 +34,11 @@ const QuizContent = ({
   };
 
   return (
-    <div className="">
+    <div className="w-full pt-8">
       {theQuiz?.isSubjective ? (
-        <div className="flex flex-col w-4/5 mx-auto justify-center">
-          <div>
+        <div className="flex flex-col gap-2 w-4/5 mx-auto justify-center">
+          <div className="w-full bg-white rounded p-2">
+            <h2 className="text-gray-400 font-bold">문제내용</h2>
             <Viewer initialValue={theQuiz.content} />
           </div>
           <Editor

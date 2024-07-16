@@ -20,9 +20,9 @@ const QuizFooter = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
     queryKey: [QUIZLIKE_QUERY_KEY, theQuiz?.quiz_id]
   };
   return (
-    <div className="flex items-center justify-between">
+    <div className="w-4/5 flex items-center justify-between">
       <OpenModalBtn
-        className=""
+        className="flex justify-center items-center w-2/12 p-1 rounded-lg bg-blue-500 hover:bg-blue-400 text-white"
         modalProps={{
           elementId: 'root',
           type: 'confirm',
@@ -32,10 +32,10 @@ const QuizFooter = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
             : `보기 ${theQuiz?.answer.map((item: string) => Number(item) + 1).join(', ')}번 입니다.`
         }}
       >
-        바로 정답보기
+        정답보기
       </OpenModalBtn>
       <Suspense>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-2 items-center">
           <LikeQuizWrapper {...likeQuizProps} />
           <ShowCreatorWrapper creator={`${theQuiz?.creator}`} />
         </div>

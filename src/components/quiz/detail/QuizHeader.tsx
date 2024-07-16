@@ -12,16 +12,19 @@ const QuizHeader = ({
   checkIfRight: () => string | undefined;
 }) => {
   return (
-    <div className="flex flex-col gap-1">
-      {theQuiz?.needHelp && (
-        <h2 className="mb-2">도움이 필요한 질문입니다! 답변이 옳지 않을 수 있으니 함께 완성해주세요:)</h2>
-      )}
-      <h1 className="font-bold text-3xl">Q. {theQuiz?.question}</h1>
-      {theQuiz && theQuiz.answer.length > 1 && (
-        <h4 className="text-gray-600 text-sm">복수답변({theQuiz.answer.length}개) 질문입니다.</h4>
-      )}
+    <div className="w-4/5 flex justify-between items-center">
+      <div className="flex flex-col gap-1">
+        {theQuiz?.needHelp && (
+          <h2 className="mb-2">도움이 필요한 질문입니다! 답변이 옳지 않을 수 있으니 함께 완성해주세요:)</h2>
+        )}
+        <h1 className="font-bold text-3xl">Q. {theQuiz?.question}</h1>
+        {theQuiz && theQuiz.answer.length > 1 && (
+          <h4 className="text-gray-600 text-sm">복수답변({theQuiz.answer.length}개) 질문입니다.</h4>
+        )}
+      </div>
+
       <OpenModalBtn
-        className="flex justify-end ml-auto"
+        className="flex justify-center items-center w-2/12 p-1 rounded-lg bg-green-500 hover:bg-green-400 text-white"
         modalProps={{
           elementId: 'root',
           type: 'alert',

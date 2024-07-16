@@ -11,10 +11,6 @@ const ShowCreator = ({ creator }: { creator: string }) => {
   } = useCreatorNQuiz(creator);
   const [isCreatorOpen, setIsCreatorOpen] = useState(false);
 
-  console.log('둘 다 ===>', [creatorData, quizzes]);
-  console.log('creatorData? =>', creatorData);
-  console.log('quizzes? =>', quizzes);
-
   const handleMouseEnter = () => {
     setIsCreatorOpen(true);
   };
@@ -44,27 +40,36 @@ const ShowCreator = ({ creator }: { creator: string }) => {
   };
 
   return (
-    <div className="relative w-12" {...events()}>
-      <AvatarImage src={creatorData.avatar ?? ''} alt="quiz creator" size="3" className="pointer-events-none" />
+    <div className="relative w-14 ml-2" {...events()}>
+      <AvatarImage
+        src={creatorData.avatar ?? ''}
+        alt="quiz creator"
+        size="3"
+        className="pointer-events-none border-2"
+      />
       {isCreatorOpen && (
-        <div className={`absolute right-[90%] top-[-350%] flex pr-4 drop-shadow-xl z-[${ZINDEX.hoverZ}]`}>
-          <div className={`w-64 h-96 bg-gray-500 rounded-xl p-4 flex flex-col justify-between`}>
-            <div className="flex justify-center gap-4 items-center w-full h-20 border p-2">
+        <div className={`absolute translate-x-[30%] -translate-y-[110%] flex pr-4 drop-shadow-xl z-[${ZINDEX.hoverZ}]`}>
+          <div className={`w-40 h-58 bg-white bg-opacity-80 rounded-xl p-2 flex flex-col gap-2`}>
+            <div className=" w-full flex items-center justify-around p-2">
               <AvatarImage
                 src={creatorData.avatar ?? ''}
                 alt="quiz creator"
-                size="3.5"
-                className="pointer-events-none"
+                size="3"
+                className="pointer-events-none border-2"
               />
-              <div className="w-32 text-center">{creatorData.nickname}</div>
+              <div className="w-3/6 flex items-center justify-center">
+                <p>{creatorData.nickname}</p>
+              </div>
             </div>
-            <button className="w-full h-12 border" onClick={() => openNewWindow(creatorData.user_id)}>
+            <button
+              className="w-full border-2 rounded p-1 text-sm hover:bg-gray-100"
+              onClick={() => openNewWindow(creatorData.user_id)}
+            >
               스터디 존 구경가기
             </button>
-            <div className="w-full h-16 border">간단소개</div>
-            <div className="w-full h-32 border">
-              최근활동
-              <h4>Q.{quizzes[0].question}</h4>
+            <div className="w-full flex flex-col gap-2 border p-2">
+              <p className="text-sm text-gray-500">최근활동</p>
+              <h4>Q. {quizzes[0].question}</h4>
             </div>
           </div>
         </div>

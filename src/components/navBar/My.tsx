@@ -63,9 +63,9 @@ const My = () => {
       {isLoggedIn && (
         <div {...events()} className="relative">
           <div className="my-2">
-            <div className="border-4 rounded-full ">
-              <AvatarImage src={userData?.avatar} alt="current user Img" size="2.5" />
-            </div>
+            {/* <div className=" rounded-full "> */}
+            <AvatarImage src={userData?.avatar} alt="current user Img" size="3" className="border-4" />
+            {/* </div> */}
           </div>
           {isMyListOpen && (
             <div

@@ -54,7 +54,7 @@ const BallBtn = ({ balls, index, userOpenArr, setUserOpenArr }: BallBtnProps) =>
       <button
         ref={btnRef}
         onClick={() => goToStudyZone(balls[index].creator)}
-        className="flex items-center justify-center w-full border-[2.5px] border-white rounded text-sm hover:bg-gray-300 p-0.5"
+        className="flex items-center justify-center w-full border-2 border-white rounded text-sm hover:bg-gray-300 p-0.5"
       >
         스터디 존 구경하기
       </button>
