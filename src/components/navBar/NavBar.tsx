@@ -46,7 +46,7 @@ const NavBar = () => {
   if (pathname.startsWith('/member')) return null;
 
   return (
-    <div className="flex justify-between items-center px-8 py-2">
+    <div className="flex justify-between items-center px-10 py-2">
       <section className="flex gap-8 items-center">
         {navBarList.map((nav) => {
           return (
@@ -58,13 +58,13 @@ const NavBar = () => {
               </div>
               {nav.name === 'Quiz' && quizDropOpen && (
                 <div
-                  className={`flex flex-col justify-between gap-1 absolute w-28 h-24 bg-white top-full left-[-90%] border p-2 rounded z-[${ZINDEX.navBarZ}]`}
+                  className={`flex flex-col justify-between gap-1 absolute w-28 h-22 bg-white top-full left-[-90%] border p-2 rounded z-[${ZINDEX.navBarZ}]`}
                 >
                   {quizNavList.map((item) => (
                     <Link
                       key={item.name}
                       href={`/quiz/${item.href}`}
-                      className="hover:bg-gray-200 rounded p-1"
+                      className="hover:bg-gray-200 rounded p-1 flex items-center justify-center"
                       onClick={() => setQuizDropOpen(false)}
                     >
                       {item.name}

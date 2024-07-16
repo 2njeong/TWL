@@ -7,6 +7,7 @@ import { clientSupabase } from '@/supabase/client';
 import { useAtom } from 'jotai';
 import Link from 'next/link';
 import { useState } from 'react';
+import AvatarImage from '../member/information/AvatarImage';
 
 const My = () => {
   const { isLoading, userData } = useFetchCurrentUser();
@@ -14,12 +15,6 @@ const My = () => {
   const [isMyListOpen, setMyListOpen] = useState(false);
 
   console.log('유저 =>', userData);
-
-  const myList = [
-    { href: '/', name: '내 스터디' },
-    { href: `/guestbook/${userData?.user_id}`, name: '방명록' },
-    { href: '/', name: '마이페이지' }
-  ];
 
   const handleMouseEnter = () => {
     setMyListOpen(true);
@@ -67,15 +62,17 @@ const My = () => {
       )}
       {isLoggedIn && (
         <div {...events()} className="relative">
-          <div className="w-8 h-8 rounded-full bg-gray-500 my-2"></div>
+          <div className="my-2">
+            <AvatarImage src={userData?.avatar} alt="current user Img" size="3" />
+          </div>
           {isMyListOpen && (
             <div
-              className={`w-28 h-20 bg-white rounded absolute top-full right-[-30%] flex flex-col justify-around gap-1 border rounded px-3 py-2 z-[${ZINDEX.navBarZ}]`}
+              className={`w-28 h-22 bg-white rounded absolute top-full right-[-30%] flex flex-col justify-around gap-1 border rounded p-2 z-[${ZINDEX.navBarZ}]`}
             >
-              <button onClick={openNewWindow} className="rounded hover:bg-gray-200">
+              <button onClick={openNewWindow} className="rounded hover:bg-gray-200 p-1">
                 내 스터디
               </button>
-              <button onClick={handleSignOut} className="rounded hover:bg-gray-200">
+              <button onClick={handleSignOut} className="rounded hover:bg-gray-200 p-1">
                 로그아웃
               </button>
             </div>
