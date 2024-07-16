@@ -47,7 +47,7 @@ const NavBar = () => {
   if (pathname.startsWith('/member')) return null;
 
   return (
-    <div className="flex justify-between items-center px-10 py-2">
+    <div className="flex justify-between items-center px-10 py-2 min-h-[5rem]">
       <section className="flex gap-8 items-center">
         {navBarList.map((nav) => {
           return (

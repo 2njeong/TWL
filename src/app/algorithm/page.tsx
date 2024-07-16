@@ -110,12 +110,16 @@ const AlgorithmPage = () => {
           alt="트리 이미지"
           fill={true}
           className="object-contain"
-          sizes="(max-width: 640px), 500px"
+          sizes="(max-width: 600px) 100vw, 50vw"
           priority={true}
           blurDataURL="/loading_img.gif"
           placeholder="blur"
         />
-        {isLoading && <div className="h-20 w-full bg-gray-300 absolute">트리에 장식이 달리고 있어요...!</div>}
+        {isLoading && (
+          <div className="h-4/6 w-full flex justify-center items-center bg-white bg-opaticy-80 absolute">
+            트리에 장식이 달리고 있어요...!
+          </div>
+        )}
         {apples.map((apple, index) => (
           <button
             key={index}
