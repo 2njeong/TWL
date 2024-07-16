@@ -48,7 +48,7 @@ const ShowCreator = ({ creator }: { creator: string }) => {
         className="pointer-events-none border-2"
       />
       {isCreatorOpen && (
-        <div className={`absolute translate-x-[30%] -translate-y-[110%] flex pr-4 drop-shadow-xl z-[${ZINDEX.hoverZ}]`}>
+        <div className={`absolute translate-x-[30%] -translate-y-[110%] flex drop-shadow-xl z-[${ZINDEX.hoverZ}]`}>
           <div className={`w-40 h-58 bg-white bg-opacity-80 rounded-xl p-2 flex flex-col gap-2`}>
             <div className=" w-full flex items-center justify-around p-2">
               <AvatarImage
@@ -69,7 +69,7 @@ const ShowCreator = ({ creator }: { creator: string }) => {
             </button>
             <div className="w-full flex flex-col gap-2 border p-2">
               <p className="text-sm text-gray-500">최근활동</p>
-              <h4>Q. {quizzes[0].question}</h4>
+              <h4 className="truncate">Q. {quizzes[0].question}</h4>
             </div>
           </div>
         </div>

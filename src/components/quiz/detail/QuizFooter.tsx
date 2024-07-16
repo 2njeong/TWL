@@ -22,7 +22,7 @@ const QuizFooter = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
   return (
     <div className="w-4/5 flex items-center justify-between">
       <OpenModalBtn
-        className="flex justify-center items-center w-2/12 p-1 rounded-lg bg-blue-500 hover:bg-blue-400 text-white"
+        className="flex justify-center items-center w-2/12 py-1 rounded-lg bg-blue-500 hover:bg-blue-400 text-white"
         modalProps={{
           elementId: 'root',
           type: 'confirm',
@@ -35,7 +35,7 @@ const QuizFooter = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
         정답보기
       </OpenModalBtn>
       <Suspense>
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-1 items-center">
           <LikeQuizWrapper {...likeQuizProps} />
           <ShowCreatorWrapper creator={`${theQuiz?.creator}`} />
         </div>

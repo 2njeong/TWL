@@ -53,7 +53,7 @@ const LikeQuiz = (likeQuizProps: LikeQuizProps) => {
     <>
       <form action={handleSubmitLike}>
         <button type="submit" name="like" className="flex items-center" disabled={isPending}>
-          {isLiked ? <FaHeart className="text-red-500 text-xl" /> : <FaRegHeart className="text-xl" />}
+          {isLiked ? <FaHeart className="text-red-500" /> : <FaRegHeart />}
         </button>
       </form>
     </>

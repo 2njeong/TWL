@@ -10,7 +10,7 @@ const QuizComments = ({ theQuiz, user_id }: { theQuiz: Tables<'quiz'> | undefine
 
   return (
     <div className="w-full flex flex-col items-center p-2 gap-2">
-      <h1 className="w-11/12 text-left">Comments()</h1>
+      <h1 className="w-full text-left">Comments</h1>
       <QuizCommentForm theQuiz={theQuiz} user_id={user_id} commentFormRef={commentFormRef} />
       <QuizCommetsList theQuiz={theQuiz} />
     </div>

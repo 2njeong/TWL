@@ -65,11 +65,15 @@ const QuizCommentForm = ({
   };
 
   return (
-    <form ref={commentFormRef} action={formAction} className="w-11/12 flex gap-4 items-center border h-auto p-4">
+    <form
+      ref={commentFormRef}
+      action={formAction}
+      className="w-full flex items-center border rounded justify-between h-auto p-4"
+    >
       <div className="w-14 h-14">
         <AvatarImage alt="유저이미지" size="3.5" />
       </div>
-      <div className={`${isCommentOpen ? 'w-11/12' : 'w-full'} flex flex-col gap-1 w-full`}>
+      <div className={`${isCommentOpen ? 'w-[80%]' : 'w-11/12'} flex flex-col gap-1`}>
         <textarea
           name="comment_content"
           placeholder={`${isLoggedIn ? '댓글 작성...' : '로그인 후 이용 가능합니다.'}`}
