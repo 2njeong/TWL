@@ -5,28 +5,18 @@ import { clientSupabase } from '@/supabase/client';
 import { useAtom } from 'jotai';
 
 const SocialLogin = () => {
+  const supabase = clientSupabase();
   const [authType] = useAtom(authSelectAtom);
   if (authType !== 'signIn') return;
 
-  const supabase = clientSupabase();
+  const socialLoginArr = [
+    { name: 'google', text: 'login with google' },
+    { name: 'github', text: 'login with github' }
+  ];
 
-  const signInWithGoogle = async () => {
+  const socialLoginIn = async (name: 'google' | 'github') => {
     const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        queryParams: {
-          access_type: 'offline',
-          prompt: 'consent'
-        },
-        redirectTo: 'http://localhost:3000/auth/callback'
-      }
-    });
-    if (error) throw new Error(error?.message);
-  };
-
-  const signInWithGithub = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'github',
+      provider: name,
       options: {
         queryParams: {
           access_type: 'offline',
@@ -39,13 +29,16 @@ const SocialLogin = () => {
   };
 
   return (
-    <div className="flex flex-col gap-1">
-      <button onClick={signInWithGoogle} className="border">
-        login with google
-      </button>
-      <button onClick={signInWithGithub} className="border">
-        login with github
-      </button>
+    <div className="flex flex-col gap-2">
+      {socialLoginArr.map((social) => (
+        <button
+          key={social.name}
+          onClick={async () => await socialLoginIn(social.name as 'google' | 'github')}
+          className="border rounded-md px-1 py-0.5 hover:bg-gray-200"
+        >
+          {social.text}
+        </button>
+      ))}
     </div>
   );
 };

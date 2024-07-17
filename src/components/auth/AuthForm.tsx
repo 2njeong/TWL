@@ -42,18 +42,26 @@ const AuthForm = () => {
   const [_, formAction] = useFormState(submitAuthForm, null);
 
   return (
-    <form className="flex flex-col gap-4" action={formAction} ref={authFormRef}>
-      {authArr.map((item) => {
-        if (authType === 'signIn' && item === 'nickname') return;
-        return (
-          <div key={item}>
-            <h3>{item[0].toUpperCase() + item.slice(1)}</h3>
-            <input name={item} type={item === 'password' ? 'password' : 'text'} />
-            {validationErr && <p className="text-sm">{validationErr[item]?._errors[0]}</p>}
-          </div>
-        );
-      })}
-      <AuthFormBtn />
+    <form className="flex flex-col gap-6" action={formAction} ref={authFormRef}>
+      <div className="flex flex-col gap-2">
+        {authArr.map((item) => {
+          if (authType === 'signIn' && item === 'nickname') return;
+          return (
+            <div key={item} className="flex flex-col">
+              <h3>{item[0].toUpperCase() + item.slice(1)}</h3>
+              <input
+                name={item}
+                type={item === 'password' ? 'password' : 'text'}
+                className="border-b w-full focus:outline-none"
+              />
+              {validationErr && <p className="text-sm text-red-500">{validationErr[item]?._errors[0]}</p>}
+            </div>
+          );
+        })}
+      </div>
+      <div className="w-full h-20 flex justify-center items-center">
+        <AuthFormBtn />
+      </div>
     </form>
   );
 };
