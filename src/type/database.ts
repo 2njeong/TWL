@@ -9,8 +9,6 @@ export type Database = {
           content: string;
           created_at: string;
           creator: string;
-          creator_avatar: string | null;
-          creator_nickname: string | null;
           level: string;
           link: string;
           newLearn: string | null;
@@ -21,8 +19,6 @@ export type Database = {
           content: string;
           created_at?: string;
           creator?: string;
-          creator_avatar?: string | null;
-          creator_nickname?: string | null;
           level: string;
           link: string;
           newLearn?: string | null;
@@ -33,8 +29,6 @@ export type Database = {
           content?: string;
           created_at?: string;
           creator?: string;
-          creator_avatar?: string | null;
-          creator_nickname?: string | null;
           level?: string;
           link?: string;
           newLearn?: string | null;
@@ -265,6 +259,20 @@ export type Database = {
           guestbook_id: string;
           isDeleted: boolean;
           avatar: string;
+        }[];
+      };
+      get_recent_algorithms_with_user: {
+        Args: {
+          p_days_ago: unknown;
+          p_limit: number;
+        };
+        Returns: {
+          algorithm_id: string;
+          creator: string;
+          title: string;
+          user_id: string;
+          user_avatar: string;
+          nickname: string;
         }[];
       };
       get_top_quizzes_with_comment_ids: {

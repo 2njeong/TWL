@@ -8,8 +8,6 @@ const supabase = serverSupabase();
 
 type SubmitAlgorithmObj = {
   creator: string;
-  creator_nickname: string | null;
-  creator_avatar: string | null;
   content: string | null;
 };
 

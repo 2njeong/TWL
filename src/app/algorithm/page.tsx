@@ -5,7 +5,7 @@ import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import Image from 'next/image';
 import { useFetchAlgorithm } from '@/query/useQueries/useAlgorithmQuery';
 import BallBtn from '@/components/algorithm/BallBtn';
-import { Ball } from '@/type/memberType';
+import { Ball } from '@/type/algorithmType';
 
 const AlgorithmPage = () => {
   const { data: balls, isLoading } = useFetchAlgorithm();
