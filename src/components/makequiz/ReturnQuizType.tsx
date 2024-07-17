@@ -9,13 +9,8 @@ const SubjectiveQuizWrapper = dynamic(() => import('./SubjectiveType'), { ssr: f
 
 const ReturnQuizType = () => {
   const [quizType] = useAtom(quizTyper);
-  // console.log('quizType =>', quizType);
 
-  return (
-    <>
-      <section className="w-full">{quizType === '객관식' ? <MultipleQuiz /> : <SubjectiveQuizWrapper />}</section>
-    </>
-  );
+  return <section className="w-full">{quizType === '객관식' ? <MultipleQuiz /> : <SubjectiveQuizWrapper />}</section>;
 };
 
 export default ReturnQuizType;

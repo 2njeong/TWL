@@ -23,8 +23,8 @@ const SelectQuizType = () => {
         {quizTypeList.map((t, i) => (
           <button
             key={t}
-            className={`${i === 0 ? 'bg-red-300' : 'bg-green-300'} ${
-              quizType === '객관식'
+            className={`${i === 0 ? 'bg-red-200' : 'bg-green-200'} ${
+              quizType === quizTypeList[0]
                 ? i === 0
                   ? 'absolute w-16'
                   : 'w-full justify-end'

@@ -1,7 +1,15 @@
 'use client';
 
-import { BtnProps } from '@/type/commonType';
+import { ReactNode } from 'react';
 import { useFormStatus } from 'react-dom';
+
+type BtnProps = {
+  formId?: string;
+  sectionClasName?: string;
+  buttonClassName?: string;
+  pendingText: string | ReactNode;
+  doneText: string | ReactNode;
+};
 
 const SubmitBtn = ({ btnProps }: { btnProps: BtnProps }) => {
   const { pending } = useFormStatus();

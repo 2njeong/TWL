@@ -47,8 +47,8 @@ const NavBar = () => {
   if (pathname.startsWith('/member')) return null;
 
   return (
-    <div className="flex justify-between items-center px-10 py-2 min-h-[5rem]">
-      <section className="flex gap-8 items-center">
+    <div className="flex justify-between items-center max-sm:px-6 px-10 py-2 min-h-[5rem]">
+      <section className="flex max-sm:gap-4 gap-8 items-center">
         {navBarList.map((nav) => {
           return (
             <div key={nav.name} {...events(nav.name)} className={`${nav.name === 'Quiz' ? 'relative' : ''}`}>

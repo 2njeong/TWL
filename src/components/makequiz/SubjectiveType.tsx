@@ -62,7 +62,7 @@ const SubjectiveQuiz = () => {
       <Editor
         placeholder="문제를 제출해주세요."
         previewStyle="vertical"
-        height="500px"
+        height="300px"
         initialEditType="wysiwyg"
         useCommandShortcut={true}
         language="ko-KR"

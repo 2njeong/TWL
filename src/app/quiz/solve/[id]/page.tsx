@@ -55,8 +55,8 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <div className="w-full flex flex-col gap-4">
-      <div className="bg-yelTwo rounded-md border-4 border-dashed p-8">
-        <div className="flex flex-col items-center gap-8 bg-white bg-opacity-60 pt-12 pb-10 px-4 rounded-lg">
+      <div className="bg-yelTwo bg-clip-padding rounded-md border-4 border-dashed p-8">
+        <div className="flex flex-col items-center gap-8 bg-white bg-opacity-60 max-sm:pt-6 pt-12 pb-10 px-4 rounded-lg">
           <QuizHeader theQuiz={theQuiz} setClickList={setClickList} checkIfRight={checkIfRight} />
           <QuizContentWrapper
             theQuiz={theQuiz}

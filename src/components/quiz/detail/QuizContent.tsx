@@ -34,7 +34,7 @@ const QuizContent = ({
   };
 
   return (
-    <div className="w-full pt-8">
+    <div className="w-full">
       {theQuiz?.isSubjective ? (
         <div className="flex flex-col gap-2 w-4/5 mx-auto justify-center">
           <div className="w-full bg-white rounded p-2">

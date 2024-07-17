@@ -74,14 +74,20 @@ const MakeQuiz = () => {
     setContentData(null);
   };
 
+  const btnProps = {
+    pendingText: '문제를 만드는 중...',
+    doneText: 'Make Quiz!',
+    buttonClassName: 'w-2/6 p-3 rounded-md bg-yellow-200 hover:text-gray-300 text-lg text-gray-600'
+  };
+
   return (
-    <>
-      <form action={submitQuiz} ref={formRef} className="w-4/6 flex flex-col gap-6">
+    <div className="w-[90%] rounded-lg bg-gray-100">
+      <form action={submitQuiz} ref={formRef} className="w-full flex flex-col gap-6 px-10 py-6 ">
         <Question />
         <ReturnQuizType />
-        <SubmitBtn btnProps={{ pendingText: '문제를 만드는 중...', doneText: '문제 만들기' }} />
+        <SubmitBtn btnProps={btnProps} />
       </form>
-    </>
+    </div>
   );
 };
 
