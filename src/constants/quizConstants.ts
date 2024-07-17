@@ -1,0 +1,5 @@
+export const NUMOFFETCHMOREQUIZ = 10;
+
+export const FETCHMORECOMMENTSNUM = 10;
+
+export const TOPLIKESQUIZZES = 10;
