@@ -26,19 +26,23 @@ const QuizListOfThatUser = ({ id }: { id: string }) => {
 
   if (quizListOfThatUserLoading) return <div>쥔장 quiz리스트 로딩중...</div>;
   return (
-    <div className="w-full h-full overflow-y-auto flex flex-col items-center gap-3">
+    <div className="w-full h-full overflow-y-auto flex flex-col items-center gap-3 bg-white bg-opacity-80 p-2">
       {quizListOfThatUser?.map((quiz) => (
         <div
           key={quiz.quiz_id}
-          className="border rounded drop-shadow-sm w-full max-w-[35rem] flex flex-col items-center p-4 gap-2"
+          className="border-2 border-dashed border-green-200 rounded drop-shadow-sm w-full max-w-[35rem] flex flex-col items-center p-4 gap-2"
         >
-          <div className="w-full flex items-center">
-            <Link href={`/quiz/solve/${quiz.quiz_id}`}>
-              <h3 className="font-bold text-xl truncate">Q. {quiz.question}</h3>
+          <div className="w-full flex items-center justify-between">
+            <h3 className="font-bold text-xl truncate text-green-900">Q. {quiz.question}</h3>
+            <Link
+              href={`/quiz/solve/${quiz.quiz_id}`}
+              className="border-2 border-green-400 hover:border-white hover:bg-green-200 rounded px-1 py-0.5"
+            >
+              보러가기
             </Link>
           </div>
-          <div className="w-full flex justify-start items-center">
-            <div className="border rounded-lg px-1">{quiz.isSubjective ? '주관식' : '객관식'}</div>
+          <div className="w-full flex justify-start items-center px-1">
+            <div className="bg-yellow-100 rounded-lg px-1">{quiz.isSubjective ? '주관식' : '객관식'}</div>
           </div>
           <div className="w-full flex justify-between items-center gap-2">
             <p className="text-sm text-gray-500">{getformattedDate(quiz.created_at)}</p>

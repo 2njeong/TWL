@@ -24,7 +24,7 @@ const QuizHeader = ({
       </div>
 
       <OpenModalBtn
-        className="flex justify-center items-center w-2/12 py-1 rounded-lg bg-green-500 hover:bg-green-400 text-white"
+        className="flex justify-center items-center w-[12%] py-1 rounded-lg bg-green-500 hover:bg-green-400 text-white"
         modalProps={{
           elementId: 'root',
           type: 'alert',

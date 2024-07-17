@@ -9,7 +9,10 @@ const AlgorithmList = ({ algorithmData }: { algorithmData: Tables<'algorithm'>[]
   return (
     <div className="p-2 grid grid-cols-2 max-sm:grid-cols-1 gap-x-6 gap-y-8">
       {algorithmData?.map((item) => (
-        <div key={item.algorithm_id} className="flex flex-col gap-2 py-2 px-4 h-48 justify-between border rounded">
+        <div
+          key={item.algorithm_id}
+          className="flex flex-col gap-2 py-2 px-4 h-48 justify-between rounded border-2 border-dashed border-red-300"
+        >
           <div className="flex flex-col gap-2">
             <div>
               <h2 className="font-bold text-xl truncate">{item.title}</h2>
@@ -24,7 +27,7 @@ const AlgorithmList = ({ algorithmData }: { algorithmData: Tables<'algorithm'>[]
           </div>
           {item.newLearn && (
             <OpenModalBtn
-              className="border rounded h-full max-h-24 flex justify-start items-center p-2"
+              className="border border-red-200 bg-white hover:bg-red-100 rounded h-full max-h-24 flex justify-start items-center p-2"
               modalProps={{
                 elementId: 'new-root',
                 type: 'alert',

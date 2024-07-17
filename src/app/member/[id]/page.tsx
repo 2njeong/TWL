@@ -5,6 +5,7 @@ import Algorithm from '@/components/member/algorithm/Algorithm';
 import GuestBook from '@/components/member/guestbook/GuestBook';
 import UserInfo from '@/components/member/information/UserInfo';
 import QuizListOfThatUser from '@/components/member/quiz/QuizListOfThatUser';
+import { christmas_color } from '@/constants/memberConstants';
 import { useFetchCurrentUser, useFetchThatUser } from '@/query/useQueries/useAuthQuery';
 import { useAtom } from 'jotai';
 import dynamic from 'next/dynamic';
@@ -18,9 +19,11 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
 
   const categories = ['질문', '알고리즘', '방명록'];
 
-  const handleCategory = (category: string) => {
-    setTheCategory(category);
+  const handleCategory = (i: number) => {
+    setTheCategory(categories[i]);
   };
+
+  console.log('theCategory =>', theCategory);
 
   if (isThatUserLoading || isLoading) return <></>;
   return (
@@ -29,28 +32,34 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
         <section className="w-2/6 flex flex-col justify-around items-center justify-center px-4 py-2">
           <UserInfo thatUserData={thatUserData} currentUser={userData} />
         </section>
-
         <section className="border-l-2 w-4/6 flex flex-col justify-around">
-          <div className="w-full h-full overflow-y-auto p-2 flex flex-col gap-2">
-            <div>{theCategory}</div>
-            {theCategory === '질문' ? (
+          <div className="w-full h-full overflow-y-auto px-4 pt-4 pb-2 flex flex-col gap-3">
+            <h2 className="font-semibold text-2xl text-gray-400">
+              {theCategory === categories[0]
+                ? 'Question'
+                : theCategory === categories[1]
+                ? 'Algorithm'
+                : theCategory === categories[2]
+                ? 'GuestBook'
+                : null}
+            </h2>
+            {theCategory === categories[0] ? (
               <QuizListOfThatUser id={id} />
-            ) : theCategory === '알고리즘' ? (
+            ) : theCategory === categories[1] ? (
               <AlgorithmWrapper id={id} />
-            ) : theCategory === '방명록' ? (
+            ) : theCategory === categories[2] ? (
               <GuestBook id={id} />
             ) : (
               <></>
             )}
           </div>
         </section>
-
         <div className="flex flex-col absolute top-0 right-0 transform translate-x-full">
-          {categories.map((category) => (
+          {categories.map((category, i) => (
             <button
               key={category}
-              className={`border rounded px-1 py-0.5 ${category === theCategory && 'bg-gray-200'}`}
-              onClick={() => handleCategory(category)}
+              className={`border rounded px-1 py-0.5 bg-opacity-50 ${category === theCategory && 'bg-gray-200'}`}
+              onClick={() => handleCategory(i)}
             >
               {category}
             </button>

@@ -44,7 +44,7 @@ const ShowCreator = ({ creator }: { creator: string }) => {
       <AvatarImage
         src={creatorData.avatar ?? ''}
         alt="quiz creator"
-        size="3"
+        size="2.5"
         className="pointer-events-none border-2"
       />
       {isCreatorOpen && (
@@ -62,7 +62,7 @@ const ShowCreator = ({ creator }: { creator: string }) => {
               </div>
             </div>
             <button
-              className="w-full border-2 rounded p-1 text-sm hover:bg-gray-100"
+              className="w-full border-2 rounded p-1 text-sm hover:bg-gray-200"
               onClick={() => openNewWindow(creatorData.user_id)}
             >
               스터디 존 구경가기

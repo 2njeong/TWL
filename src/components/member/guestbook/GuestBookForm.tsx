@@ -72,7 +72,7 @@ const GuestBookForm = ({ id }: { id: string }) => {
           id="guestbook"
           ref={guestBookRef}
           action={submitGeustBookForm}
-          className="border w-full max-w-[35rem] h-48 flex flex-col items-center justify-center gap-2 pt-10 pb-4 px-2"
+          className="border w-full max-w-[35rem] h-48 flex flex-col items-center justify-center gap-2 pt-10 pb-4 px-2 shadow-md"
         >
           <div className="w-full flex items-center gap-6 justify-center">
             <div>

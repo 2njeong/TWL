@@ -92,15 +92,53 @@ const AlgorithmPage = () => {
     if (treeRef.current && balls) {
       const treeRect = treeRef.current.getBoundingClientRect();
       const points = [
-        { x: treeRect.width * 0.15, y: treeRect.height * 0.65 },
+        { x: treeRect.width * 0.18, y: treeRect.height * 0.65 },
         { x: treeRect.width * 0.5, y: treeRect.height * 0.75 },
-        { x: treeRect.width * 0.85, y: treeRect.height * 0.65 },
+        { x: treeRect.width * 0.82, y: treeRect.height * 0.65 },
         { x: treeRect.width * 0.5, y: treeRect.height * 0.1 }
       ];
 
       setApples(getRandomAppleXYArr(points, balls));
+
+      // // 사각형 꼭짓점 표시
+      // const treeElement = treeRef.current;
+      // points.forEach((point, index) => {
+      //   const pointElement = document.createElement('div');
+      //   pointElement.style.position = 'absolute';
+      //   pointElement.style.left = `${point.x}px`;
+      //   pointElement.style.top = `${point.y}px`;
+      //   pointElement.style.width = '10px';
+      //   pointElement.style.height = '10px';
+      //   pointElement.style.backgroundColor = 'blue';
+      //   pointElement.style.borderRadius = '50%';
+      //   pointElement.style.zIndex = '10';
+      //   pointElement.innerText = `${index + 1}`;
+      //   pointElement.style.color = 'white';
+      //   pointElement.style.display = 'flex';
+      //   pointElement.style.alignItems = 'center';
+      //   pointElement.style.justifyContent = 'center';
+      //   treeElement.appendChild(pointElement);
+      // });
+
+      // // 사각형 경계선 표시
+      // const rectangleLines = document.createElement('div');
+      // rectangleLines.style.position = 'absolute';
+      // rectangleLines.style.left = '0';
+      // rectangleLines.style.top = '0';
+      // rectangleLines.style.width = '100%';
+      // rectangleLines.style.height = '100%';
+      // rectangleLines.style.pointerEvents = 'none';
+      // rectangleLines.innerHTML = `
+      //    <svg width="${treeRect.width}" height="${treeRect.height}" style="position:absolute; top:0; left:0; z-index:5;">
+      //      <line x1="${points[0].x}" y1="${points[0].y}" x2="${points[1].x}" y2="${points[1].y}" style="stroke:blue; stroke-width:2" />
+      //      <line x1="${points[1].x}" y1="${points[1].y}" x2="${points[2].x}" y2="${points[2].y}" style="stroke:blue; stroke-width:2" />
+      //      <line x1="${points[2].x}" y1="${points[2].y}" x2="${points[3].x}" y2="${points[3].y}" style="stroke:blue; stroke-width:2" />
+      //      <line x1="${points[3].x}" y1="${points[3].y}" x2="${points[0].x}" y2="${points[0].y}" style="stroke:blue; stroke-width:2" />
+      //    </svg>
+      //  `;
+      // treeElement.appendChild(rectangleLines);
     }
-  }, [treeRef, balls, getRandomAppleXYArr]);
+  }, [treeRef.current, getRandomAppleXYArr]);
 
   return (
     <div className="w-full h-full flex justify-center p-2">
@@ -115,11 +153,11 @@ const AlgorithmPage = () => {
           blurDataURL="/loading_img.gif"
           placeholder="blur"
         />
-        {isLoading && (
-          <div className="h-4/6 w-full flex justify-center items-center bg-white bg-opaticy-80 absolute">
+        {/* {isLoading && (
+          <div className="h-3/6 w-full flex justify-center items-center bg-white bg-opaticy-50 absolute">
             트리에 장식이 달리고 있어요...!
           </div>
-        )}
+        )} */}
         {apples.map((apple, index) => (
           <button
             key={index}
@@ -136,8 +174,7 @@ const AlgorithmPage = () => {
               src={tree_balls[index]}
               alt="tree_ball 이미지"
               fill={true}
-              className={`object-contain`}
-              sizes="(max-width: 640px) 100vw, 500px"
+              className="object-contain"
               priority={true}
               blurDataURL="/loading_img.gif"
               placeholder="blur"

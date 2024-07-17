@@ -79,7 +79,7 @@ const QuizCommentForm = ({
           placeholder={`${isLoggedIn ? '댓글 작성...' : '로그인 후 이용 가능합니다.'}`}
           ref={commentTxtAreaRef}
           disabled={!isLoggedIn}
-          className="border-b focus:outline-none resize-none min-h-5 overflow-y-hidden"
+          className="border-b-2 focus:outline-none resize-none min-h-5 overflow-y-hidden"
           onInput={handleTextareaInput}
           rows={1}
         ></textarea>

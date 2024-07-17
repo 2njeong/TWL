@@ -67,7 +67,7 @@ const DeleteBtn = (deleteBtnProps: DelteBtnProps) => {
       {isCancelBtnOpen && (
         <div className={`border rounded-md absolute flex justify-center bg-white ${hoverContainerClassName || ''}`}>
           <button
-            className={`hover:bg-gray-200 hover:w-full rounded ${hoverBtnClassName || ''}`}
+            className={`hover:bg-gray-200 hover:w-[90%] rounded ${hoverBtnClassName || ''}`}
             onClick={async () => await handleDeleteComment(item_id)}
           >
             삭제

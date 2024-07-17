@@ -33,11 +33,14 @@ const Algorithm = ({ id }: { id: string }) => {
   if (algorithmIsLoading) return <div>알고리즘 로딩중..</div>;
 
   return (
-    <div className="w-full h-full max-h-[90%] flex flex-col border">
+    <div className="w-full h-full max-h-[90%] flex flex-col border-4 border-red-100 rounded-md">
       <div className="w-full flex justify-end p-2">
         {data.user_id === currentUserID && (
           <button
-            className={`${!writeNewPost && 'border rounded px-1 py-0.5'} flex items-center`}
+            className={`${
+              !writeNewPost &&
+              'border-2 border-red-400 hover:border-white hover:bg-red-200 hover:text-white rounded px-1 py-0.5'
+            } flex items-center`}
             onClick={handleNewPost}
           >
             {writeNewPost ? <MdOutlineCancel className="text-2xl" /> : 'new 알고리즘'}

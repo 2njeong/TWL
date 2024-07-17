@@ -34,7 +34,7 @@ const GuestBookList = ({ id }: { id: string }) => {
     containerClassName: 'w-full flex justify-end',
     btnContainerClassName: 'w-6 h-6',
     btnClassName: 'text-xl cursor-pointer',
-    hoverContainerClassName: 'w-12 h-6 -bottom-8',
+    hoverContainerClassName: 'w-12 h-8 -bottom-10 py-1',
     hoverBtnClassName: 'text-sm'
   };
 
@@ -47,7 +47,7 @@ const GuestBookList = ({ id }: { id: string }) => {
             !book.isDeleted && (
               <div
                 key={book.guestbook_id}
-                className="border w-full max-w-[35rem] flex flex-col items-center gap-2 pt-4 pb-2 px-2"
+                className="border-2 w-full max-w-[35rem] flex flex-col items-center gap-2 pt-4 pb-2 px-2 rounded-md"
               >
                 {creator === book.creator && <DeleteBtn item_id={book.guestbook_id} {...deleteBtnProps} />}
                 <div className="w-full flex items-center gap-6 justify-center">
