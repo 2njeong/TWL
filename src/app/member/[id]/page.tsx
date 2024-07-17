@@ -23,8 +23,6 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
     setTheCategory(categories[i]);
   };
 
-  console.log('theCategory =>', theCategory);
-
   if (isThatUserLoading || isLoading) return <></>;
   return (
     <>

@@ -5,19 +5,6 @@ import { NextRequest } from 'next/server';
 export async function GET(req: NextRequest) {
   const supabase = serverSupabase();
 
-  const currentDate = new Date();
-
-  const threeDaysAgo = new Date(currentDate);
-  threeDaysAgo.setDate(currentDate.getDate() - DAY_OF_FETCH_ALGORITHM);
-  const threeDaysAgoISOString = threeDaysAgo.toISOString();
-
-  // const { data, error } = await supabase
-  //   .from('algorithm')
-  //   .select('algorithm_id, title, creator, creator_nickname, creator_avatar')
-  //   .gte('created_at', threeDaysAgoISOString)
-  //   .order('created_at', { ascending: false })
-  //   .range(0, 9);
-
   const { data, error } = await supabase.rpc('get_recent_algorithms_with_user', {
     p_days_ago: `${DAY_OF_FETCH_ALGORITHM} days`,
     p_limit: NUM_OF_FETCH_ALGORITHM
