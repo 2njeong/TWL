@@ -46,9 +46,9 @@ const BallBtn = ({ balls, index, userOpenArr, setUserOpenArr }: BallBtnProps) =>
     >
       <div className="flex w-full items-center justify-center gap-1">
         <AvatarImage src={balls[index].creator_avatar} alt="algorithm creator avatar" size="2.5" />
-        <p className="w-3/6">{balls && balls[index].creator_nickname}</p>
+        <p className="w-3/6 border flex justify-center items-center">{balls && balls[index].creator_nickname}</p>
       </div>
-      <div className="w-full">
+      <div className="w-full flex justify-center items-center">
         <p className="truncate text-xs">Q. {balls[index].title}</p>
       </div>
       <button

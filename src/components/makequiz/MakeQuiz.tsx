@@ -42,7 +42,6 @@ const MakeQuiz = () => {
 
     const submitActionWithAnswer = submitQuizAction.bind(null, answer, contentData, quizType, userData?.user_id ?? '');
     const result = await submitActionWithAnswer(data);
-    // console.log('result?.error =>', result?.error);
 
     const zodErrObj: MakeQuizZodErrObj = result?.error;
     if (zodErrObj) {

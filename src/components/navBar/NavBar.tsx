@@ -55,7 +55,9 @@ const NavBar = () => {
               <div className="my-2">
                 <Link
                   href={`/${nav.href}`}
-                  className={`${nav.name === 'Quiz' && 'pointer-events-none'} text-lg flex items-center gap-0.5`}
+                  className={`${
+                    nav.name === 'Quiz' && 'pointer-events-none'
+                  } text-lg hover:text-gray-500 flex items-center gap-0.5`}
                 >
                   {nav.name}
                   {nav.icon}
@@ -69,7 +71,7 @@ const NavBar = () => {
                     <Link
                       key={item.name}
                       href={`/quiz/${item.href}`}
-                      className="hover:bg-gray-200 rounded p-1 flex items-center justify-center"
+                      className="hover:bg-gray-100 rounded p-1 flex items-center justify-center"
                       onClick={() => setQuizDropOpen(false)}
                     >
                       {item.name}

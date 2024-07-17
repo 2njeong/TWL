@@ -1,6 +1,5 @@
 import HotQuiz from '@/components/quiz/solve/HotQuiz';
 import QuizList from '@/components/quiz/solve/QuizList';
-import { ZINDEX } from '@/constants/commonConstants';
 import Image from 'next/image';
 
 const QuizPage = async () => {
@@ -12,7 +11,7 @@ const QuizPage = async () => {
             src="/banner3.png"
             alt="질문 배너"
             fill={true}
-            sizes="500px"
+            sizes="900px"
             priority={true}
             className={`object-cover w-full h-full rounded`}
           />

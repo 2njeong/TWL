@@ -89,7 +89,10 @@ const AlgorithmPage = () => {
   );
 
   useEffect(() => {
+    console.log(0);
+    if (isLoading) return;
     if (treeRef.current && balls) {
+      console.log(1);
       const treeRect = treeRef.current.getBoundingClientRect();
       const points = [
         { x: treeRect.width * 0.18, y: treeRect.height * 0.65 },
@@ -159,9 +162,9 @@ const AlgorithmPage = () => {
           </div>
         )} */}
         {apples.map((apple, index) => (
-          <button
+          <div
             key={index}
-            className={`absolute flex justify-center items-center`}
+            className={`absolute flex justify-center items-center cursor-pointer`}
             style={{
               width: `${BALLSIZE}rem`,
               height: `${BALLSIZE}rem`,
@@ -174,6 +177,7 @@ const AlgorithmPage = () => {
               src={tree_balls[index]}
               alt="tree_ball 이미지"
               fill={true}
+              sizes="500px"
               className="object-contain"
               priority={true}
               blurDataURL="/loading_img.gif"
@@ -182,7 +186,7 @@ const AlgorithmPage = () => {
             {balls && userOpenArr && userOpenArr[index] && (
               <BallBtn balls={balls} index={index} userOpenArr={userOpenArr} setUserOpenArr={setUserOpenArr} />
             )}
-          </button>
+          </div>
         ))}
       </div>
     </div>

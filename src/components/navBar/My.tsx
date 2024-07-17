@@ -71,7 +71,7 @@ const My = () => {
               className={`w-28 h-22 bg-white rounded absolute top-full right-[-30%] flex flex-col justify-around gap-1 border rounded p-2 z-[${ZINDEX.navBarZ}]`}
             >
               {myList.map((item) => (
-                <button key={item.text} onClick={item.func} className="rounded hover:bg-gray-200 p-1">
+                <button key={item.text} onClick={item.func} className="rounded hover:bg-gray-100 p-1">
                   {item.text}
                 </button>
               ))}
