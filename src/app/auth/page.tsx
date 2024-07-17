@@ -4,7 +4,7 @@ import AuthForm from '@/components/auth/AuthForm';
 
 const SignInPage = () => {
   return (
-    <div className="fixed top-1/2 left-1/2 bg-yelOne w-1/5 h-3/5 transform -translate-x-1/2 -translate-y-1/2">
+    <div className="border-4 rounded-md w-[40%] h-[80%] ">
       <SignInOrUp />
       <SocialLogin />
       <AuthForm />

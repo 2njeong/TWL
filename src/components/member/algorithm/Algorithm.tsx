@@ -30,7 +30,8 @@ const Algorithm = ({ id }: { id: string }) => {
     }
   });
 
-  if (algorithmIsLoading) return <div>알고리즘 로딩중..</div>;
+  if (algorithmIsLoading)
+    return <div className="w-full h-full flex justify-center items-center">알고리즘 로딩중..</div>;
 
   return (
     <div className="w-full h-full max-h-[90%] flex flex-col border-4 border-red-100 rounded-md">

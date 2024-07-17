@@ -133,5 +133,5 @@ export const useFetchGuestBook = (thatUser: string | undefined, newPage: number)
     }
   }, [guestbookData, newPage, queryClient, thatUser]);
 
-  return { guestbookData, guestbookLoading, totalPage };
+  return { guestbookData, guestbookLoading };
 };

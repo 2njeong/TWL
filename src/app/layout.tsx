@@ -30,7 +30,9 @@ export default function RootLayout({
             <div id="root"></div>
             <ModalWrapper />
             <NavBar />
-            {children}
+            <div className="w-full max-w-[1080px] h-[calc(100vh-5rem)] mx-auto flex flex-col justify-center items-center">
+              {children}
+            </div>
           </Provider>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryProvider>

@@ -88,22 +88,27 @@ const UpdateUserForm = ({
       id="updateUserForm"
       ref={userFormRef}
       action={updateUserInfoOnClientSide}
-      className="w-full h-full relative flex flex-col px-4 justify-center gap-3"
+      className="w-full h-full relative flex flex-col justify-center gap-3"
     >
       <div className="flex flex-col justify-center gap-2">
         {userDataList.map((data) => (
           <div key={data} className="flex gap-2 items-center">
             <p>{data}: </p>
-            <input name={data} placeholder={(currentUser as any)[data.toLowerCase()] ?? '정보를 입력해주세요.'}></input>
+            <input
+              name={data}
+              placeholder={(currentUser as any)[data.toLowerCase()] ?? '정보를 입력해주세요.'}
+              className="w-full"
+            ></input>
           </div>
         ))}
       </div>
       <div className="flex gap-1 items-center text-sm text-gray-600 ml-auto">
         <input type="checkbox" name="allowshow"></input>
-        <p>
-          프로필 {currentUser?.allowshow ? '비공개' : '공개'}를 원해요(현재:{' '}
-          {currentUser?.allowshow ? '공개' : '비공개'})
-        </p>
+        <p>프로필</p>
+        <p className="text-blue-600">{currentUser?.allowshow ? '비공개' : '공개'}</p>
+        <p>를 원해요 (현재:</p>
+        <p className="text-blue-600"> {currentUser?.allowshow ? '공개' : '비공개'}</p>
+        <p>)</p>
       </div>
       <SubmitBtn
         btnProps={{
