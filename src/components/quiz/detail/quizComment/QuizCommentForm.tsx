@@ -73,7 +73,7 @@ const QuizCommentForm = ({
       <div className="w-14 h-14">
         <AvatarImage alt="유저이미지" size="3.5" />
       </div>
-      <div className={`${isCommentOpen ? 'w-[80%]' : 'w-11/12'} flex flex-col gap-1`}>
+      <div className={`${isCommentOpen ? 'w-[75%]' : 'w-11/12'} flex flex-col gap-1`}>
         <textarea
           name="comment_content"
           placeholder={`${isLoggedIn ? '댓글 작성...' : '로그인 후 이용 가능합니다.'}`}

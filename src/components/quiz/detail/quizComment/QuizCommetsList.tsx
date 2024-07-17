@@ -2,12 +2,13 @@
 
 import { useEffect, useRef, useCallback } from 'react';
 import { useQuizCommentsQuery } from '@/query/useQueries/useQuizQuery';
-import { getHoursDifference } from '@/utils/utilFns';
+import { getformattedDate, getHoursDifference } from '@/utils/utilFns';
 import DeleteBtn from '../../../utilComponents/DeleteBtn';
 import { Tables } from '@/type/database';
 import { QUIZ_COMMENTS_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 import { useQueryClient } from '@tanstack/react-query';
 import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
+import AvatarImage from '@/components/member/information/AvatarImage';
 
 const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
   const queryClient = useQueryClient();
@@ -25,7 +26,7 @@ const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) 
   } = useQuizCommentsQuery(theQuiz?.quiz_id as string);
   const targetRef = useRef<HTMLDivElement | null>(null);
 
-  // console.log('quizComments =>', quizComments);
+  console.log('quizComments =>', quizComments);
 
   const handleScroll = useCallback(() => {
     const scrollPosition = window.scrollY;
@@ -75,20 +76,22 @@ const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) 
               !comment.isDeleted && (
                 <div key={comment.comment_id} className="flex gap-4 border-b p-2 h-full min-h-20">
                   <div>
-                    <div className="w-14 h-14 rounded-full bg-gray-300">아바타</div>
+                    <AvatarImage src={comment.avatar} alt="댓글 주인 아바타" size="3.5" />
                   </div>
                   <div className="w-full flex flex-col gap-2">
                     <div className="w-full flex gap-2 items-center justify-between min-h-8">
-                      <div className="flex gap-2">
-                        <p className="text-xs font-bold">@{comment.created_at}</p>
-                        {/* <p>
-            {getformattedDate(new Date(new Date(comment.created_at).getTime() + 9 * 60 * 60 * 1000).toString())}
-          </p> */}
-                        <p className="text-xs text-gray-500">
-                          {getHoursDifference(comment.created_at).hours > 0 &&
-                            `${getHoursDifference(comment.created_at).hours}시간`}{' '}
-                          {getHoursDifference(comment.created_at).minutes}분 전
-                        </p>
+                      <div className="w-full flex gap-2 items-center justify-between">
+                        <p className="text-sm font-bold">@&nbsp;{comment.nickname}</p>
+
+                        {getHoursDifference(comment.created_at).hours < 48 ? (
+                          <p className="text-xs text-gray-500">
+                            {getHoursDifference(comment.created_at).hours > 0 &&
+                              `${getHoursDifference(comment.created_at).hours}시간`}{' '}
+                            {getHoursDifference(comment.created_at).minutes}분 전
+                          </p>
+                        ) : (
+                          <p className="text-xs">{getformattedDate(comment.created_at)}</p>
+                        )}
                       </div>
                       {comment.comment_creator === currentUserId && (
                         <DeleteBtn item_id={comment.comment_id} {...deleteBtnProps} />

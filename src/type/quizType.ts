@@ -1,5 +1,5 @@
 import { ZodFormattedError } from 'zod';
-import { Database } from './database';
+import { Database, Tables } from './database';
 
 export type EventHandlers = {
   handleStart: (event: React.MouseEvent<Element, MouseEvent> | React.TouchEvent<Element>, idx: number) => void;
@@ -44,3 +44,5 @@ export type HotQuizDragEventHandlers = {
   onTouchMove: (e: React.TouchEvent<Element>) => void;
   onTouchEnd: (e: React.TouchEvent<Element>) => void;
 };
+
+export type Comment = Tables<'comments'> & { user_id: string; avatar: string; nickname: string };

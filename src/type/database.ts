@@ -231,6 +231,24 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      get_comments_with_users: {
+        Args: {
+          p_quiz_id: string;
+          p_page: number;
+          p_fetch_more_comments_num: number;
+        };
+        Returns: {
+          comment_content: string;
+          comment_creator: string;
+          comment_id: string;
+          created_at: string;
+          isDeleted: boolean;
+          quiz_id: string;
+          user_id: string;
+          avatar: string;
+          nickname: string;
+        }[];
+      };
       get_guestbook: {
         Args: {
           that_user: string;

@@ -1,5 +1,5 @@
 import { Tables } from '@/type/database';
-import { TopLikesQuizList } from '@/type/quizType';
+import { Comment, TopLikesQuizList } from '@/type/quizType';
 
 export const fetchQuizList = async ({ pageParam = 1 }: any) => {
   const response = await fetch(`/quiz/api?type=list&pageParam=${pageParam}`);
@@ -43,7 +43,7 @@ export const fetchQueryComments = async ({
 }: {
   pageParam: number;
   quiz_id: string | undefined;
-}) => {
+}): Promise<Comment[]> => {
   const response = await fetch(`/quiz/api?type=quizComments&pageParam=${pageParam}&quiz_id=${quiz_id}`);
   if (!response.ok) throw new Error(`QuizComments response was not ok`);
   return response.json();

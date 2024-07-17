@@ -16,7 +16,7 @@ import {
   TOP_QUIZ_LIKE_QUERY_KEY
 } from '@/query/quiz/quizQueryKeys';
 import { Tables } from '@/type/database';
-import { QuizLikeList } from '@/type/quizType';
+import { Comment, QuizLikeList } from '@/type/quizType';
 import { useInfiniteQuery, useQuery, useSuspenseQueries, useSuspenseQuery } from '@tanstack/react-query';
 import { QUIZ_CREATOR_QUERY_KEY } from '../auth/authQueryKeys';
 import { fetchQuizCreator } from '../auth/authQueryFns';
@@ -101,15 +101,6 @@ export const useCreatorNQuiz = (creator: string) => {
     }, [])
   });
 
-  console.log('useCreatorNQuiz =>', data);
-  // const mappedResults = results.map((result) => result.data);
-
-  // const memoData = useMemo(() => {
-  //   const convertView = () => mappedResults;
-  //   return convertView();
-  // }, [mappedResults]);
-
-  // return memoData;
   return { data };
 };
 
@@ -139,7 +130,7 @@ export const useQuizCommentsQuery = (quiz_id: string) => {
     // 새로운 NextPageParam은 hook memory 안에 pageParam: xx 로 할당되어서 장전해놨다가
     // fetchNextPage가 호출이 되면 queryfn의 인자 ({pageParam = xx}) => response로 들어가서 데이터를 받아오게 되고
     // 받아온 데이터는 캐시 데이터의 pages 안에 요소로 들어가고, xx는 캐시데이터의 pageParams 배열에 들어감
-    select: (data) => data.pages.map((page) => page).flat() as Tables<'comments'>[]
+    select: (data) => data.pages.map((page) => page).flat() as Comment[]
   });
   return {
     data: quizComments,
