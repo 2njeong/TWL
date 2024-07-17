@@ -182,6 +182,38 @@ export type Database = {
           }
         ];
       };
+      todolist: {
+        Row: {
+          created_at: string;
+          done: boolean;
+          todo_id: string;
+          todo_item: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          done?: boolean;
+          todo_id?: string;
+          todo_item: string;
+          user_id?: string;
+        };
+        Update: {
+          created_at?: string;
+          done?: boolean;
+          todo_id?: string;
+          todo_item?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'todolist_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['user_id'];
+          }
+        ];
+      };
       users: {
         Row: {
           allowshow: boolean;
