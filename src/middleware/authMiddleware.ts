@@ -13,6 +13,8 @@ export const authMiddleware = (middleware: CustomMiddleware) => {
         return NextResponse.redirect(new URL('/auth', request.url));
       } else if (request.nextUrl.pathname.startsWith('/quiz/makequiz')) {
         return NextResponse.redirect(new URL('/auth', request.url));
+      } else if (request.nextUrl.pathname.startsWith('/algorithm')) {
+        return NextResponse.redirect(new URL('/auth', request.url));
       }
     }
     return middleware(request, event, response);

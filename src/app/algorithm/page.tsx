@@ -138,7 +138,7 @@ const AlgorithmPage = () => {
       //  `;
       // treeElement.appendChild(rectangleLines);
     }
-  }, [treeRef.current, getRandomAppleXYArr]);
+  }, [treeRef, balls]);
 
   return (
     <div className="w-full h-full flex justify-center p-2">
@@ -148,7 +148,7 @@ const AlgorithmPage = () => {
           alt="트리 이미지"
           fill={true}
           className="object-contain"
-          sizes="(max-width: 600px) 100vw, 50vw"
+          sizes="500px"
           priority={true}
           blurDataURL="/loading_img.gif"
           placeholder="blur"
