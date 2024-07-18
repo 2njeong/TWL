@@ -5,4 +5,7 @@ export const todoSchema = z.object({
     .string({ required_error: '할 일을 입력해주세요', invalid_type_error: '' })
     .min(1, { message: '할 일은 최소 1자 이상, 30자 이하여야 합니다.' })
     .max(30, { message: '할 일은 최소 1자 이상, 30자 이하여야 합니다.' })
+    .refine((val) => val.trim().length > 0, {
+      message: '할 일은 공백일 수 없습니다.'
+    })
 });
