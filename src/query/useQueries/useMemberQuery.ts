@@ -20,7 +20,7 @@ import {
 } from '@/constants/memberConstants';
 import { useAtom } from 'jotai';
 import { totalPageAtom } from '@/atom/memberAtom';
-import { ExtendedGuestBook, QuizListOfThatUser } from '@/type/memberType';
+import { ExtendedGuestBook, QuizListOfThatUser, SevenDaysTodolist } from '@/type/memberType';
 
 export const useFetchQuizlistOfThatUser = (thatUser: string | undefined) => {
   const {
@@ -96,15 +96,15 @@ export const useFetchThatUsersAlgorithm = (thatUser: string | undefined) => {
 };
 
 export const useFetchTodolist = (thatUser: string) => {
-  const { data, isLoading } = useQuery({
+  const { data: sevenDaysTodolist, isLoading: todolistLoading } = useQuery({
     queryKey: [TODOLIST_QUERY_KEY, thatUser],
     queryFn: () => fetchThatUsersTodolist(thatUser)
   });
-  return { data, isLoading };
+  return { sevenDaysTodolist, todolistLoading };
 };
 
 export const useFetchGuestBook = (thatUser: string | undefined, newPage: number) => {
-  const [totalPage, setTotalPage] = useAtom(totalPageAtom);
+  const [_, setTotalPage] = useAtom(totalPageAtom);
   const queryClient = useQueryClient();
 
   const { data: guestbookData, isLoading: guestbookLoading } = useQuery<ExtendedGuestBook[]>({
@@ -121,27 +121,21 @@ export const useFetchGuestBook = (thatUser: string | undefined, newPage: number)
     if (nextPageData) {
       if (nextPageData.length > 0) {
         if (hasMoreData) {
-          // console.log('0번 케이스');
           setTotalPage((prev) => Math.max(prev, newPage));
         } else {
-          // console.log('0.5번 케이스');
           setTotalPage((prev) => prev - 1);
           queryClient.removeQueries({ queryKey: [GUESTBOOK_OF_THATUSER, thatUser, newPage + 1] });
         }
       } else {
-        // console.log('1번 케이스');
         setTotalPage((prev) => Math.max(prev, newPage));
         queryClient.removeQueries({ queryKey: [GUESTBOOK_OF_THATUSER, thatUser, newPage + 1] });
       }
     } else {
       if (hasMoreData) {
-        // console.log('2번 케이스');
         setTotalPage((prev) => Math.max(prev, newPage + 1));
       } else if (currentPageData && currentPageData?.length < 1) {
-        // console.log('3번 케이스');
         setTotalPage(newPage - 1);
       } else {
-        // console.log('4번 케이스');
         setTotalPage(newPage);
       }
     }

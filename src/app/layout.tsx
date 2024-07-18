@@ -4,7 +4,6 @@ import './globals.css';
 import QueryProvider from '../provider/QueryProvider';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Provider } from 'jotai';
-import Modal from '@/components/utilComponents/modal/Modal';
 import NavBar from '@/components/navBar/NavBar';
 import dynamic from 'next/dynamic';
 
@@ -30,9 +29,7 @@ export default function RootLayout({
             <div id="root"></div>
             <ModalWrapper />
             <NavBar />
-            <div className="w-full max-w-[1080px] h-[calc(100vh-5rem)] mx-auto flex flex-col justify-center items-center">
-              {children}
-            </div>
+            <div className="w-full max-w-[1080px] mx-auto flex flex-col justify-center items-center">{children}</div>
           </Provider>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryProvider>

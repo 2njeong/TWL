@@ -8,16 +8,16 @@ import { THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 import { useFetchTodolist } from '@/query/useQueries/useMemberQuery';
 
 const Todolist = ({ id }: { id: string }) => {
-  console.log('id =>', id);
   const queryClient = useQueryClient();
   const [{ user_id: thatUserID }] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
-  const { data, isLoading } = useFetchTodolist(thatUserID);
-  console.log('todolist =>', data);
+  const { sevenDaysTodolist, todolistLoading } = useFetchTodolist(thatUserID);
+  console.log('todolist =>', sevenDaysTodolist);
 
-  console.log(new Date().toISOString());
+  // console.log(new Date().toISOString());
+  if (todolistLoading) return <div>로딩중..</div>;
   return (
     <div className="w-full h-[90%]">
-      <TodaysTodo />
+      <TodaysTodo id={id} />
       <SevenDaysTodoList />
     </div>
   );

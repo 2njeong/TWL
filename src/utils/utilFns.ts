@@ -9,9 +9,7 @@ export const getformattedDate = (date: string) =>
 
 export const getHoursDifference = (dateStr: string) => {
   const givenDate = new Date(dateStr);
-  console.log('한국시간으로  =>', givenDate);
   const currentDate = new Date();
-  console.log('현재시간 =>', currentDate);
 
   const differenceInMs = currentDate.getTime() - givenDate.getTime(); // 시간 차이 (밀리초 단위)
   const differenceInMinutes = differenceInMs / (1000 * 60); // 밀리초를 분으로 변환
@@ -22,4 +20,16 @@ export const getHoursDifference = (dateStr: string) => {
     hours: differenceInHours,
     minutes: remainingMinutes
   };
+};
+
+export const getToday = () => {
+  const date = new Date();
+
+  // 한국 시간 기준 날짜를 'YYYY-MM-DD' 형식으로 변환
+  const year = date.getFullYear();
+  const month = ('0' + (date.getMonth() + 1)).slice(-2);
+  const day = ('0' + date.getDate()).slice(-2);
+
+  const formattedDate = `${year}-${month}-${day}`;
+  return formattedDate;
 };

@@ -8,7 +8,7 @@ const AlgorithmLayout = ({ children }: PropsWithChildren) => {
   };
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-[calc(100vh-5rem)]">
       <ShortBanner shortBannerProps={shortBannerProps} />
       <div className="w-full h-full mx-auto flex flex-col">
         <div className="w-full h-full">{children}</div>

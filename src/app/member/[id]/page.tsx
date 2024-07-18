@@ -9,6 +9,7 @@ import Todolist from '@/components/member/todo/Todolist';
 import { useFetchCurrentUser, useFetchThatUser } from '@/query/useQueries/useAuthQuery';
 import { useAtom } from 'jotai';
 import dynamic from 'next/dynamic';
+import { useEffect } from 'react';
 
 const AlgorithmWrapper = dynamic(() => import('@/components/member/algorithm/Algorithm'), { ssr: false });
 
@@ -16,7 +17,6 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
   const { isThatUserLoading, thatUserData } = useFetchThatUser(id);
   const { isLoading, userData } = useFetchCurrentUser();
   const [theCategory, setTheCategory] = useAtom(categoryAtom);
-
   const categories = ['질문', '알고리즘', 'Todo', '방명록'];
 
   const handleCategory = (i: number) => {

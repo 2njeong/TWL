@@ -3,6 +3,7 @@
 import { algorithmSchema, guestbookSchema, userInfoSchema } from '@/schema/memberSchema';
 import { todoSchema } from '@/schema/todolistSchema';
 import { serverSupabase } from '@/supabase/server';
+import { Tables } from '@/type/database';
 import { GuestBookObj, UserInfoOBJ } from '@/type/memberType';
 
 const supabase = serverSupabase();
@@ -111,5 +112,14 @@ export const submitTodolist = async (user_id: string | undefined, data: FormData
     if (error) throw new Error(error.message);
   } catch (e) {
     throw new Error(`fail to insert todo, ${e}`);
+  }
+};
+
+export const updateTodolistServerAction = async ({ todolist }: { todolist: Tables<'todolist'>[] }, data: FormData) => {
+  try {
+    const { error } = await supabase.rpc('update_todolist', { todos: todolist });
+    if (error) throw new Error(error.message);
+  } catch (e) {
+    throw new Error(`fail to update todo, ${e}`);
   }
 };

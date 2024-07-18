@@ -5,6 +5,7 @@ import { useFormStatus } from 'react-dom';
 
 type BtnProps = {
   formId?: string;
+  disabledCondition?: boolean;
   sectionClasName?: string;
   buttonClassName?: string;
   pendingText: string | ReactNode;
@@ -13,12 +14,13 @@ type BtnProps = {
 
 const SubmitBtn = ({ btnProps }: { btnProps: BtnProps }) => {
   const { pending } = useFormStatus();
-  const { formId, sectionClasName, buttonClassName, pendingText, doneText } = btnProps;
+  const { formId, disabledCondition, sectionClasName, buttonClassName, pendingText, doneText } = btnProps;
+
   return (
     <section className={`${sectionClasName ?? 'w-full flex justify-center'}`}>
       <button
         form={formId}
-        disabled={pending}
+        disabled={disabledCondition ? disabledCondition || pending : pending}
         className={`opacity-${pending ? '50' : '1'} ${buttonClassName ?? 'w-3/6 border rounded'}`}
       >
         {pending ? pendingText : doneText}

@@ -335,6 +335,12 @@ export type Database = {
           comment_ids: string[];
         }[];
       };
+      update_todolist: {
+        Args: {
+          todos: Json;
+        };
+        Returns: undefined;
+      };
       user_id_to_quiz_like: {
         Args: {
           quiz_id: string;
