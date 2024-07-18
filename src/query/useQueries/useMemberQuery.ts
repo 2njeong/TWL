@@ -1,6 +1,16 @@
 import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query';
-import { ALGORITHM_OF_THATUSER, GUESTBOOK_OF_THATUSER, QUIZLIST_OF_THATUSER } from '../member/memberQueryKey';
-import { fetchThatUsersAlgorithm, fetchThatUsersGuestbook, fetchThatUsersQuizList } from '../member/memberQueryFns';
+import {
+  ALGORITHM_OF_THATUSER,
+  GUESTBOOK_OF_THATUSER,
+  QUIZLIST_OF_THATUSER,
+  TODOLIST_QUERY_KEY
+} from '../member/memberQueryKey';
+import {
+  fetchThatUsersAlgorithm,
+  fetchThatUsersGuestbook,
+  fetchThatUsersQuizList,
+  fetchThatUsersTodolist
+} from '../member/memberQueryFns';
 import { Tables } from '@/type/database';
 import { useEffect } from 'react';
 import {
@@ -85,6 +95,14 @@ export const useFetchThatUsersAlgorithm = (thatUser: string | undefined) => {
   };
 };
 
+export const useFetchTodolist = (thatUser: string) => {
+  const { data, isLoading } = useQuery({
+    queryKey: [TODOLIST_QUERY_KEY, thatUser],
+    queryFn: () => fetchThatUsersTodolist(thatUser)
+  });
+  return { data, isLoading };
+};
+
 export const useFetchGuestBook = (thatUser: string | undefined, newPage: number) => {
   const [totalPage, setTotalPage] = useAtom(totalPageAtom);
   const queryClient = useQueryClient();
@@ -100,10 +118,6 @@ export const useFetchGuestBook = (thatUser: string | undefined, newPage: number)
     const currentPageData = queryClient.getQueryData<ExtendedGuestBook[]>([GUESTBOOK_OF_THATUSER, thatUser, newPage]);
     const hasMoreData = currentPageData && currentPageData.length > NUM_OF_FETCHMOREGUESTBOOK;
     const nextPageData = queryClient.getQueryData<ExtendedGuestBook[]>([GUESTBOOK_OF_THATUSER, thatUser, newPage + 1]);
-
-    // console.log('currentPageData =>', currentPageData);
-    // console.log('nextPageData =>', nextPageData);
-    // console.log('hasMoreData =>', hasMoreData);
     if (nextPageData) {
       if (nextPageData.length > 0) {
         if (hasMoreData) {

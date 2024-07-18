@@ -102,7 +102,9 @@ export const submitTodolist = async (user_id: string | undefined, data: FormData
   const todoObj = {
     user_id,
     todo_item,
-    done: false
+    done: false,
+    isDeleted: false,
+    created_at: new Date().toISOString()
   };
   try {
     const { error } = await supabase.from('todolist').insert(todoObj);

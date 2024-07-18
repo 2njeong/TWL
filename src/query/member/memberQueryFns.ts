@@ -29,6 +29,14 @@ export const fetchThatUsersAlgorithm = async ({
   return response.json();
 };
 
+export const fetchThatUsersTodolist = async (thatUser: string) => {
+  const response = await fetch(`/member/api?type=todolist&thatUser=${thatUser}`);
+  if (!response.ok) {
+    throw new Error('ThatUser_s todolist response was not ok');
+  }
+  return response.json();
+};
+
 export const fetchThatUsersGuestbook = async (thatUser: string | undefined, page = 1): Promise<ExtendedGuestBook[]> => {
   const response = await fetch(`/member/api?type=guestbook&thatUser=${thatUser}&page=${page}`);
   if (!response.ok) {

@@ -5,8 +5,7 @@ import Algorithm from '@/components/member/algorithm/Algorithm';
 import GuestBook from '@/components/member/guestbook/GuestBook';
 import UserInfo from '@/components/member/information/UserInfo';
 import QuizListOfThatUser from '@/components/member/quiz/QuizListOfThatUser';
-import Todo from '@/components/member/todo/Todo';
-import { christmas_color } from '@/constants/memberConstants';
+import Todolist from '@/components/member/todo/Todolist';
 import { useFetchCurrentUser, useFetchThatUser } from '@/query/useQueries/useAuthQuery';
 import { useAtom } from 'jotai';
 import dynamic from 'next/dynamic';
@@ -49,7 +48,7 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
             ) : theCategory === categories[1] ? (
               <AlgorithmWrapper id={id} />
             ) : theCategory === categories[2] ? (
-              <Todo />
+              <Todolist id={id} />
             ) : theCategory === categories[3] ? (
               <GuestBook id={id} />
             ) : (

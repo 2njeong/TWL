@@ -7,6 +7,7 @@ import { Tables } from '@/type/database';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRef } from 'react';
 import { CiCirclePlus } from 'react-icons/ci';
+import { HiEllipsisHorizontal } from 'react-icons/hi2';
 
 const NewTodoForm = () => {
   const todoFormRef = useRef<HTMLFormElement | null>(null);
@@ -24,14 +25,16 @@ const NewTodoForm = () => {
   };
 
   const btnProps = {
+    formId: 'newTodoForm',
     sectionClasName: 'flex items-center',
     buttonClassName: 'text-3xl cursor-pointer text-red-500 hover:text-gray-500',
-    pendingText: <CiCirclePlus />,
+    pendingText: <HiEllipsisHorizontal />,
     doneText: <CiCirclePlus />
   };
 
   return (
     <form
+      id="newTodoForm"
       ref={todoFormRef}
       action={handleSubmitTodo}
       className="border w-[70%] h-[30%] flex justify-center items-center gap-2 px-8 py-4"

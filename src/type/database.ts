@@ -186,6 +186,7 @@ export type Database = {
         Row: {
           created_at: string;
           done: boolean;
+          isDeleted: boolean;
           todo_id: string;
           todo_item: string;
           user_id: string;
@@ -193,6 +194,7 @@ export type Database = {
         Insert: {
           created_at?: string;
           done?: boolean;
+          isDeleted?: boolean;
           todo_id?: string;
           todo_item: string;
           user_id?: string;
@@ -200,6 +202,7 @@ export type Database = {
         Update: {
           created_at?: string;
           done?: boolean;
+          isDeleted?: boolean;
           todo_id?: string;
           todo_item?: string;
           user_id?: string;
@@ -257,6 +260,16 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      get_7days_todolist: {
+        Args: {
+          kst_date: string;
+          p_user_id: string;
+        };
+        Returns: {
+          day: string;
+          todos: Json;
+        }[];
+      };
       get_comments_with_users: {
         Args: {
           p_quiz_id: string;
