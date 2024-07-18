@@ -1,27 +1,23 @@
 import { updateTodolistServerAction } from '@/app/member/action';
+import { todolistAtom } from '@/atom/memberAtom';
 import SubmitBtn from '@/components/makequiz/SubmitBtn';
-import { CURRENT_USER_QUERY_KEY, THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
+import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 import { TODOLIST_QUERY_KEY } from '@/query/member/memberQueryKey';
-import { useFetchTodolist } from '@/query/useQueries/useMemberQuery';
 import { Tables } from '@/type/database';
 import { SevenDaysTodolist } from '@/type/memberType';
 import { getToday } from '@/utils/utilFns';
 import { useQueryClient } from '@tanstack/react-query';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useAtom } from 'jotai';
+import { ChangeEvent } from 'react';
 import { HiEllipsisHorizontal } from 'react-icons/hi2';
 import { MdCancel } from 'react-icons/md';
 
-const Todos = ({ id }: { id: string }) => {
+const Todos = ({ thatUserID }: { thatUserID: string }) => {
+  const [todolist, setTodolist] = useAtom(todolistAtom);
   const queryClient = useQueryClient();
   const { user_id } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
-  const [{ user_id: thatUserID }] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
   const sevenDaysTodolist = queryClient.getQueryData<SevenDaysTodolist[]>([TODOLIST_QUERY_KEY, thatUserID]);
   const todos = sevenDaysTodolist?.find((todolist) => todolist.day === getToday())?.todos ?? [];
-  const [todolist, setTodolist] = useState(todos);
-
-  useEffect(() => {
-    setTodolist(todos);
-  }, [todos]);
 
   const handleTodolist = ({ e, todo_id }: { e?: ChangeEvent<HTMLInputElement>; todo_id: string }) => {
     if (user_id !== thatUserID) return;
@@ -44,8 +40,6 @@ const Todos = ({ id }: { id: string }) => {
     queryClient.invalidateQueries({ queryKey: [TODOLIST_QUERY_KEY, thatUserID] });
   };
 
-  console.log('disabledCondition =>', user_id !== thatUserID);
-
   const btnProps = {
     formId: 'todosForm',
     sectionClasName: 'border w-full flex justify-end sticky top-0 shrink-0 backdrop-blur-lg',
@@ -58,7 +52,7 @@ const Todos = ({ id }: { id: string }) => {
     <form
       id="todosForm"
       action={updateTodolist}
-      className="border rounded-md w-[70%] h-full overflow-y-auto pt-1 pb-2 px-4 flex flex-col gap-1"
+      className="border-2 rounded-md w-[70%] h-full overflow-y-auto pt-1 pb-2 px-4 flex flex-col gap-1"
       style={{ paddingTop: user_id !== thatUserID ? '1.5rem' : '' }}
     >
       {user_id === thatUserID && <SubmitBtn btnProps={btnProps} />}

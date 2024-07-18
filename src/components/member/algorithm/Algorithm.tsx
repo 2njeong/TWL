@@ -34,7 +34,7 @@ const Algorithm = ({ id }: { id: string }) => {
     return <div className="w-full h-full flex justify-center items-center">알고리즘 로딩중..</div>;
 
   return (
-    <div className="w-full h-full max-h-[90%] flex flex-col border-4 border-red-100 rounded-md">
+    <div className="w-full h-full max-h-[90%] flex flex-col border-4 border-red-100 rounded-md mt-3">
       <div className="w-full flex justify-end p-2">
         {data.user_id === currentUserID && (
           <button

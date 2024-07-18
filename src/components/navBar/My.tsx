@@ -43,7 +43,7 @@ const My = () => {
 
   const openNewWindow = () => {
     const features =
-      'width=1400,height=800,resizable=yes,scrollbars=no,status=yes,toolbar=no,menubar=no,location=yes, noopener, noreferrer';
+      'width=1400,height=700,resizable=yes,scrollbars=no,status=yes,toolbar=no,menubar=no,location=yes, noopener, noreferrer';
     window.open(`/member/${userData?.user_id}`, '_blank', features);
   };
 

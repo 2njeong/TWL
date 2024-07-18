@@ -1,16 +1,20 @@
 'use client';
 
 import { submitTodolist } from '@/app/member/action';
+import { dayAtom } from '@/atom/memberAtom';
 import SubmitBtn from '@/components/makequiz/SubmitBtn';
 import { CURRENT_USER_QUERY_KEY, THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 import { TODOLIST_QUERY_KEY } from '@/query/member/memberQueryKey';
 import { Tables } from '@/type/database';
+import { getToday } from '@/utils/utilFns';
 import { useQueryClient } from '@tanstack/react-query';
+import { useAtom } from 'jotai';
 import { useRef } from 'react';
 import { CiCirclePlus } from 'react-icons/ci';
 import { HiEllipsisHorizontal } from 'react-icons/hi2';
 
 const NewTodoForm = ({ id }: { id: string }) => {
+  const [day, _] = useAtom(dayAtom);
   const todoFormRef = useRef<HTMLFormElement | null>(null);
   const queryClient = useQueryClient();
   const { user_id } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
@@ -38,7 +42,7 @@ const NewTodoForm = ({ id }: { id: string }) => {
 
   return (
     <>
-      {user_id === thatUserID && (
+      {user_id === thatUserID && day === getToday() && (
         <form
           id="newTodoForm"
           ref={todoFormRef}

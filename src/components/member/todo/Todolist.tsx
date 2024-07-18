@@ -10,15 +10,13 @@ import { useFetchTodolist } from '@/query/useQueries/useMemberQuery';
 const Todolist = ({ id }: { id: string }) => {
   const queryClient = useQueryClient();
   const [{ user_id: thatUserID }] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
-  const { sevenDaysTodolist, todolistLoading } = useFetchTodolist(thatUserID);
-  console.log('todolist =>', sevenDaysTodolist);
+  const { todolistLoading } = useFetchTodolist(thatUserID);
 
-  // console.log(new Date().toISOString());
   if (todolistLoading) return <div>로딩중..</div>;
   return (
-    <div className="w-full h-[90%]">
+    <div className="w-full h-full flex flex-col gap-4 justify-between items-center">
       <TodaysTodo id={id} />
-      <SevenDaysTodoList />
+      <SevenDaysTodoList id={id} />
     </div>
   );
 };

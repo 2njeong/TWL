@@ -31,15 +31,13 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
           <UserInfo thatUserData={thatUserData} currentUser={userData} />
         </section>
         <section className="border-l-2 w-4/6 flex flex-col justify-around">
-          <div className="w-full h-full overflow-y-auto px-4 pt-4 pb-2 flex flex-col gap-3">
+          <div className="w-full h-full overflow-y-auto px-4 py-2 flex flex-col">
             <h2 className="font-semibold text-2xl text-gray-400">
               {theCategory === categories[0]
                 ? 'Question'
                 : theCategory === categories[1]
                 ? 'Algorithm'
-                : // : theCategory === categories[2]
-                // ? categories[2]
-                theCategory === categories[3]
+                : theCategory === categories[3]
                 ? 'GuestBook'
                 : null}
             </h2>
