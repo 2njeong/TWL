@@ -27,8 +27,8 @@ const QuizCommentForm = ({
   const [commentValidationErr, setCommentValidationErr] = useState<QuizCommentValidationErr | null>(null);
   const commentTxtAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const queryClient = useQueryClient();
-  const { user_id, avatar } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
-  // const { userData } = useFetchCurrentUser();
+  // const { user_id, avatar } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
+  const { user_id, avatar } = useFetchCurrentUser().userData || {};
   const [isLoggedIn, __] = useAtom(checkLoginAtom);
 
   useEffect(() => {
