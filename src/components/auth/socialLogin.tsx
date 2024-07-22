@@ -22,7 +22,7 @@ const SocialLogin = () => {
           access_type: 'offline',
           prompt: 'consent'
         },
-        redirectTo: 'http://localhost:3000/auth/callback'
+        redirectTo: `${process.env.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000'}/auth/callback`
       }
     });
     if (error) throw new Error(error?.message);
