@@ -42,7 +42,9 @@ const Todos = ({ thatUserID }: { thatUserID: string }) => {
 
   const btnProps = {
     formId: 'todosForm',
-    sectionClasName: 'border w-full flex justify-end sticky top-0 shrink-0 backdrop-blur-lg',
+    sectionClasName: 'w-full flex justify-between items-center sticky top-0 shrink-0 backdrop-blur-lg',
+    sectionP: '할 일을 수정한 뒤에는 반드시 업데이트 버튼을 눌러주세요!',
+    sectionPClassName: 'text-gray-500 text-xs',
     buttonClassName: 'w-20 border rounded px-1 py-0.5 flex items-center justify-center',
     pendingText: <HiEllipsisHorizontal />,
     doneText: '업데이트'
@@ -55,7 +57,10 @@ const Todos = ({ thatUserID }: { thatUserID: string }) => {
       className="border-2 rounded-md w-[70%] h-full overflow-y-auto pt-1 pb-2 px-4 flex flex-col gap-1"
       style={{ paddingTop: user_id !== thatUserID ? '1.5rem' : '' }}
     >
-      {user_id === thatUserID && <SubmitBtn btnProps={btnProps} />}
+      <div className="w-full flex justify-between items-center">
+        {user_id === thatUserID && <SubmitBtn btnProps={btnProps} />}
+      </div>
+
       {todolist.map(
         (todo) =>
           !todo.isDeleted && (

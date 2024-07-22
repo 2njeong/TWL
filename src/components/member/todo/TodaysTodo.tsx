@@ -7,7 +7,7 @@ import { SevenDaysTodolist } from '@/type/memberType';
 import { TODOLIST_QUERY_KEY } from '@/query/member/memberQueryKey';
 import { Tables } from '@/type/database';
 import { THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAtom } from 'jotai';
 import { dayAtom, todolistAtom } from '@/atom/memberAtom';
 
@@ -21,7 +21,7 @@ const TodaysTodo = ({ id }: { id: string }) => {
 
   useEffect(() => {
     setTodolist(todos);
-  }, [todos]);
+  }, [sevenDaysTodolist]);
 
   useEffect(() => {
     setDay(getToday());
@@ -30,11 +30,10 @@ const TodaysTodo = ({ id }: { id: string }) => {
   return (
     <div className="border-2 w-full h-[75%] flex flex-col justify-between items-center gap-2 p-4">
       <div className="w-full flex justify-between items-center">
-        <h1>Today&apos;s Todolist</h1>
+        <h1 className="text-lg font-semibold">Today&apos;s Todolist</h1>
         <h1>{day}</h1>
       </div>
       <Todos thatUserID={thatUserID} />
-
       <NewTodoForm id={id} />
     </div>
   );

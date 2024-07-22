@@ -25,13 +25,13 @@ const SevenDaysTodoList = ({ id }: { id: string }) => {
   };
   return (
     <div className="border w-full h-[35%]">
-      <div className="overflow-x-auto w-full h-full">
-        <div className="flex gap-2 w-full">
+      <div className="overflow-x-auto w-full h-full flex items-center">
+        <div className="flex gap-4 w-full px-4">
           {restOfTodolist.map((todolist) => (
             <button
               key={todolist.day}
               onClick={() => changeTodolist(todolist.day)}
-              className="border-4 rounded w-64 h-20 flex-shrink-0"
+              className="border-4 rounded w-48 h-20 flex-shrink-0"
             >
               {todolist.day}
             </button>
