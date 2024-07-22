@@ -12,6 +12,7 @@ import { useAtom } from 'jotai';
 import { checkLoginAtom } from '@/atom/authAtom';
 import AvatarImage from '@/components/member/information/AvatarImage';
 import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
+import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
 
 const QuizCommentForm = ({
   theQuiz,
@@ -26,7 +27,8 @@ const QuizCommentForm = ({
   const [commentValidationErr, setCommentValidationErr] = useState<QuizCommentValidationErr | null>(null);
   const commentTxtAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const queryClient = useQueryClient();
-  const { avatar } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
+  // const { avatar } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
+  const { userData } = useFetchCurrentUser();
   const [isLoggedIn, __] = useAtom(checkLoginAtom);
 
   useEffect(() => {
@@ -73,7 +75,7 @@ const QuizCommentForm = ({
       className="w-full flex items-center border rounded justify-between h-auto p-4"
     >
       <div className="w-14 h-14">
-        <AvatarImage src={avatar} alt="유저이미지" size="3.5" />
+        <AvatarImage src={userData?.avatar} alt="유저이미지" size="3.5" />
       </div>
       <div className={`${isCommentOpen ? 'w-[80%]' : 'w-11/12'} flex flex-col gap-1`}>
         <textarea
