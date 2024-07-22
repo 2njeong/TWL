@@ -1,5 +1,4 @@
-import { Tables } from '@/type/database';
-import { Ball } from '@/type/memberType';
+import { Ball } from '@/type/algorithmType';
 
 export const fetchAlgorithm = async (): Promise<Ball[]> => {
   const response = await fetch(`/algorithm/api`);

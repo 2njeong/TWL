@@ -18,11 +18,10 @@ const GuestBookList = ({ id }: { id: string }) => {
   const queryClient = useQueryClient();
   const { user_id: creator } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
   const [{ user_id: thatUserId }] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
-  const { guestbookData, guestbookLoading, totalPage } = useFetchGuestBook(thatUserId, page);
+  const { guestbookData, guestbookLoading } = useFetchGuestBook(thatUserId, page);
 
   useEffect(() => {
     if (page > 1 && guestbookData && guestbookData?.length < 1) {
-      console.log('들어오나?');
       setPage((prev) => prev - 1);
     }
   }, [guestbookData, page, setPage]);
@@ -38,7 +37,7 @@ const GuestBookList = ({ id }: { id: string }) => {
     hoverBtnClassName: 'text-sm'
   };
 
-  if (guestbookLoading) return <>방명록 로딩중..</>;
+  if (guestbookLoading) return <div className="w-full h-full flex justify-center items-center">방명록 로딩중..</div>;
   return (
     <>
       {guestbookData && guestbookData.length > 0 ? (

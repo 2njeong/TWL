@@ -4,8 +4,8 @@ import { z } from 'zod';
 export const quizSchema = z.object({
   question: z
     .string({ required_error: '질문을 입력해주세요', invalid_type_error: '' })
-    .min(3, { message: '질문은 최소 3자 이상, 50자 이하여야 합니다.' })
-    .max(30, { message: '질문은 최소 3자 이상, 50자 이하여야 합니다.' }),
+    .min(3, { message: '질문은 최소 3자 이상, 30자 이하여야 합니다.' })
+    .max(30, { message: '질문은 최소 3자 이상, 30자 이하여야 합니다.' }),
   answer: z.preprocess(
     // 주관식 answer 유효성 검사
     (val) => (val === null ? [] : val), // 아무것도 제출하지 않았을 때, null 값을 빈 배열로 변환

@@ -6,14 +6,17 @@ import { useEffect, useState } from 'react';
 import QuizHeader from '@/components/quiz/detail/QuizHeader';
 import QuizContent from '@/components/quiz/detail/QuizContent';
 import QuizFooter from '@/components/quiz/detail/QuizFooter';
-import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
 import dynamic from 'next/dynamic';
+import { useQueryClient } from '@tanstack/react-query';
+import { Tables } from '@/type/database';
+import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 
 const QuizContentWrapper = dynamic(() => import('@/components/quiz/detail/QuizContent'), { ssr: false });
 
 const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
+  const queryClient = useQueryClient();
+  const { user_id } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
   const { data: theQuiz, isLoading } = useFetchThatQuiz(id);
-  const { userData } = useFetchCurrentUser();
   const [clickList, setClickList] = useState<boolean[]>([]);
   const [subjectiveAnswer, setSubjectiveAnswer] = useState('');
 
@@ -55,8 +58,8 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <div className="w-full flex flex-col gap-4">
-      <div className="bg-yelTwo rounded-md border-4 border-dashed p-8">
-        <div className="flex flex-col items-center gap-8 bg-white bg-opacity-60 pt-12 pb-10 px-4 rounded-lg">
+      <div className="bg-yelTwo bg-clip-padding rounded-md border-4 border-dashed p-8">
+        <div className="flex flex-col items-center gap-8 bg-white bg-opacity-60 max-sm:pt-6 pt-12 pb-10 px-4 rounded-lg">
           <QuizHeader theQuiz={theQuiz} setClickList={setClickList} checkIfRight={checkIfRight} />
           <QuizContentWrapper
             theQuiz={theQuiz}
@@ -67,7 +70,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
           <QuizFooter theQuiz={theQuiz} />
         </div>
       </div>
-      <QuizComments theQuiz={theQuiz} user_id={userData?.user_id} />
+      <QuizComments theQuiz={theQuiz} user_id={user_id} />
     </div>
   );
 };

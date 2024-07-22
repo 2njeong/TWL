@@ -16,12 +16,8 @@ const My = () => {
 
   console.log('유저 =>', userData);
 
-  const handleMouseEnter = () => {
-    setMyListOpen(true);
-  };
-
-  const handleMouseLeave = () => {
-    setMyListOpen(false);
+  const handleMouse = () => {
+    setMyListOpen((prev) => !prev);
   };
 
   const handleTouchMove = (e: React.TouchEvent<Element>) => {
@@ -33,8 +29,8 @@ const My = () => {
   };
 
   const events = () => ({
-    onMouseEnter: () => handleMouseEnter(),
-    onMouseLeave: () => handleMouseLeave(),
+    onMouseEnter: () => handleMouse(),
+    onMouseLeave: () => handleMouse(),
     onTouchMove: (e: React.TouchEvent<Element>) => handleTouchMove(e)
   });
 
@@ -47,9 +43,14 @@ const My = () => {
 
   const openNewWindow = () => {
     const features =
-      'width=1400,height=800,resizable=yes,scrollbars=no,status=yes,toolbar=no,menubar=no,location=yes, noopener, noreferrer';
+      'width=1400,height=700,resizable=yes,scrollbars=no,status=yes,toolbar=no,menubar=no,location=yes, noopener, noreferrer';
     window.open(`/member/${userData?.user_id}`, '_blank', features);
   };
+
+  const myList = [
+    { text: '내스터디', func: openNewWindow },
+    { text: '로그아웃', func: handleSignOut }
+  ];
 
   if (isLoading) return;
 
@@ -63,20 +64,17 @@ const My = () => {
       {isLoggedIn && (
         <div {...events()} className="relative">
           <div className="my-2">
-            {/* <div className=" rounded-full "> */}
-            <AvatarImage src={userData?.avatar} alt="current user Img" size="3" className="border-4" />
-            {/* </div> */}
+            <AvatarImage src={userData?.avatar} alt="current user Img" size="3" className="border-2" />
           </div>
           {isMyListOpen && (
             <div
               className={`w-28 h-22 bg-white rounded absolute top-full right-[-30%] flex flex-col justify-around gap-1 border rounded p-2 z-[${ZINDEX.navBarZ}]`}
             >
-              <button onClick={openNewWindow} className="rounded hover:bg-gray-200 p-1">
-                내 스터디
-              </button>
-              <button onClick={handleSignOut} className="rounded hover:bg-gray-200 p-1">
-                로그아웃
-              </button>
+              {myList.map((item) => (
+                <button key={item.text} onClick={item.func} className="rounded hover:bg-gray-100 p-1">
+                  {item.text}
+                </button>
+              ))}
             </div>
           )}
         </div>

@@ -47,15 +47,17 @@ const NavBar = () => {
   if (pathname.startsWith('/member')) return null;
 
   return (
-    <div className="flex justify-between items-center px-10 py-2 min-h-[5rem]">
-      <section className="flex gap-8 items-center">
+    <div className="flex justify-between items-center max-sm:px-6 px-10 py-2 min-h-[5rem]">
+      <section className="flex max-sm:gap-4 gap-8 items-center">
         {navBarList.map((nav) => {
           return (
             <div key={nav.name} {...events(nav.name)} className={`${nav.name === 'Quiz' ? 'relative' : ''}`}>
               <div className="my-2">
                 <Link
                   href={`/${nav.href}`}
-                  className={`${nav.name === 'Quiz' && 'pointer-events-none'} text-lg flex items-center gap-0.5`}
+                  className={`${
+                    nav.name === 'Quiz' && 'pointer-events-none'
+                  } text-lg hover:text-gray-500 flex items-center gap-0.5`}
                 >
                   {nav.name}
                   {nav.icon}
@@ -69,7 +71,7 @@ const NavBar = () => {
                     <Link
                       key={item.name}
                       href={`/quiz/${item.href}`}
-                      className="hover:bg-gray-200 rounded p-1 flex items-center justify-center"
+                      className="hover:bg-gray-100 rounded p-1 flex items-center justify-center"
                       onClick={() => setQuizDropOpen(false)}
                     >
                       {item.name}

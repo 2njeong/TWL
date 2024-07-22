@@ -3,16 +3,12 @@ import SelectQuizType from '@/components/makequiz/SelectQuizType';
 
 const MakeQuizPage = () => {
   return (
-    <>
-      <div className="flex flex-col items-center w-full h-screen p-8">
-        <div className="w-full max-w-[1000px] relative">
-          <SelectQuizType />
-          <div className="w-full flex flex-col items-center p-8 absolute border-[6px] border-yelOne rounded-md">
-            <MakeQuiz />
-          </div>
-        </div>
+    <div className="flex flex-col items-center w-full h-full p-8">
+      <div className="relative w-full flex flex-col items-center py-8 absolute border-4 border-gray-100 rounded-md">
+        <SelectQuizType />
+        <MakeQuiz />
       </div>
-    </>
+    </div>
   );
 };
 

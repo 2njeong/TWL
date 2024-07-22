@@ -1,15 +1,15 @@
 'use server';
 
 import { algorithmSchema, guestbookSchema, userInfoSchema } from '@/schema/memberSchema';
+import { todoSchema } from '@/schema/todolistSchema';
 import { serverSupabase } from '@/supabase/server';
+import { Tables } from '@/type/database';
 import { GuestBookObj, UserInfoOBJ } from '@/type/memberType';
 
 const supabase = serverSupabase();
 
 type SubmitAlgorithmObj = {
   creator: string;
-  creator_nickname: string | null;
-  creator_avatar: string | null;
   content: string | null;
 };
 
@@ -84,8 +84,8 @@ export const submitGuestBook = async (guestBookObj: GuestBookObj, data: FormData
     const errors = result.error.errors;
     return errors[0];
   }
+  const newGuestBookOnj = { ...guestBookObj, content };
   try {
-    const newGuestBookOnj = { ...guestBookObj, content };
     const { error } = await supabase.from('guestbook').insert(newGuestBookOnj);
     if (error) throw new Error(error.message);
   } catch (e) {
@@ -93,4 +93,33 @@ export const submitGuestBook = async (guestBookObj: GuestBookObj, data: FormData
   }
 };
 
-export const submitDeleteGuestBook = async (id: string) => {};
+export const submitTodolist = async (user_id: string | undefined, data: FormData) => {
+  const todo_item = data.get('todo_item');
+  const result = todoSchema.safeParse({ todo_item });
+  if (!result.success) {
+    const errors = result.error.errors;
+    return errors[0];
+  }
+  const todoObj = {
+    user_id,
+    todo_item,
+    done: false,
+    isDeleted: false,
+    created_at: new Date().toISOString()
+  };
+  try {
+    const { error } = await supabase.from('todolist').insert(todoObj);
+    if (error) throw new Error(error.message);
+  } catch (e) {
+    throw new Error(`fail to insert todo, ${e}`);
+  }
+};
+
+export const updateTodolistServerAction = async ({ todolist }: { todolist: Tables<'todolist'>[] }, data: FormData) => {
+  try {
+    const { error } = await supabase.rpc('update_todolist', { todos: todolist });
+    if (error) throw new Error(error.message);
+  } catch (e) {
+    throw new Error(`fail to update todo, ${e}`);
+  }
+};

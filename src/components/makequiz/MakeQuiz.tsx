@@ -9,11 +9,13 @@ import SubmitBtn from './SubmitBtn';
 import Question from './Question';
 import { useQueryClient } from '@tanstack/react-query';
 import { QUIZLIST_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
-import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
 import { QuizField, MakeQuizZodErrObj } from '@/type/quizType';
+import { Tables } from '@/type/database';
+import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 
 const MakeQuiz = () => {
-  const { userData } = useFetchCurrentUser();
+  const queryClient = useQueryClient();
+  const { user_id, avatar } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
   const [candidates, setCandidates] = useAtom(candidatesAtom);
   const [contentData, setContentData] = useAtom(editorContentAtom);
   const [answer, setAnswer] = useAtom(answerAtom);
@@ -40,9 +42,8 @@ const MakeQuiz = () => {
       }
     }
 
-    const submitActionWithAnswer = submitQuizAction.bind(null, answer, contentData, quizType, userData?.user_id ?? '');
+    const submitActionWithAnswer = submitQuizAction.bind(null, answer, contentData, quizType, user_id ?? '');
     const result = await submitActionWithAnswer(data);
-    // console.log('result?.error =>', result?.error);
 
     const zodErrObj: MakeQuizZodErrObj = result?.error;
     if (zodErrObj) {
@@ -75,14 +76,20 @@ const MakeQuiz = () => {
     setContentData(null);
   };
 
+  const btnProps = {
+    pendingText: '문제를 만드는 중...',
+    doneText: 'Make Quiz!',
+    buttonClassName: 'w-2/6 p-3 rounded-md bg-yellow-200 hover:text-gray-300 text-lg text-gray-600'
+  };
+
   return (
-    <>
-      <form action={submitQuiz} ref={formRef} className="w-4/6 flex flex-col gap-6">
+    <div className="w-[90%] rounded-lg bg-gray-100">
+      <form action={submitQuiz} ref={formRef} className="w-full flex flex-col gap-6 px-10 py-6 ">
         <Question />
         <ReturnQuizType />
-        <SubmitBtn btnProps={{ pendingText: '문제를 만드는 중...', doneText: '문제 만들기' }} />
+        <SubmitBtn btnProps={btnProps} />
       </form>
-    </>
+    </div>
   );
 };
 

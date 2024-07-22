@@ -48,12 +48,11 @@ export async function GET(req: NextRequest) {
     case 'quizComments': {
       const page = Number(searchParams.get('pageParam'));
       const quiz_id = searchParams.get('quiz_id') as string;
-      const { data, error } = await supabase
-        .from('comments')
-        .select('*')
-        .eq('quiz_id', quiz_id)
-        .order('created_at', { ascending: false })
-        .range((page - 1) * FETCHMORECOMMENTSNUM, page * FETCHMORECOMMENTSNUM - 1);
+      const { data, error } = await supabase.rpc('get_comments_with_users', {
+        p_quiz_id: quiz_id,
+        p_page: page,
+        p_fetch_more_comments_num: FETCHMORECOMMENTSNUM
+      });
       if (error) throw new Error(error.message);
       return Response.json(data);
     }
@@ -61,13 +60,3 @@ export async function GET(req: NextRequest) {
       return new Response('Invalid type', { status: 400 });
   }
 }
-
-// export const POST = async (req: Request) => {
-//   const supabase = serverSupabase();
-//   const { quiz_id, user_id } = await req.json();
-//   const { data, error } = await supabase.rpc('append_user_id_to_quiz_like', { quiz_id, user_id });
-//   if (error) throw new Error(error.message);
-//   if (error) return new Response('fail to update quiz_like', { status: 500 });
-
-//   return Response.json(data);
-// };

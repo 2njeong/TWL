@@ -39,6 +39,18 @@ export const GET = async (req: NextRequest) => {
       }
       return Response.json(data);
     }
+    case 'todolist': {
+      const thatUser = searchParams.get('thatUser');
+      const { data, error } = await supabase.rpc('get_7days_todolist', {
+        kst_date: new Date().toISOString(),
+        p_user_id: thatUser
+      });
+      if (error) {
+        throw new Error(error.message);
+      }
+      return Response.json(data);
+    }
+
     case 'guestbook': {
       const thatUser = searchParams.get('thatUser');
       const page = Number(searchParams.get('page'));
@@ -48,8 +60,6 @@ export const GET = async (req: NextRequest) => {
         offset_value: (page - 1) * NUM_OF_FETCHMOREGUESTBOOK,
         limit_value: NUM_OF_FETCHMOREGUESTBOOK + 1
       });
-
-      console.log('data =>', data.length);
       if (error) {
         throw new Error(error.message);
       }

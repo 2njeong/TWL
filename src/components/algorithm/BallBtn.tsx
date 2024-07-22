@@ -1,10 +1,10 @@
 import { ZINDEX } from '@/constants/commonConstants';
 import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import AvatarImage from '../member/information/AvatarImage';
-import { Tables } from '@/type/database';
+import { Ball } from '@/type/algorithmType';
 
 type BallBtnProps = {
-  balls: Pick<Tables<'algorithm'>, 'algorithm_id' | 'title' | 'creator' | 'creator_avatar' | 'creator_nickname'>[];
+  balls: Ball[];
   index: number;
   userOpenArr: boolean[] | null;
   setUserOpenArr: Dispatch<SetStateAction<boolean[] | null>>;
@@ -35,7 +35,7 @@ const BallBtn = ({ balls, index, userOpenArr, setUserOpenArr }: BallBtnProps) =>
 
   const goToStudyZone = (creator: string) => {
     const features =
-      'width=1400,height=800,resizable=yes,scrollbars=no,status=yes,toolbar=no,menubar=no,location=yes, noopener, noreferrer';
+      'width=1400,height=700,resizable=yes,scrollbars=no,status=yes,toolbar=no,menubar=no,location=yes, noopener, noreferrer';
     window.open(`/member/${creator}`, '_blank', features);
   };
 
@@ -45,10 +45,10 @@ const BallBtn = ({ balls, index, userOpenArr, setUserOpenArr }: BallBtnProps) =>
       style={{ zIndex: ZINDEX.ballZ }}
     >
       <div className="flex w-full items-center justify-center gap-1">
-        <AvatarImage src={balls[index].creator_avatar} alt="algorithm creator avatar" size="2.5" />
-        <p className="w-3/6">{balls && balls[index].creator_nickname}</p>
+        <AvatarImage src={balls[index].user_avatar} alt="algorithm creator avatar" size="2.5" />
+        <p className="w-3/6 border flex justify-center items-center">{balls && balls[index].nickname}</p>
       </div>
-      <div className="w-full">
+      <div className="w-full flex justify-center items-center">
         <p className="truncate text-xs">Q. {balls[index].title}</p>
       </div>
       <button

@@ -1,6 +1,16 @@
 import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query';
-import { ALGORITHM_OF_THATUSER, GUESTBOOK_OF_THATUSER, QUIZLIST_OF_THATUSER } from '../member/memberQueryKey';
-import { fetchThatUsersAlgorithm, fetchThatUsersGuestbook, fetchThatUsersQuizList } from '../member/memberQueryFns';
+import {
+  ALGORITHM_OF_THATUSER,
+  GUESTBOOK_OF_THATUSER,
+  QUIZLIST_OF_THATUSER,
+  TODOLIST_QUERY_KEY
+} from '../member/memberQueryKey';
+import {
+  fetchThatUsersAlgorithm,
+  fetchThatUsersGuestbook,
+  fetchThatUsersQuizList,
+  fetchThatUsersTodolist
+} from '../member/memberQueryFns';
 import { Tables } from '@/type/database';
 import { useEffect } from 'react';
 import {
@@ -10,7 +20,7 @@ import {
 } from '@/constants/memberConstants';
 import { useAtom } from 'jotai';
 import { totalPageAtom } from '@/atom/memberAtom';
-import { ExtendedGuestBook, QuizListOfThatUser } from '@/type/memberType';
+import { ExtendedGuestBook, QuizListOfThatUser, SevenDaysTodolist } from '@/type/memberType';
 
 export const useFetchQuizlistOfThatUser = (thatUser: string | undefined) => {
   const {
@@ -85,8 +95,16 @@ export const useFetchThatUsersAlgorithm = (thatUser: string | undefined) => {
   };
 };
 
+export const useFetchTodolist = (thatUser: string) => {
+  const { data: sevenDaysTodolist, isLoading: todolistLoading } = useQuery({
+    queryKey: [TODOLIST_QUERY_KEY, thatUser],
+    queryFn: () => fetchThatUsersTodolist(thatUser)
+  });
+  return { sevenDaysTodolist, todolistLoading };
+};
+
 export const useFetchGuestBook = (thatUser: string | undefined, newPage: number) => {
-  const [totalPage, setTotalPage] = useAtom(totalPageAtom);
+  const [_, setTotalPage] = useAtom(totalPageAtom);
   const queryClient = useQueryClient();
 
   const { data: guestbookData, isLoading: guestbookLoading } = useQuery<ExtendedGuestBook[]>({
@@ -100,38 +118,28 @@ export const useFetchGuestBook = (thatUser: string | undefined, newPage: number)
     const currentPageData = queryClient.getQueryData<ExtendedGuestBook[]>([GUESTBOOK_OF_THATUSER, thatUser, newPage]);
     const hasMoreData = currentPageData && currentPageData.length > NUM_OF_FETCHMOREGUESTBOOK;
     const nextPageData = queryClient.getQueryData<ExtendedGuestBook[]>([GUESTBOOK_OF_THATUSER, thatUser, newPage + 1]);
-
-    // console.log('currentPageData =>', currentPageData);
-    // console.log('nextPageData =>', nextPageData);
-    // console.log('hasMoreData =>', hasMoreData);
     if (nextPageData) {
       if (nextPageData.length > 0) {
         if (hasMoreData) {
-          // console.log('0번 케이스');
           setTotalPage((prev) => Math.max(prev, newPage));
         } else {
-          // console.log('0.5번 케이스');
           setTotalPage((prev) => prev - 1);
           queryClient.removeQueries({ queryKey: [GUESTBOOK_OF_THATUSER, thatUser, newPage + 1] });
         }
       } else {
-        // console.log('1번 케이스');
         setTotalPage((prev) => Math.max(prev, newPage));
         queryClient.removeQueries({ queryKey: [GUESTBOOK_OF_THATUSER, thatUser, newPage + 1] });
       }
     } else {
       if (hasMoreData) {
-        // console.log('2번 케이스');
         setTotalPage((prev) => Math.max(prev, newPage + 1));
       } else if (currentPageData && currentPageData?.length < 1) {
-        // console.log('3번 케이스');
         setTotalPage(newPage - 1);
       } else {
-        // console.log('4번 케이스');
         setTotalPage(newPage);
       }
     }
   }, [guestbookData, newPage, queryClient, thatUser]);
 
-  return { guestbookData, guestbookLoading, totalPage };
+  return { guestbookData, guestbookLoading };
 };

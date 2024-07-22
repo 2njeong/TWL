@@ -1,11 +1,11 @@
 'use client';
 
 import { answerAtom, candidatesAtom, quizTyper } from '@/atom/quizAtom';
-import { useSetAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 
 const SelectQuizType = () => {
   const quizTypeList = ['객관식', '주관식'];
-  const setQuizType = useSetAtom(quizTyper);
+  const [quizType, setQuizType] = useAtom(quizTyper);
   const setCandidates = useSetAtom(candidatesAtom);
   const setAnswer = useSetAtom(answerAtom);
 
@@ -15,17 +15,29 @@ const SelectQuizType = () => {
     setAnswer(null);
   };
 
+  console.log('quizType =>', quizType);
+
   return (
-    <section className="w-full flex justify-end absolute -top-5">
-      {quizTypeList.map((t) => (
-        <button
-          key={t}
-          className={`${t === '객관식' ? 'bg-pinkOne' : 'bg-yelThree'} rounded`}
-          onClick={() => handleQuizType(t)}
-        >
-          {t}
-        </button>
-      ))}
+    <section className="w-full flex justify-end absolute top-0 transform -translate-y-full">
+      <div className="px-1 w-32 flex relative">
+        {quizTypeList.map((t, i) => (
+          <button
+            key={t}
+            className={`${i === 0 ? 'bg-red-200' : 'bg-green-200'} ${
+              quizType === quizTypeList[0]
+                ? i === 0
+                  ? 'absolute w-16'
+                  : 'w-full justify-end'
+                : i === 0
+                ? 'w-full justify-start'
+                : 'absolute w-16 trasform translate-x-[90%]'
+            } flex items-center rounded px-2 py-1`}
+            onClick={() => handleQuizType(t)}
+          >
+            {t}
+          </button>
+        ))}
+      </div>
     </section>
   );
 };

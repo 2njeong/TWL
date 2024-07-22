@@ -25,16 +25,16 @@ const QuizCommentSubmitBtn = ({
   return (
     <>
       {isLoggedIn && isCommentOpen && (
-        <div className="flex gap-2 items-center">
-          <button className="border px-2 py-0.5 rounded-lg hover:bg-gray-100" onClick={handleCancleBtn}>
-            취소
-          </button>
+        <div className="flex gap-1 items-center">
           <button
             type="submit"
             disabled={pending}
             className={`border px-2 py-0.5 rounded-lg hover:bg-gray-100 ${pending ? 'opacity-30' : ''}`}
           >
             {pending ? '...제출' : '제출'}
+          </button>
+          <button className="border px-2 py-0.5 rounded-lg hover:bg-gray-100" onClick={handleCancleBtn}>
+            취소
           </button>
         </div>
       )}

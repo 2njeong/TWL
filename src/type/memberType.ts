@@ -19,9 +19,6 @@ export type QuizListOfThatUser = Tables<'quiz'> & {
   comments: string[];
 };
 
-export type Ball = Pick<
-  Tables<'algorithm'>,
-  'algorithm_id' | 'title' | 'creator' | 'creator_avatar' | 'creator_nickname'
->;
-
 export type ExtendedGuestBook = Tables<'guestbook'> & { avatar: string | null };
+
+export type SevenDaysTodolist = { day: string; todos: Tables<'todolist'>[] };

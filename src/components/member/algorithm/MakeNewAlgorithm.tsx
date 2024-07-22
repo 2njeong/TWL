@@ -32,8 +32,6 @@ const MakeNewAlgorithm = ({ userData }: { userData: Tables<'users'> }) => {
   const submitAlgorithmOnClient = async (data: FormData) => {
     const algorithmSubmitObj = {
       creator,
-      creator_nickname,
-      creator_avatar,
       content
     };
     const result = await submitAlgorithm(algorithmSubmitObj, data);

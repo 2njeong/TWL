@@ -33,28 +33,31 @@ const MultipleQuiz = () => {
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="w-full flex flex-col items-center gap-2">
       {candidates.map((item, idx) => (
-        <div key={item} className="flex flex-col gap-2">
-          <div className="flex gap-1 items-center w-full">
+        <div key={item} className="w-full flex flex-col items-center gap-2">
+          <div className="flex gap-1 justify-center items-center w-full">
             <input
               placeholder={`보기 ${idx + 1}`}
               name="candidates"
-              className={`${animating ? 'animate-vibration' : null} border w-10/12`}
+              className={`${animating ? 'animate-vibration' : null} border w-[80%] p-1`}
             ></input>
             <div className="flex gap-2">
-              <button formAction={() => minusInputCount(idx)}>
+              <button formAction={() => minusInputCount(idx)} className="text-red-500">
                 <MdCancel />
               </button>
               <button
                 formAction={() => handleAnswer(idx)}
-                className={`${answer && answer.includes(String(idx)) ? 'opacity-1' : 'opacity-50'}`}
+                className={`font-medium ${answer && answer.includes(String(idx)) ? 'opacity-1' : 'opacity-50'}`}
               >
                 정답
               </button>
             </div>
           </div>
-          <button className={`mx-auto ${idx + 1 < candidates.length ? 'hidden' : null}`} formAction={plusInputCount}>
+          <button
+            className={`text-lg mx-auto ${idx + 1 < candidates.length ? 'hidden' : null}`}
+            formAction={plusInputCount}
+          >
             <CiCirclePlus />
           </button>
         </div>

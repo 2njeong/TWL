@@ -9,8 +9,6 @@ export type Database = {
           content: string;
           created_at: string;
           creator: string;
-          creator_avatar: string | null;
-          creator_nickname: string | null;
           level: string;
           link: string;
           newLearn: string | null;
@@ -21,8 +19,6 @@ export type Database = {
           content: string;
           created_at?: string;
           creator?: string;
-          creator_avatar?: string | null;
-          creator_nickname?: string | null;
           level: string;
           link: string;
           newLearn?: string | null;
@@ -33,8 +29,6 @@ export type Database = {
           content?: string;
           created_at?: string;
           creator?: string;
-          creator_avatar?: string | null;
-          creator_nickname?: string | null;
           level?: string;
           link?: string;
           newLearn?: string | null;
@@ -188,6 +182,41 @@ export type Database = {
           }
         ];
       };
+      todolist: {
+        Row: {
+          created_at: string;
+          done: boolean;
+          isDeleted: boolean;
+          todo_id: string;
+          todo_item: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          done?: boolean;
+          isDeleted?: boolean;
+          todo_id?: string;
+          todo_item: string;
+          user_id?: string;
+        };
+        Update: {
+          created_at?: string;
+          done?: boolean;
+          isDeleted?: boolean;
+          todo_id?: string;
+          todo_item?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'todolist_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['user_id'];
+          }
+        ];
+      };
       users: {
         Row: {
           allowshow: boolean;
@@ -231,6 +260,34 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      get_7days_todolist: {
+        Args: {
+          kst_date: string;
+          p_user_id: string;
+        };
+        Returns: {
+          day: string;
+          todos: Json;
+        }[];
+      };
+      get_comments_with_users: {
+        Args: {
+          p_quiz_id: string;
+          p_page: number;
+          p_fetch_more_comments_num: number;
+        };
+        Returns: {
+          comment_content: string;
+          comment_creator: string;
+          comment_id: string;
+          created_at: string;
+          isDeleted: boolean;
+          quiz_id: string;
+          user_id: string;
+          avatar: string;
+          nickname: string;
+        }[];
+      };
       get_guestbook: {
         Args: {
           that_user: string;
@@ -249,6 +306,20 @@ export type Database = {
           avatar: string;
         }[];
       };
+      get_recent_algorithms_with_user: {
+        Args: {
+          p_days_ago: unknown;
+          p_limit: number;
+        };
+        Returns: {
+          algorithm_id: string;
+          creator: string;
+          title: string;
+          user_id: string;
+          user_avatar: string;
+          nickname: string;
+        }[];
+      };
       get_top_quizzes_with_comment_ids: {
         Args: {
           limit_value: number;
@@ -263,6 +334,12 @@ export type Database = {
           users: string[];
           comment_ids: string[];
         }[];
+      };
+      update_todolist: {
+        Args: {
+          todos: Json;
+        };
+        Returns: undefined;
       };
       user_id_to_quiz_like: {
         Args: {

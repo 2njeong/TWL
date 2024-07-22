@@ -1,5 +1,5 @@
 import { Tables } from '@/type/database';
-import { ExtendedGuestBook, QuizListOfThatUser } from '@/type/memberType';
+import { ExtendedGuestBook, QuizListOfThatUser, SevenDaysTodolist } from '@/type/memberType';
 
 export const fetchThatUsersQuizList = async ({
   pageParam = 1,
@@ -25,6 +25,14 @@ export const fetchThatUsersAlgorithm = async ({
   const response = await fetch(`/member/api?type=thatUsersAlgorithm&thatUser=${thatUser}&pageParam=${pageParam}`);
   if (!response.ok) {
     throw new Error('ThatUser_s algorithm response was not ok');
+  }
+  return response.json();
+};
+
+export const fetchThatUsersTodolist = async (thatUser: string): Promise<SevenDaysTodolist[]> => {
+  const response = await fetch(`/member/api?type=todolist&thatUser=${thatUser}`);
+  if (!response.ok) {
+    throw new Error('ThatUser_s todolist response was not ok');
   }
   return response.json();
 };

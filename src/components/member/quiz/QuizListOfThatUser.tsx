@@ -24,7 +24,8 @@ const QuizListOfThatUser = ({ id }: { id: string }) => {
     }
   });
 
-  if (quizListOfThatUserLoading) return <div>쥔장 quiz리스트 로딩중...</div>;
+  if (quizListOfThatUserLoading)
+    return <div className="w-full h-full flex justify-center items-center">쥔장 quiz리스트 로딩중...</div>;
   return (
     <div className="w-full h-full overflow-y-auto flex flex-col items-center gap-3 bg-white bg-opacity-80 p-2">
       {quizListOfThatUser?.map((quiz) => (

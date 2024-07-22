@@ -5,7 +5,7 @@ import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import Image from 'next/image';
 import { useFetchAlgorithm } from '@/query/useQueries/useAlgorithmQuery';
 import BallBtn from '@/components/algorithm/BallBtn';
-import { Ball } from '@/type/memberType';
+import { Ball } from '@/type/algorithmType';
 
 const AlgorithmPage = () => {
   const { data: balls, isLoading } = useFetchAlgorithm();
@@ -89,7 +89,10 @@ const AlgorithmPage = () => {
   );
 
   useEffect(() => {
+    console.log(0);
+    if (isLoading) return;
     if (treeRef.current && balls) {
+      console.log(1);
       const treeRect = treeRef.current.getBoundingClientRect();
       const points = [
         { x: treeRect.width * 0.18, y: treeRect.height * 0.65 },
@@ -138,7 +141,7 @@ const AlgorithmPage = () => {
       //  `;
       // treeElement.appendChild(rectangleLines);
     }
-  }, [treeRef.current, getRandomAppleXYArr]);
+  }, [treeRef, balls]);
 
   return (
     <div className="w-full h-full flex justify-center p-2">
@@ -148,7 +151,7 @@ const AlgorithmPage = () => {
           alt="트리 이미지"
           fill={true}
           className="object-contain"
-          sizes="(max-width: 600px) 100vw, 50vw"
+          sizes="500px"
           priority={true}
           blurDataURL="/loading_img.gif"
           placeholder="blur"
@@ -159,9 +162,9 @@ const AlgorithmPage = () => {
           </div>
         )} */}
         {apples.map((apple, index) => (
-          <button
+          <div
             key={index}
-            className={`absolute flex justify-center items-center`}
+            className={`absolute flex justify-center items-center cursor-pointer`}
             style={{
               width: `${BALLSIZE}rem`,
               height: `${BALLSIZE}rem`,
@@ -174,6 +177,7 @@ const AlgorithmPage = () => {
               src={tree_balls[index]}
               alt="tree_ball 이미지"
               fill={true}
+              sizes="500px"
               className="object-contain"
               priority={true}
               blurDataURL="/loading_img.gif"
@@ -182,7 +186,7 @@ const AlgorithmPage = () => {
             {balls && userOpenArr && userOpenArr[index] && (
               <BallBtn balls={balls} index={index} userOpenArr={userOpenArr} setUserOpenArr={setUserOpenArr} />
             )}
-          </button>
+          </div>
         ))}
       </div>
     </div>
