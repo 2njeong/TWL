@@ -69,7 +69,7 @@ const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) 
   if (isLoading) return <div>댓글 로딩중..</div>;
   return (
     <>
-      <section className="flex flex-col gap-2 w-11/12">
+      <section className="flex flex-col gap-2 w-full">
         {quizComments?.filter((comment) => !comment.isDeleted).length ? (
           quizComments?.map(
             (comment) =>
