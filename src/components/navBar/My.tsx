@@ -55,7 +55,16 @@ const My = () => {
   if (isLoading) return;
 
   return (
-    <section className="flex gap-4">
+    <section className="flex gap-4 items-center">
+      <div className="flex items-center text-green-600 text-lg">
+        <h2 className="font-semibold">T</h2>
+        <h2>oday&nbsp;</h2>
+        <h2 className="font-semibold">W</h2>
+        <h2>e&nbsp;</h2>
+        <h2 className="font-semibold">L</h2>
+        <h2>earned</h2>
+      </div>
+
       {!isLoggedIn && (
         <Link href="/auth" className="my-auto rounded-lg bg-green-300 hover:text-white px-2 py-1">
           로그인/회원가입
