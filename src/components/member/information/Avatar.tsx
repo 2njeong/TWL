@@ -9,7 +9,7 @@ import AvatarImage from './AvatarImage';
 const Avatar = ({ userFormOpen, userData }: { userFormOpen: boolean; userData: Tables<'users'> | undefined }) => {
   const imgRef = useRef(null);
   const [avatar, setAvatar] = useAtom(avatarAtom);
-  const basicAvatar = userData?.avatar || '/dog_avatar.jpg';
+  const basicAvatar = userData?.avatar || '/basic_avatar.png';
 
   const collectFile = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];

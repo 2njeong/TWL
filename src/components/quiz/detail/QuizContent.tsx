@@ -42,7 +42,7 @@ const QuizContent = ({
             <Viewer initialValue={theQuiz.content} />
           </div>
           <Editor
-            placeholder="문제를 제출해주세요."
+            placeholder="문제의 정답을 맞혀보세요."
             previewStyle="vertical"
             height="300px"
             initialEditType="wysiwyg"

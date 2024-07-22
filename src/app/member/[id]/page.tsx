@@ -9,7 +9,6 @@ import Todolist from '@/components/member/todo/Todolist';
 import { useFetchCurrentUser, useFetchThatUser } from '@/query/useQueries/useAuthQuery';
 import { useAtom } from 'jotai';
 import dynamic from 'next/dynamic';
-import { useEffect } from 'react';
 
 const AlgorithmWrapper = dynamic(() => import('@/components/member/algorithm/Algorithm'), { ssr: false });
 
