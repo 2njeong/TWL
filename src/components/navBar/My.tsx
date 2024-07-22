@@ -56,7 +56,7 @@ const My = () => {
 
   return (
     <section className="flex gap-4 items-center">
-      <div className="flex items-center text-green-600 text-lg">
+      <div className="flex items-center text-green-600 text-lg max-sm:hidden">
         <h2 className="font-semibold">T</h2>
         <h2>oday&nbsp;</h2>
         <h2 className="font-semibold">W</h2>
