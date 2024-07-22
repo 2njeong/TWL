@@ -18,8 +18,6 @@ export const metadata: Metadata = {
   icons: { icon: '/favicon.ico' }
 };
 
-console.log('ddd =>', tree_balls[Math.floor(Math.random() * 10)]);
-
 export default function RootLayout({
   children
 }: Readonly<{

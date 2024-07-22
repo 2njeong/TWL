@@ -14,6 +14,13 @@ const SocialLogin = () => {
     { name: 'github', text: 'login with github' }
   ];
 
+  const getCallbackURL = () => {
+    let url = process?.env?.NEXT_PUBLIC_SITE_URL ?? process?.env?.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000/';
+    url = url.includes('http') ? url : `https://${url}`;
+    url = url.charAt(url.length - 1) === '/' ? url : `${url}/`;
+    return `${url}/auth/callback`;
+  };
+
   const socialLoginIn = async (name: 'google' | 'github') => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: name,
@@ -22,7 +29,7 @@ const SocialLogin = () => {
           access_type: 'offline',
           prompt: 'consent'
         },
-        redirectTo: `${process.env.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000'}/auth/callback`
+        redirectTo: getCallbackURL()
       }
     });
     if (error) throw new Error(error?.message);
