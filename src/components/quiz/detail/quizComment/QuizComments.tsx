@@ -5,13 +5,13 @@ import QuizCommentForm from './QuizCommentForm';
 import { useRef } from 'react';
 import QuizCommetsList from './QuizCommetsList';
 
-const QuizComments = ({ theQuiz, user_id }: { theQuiz: Tables<'quiz'> | undefined; user_id: string | undefined }) => {
+const QuizComments = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
   const commentFormRef = useRef<HTMLFormElement | null>(null);
 
   return (
     <div className="w-full flex flex-col items-center p-2 gap-2">
       <h1 className="w-full text-left">Comments</h1>
-      <QuizCommentForm theQuiz={theQuiz} user_id={user_id} commentFormRef={commentFormRef} />
+      <QuizCommentForm theQuiz={theQuiz} commentFormRef={commentFormRef} />
       <QuizCommetsList theQuiz={theQuiz} />
     </div>
   );
