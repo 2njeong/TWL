@@ -24,6 +24,8 @@ const MakeQuiz = () => {
   const zodErrKeyArr: QuizField[] =
     quizType === '객관식' ? ['question', 'candidates', 'answer'] : ['question', 'content', 'answer'];
 
+  console.log('ddd =>', user_id);
+
   const submitQuiz = async (data: FormData) => {
     const question = data.get('question');
     if (!question) {
