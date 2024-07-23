@@ -19,10 +19,18 @@ const HoverCreator = (creatorProps: CreatorProps) => {
   return (
     <>
       {isCreatorOpen && (
-        <div className={`absolute translate-x-[30%] -translate-y-[40%] flex drop-shadow-xl z-[${ZINDEX.hoverZ}]`}>
+        <div
+          className={`absolute translate-x-[30%] -translate-y-[40%] flex drop-shadow-xl`}
+          style={{ zIndex: ZINDEX.hoverZ }}
+        >
           <div className={`w-40 h-58 bg-white bg-opacity-80 rounded-xl p-2 flex flex-col gap-2`}>
             <div className=" w-full flex items-center justify-around p-2">
-              <AvatarImage src={avatar ?? ''} alt="quiz creator" size="3" className="pointer-events-none border-2" />
+              <AvatarImage
+                src={avatar ?? '/basic_avatar.png'}
+                alt="quiz creator"
+                size="3"
+                className="pointer-events-none border-2"
+              />
               <div className="w-3/6 flex items-center justify-center">
                 <p>{nickname}</p>
               </div>

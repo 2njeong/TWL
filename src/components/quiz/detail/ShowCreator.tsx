@@ -3,14 +3,12 @@
 import AvatarImage from '@/components/member/information/AvatarImage';
 import DeleteBtn from '@/components/utilComponents/DeleteBtn';
 import HoverCreator from '@/components/utilComponents/HoverCreator';
-import { ZINDEX } from '@/constants/commonConstants';
 import { useHoverEvent } from '@/customHooks/common';
 import { QUIZLIST_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
 import { useCreatorNQuiz } from '@/query/useQueries/useQuizQuery';
 import { Tables } from '@/type/database';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 
 const ShowCreator = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
   const { quiz_id, creator } = theQuiz ?? {};
@@ -20,23 +18,6 @@ const ShowCreator = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
   } = useCreatorNQuiz(creator ?? '');
   const router = useRouter();
   const { isCreatorOpen, events } = useHoverEvent();
-  // const [isCreatorOpen, setIsCreatorOpen] = useState(false);
-
-  // const handleMouseEnter = () => {
-  //   user_id !== creatorData.user_id && setIsCreatorOpen(true);
-  // };
-
-  // const handleMouseLeave = () => {
-  //   user_id !== creatorData.user_id && setIsCreatorOpen(false);
-  // };
-
-  // const handleTouchMove = (e: React.TouchEvent<Element>) => user_id !== creatorData.user_id && setIsCreatorOpen(!!e);
-
-  // const events = () => ({
-  //   onMouseEnter: () => handleMouseEnter(),
-  //   onMouseLeave: () => handleMouseLeave(),
-  //   onTouchMove: (e: React.TouchEvent<Element>) => handleTouchMove(e)
-  // });
 
   const deleteBtnProps = {
     item: 'quiz',
