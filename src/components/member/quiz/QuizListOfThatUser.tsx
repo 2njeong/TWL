@@ -37,7 +37,7 @@ const QuizListOfThatUser = ({ id }: { id: string }) => {
             <h3 className="font-bold text-xl truncate text-green-900">Q. {quiz.question}</h3>
             <Link
               href={`/quiz/solve/${quiz.quiz_id}`}
-              className="border-2 border-green-400 hover:border-white hover:bg-green-200 rounded px-1 py-0.5"
+              className="border-2 border-green-400 hover:border-white hover:bg-green-200 rounded px-1 py-0.5 text-sm"
             >
               보러가기
             </Link>
