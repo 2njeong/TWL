@@ -9,13 +9,7 @@ import Avatar from './Avatar';
 import { useAtom } from 'jotai';
 import { avatarAtom } from '@/atom/memberAtom';
 
-const UserInfo = ({
-  thatUserData,
-  currentUser
-}: {
-  thatUserData: Tables<'users'> | undefined;
-  currentUser: Tables<'users'> | undefined;
-}) => {
+const UserInfo = ({ thatUserData, currentUser }: { thatUserData: Tables<'users'>; currentUser: Tables<'users'> }) => {
   const [userFormOpen, setUserFormOpen] = useState(false);
   const [_, setAvatar] = useAtom(avatarAtom);
   const userDataList = ['nickname', 'Github', 'Email', 'Blog'];
