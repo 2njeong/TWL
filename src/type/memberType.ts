@@ -6,6 +6,7 @@ export type UserInfoOBJ = {
   nickname: string | null;
   github: string | null;
   email: string | null;
+  blog: string | null;
   allowshow: boolean;
 };
 

@@ -48,8 +48,11 @@ const Modal = () => {
           }]
           max-h-[80vh] top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col gap-2 bg-white opacity-0 p-4 overflow-hidden`}
         >
-          <button className="w-full flex justify-end items-center" onClick={offFunc}>
-            x
+          <button
+            className="ml-auto w-6 h-6 rounded-full flex justify-center items-center hover:bg-gray-100"
+            onClick={offFunc}
+          >
+            X
           </button>
           <div className="flex flex-col gap-4 p-2 overflow-y-auto max-h-[calc(80vh-4rem)]">
             <h3 className="text-2xl font-bold">{title}</h3>

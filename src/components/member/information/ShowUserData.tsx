@@ -8,6 +8,7 @@ const ShowUserData = ({
   userDataList: string[];
   userData: Tables<'users'> | undefined;
 }) => {
+  console.log('userData =>', userData);
   return (
     <div className="w-full flex flex-col gap-2 justify-center">
       {userDataList.map((data) => (

@@ -6,7 +6,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Provider } from 'jotai';
 import NavBar from '@/components/navBar/NavBar';
 import dynamic from 'next/dynamic';
-import { tree_balls } from '@/constants/algorithmConstants';
 
 const ModalWrapper = dynamic(() => import('@/components/utilComponents/modal/Modal'), { ssr: false });
 

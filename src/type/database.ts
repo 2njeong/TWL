@@ -224,6 +224,7 @@ export type Database = {
         Row: {
           allowshow: boolean;
           avatar: string | null;
+          blog: string | null;
           created_at: string;
           email: string;
           github: string | null;
@@ -233,6 +234,7 @@ export type Database = {
         Insert: {
           allowshow?: boolean;
           avatar?: string | null;
+          blog?: string | null;
           created_at?: string;
           email: string;
           github?: string | null;
@@ -242,6 +244,7 @@ export type Database = {
         Update: {
           allowshow?: boolean;
           avatar?: string | null;
+          blog?: string | null;
           created_at?: string;
           email?: string;
           github?: string | null;
@@ -321,6 +324,20 @@ export type Database = {
           user_id: string;
           user_avatar: string;
           nickname: string;
+        }[];
+      };
+      get_top_likes_quizzes: {
+        Args: {
+          limit_value: number;
+        };
+        Returns: {
+          quiz_id: string;
+          question: string;
+          issubjective: boolean;
+          needhelp: boolean;
+          creator: string;
+          created_at: string;
+          users: string[];
         }[];
       };
       get_top_quizzes_with_comment_ids: {

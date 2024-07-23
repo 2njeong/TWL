@@ -22,13 +22,7 @@ const UpdateUserForm = ({
   const [_, setAvatar] = useAtom(avatarAtom);
 
   const getUserInfoObj = (data: FormData) => {
-    const allowshow = currentUser?.allowshow
-      ? data.get('allowshow')
-        ? false
-        : true
-      : data.get('allowshow')
-      ? true
-      : false;
+    const allowshow = currentUser?.allowshow ? !data.get('allowshow') : !!data.get('allowshow');
     const userInfoObj = userDataList.reduce(
       (acc, cur) => {
         (acc as any)[cur.toLowerCase()] =
@@ -88,7 +82,7 @@ const UpdateUserForm = ({
       id="updateUserForm"
       ref={userFormRef}
       action={updateUserInfoOnClientSide}
-      className="w-full h-full relative flex flex-col justify-center gap-3"
+      className="w-full h-full relative flex flex-col justify-center gap-2"
     >
       <div className="flex flex-col justify-center gap-2">
         {userDataList.map((data) => (
@@ -114,7 +108,7 @@ const UpdateUserForm = ({
         btnProps={{
           formId: 'updateUserForm',
           sectionClassName: 'absolute bottom-0 right-0',
-          buttonClassName: 'ml-auto',
+          buttonClassName: 'ml-auto bg-gray-100 hover:bg-gray-200 px-1 rounded-md',
           pendingText: '수정 중...',
           doneText: '수정'
         }}

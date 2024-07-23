@@ -18,7 +18,7 @@ const UserInfo = ({
 }) => {
   const [userFormOpen, setUserFormOpen] = useState(false);
   const [_, setAvatar] = useAtom(avatarAtom);
-  const userDataList = ['nickname', 'Github', 'Email'];
+  const userDataList = ['nickname', 'Github', 'Email', 'Blog'];
 
   const handleUserFormOpen = () => {
     setAvatar(null);
@@ -34,7 +34,10 @@ const UserInfo = ({
         </div>
 
         {currentUser?.user_id === thatUserData?.user_id && (
-          <button onClick={handleUserFormOpen} className="">
+          <button
+            onClick={handleUserFormOpen}
+            className={`${userFormOpen && 'bg-gray-100 hover:bg-gray-200 rounded-md px-2'}`}
+          >
             {userFormOpen ? '수정취소' : <GoGear className="text-xl" />}
           </button>
         )}
@@ -44,7 +47,7 @@ const UserInfo = ({
         userFormOpen={userFormOpen}
         userData={thatUserData?.user_id === currentUser?.user_id ? currentUser : thatUserData}
       />
-      <div className={`h-[40%] border border-4 rounded-md w-[95%] flex py-2 px-4`}>
+      <div className={`h-[40%] border border-4 rounded-md w-[95%] flex ${userFormOpen ? 'py-1' : 'py-2'} px-2`}>
         {userFormOpen ? (
           <>
             <UpdateUserForm currentUser={currentUser} userDataList={userDataList} setUserFormOpen={setUserFormOpen} />

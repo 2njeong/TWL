@@ -32,7 +32,12 @@ export const userInfoSchema = z.object({
     .string()
     .min(1, { message: '이메일을 입력해주세요.' })
     .refine((value) => /^\S*$/.test(value), { message: '이메일에 공백을 포함할 수 없습니다.' })
-    .refine((value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), { message: '올바른 이메일 형식을 입력해주세요' })
+    .refine((value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), { message: '올바른 이메일 형식을 입력해주세요' }),
+  blog: z
+    .string()
+    .url({ message: '올바른 blog 주소를 입력해주세요.' })
+    .min(1, { message: 'blog 주소를 입력해주세요' })
+    .nullable()
 });
 
 export const guestbookSchema = z.object({

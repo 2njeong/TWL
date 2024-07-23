@@ -15,8 +15,7 @@ export const useFetchCurrentUser = () => {
     queryKey: [CURRENT_USER_QUERY_KEY],
     queryFn: fetchCurrentUser,
     select: (data) => data as Tables<'users'>,
-    retry: !!alreadyUserData ? 3 : 1,
-    enabled: !alreadyUserData
+    retry: !!alreadyUserData ? 3 : 1
   });
 
   useEffect(() => {
