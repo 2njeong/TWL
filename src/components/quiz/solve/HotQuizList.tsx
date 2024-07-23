@@ -47,7 +47,7 @@ const HotQuizList = ({
               <p className="flex justify-center items-center border-2 border-gray-300 rounded w-3/12 text-sm">
                 {quiz.issubjective ? '주관식' : '객관식'}
               </p>
-              <p>{quiz.needhelp && '도움이 필요해요'}</p>
+              <p className="text-xs text-gray-500">{quiz.needhelp && '도움이 필요해요'}</p>
             </div>
             <div className="w-full flex gap-3 items-center justify-end">
               <div className="flex items-center gap-1">
