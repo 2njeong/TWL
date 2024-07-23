@@ -38,6 +38,11 @@ export const deleteItem = async (item: string, item_id: string) => {
   let itemName;
 
   switch (item) {
+    case 'quiz': {
+      tableName = 'quiz';
+      itemName = 'quiz_id';
+      break;
+    }
     case 'comments': {
       tableName = 'comments';
       itemName = 'comment_id';
@@ -47,10 +52,6 @@ export const deleteItem = async (item: string, item_id: string) => {
       tableName = 'guestbook';
       itemName = 'guestbook_id';
       break;
-    }
-    case 'quiz': {
-      tableName: 'quiz';
-      itemName: 'quiz_id';
     }
     default: {
       tableName = '';

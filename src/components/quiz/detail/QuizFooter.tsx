@@ -37,7 +37,7 @@ const QuizFooter = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
       <Suspense>
         <div className="flex gap-1 items-center">
           <LikeQuizWrapper {...likeQuizProps} />
-          <ShowCreatorWrapper creator={`${theQuiz?.creator}`} />
+          <ShowCreatorWrapper theQuiz={theQuiz} />
         </div>
       </Suspense>
     </div>

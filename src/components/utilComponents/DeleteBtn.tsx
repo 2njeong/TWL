@@ -15,6 +15,7 @@ type DelteBtnProps = {
   btnClassName?: string;
   hoverContainerClassName?: string;
   hoverBtnClassName?: string;
+  moreFunc?: any;
 };
 
 const DeleteBtn = (deleteBtnProps: DelteBtnProps) => {
@@ -27,7 +28,8 @@ const DeleteBtn = (deleteBtnProps: DelteBtnProps) => {
     btnContainerClassName,
     btnClassName,
     hoverContainerClassName,
-    hoverBtnClassName
+    hoverBtnClassName,
+    moreFunc
   } = deleteBtnProps;
   const [isCancelBtnOpen, setCancelBtnOpen] = useState(false);
   const cancelBtnRef = useRef<HTMLButtonElement | null>(null);
@@ -54,6 +56,7 @@ const DeleteBtn = (deleteBtnProps: DelteBtnProps) => {
   const handleDeleteComment = async (item_id: string) => {
     await deleteItem(item, item_id);
     queryClient.invalidateQueries({ queryKey: additionalKey ? [queryKey, ...additionalKey] : [queryKey] });
+    moreFunc();
   };
 
   return (
