@@ -124,6 +124,7 @@ export type Database = {
           content: string | null;
           created_at: string;
           creator: string;
+          isDeleted: boolean;
           isSubjective: boolean;
           needHelp: boolean;
           question: string | null;
@@ -135,6 +136,7 @@ export type Database = {
           content?: string | null;
           created_at?: string;
           creator: string;
+          isDeleted?: boolean;
           isSubjective: boolean;
           needHelp: boolean;
           question?: string | null;
@@ -146,6 +148,7 @@ export type Database = {
           content?: string | null;
           created_at?: string;
           creator?: string;
+          isDeleted?: boolean;
           isSubjective?: boolean;
           needHelp?: boolean;
           question?: string | null;

@@ -27,7 +27,6 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
   }, [theQuiz]);
 
   const checkIfRight = () => {
-    // setClickList(new Array(theQuiz?.candidates?.length).fill(false));
     if (theQuiz?.isSubjective) {
       return subjectiveAnswer === '<p><br></p>'
         ? '정답을 입력해주세요.'

@@ -48,6 +48,10 @@ export const deleteItem = async (item: string, item_id: string) => {
       itemName = 'guestbook_id';
       break;
     }
+    case 'quiz': {
+      tableName: 'quiz';
+      itemName: 'quiz_id';
+    }
     default: {
       tableName = '';
       itemName = '';

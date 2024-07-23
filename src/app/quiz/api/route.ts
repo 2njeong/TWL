@@ -13,6 +13,7 @@ export async function GET(req: NextRequest) {
       const { data, error } = await supabase
         .from('quiz')
         .select('*')
+        .eq('isDeleted', false)
         .order('created_at', { ascending: false })
         .range((page - 1) * NUMOFFETCHMOREQUIZ, page * NUMOFFETCHMOREQUIZ - 1);
       if (error) throw new Error(error.message);
@@ -25,7 +26,12 @@ export async function GET(req: NextRequest) {
     }
     case 'thatQuiz': {
       const quiz_id = searchParams.get('quiz_id') as string;
-      const { data, error } = await supabase.from('quiz').select('*').eq('quiz_id', quiz_id).single();
+      const { data, error } = await supabase
+        .from('quiz')
+        .select('*')
+        .eq('quiz_id', quiz_id)
+        .eq('isDeleted', false)
+        .single();
       if (error) throw new Error(error.message);
       return Response.json(data);
     }
