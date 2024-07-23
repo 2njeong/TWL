@@ -35,7 +35,7 @@ const HotQuizList = ({
         >
           <div className="w-full h-full p-4 flex flex-col justify-around border rounded">
             <div className="flex justify-between items-center">
-              <h1 className="text-xl font-bold">Q. {quiz.question}</h1>
+              <h1 className="text-xl font-bold truncate">Q. {quiz.question}</h1>
               <Link
                 href={`/quiz/solve/${quiz.quiz_id}`}
                 className="w-3/12 flex items-center justify-center border-2 border-green-300 rounded-full hover:bg-green-100 hover:border-none p-0.5 text-sm"
