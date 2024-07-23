@@ -69,7 +69,8 @@ const MakeQuiz = () => {
       return;
     }
 
-    quueryClient.invalidateQueries({ queryKey: [QUIZLIST_QUERY_KEY] });
+    await quueryClient.invalidateQueries({ queryKey: [QUIZLIST_QUERY_KEY] });
+    alert('문제가 등록되었습니다. 문제풀기 목록에서 확인해보세요!');
     formRef.current?.reset();
     setCandidates([1]);
     setAnswer(null);
