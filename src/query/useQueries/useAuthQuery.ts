@@ -8,14 +8,15 @@ import { useEffect } from 'react';
 
 export const useFetchCurrentUser = () => {
   const queryClient = useQueryClient();
-  const hasUserData = queryClient.getQueryData([CURRENT_USER_QUERY_KEY]);
-  const [isLoggedIn, setIsLoggedIn] = useAtom(checkLoginAtom);
+  const alreadyUserData = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]);
+  const [_, setIsLoggedIn] = useAtom(checkLoginAtom);
 
   const { data: userData, isLoading } = useQuery<Tables<'users'>>({
     queryKey: [CURRENT_USER_QUERY_KEY],
     queryFn: fetchCurrentUser,
     select: (data) => data as Tables<'users'>,
-    retry: !!hasUserData ? 3 : 1
+    retry: !!alreadyUserData ? 3 : 1,
+    enabled: !alreadyUserData
   });
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export const useFetchCurrentUser = () => {
     }
   }, [isLoading, userData, setIsLoggedIn]);
 
-  return { userData, isLoading };
+  return { userData: alreadyUserData ?? userData, isLoading };
 };
 
 export const useFetchThatUser = (thatUser: string) => {

@@ -15,8 +15,6 @@ const SelectQuizType = () => {
     setAnswer(null);
   };
 
-  console.log('quizType =>', quizType);
-
   return (
     <section className="w-full flex justify-end absolute top-0 transform -translate-y-full">
       <div className="px-1 w-32 flex relative">

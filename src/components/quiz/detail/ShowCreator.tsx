@@ -3,18 +3,16 @@
 import AvatarImage from '@/components/member/information/AvatarImage';
 import DeleteBtn from '@/components/utilComponents/DeleteBtn';
 import { ZINDEX } from '@/constants/commonConstants';
-import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 import { QUIZLIST_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
+import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
 import { useCreatorNQuiz } from '@/query/useQueries/useQuizQuery';
 import { Tables } from '@/type/database';
-import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 const ShowCreator = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
   const { quiz_id, creator } = theQuiz ?? {};
-  const queryClient = useQueryClient();
-  const { user_id } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
+  const { user_id } = useFetchCurrentUser().userData ?? {};
   const {
     data: [creatorData, quizzes]
   } = useCreatorNQuiz(creator ?? '');

@@ -10,12 +10,11 @@ import Question from './Question';
 import { useQueryClient } from '@tanstack/react-query';
 import { QUIZLIST_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 import { QuizField, MakeQuizZodErrObj } from '@/type/quizType';
-import { Tables } from '@/type/database';
-import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
+import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
 
 const MakeQuiz = () => {
   const queryClient = useQueryClient();
-  const { user_id } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
+  const { user_id } = useFetchCurrentUser().userData ?? {};
   const [candidates, setCandidates] = useAtom(candidatesAtom);
   const [contentData, setContentData] = useAtom(editorContentAtom);
   const [answer, setAnswer] = useAtom(answerAtom);
@@ -23,8 +22,6 @@ const MakeQuiz = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const zodErrKeyArr: QuizField[] =
     quizType === '객관식' ? ['question', 'candidates', 'answer'] : ['question', 'content', 'answer'];
-
-  console.log('ddd =>', user_id);
 
   const submitQuiz = async (data: FormData) => {
     const question = data.get('question');

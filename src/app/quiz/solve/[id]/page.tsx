@@ -4,18 +4,12 @@ import QuizComments from '@/components/quiz/detail/quizComment/QuizComments';
 import { useFetchThatQuiz } from '@/query/useQueries/useQuizQuery';
 import { useEffect, useState } from 'react';
 import QuizHeader from '@/components/quiz/detail/QuizHeader';
-import QuizContent from '@/components/quiz/detail/QuizContent';
 import QuizFooter from '@/components/quiz/detail/QuizFooter';
 import dynamic from 'next/dynamic';
-import { useQueryClient } from '@tanstack/react-query';
-import { Tables } from '@/type/database';
-import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 
 const QuizContentWrapper = dynamic(() => import('@/components/quiz/detail/QuizContent'), { ssr: false });
 
 const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
-  // const queryClient = useQueryClient();
-  // const { user_id, avatar } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
   const { data: theQuiz, isLoading } = useFetchThatQuiz(id);
   const [clickList, setClickList] = useState<boolean[]>([]);
   const [subjectiveAnswer, setSubjectiveAnswer] = useState('');

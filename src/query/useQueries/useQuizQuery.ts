@@ -71,8 +71,6 @@ export const useFetchTopQuizLike = () => {
     queryKey: [TOP_QUIZ_LIKE_QUERY_KEY],
     queryFn: fetchTopQuizLikes
   });
-
-  console.log('음 =>', data);
   return { data, isLoading };
 };
 

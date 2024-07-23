@@ -52,7 +52,7 @@ const My = () => {
     { text: '로그아웃', func: handleSignOut }
   ];
 
-  if (isLoading) return;
+  if (isLoading) return <div>...</div>;
 
   return (
     <section className="flex gap-4 items-center">
