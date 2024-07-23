@@ -15,13 +15,12 @@ import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 
 const MakeQuiz = () => {
   const queryClient = useQueryClient();
-  const { user_id, avatar } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
+  const { user_id } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
   const [candidates, setCandidates] = useAtom(candidatesAtom);
   const [contentData, setContentData] = useAtom(editorContentAtom);
   const [answer, setAnswer] = useAtom(answerAtom);
   const [quizType] = useAtom(quizTyper);
   const formRef = useRef<HTMLFormElement>(null);
-  const quueryClient = useQueryClient();
   const zodErrKeyArr: QuizField[] =
     quizType === '객관식' ? ['question', 'candidates', 'answer'] : ['question', 'content', 'answer'];
 
@@ -69,7 +68,7 @@ const MakeQuiz = () => {
       return;
     }
 
-    await quueryClient.invalidateQueries({ queryKey: [QUIZLIST_QUERY_KEY] });
+    await queryClient.invalidateQueries({ queryKey: [QUIZLIST_QUERY_KEY] });
     alert('문제가 등록되었습니다. 문제풀기 목록에서 확인해보세요!');
     formRef.current?.reset();
     setCandidates([1]);
