@@ -113,7 +113,7 @@ const UpdateUserForm = ({
       <SubmitBtn
         btnProps={{
           formId: 'updateUserForm',
-          sectionClasName: 'absolute bottom-0 right-0',
+          sectionClassName: 'absolute bottom-0 right-0',
           buttonClassName: 'ml-auto',
           pendingText: '수정 중...',
           doneText: '수정'
