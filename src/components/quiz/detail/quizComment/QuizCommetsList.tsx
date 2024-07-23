@@ -74,35 +74,6 @@ const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) 
                 <div key={comment.comment_id} className="w-full h-full">
                   <SingleComment comment={comment} quiz_id={theQuiz?.quiz_id} />
                 </div>
-
-                // <div key={comment.comment_id} className="flex gap-4 border-b p-2 h-full min-h-20">
-                //   <div>
-                //     <AvatarImage src={comment.avatar} alt="댓글 주인 아바타" size="3.5" />
-                //   </div>
-                //   <div className="w-full flex flex-col gap-2">
-                //     <div className="w-full flex gap-2 items-center justify-between min-h-8">
-                //       <div className="w-full flex gap-2 items-center justify-between">
-                //         <p className="text-sm text-gray-500 font-bold">@&nbsp;{comment.nickname ?? '익명의 유저'}</p>
-
-                //         {getHoursDifference(comment.created_at).hours < 48 ? (
-                //           <p className="text-xs text-gray-500">
-                //             {getHoursDifference(comment.created_at).hours > 0 &&
-                //               `${getHoursDifference(comment.created_at).hours}시간`}{' '}
-                //             {getHoursDifference(comment.created_at).minutes}분 전
-                //           </p>
-                //         ) : (
-                //           <p className="text-xs">{getformattedDate(comment.created_at)}</p>
-                //         )}
-                //       </div>
-                //       {comment.comment_creator === currentUserId && (
-                //         <DeleteBtn item_id={comment.comment_id} {...deleteBtnProps} />
-                //       )}
-                //     </div>
-                //     <div className="w-full px-2">
-                //       <p className="break-all whitespace-normal overflow-wrap"> {comment.comment_content}</p>
-                //     </div>
-                //   </div>
-                // </div>
               )
           )
         ) : (
