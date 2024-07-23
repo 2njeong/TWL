@@ -84,17 +84,19 @@ const Todos = ({ thatUserID }: { thatUserID: string }) => {
             </div>
           )
       )}
-      <div
-        className={`w-full flex justify-center items-center mt-auto text-red-500 text-xs ${
-          animating && 'animate-vibration'
-        } sticky bottom-0 shrink-0 bg-white`}
-      >
-        <p>할 일을 수정한 뒤에는 반드시&nbsp;</p>
-        <p className="flex items-center justify-center font-semibold px-1 border-2 border-red-500 rounded-lg">
-          업데이트
-        </p>
-        <p>&nbsp;버튼을 눌러주세요!</p>
-      </div>
+      {user_id === thatUserID && (
+        <div
+          className={`w-full flex justify-center items-center mt-auto text-red-500 text-xs ${
+            animating && 'animate-vibration'
+          } sticky bottom-0 shrink-0 bg-white`}
+        >
+          <p>할 일을 수정한 뒤에는 반드시&nbsp;</p>
+          <p className="flex items-center justify-center font-semibold px-1 border-2 border-red-500 rounded-lg">
+            업데이트
+          </p>
+          <p>&nbsp;버튼을 눌러주세요!</p>
+        </div>
+      )}
     </form>
   );
 };
