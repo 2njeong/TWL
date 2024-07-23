@@ -41,3 +41,9 @@ export const getTodos = (day: string, sevenDaysTodolist: SevenDaysTodolist[] | u
   const todolist = sevenDaysTodolist?.find((todolist) => todolist.day === day);
   return todolist?.todos ?? [];
 };
+
+export const openNewWindow = (creator_id: string | undefined) => {
+  const features =
+    'width=1400,height=700,resizable=yes,scrollbars=no,status=yes,toolbar=no,menubar=no,location=yes, noopener, noreferrer';
+  window.open(`/member/${creator_id}`, '_blank', features);
+};

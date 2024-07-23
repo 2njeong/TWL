@@ -156,11 +156,6 @@ const AlgorithmPage = () => {
           blurDataURL="/loading_img.gif"
           placeholder="blur"
         />
-        {/* {isLoading && (
-          <div className="h-3/6 w-full flex justify-center items-center bg-white bg-opaticy-50 absolute">
-            트리에 장식이 달리고 있어요...!
-          </div>
-        )} */}
         {apples.map((apple, index) => (
           <div
             key={index}

@@ -9,6 +9,7 @@ import { QUIZ_COMMENTS_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 import { useQueryClient } from '@tanstack/react-query';
 import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 import AvatarImage from '@/components/member/information/AvatarImage';
+import { useHoverEvent } from '@/customHooks/common';
 
 const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
   const queryClient = useQueryClient();

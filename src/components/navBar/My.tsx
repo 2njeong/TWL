@@ -8,13 +8,12 @@ import { useAtom } from 'jotai';
 import Link from 'next/link';
 import { useState } from 'react';
 import AvatarImage from '../member/information/AvatarImage';
+import { openNewWindow } from '@/utils/utilFns';
 
 const My = () => {
   const { isLoading, userData } = useFetchCurrentUser();
   const [isLoggedIn, _] = useAtom(checkLoginAtom);
   const [isMyListOpen, setMyListOpen] = useState(false);
-
-  console.log('유저 =>', userData);
 
   const handleMouse = () => {
     setMyListOpen((prev) => !prev);
@@ -41,14 +40,8 @@ const My = () => {
     location.replace('/auth');
   };
 
-  const openNewWindow = () => {
-    const features =
-      'width=1400,height=700,resizable=yes,scrollbars=no,status=yes,toolbar=no,menubar=no,location=yes, noopener, noreferrer';
-    window.open(`/member/${userData?.user_id}`, '_blank', features);
-  };
-
   const myList = [
-    { text: '내스터디', func: openNewWindow },
+    { text: '내스터디', func: () => openNewWindow(userData?.user_id) },
     { text: '로그아웃', func: handleSignOut }
   ];
 
