@@ -19,7 +19,6 @@ const HotQuizList = ({
   const queryClient = useQueryClient();
   const TopLikeQuizList = queryClient.getQueryData<TopLikesQuizList>([TOP_QUIZ_LIKE_QUERY_KEY]);
 
-  // console.log('TopLikeQuizList =>', TopLikeQuizList);
   return (
     <>
       {TopLikeQuizList?.map((quiz: TopLikesSingleQuiz, idx: number) => (
@@ -35,7 +34,7 @@ const HotQuizList = ({
         >
           <div className="w-full h-full p-4 flex flex-col justify-around border rounded">
             <div className="flex justify-between items-center">
-              <h1 className="text-xl font-bold truncate">Q. {quiz.question}</h1>
+              <h1 className="text-xl font-bold truncate w-9/12">Q. {quiz.question}</h1>
               <Link
                 href={`/quiz/solve/${quiz.quiz_id}`}
                 className="w-3/12 flex items-center justify-center border-2 border-green-300 rounded-full hover:bg-green-100 hover:border-none p-0.5 text-sm"
@@ -43,7 +42,7 @@ const HotQuizList = ({
                 click!
               </Link>
             </div>
-            <div className="flex flex-col justify-center gap-1 px-1">
+            <div className="flex justify-between gap-1 px-1">
               <p className="flex justify-center items-center border-2 border-gray-300 rounded w-3/12 text-sm">
                 {quiz.issubjective ? '주관식' : '객관식'}
               </p>

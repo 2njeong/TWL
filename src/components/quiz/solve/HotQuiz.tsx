@@ -14,8 +14,9 @@ const HotQuiz = () => {
   const movingRef = useRef({ start: 0, end: 0 });
   const { isLoading } = useFetchTopQuizLike();
   const distance = movingRef.current.start - movingRef.current.end;
-  const safeDistance = hotQuizzesRef.current[Math.min(hotQuizzesRef.current.length, Math.max(clickDown.idx - 1, 0))]
-    ?.offsetLeft as number;
+  const safeDistance =
+    (hotQuizzesRef.current[Math.min(hotQuizzesRef.current.length, Math.max(clickDown.idx - 1, 0))]
+      ?.offsetLeft as number) - 10;
 
   useEffect(() => {
     const handleMouseLeave = () => {
