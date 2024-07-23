@@ -56,7 +56,7 @@ const DeleteBtn = (deleteBtnProps: DelteBtnProps) => {
   const handleDeleteComment = async (item_id: string) => {
     await deleteItem(item, item_id);
     queryClient.invalidateQueries({ queryKey: additionalKey ? [queryKey, ...additionalKey] : [queryKey] });
-    moreFunc();
+    moreFunc && moreFunc();
   };
 
   return (
