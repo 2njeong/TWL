@@ -6,9 +6,7 @@ import { useFormStatus } from 'react-dom';
 type BtnProps = {
   formId?: string;
   disabledCondition?: boolean;
-  sectionClasName?: string;
-  sectionP?: string;
-  sectionPClassName?: string;
+  sectionClassName?: string;
   buttonClassName?: string;
   pendingText: string | ReactNode;
   doneText: string | ReactNode;
@@ -16,20 +14,10 @@ type BtnProps = {
 
 const SubmitBtn = ({ btnProps }: { btnProps: BtnProps }) => {
   const { pending } = useFormStatus();
-  const {
-    formId,
-    disabledCondition,
-    sectionClasName,
-    sectionP,
-    sectionPClassName,
-    buttonClassName,
-    pendingText,
-    doneText
-  } = btnProps;
+  const { formId, disabledCondition, sectionClassName, buttonClassName, pendingText, doneText } = btnProps;
 
   return (
-    <section className={`${sectionClasName ?? 'w-full flex justify-center'}`}>
-      {sectionP && <p className={`${sectionPClassName && sectionPClassName}`}>{sectionP}</p>}
+    <section className={`${sectionClassName ?? 'w-full flex justify-center'}`}>
       <button
         form={formId}
         disabled={disabledCondition ? disabledCondition || pending : pending}

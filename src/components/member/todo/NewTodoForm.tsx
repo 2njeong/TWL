@@ -34,7 +34,7 @@ const NewTodoForm = ({ id }: { id: string }) => {
   const btnProps = {
     formId: 'newTodoForm',
     disabledCondition: user_id !== thatUserID,
-    sectionClasName: 'flex items-center',
+    sectionClassName: 'flex items-center',
     buttonClassName: 'text-3xl cursor-pointer text-red-500 hover:text-gray-500',
     pendingText: <HiEllipsisHorizontal />,
     doneText: <CiCirclePlus />

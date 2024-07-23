@@ -34,10 +34,10 @@ const QuizListOfThatUser = ({ id }: { id: string }) => {
           className="border-2 border-dashed border-green-200 rounded drop-shadow-sm w-full max-w-[35rem] flex flex-col items-center p-4 gap-2"
         >
           <div className="w-full flex items-center justify-between">
-            <h3 className="font-bold text-xl truncate text-green-900">Q. {quiz.question}</h3>
+            <h3 className="w-[85%] font-bold text-xl truncate text-green-900">Q. {quiz.question}</h3>
             <Link
               href={`/quiz/solve/${quiz.quiz_id}`}
-              className="border-2 border-green-400 hover:border-white hover:bg-green-200 rounded px-1 py-0.5 text-sm"
+              className="border-2 border-green-400 hover:border-white hover:bg-green-200 rounded px-1 py-0.5"
             >
               보러가기
             </Link>

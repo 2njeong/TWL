@@ -8,7 +8,7 @@ import { SevenDaysTodolist } from '@/type/memberType';
 import { getToday } from '@/utils/utilFns';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAtom } from 'jotai';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { HiEllipsisHorizontal } from 'react-icons/hi2';
 import { MdCancel } from 'react-icons/md';
 
@@ -18,6 +18,13 @@ const Todos = ({ thatUserID }: { thatUserID: string }) => {
   const { user_id } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
   const sevenDaysTodolist = queryClient.getQueryData<SevenDaysTodolist[]>([TODOLIST_QUERY_KEY, thatUserID]);
   const todos = sevenDaysTodolist?.find((todolist) => todolist.day === getToday())?.todos ?? [];
+  const [animating, setAnimating] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setAnimating(false);
+    }, 300);
+  }, []);
 
   const handleTodolist = ({ e, todo_id }: { e?: ChangeEvent<HTMLInputElement>; todo_id: string }) => {
     if (user_id !== thatUserID) return;
@@ -42,10 +49,8 @@ const Todos = ({ thatUserID }: { thatUserID: string }) => {
 
   const btnProps = {
     formId: 'todosForm',
-    sectionClasName: 'w-full flex justify-between items-center sticky top-0 shrink-0 backdrop-blur-lg',
-    sectionP: '할 일을 수정한 뒤에는 반드시 업데이트 버튼을 눌러주세요!',
-    sectionPClassName: 'text-gray-500 text-xs',
-    buttonClassName: 'w-20 border rounded px-1 py-0.5 flex items-center justify-center',
+    sectionClassName: 'w-full flex justify-end items-center sticky top-0 shrink-0 backdrop-blur-lg',
+    buttonClassName: 'w-20 border rounded px-1 py-0.5 flex items-center justify-center hover:bg-gray-100',
     pendingText: <HiEllipsisHorizontal />,
     doneText: '업데이트'
   };
@@ -54,13 +59,10 @@ const Todos = ({ thatUserID }: { thatUserID: string }) => {
     <form
       id="todosForm"
       action={updateTodolist}
-      className="border-2 rounded-md w-[70%] h-full overflow-y-auto pt-1 pb-2 px-4 flex flex-col gap-1"
+      className="border-2 rounded-md w-[70%] h-full overflow-y-auto pt-1 pb-2 px-2 flex flex-col gap-1"
       style={{ paddingTop: user_id !== thatUserID ? '1.5rem' : '' }}
     >
-      <div className="w-full flex justify-between items-center">
-        {user_id === thatUserID && <SubmitBtn btnProps={btnProps} />}
-      </div>
-
+      {user_id === thatUserID && <SubmitBtn btnProps={btnProps} />}
       {todolist.map(
         (todo) =>
           !todo.isDeleted && (
@@ -72,7 +74,7 @@ const Todos = ({ thatUserID }: { thatUserID: string }) => {
                   checked={todo.done}
                   disabled={user_id !== thatUserID}
                   onChange={(e) => handleTodolist({ e, todo_id: todo.todo_id })}
-                ></input>
+                />
                 <h4>{todo.todo_item}</h4>
               </div>
               <MdCancel
@@ -82,6 +84,17 @@ const Todos = ({ thatUserID }: { thatUserID: string }) => {
             </div>
           )
       )}
+      <div
+        className={`w-full flex justify-center items-center mt-auto text-red-500 text-xs ${
+          animating && 'animate-vibration'
+        } sticky bottom-0 shrink-0 bg-white`}
+      >
+        <p>할 일을 수정한 뒤에는 반드시&nbsp;</p>
+        <p className="flex items-center justify-center font-semibold px-1 border-2 border-red-500 rounded-lg">
+          업데이트
+        </p>
+        <p>&nbsp;버튼을 눌러주세요!</p>
+      </div>
     </form>
   );
 };
