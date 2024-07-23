@@ -2,8 +2,8 @@ import Image from 'next/image';
 
 const Home = () => {
   const main1PictureArr = [
-    { text: '다른 스터디원의 문제를 풀고 댓글을 달아보세요.', img: '/main3.png' },
-    { text: '주관식, 객관식 원하는 유형의 문제를 제출해보세요.', img: '/main4.png' }
+    { text: '주관식, 객관식 원하는 유형의 문제를 제출해보세요.', img: '/main4.png' },
+    { text: '다른 스터디원의 문제를 풀고 댓글을 달아보세요.', img: '/main3.png' }
   ];
   const main2PictureArr = [
     { text: '문제와 알고리즘 풀이를 공유해요!', img: '/main1.png' },
