@@ -65,7 +65,8 @@ const NavBar = () => {
               </div>
               {nav.name === 'Quiz' && quizDropOpen && (
                 <div
-                  className={`flex flex-col justify-between gap-1 absolute w-28 h-22 bg-white top-full left-[-50%] border p-2 rounded z-[${ZINDEX.navBarZ}]`}
+                  className={`flex flex-col justify-between gap-1 absolute w-28 h-22 bg-white top-full left-[-50%] border p-2 rounded`}
+                  style={{ zIndex: ZINDEX.navBarZ }}
                 >
                   {quizNavList.map((item) => (
                     <Link

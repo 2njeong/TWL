@@ -43,10 +43,9 @@ const Modal = () => {
         <ModalBackground />
         <div
           ref={modalRef}
-          className={`min-w-[40%]  ${elementId === 'new-root' ? 'max-w-[50%]' : `max-w-[80%]`} fixed z-[${
-            ZINDEX.modalZ
-          }]
+          className={`min-w-[40%]  ${elementId === 'new-root' ? 'max-w-[50%]' : `max-w-[80%]`} fixed
           max-h-[80vh] top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col gap-2 bg-white opacity-0 p-4 overflow-hidden`}
+          style={{ zIndex: ZINDEX.modalZ }}
         >
           <button
             className="ml-auto w-6 h-6 rounded-full flex justify-center items-center hover:bg-gray-100"

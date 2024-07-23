@@ -23,8 +23,9 @@ const ModalBackground = () => {
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full h-full bg-black opacity-40 z-[${ZINDEX.modalZ - 1}]`}
+      className={`fixed top-0 left-0 w-full h-full bg-black opacity-40`}
       ref={backGroundRef}
+      style={{ zIndex: ZINDEX.modalZ - 1 }}
     >
       ModalBackground
     </div>
