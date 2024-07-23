@@ -9,7 +9,13 @@ import Avatar from './Avatar';
 import { useAtom } from 'jotai';
 import { avatarAtom } from '@/atom/memberAtom';
 
-const UserInfo = ({ thatUserData, currentUser }: { thatUserData: Tables<'users'>; currentUser: Tables<'users'> }) => {
+const UserInfo = ({
+  thatUserData,
+  currentUser
+}: {
+  thatUserData: Tables<'users'> | undefined;
+  currentUser: Tables<'users'> | undefined;
+}) => {
   const [userFormOpen, setUserFormOpen] = useState(false);
   const [_, setAvatar] = useAtom(avatarAtom);
   const userDataList = ['nickname', 'Github', 'Email', 'Blog'];
@@ -30,7 +36,7 @@ const UserInfo = ({ thatUserData, currentUser }: { thatUserData: Tables<'users'>
         {currentUser?.user_id === thatUserData?.user_id && (
           <button
             onClick={handleUserFormOpen}
-            className={`${userFormOpen && 'bg-gray-100 hover:bg-gray-200 rounded-md px-2'}`}
+            className={`${userFormOpen && 'bg-gray-100 hover:bg-gray-200 rounded-md px-2 py-0.5'}`}
           >
             {userFormOpen ? '수정취소' : <GoGear className="text-xl" />}
           </button>

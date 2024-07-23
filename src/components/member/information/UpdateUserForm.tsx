@@ -77,6 +77,14 @@ const UpdateUserForm = ({
     await resetAfterReset();
   };
 
+  const btnProps = {
+    formId: 'updateUserForm',
+    sectionClassName: 'absolute bottom-0 right-0',
+    buttonClassName: 'ml-auto bg-gray-100 hover:bg-gray-200 px-2 rounded-md',
+    pendingText: '수정 중...',
+    doneText: '수정'
+  };
+
   return (
     <form
       id="updateUserForm"
@@ -104,15 +112,7 @@ const UpdateUserForm = ({
         <p className="text-blue-600"> {currentUser?.allowshow ? '공개' : '비공개'}</p>
         <p>)</p>
       </div>
-      <SubmitBtn
-        btnProps={{
-          formId: 'updateUserForm',
-          sectionClassName: 'absolute bottom-0 right-0',
-          buttonClassName: 'ml-auto bg-gray-100 hover:bg-gray-200 px-1 rounded-md',
-          pendingText: '수정 중...',
-          doneText: '수정'
-        }}
-      />
+      <SubmitBtn btnProps={btnProps} />
     </form>
   );
 };
