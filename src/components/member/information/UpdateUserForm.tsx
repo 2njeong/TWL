@@ -52,7 +52,7 @@ const UpdateUserForm = ({
   const serverActionNAlert = async (userInfoObj: UserInfoOBJ, data: FormData) => {
     const result = await updateUserInfo(userInfoObj, data);
     if (result) {
-      alert(result.message);
+      alert(typeof result === 'string' ? result : result.message);
       return false;
     }
     return true;

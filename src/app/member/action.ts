@@ -66,14 +66,16 @@ export const updateUserInfo = async (userInfoObj: UserInfoOBJ, data: FormData) =
     const errors = result.error.errors;
     return errors[0];
   }
-  try {
-    const { error } = await supabase
-      .from('users')
-      .update({ avatar: avatarUrl, ...userObj })
-      .eq('user_id', user_id);
-    if (error) throw new Error(error.message);
-  } catch (e) {
-    throw new Error(`fail to update user Information, ${e}`);
+
+  const { error } = await supabase
+    .from('users')
+    .update({ avatar: avatarUrl, ...userObj })
+    .eq('user_id', user_id);
+  if (error) {
+    return (
+      error.message === 'duplicate key value violates unique constraint "users_nickname_key"' &&
+      '이미 존재하는 닉네임 입니다.'
+    );
   }
 };
 
