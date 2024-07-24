@@ -1,5 +1,6 @@
 export type ModalState = {
   elementId: string;
+  item?: string;
   isOpen: boolean;
   type: string;
   title: string;

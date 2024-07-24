@@ -13,10 +13,11 @@ export const modalState = atom<ModalState>({
 
 export const openModal = atom(
   (get) => get(modalState),
-  (_, set, { elementId, type, title, content, onFunc }: ModalProps) => {
+  (_, set, { elementId, item, type, title, content, onFunc }: ModalProps) => {
     set(modalState, (prev) => ({
       ...prev,
       elementId,
+      item,
       isOpen: true,
       type,
       title,

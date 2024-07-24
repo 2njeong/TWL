@@ -32,6 +32,7 @@ export const GET = async (req: NextRequest) => {
         .from('algorithm')
         .select('*')
         .eq('creator', thatUser)
+        .eq('isDeleted', false)
         .order('created_at', { ascending: false })
         .range((page - 1) * NUM_OF_FETCHMOREALGORITHM, page * NUM_OF_FETCHMOREALGORITHM - 1);
       if (error) {

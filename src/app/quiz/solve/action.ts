@@ -53,6 +53,11 @@ export const deleteItem = async (item: string, item_id: string) => {
       itemName = 'guestbook_id';
       break;
     }
+    case 'algorithm': {
+      tableName = 'algorithm';
+      itemName = 'algorithm_id';
+      break;
+    }
     default: {
       tableName = '';
       itemName = '';
@@ -66,6 +71,6 @@ export const deleteItem = async (item: string, item_id: string) => {
       throw new Error(error.message);
     }
   } catch (e) {
-    throw new Error(`fail to delete quiz comment, ${e}`);
+    throw new Error(`fail to delete item, ${e}`);
   }
 };

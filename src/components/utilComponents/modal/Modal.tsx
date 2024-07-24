@@ -11,7 +11,7 @@ import { htmlTagRegex } from '@/utils/common';
 import ModalPortal from './ModalPortal';
 
 const Modal = () => {
-  const [{ elementId, isOpen, type, title, content, onFunc, offFunc }, _] = useAtom(openModal);
+  const [{ elementId, item, isOpen, type, title, content, onFunc, offFunc }, _] = useAtom(openModal);
   const modalRef = useRef<HTMLDivElement>(null);
 
   // const transition = useTransition(isOpen, {
@@ -55,11 +55,9 @@ const Modal = () => {
           </button>
           <div className="flex flex-col gap-4 p-2 overflow-y-auto max-h-[calc(80vh-4rem)]">
             <h3 className="text-2xl font-bold">{title}</h3>
-            {elementId === 'new-root' ? (
-              // 새로운 창에서 모달 content
-              <p className="w-full h-full break-all whitespace-normal">{content}</p>
-            ) : // 원래 DOM에서의 모달 content
-            content && htmlTagRegex.test(content) ? (
+            {item === 'algorithm' ? (
+              <Viewer initialValue={content} />
+            ) : content && htmlTagRegex.test(content) ? (
               <Viewer initialValue={content} />
             ) : (
               <p className="w-full h-full break-all whitespace-normal">{content}</p>

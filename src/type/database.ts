@@ -9,6 +9,7 @@ export type Database = {
           created_at: string;
           creator: string;
           explanation: string;
+          isDeleted: boolean;
           level: string;
           link: string;
           newLearn: string;
@@ -19,6 +20,7 @@ export type Database = {
           created_at?: string;
           creator?: string;
           explanation: string;
+          isDeleted?: boolean;
           level: string;
           link: string;
           newLearn: string;
@@ -29,6 +31,7 @@ export type Database = {
           created_at?: string;
           creator?: string;
           explanation?: string;
+          isDeleted?: boolean;
           level?: string;
           link?: string;
           newLearn?: string;

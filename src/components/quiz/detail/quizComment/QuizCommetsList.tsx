@@ -52,17 +52,6 @@ const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) 
     };
   }, [handleScroll]);
 
-  // const deleteBtnProps = {
-  //   item: 'comments',
-  //   queryKey: QUIZ_COMMENTS_QUERY_KEY,
-  //   additionalKey: [theQuiz?.quiz_id as string],
-  //   containerClassName: 'w-8',
-  //   btnContainerClassName: 'w-7 h-7',
-  //   btnClassName: 'text-xl cursor-pointer',
-  //   hoverContainerClassName: 'w-14 h-7 p-1 -bottom-8 -left-6',
-  //   hoverBtnClassName: 'text-sm'
-  // };
-
   if (isLoading) return <div>댓글 로딩중..</div>;
   return (
     <>
