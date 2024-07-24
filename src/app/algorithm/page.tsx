@@ -89,10 +89,8 @@ const AlgorithmPage = () => {
   );
 
   useEffect(() => {
-    console.log(0);
     if (isLoading) return;
     if (treeRef.current && balls) {
-      console.log(1);
       const treeRect = treeRef.current.getBoundingClientRect();
       const points = [
         { x: treeRect.width * 0.18, y: treeRect.height * 0.65 },

@@ -18,7 +18,7 @@ const BallBtn = ({ balls, index, userOpenArr, setUserOpenArr }: BallBtnProps) =>
       if (btnRef) {
         if (btnRef.current && !btnRef.current.contains(event.target)) {
           const openIdx = userOpenArr?.findIndex((item) => item);
-          openIdx &&
+          openIdx !== undefined &&
             setUserOpenArr((prev) => {
               if (prev === null) return null;
               prev[openIdx] = false;
