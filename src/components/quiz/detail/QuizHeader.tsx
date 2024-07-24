@@ -1,5 +1,9 @@
+import DeleteBtn from '@/components/utilComponents/DeleteBtn';
 import OpenModalBtn from '@/components/utilComponents/modal/OpenModalBtn';
+import { QUIZLIST_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
+import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
 import { Tables } from '@/type/database';
+import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction } from 'react';
 
 const QuizHeader = ({
@@ -11,10 +15,31 @@ const QuizHeader = ({
   setClickList: Dispatch<SetStateAction<boolean[]>>;
   checkIfRight: () => string | undefined;
 }) => {
+  const { user_id } = useFetchCurrentUser().userData ?? {};
+  const router = useRouter();
+
+  const deleteBtnProps = {
+    item: 'quiz',
+    item_id: theQuiz?.quiz_id as string,
+    queryKey: QUIZLIST_QUERY_KEY,
+    containerClassName: 'w-10',
+    btnContainerClassName: 'w-8 h-8',
+    btnClassName: 'text-2xl cursor-pointer',
+    hoverContainerClassName: 'w-14 h-8 p-1 -bottom-8 -left-6',
+    hoverBtnClassName: 'text-sm',
+    moreFunc: () => {
+      alert('질문이 삭제되었습니다.');
+      router.push('/quiz/solve');
+    }
+  };
+
   return (
     <div className="w-4/5 flex flex-col gap-1">
       <div className="flex flex-col gap-2">
-        <h1 className="font-bold text-3xl">Q. {theQuiz?.question}</h1>
+        <div className="w-full flex justify-between items-center">
+          <h1 className="font-bold text-3xl">Q. {theQuiz?.question}</h1>
+          {user_id === theQuiz?.creator && <DeleteBtn {...deleteBtnProps} />}
+        </div>
         <div>
           {theQuiz && theQuiz.answer.length > 1 && (
             <h4 className="text-gray-600 text-sm">복수답변({theQuiz.answer.length}개) 질문입니다.</h4>
