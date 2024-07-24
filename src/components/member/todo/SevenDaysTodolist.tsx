@@ -18,10 +18,14 @@ const SevenDaysTodoList = ({ id }: { id: string }) => {
     setTodolist(sevenDaysTodolist?.find((todolist) => todolist.day === day)?.todos ?? []);
     setDay(day);
   };
+
   return (
     <div className="border w-full h-[35%]">
       <div className="overflow-x-auto w-full h-full flex items-center">
         <div className="flex gap-4 w-full px-4">
+          <button onClick={() => changeTodolist(getToday())} className="border-4 rounded w-48 h-20 flex-shrink-0">
+            {getToday()}
+          </button>
           {restOfTodolist.map((todolist) => (
             <button
               key={todolist.day}

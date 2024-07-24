@@ -8,11 +8,11 @@ import { dayAtom, todolistAtom } from '@/atom/memberAtom';
 import { useGetSevenDaysTodolist, useGetThatUser } from '@/customHooks/common';
 
 const TodaysTodo = ({ id }: { id: string }) => {
-  const { user_id: thatUserID } = useGetThatUser(id);
-  const sevenDaysTodolist = useGetSevenDaysTodolist(thatUserID);
-  const todos = sevenDaysTodolist?.find((todolist) => todolist.day === getToday())?.todos ?? [];
   const [day, setDay] = useAtom(dayAtom);
   const [_, setTodolist] = useAtom(todolistAtom);
+  const { user_id: thatUserID } = useGetThatUser(id);
+  const sevenDaysTodolist = useGetSevenDaysTodolist(thatUserID);
+  const todos = sevenDaysTodolist?.find((todolist) => todolist.day === day)?.todos ?? [];
 
   useEffect(() => {
     setTodolist(todos);

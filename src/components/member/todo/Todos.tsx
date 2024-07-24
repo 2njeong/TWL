@@ -1,5 +1,5 @@
 import { updateTodolistServerAction } from '@/app/member/action';
-import { todolistAtom } from '@/atom/memberAtom';
+import { dayAtom, todolistAtom } from '@/atom/memberAtom';
 import SubmitBtn from '@/components/makequiz/SubmitBtn';
 import { useGetCurrentUser, useGetSevenDaysTodolist, useGetThatUser } from '@/customHooks/common';
 import { TODOLIST_QUERY_KEY } from '@/query/member/memberQueryKey';
@@ -12,11 +12,12 @@ import { MdCancel } from 'react-icons/md';
 
 const Todos = ({ id }: { id: string }) => {
   const [todolist, setTodolist] = useAtom(todolistAtom);
+  const [day, _] = useAtom(dayAtom);
   const [animating, setAnimating] = useState(true);
   const { user_id: thatUserID } = useGetThatUser(id);
   const { user_id } = useGetCurrentUser() ?? {};
   const sevenDaysTodolist = useGetSevenDaysTodolist(thatUserID);
-  const todos = sevenDaysTodolist?.find((todolist) => todolist.day === getToday())?.todos ?? [];
+  const todos = sevenDaysTodolist?.find((todolist) => todolist.day === day)?.todos ?? [];
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -61,7 +62,7 @@ const Todos = ({ id }: { id: string }) => {
       className="border-2 rounded-md w-[70%] h-full overflow-y-auto pt-1 pb-2 px-2 flex flex-col gap-1"
       style={{ paddingTop: user_id !== thatUserID ? '1.5rem' : '' }}
     >
-      {user_id === thatUserID && <SubmitBtn btnProps={btnProps} />}
+      {user_id === thatUserID && todolist.length > 0 && <SubmitBtn btnProps={btnProps} />}
       {todolist.map(
         (todo) =>
           !todo.isDeleted && (
