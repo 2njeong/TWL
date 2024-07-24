@@ -5,20 +5,35 @@ import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '@toast-ui/editor/dist/i18n/ko-kr';
 import { submitAlgorithm } from '@/app/member/action';
-import { useEffect, useRef, useState } from 'react';
-import { useEditor } from '@/customHooks/common';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { useEditor, useGetThatUser } from '@/customHooks/common';
 import AlgorithmQuestion from './AlgorithmQuestion';
 import { useQueryClient } from '@tanstack/react-query';
 import { ALGORITHM_OF_THATUSER } from '@/query/member/memberQueryKey';
 import SubmitBtn from '@/components/makequiz/SubmitBtn';
-import { Tables } from '@/type/database';
 import { TbChristmasTree } from 'react-icons/tb';
 
-const MakeNewAlgorithm = ({ userData }: { userData: Tables<'users'> }) => {
-  const { user_id: creator, nickname: creator_nickname, avatar: creator_avatar } = userData;
+const MakeNewAlgorithm = ({
+  id,
+  setWriteNewPost
+}: {
+  id: string;
+  setWriteNewPost: Dispatch<SetStateAction<boolean>>;
+}) => {
+  const { user_id: creator } = useGetThatUser(id);
   const algorithmRef = useRef<HTMLFormElement | null>(null);
-  const [content, setContent] = useState<string | null>(null);
-  const { editorRef, handleContentResultChange, handleChangeMarkdownToWysiwyg } = useEditor(setContent);
+  const [explanation, setExplanation] = useState<string | null>(null);
+  const [newLearn, setNewLearn] = useState<string | null>(null);
+  const {
+    editorRef: explainRef,
+    handleContentResultChange: explainResultChange,
+    handleChangeMarkdownToWysiwyg: explainMarkdownToWysiwyg
+  } = useEditor(setExplanation);
+  const {
+    editorRef: newLearnRef,
+    handleContentResultChange: newLearnResultChange,
+    handleChangeMarkdownToWysiwyg: newLearnMarkdownToWysiwyg
+  } = useEditor(setNewLearn);
   const queryClient = useQueryClient();
   const inputList = [
     { title: 'Lv', name: 'level', placeholder: '문제 level' },
@@ -26,13 +41,15 @@ const MakeNewAlgorithm = ({ userData }: { userData: Tables<'users'> }) => {
   ];
 
   useEffect(() => {
-    if (!content && editorRef.current) editorRef.current.getInstance().reset();
-  }, [content, editorRef]);
+    if (!explanation && explainRef.current) explainRef.current.getInstance().reset();
+    if (!newLearn && newLearnRef.current) newLearnRef.current.getInstance().reset();
+  }, [explanation, explainRef, newLearn, newLearnRef]);
 
   const submitAlgorithmOnClient = async (data: FormData) => {
     const algorithmSubmitObj = {
       creator,
-      content
+      explanation,
+      newLearn
     };
     const result = await submitAlgorithm(algorithmSubmitObj, data);
     if (result) {
@@ -41,7 +58,9 @@ const MakeNewAlgorithm = ({ userData }: { userData: Tables<'users'> }) => {
     }
     queryClient.invalidateQueries({ queryKey: [ALGORITHM_OF_THATUSER] });
     algorithmRef.current?.reset();
-    setContent(null);
+    setExplanation(null);
+    setNewLearn(null);
+    setWriteNewPost(false);
   };
 
   return (
@@ -71,18 +90,38 @@ const MakeNewAlgorithm = ({ userData }: { userData: Tables<'users'> }) => {
             ['code', 'codeblock']
           ]}
           plugins={[colorSyntax]}
-          ref={editorRef}
-          onChange={handleContentResultChange}
-          onBeforeConvertWysiwygToMarkdown={handleChangeMarkdownToWysiwyg}
+          ref={explainRef}
+          onChange={explainResultChange}
+          onBeforeConvertWysiwygToMarkdown={explainMarkdownToWysiwyg}
         />
       </div>
       <div className="flex flex-col gap-2">
         <h2>Today I Learned...</h2>
-        <textarea
+        {/* <textarea
           name="newLearn"
           placeholder="이 문제를 통해 배운 점/ 알게된 점을 기록해보세요!"
           className="border rounded resize-none min-h-28 h-auto p-2"
-        ></textarea>
+        ></textarea> */}
+        <Editor
+          placeholder="이 문제를 통해 배운 점/ 알게된 점을 기록해보세요!"
+          previewStyle="vertical"
+          height="200px"
+          initialEditType="wysiwyg"
+          useCommandShortcut={true}
+          language="ko-KR"
+          toolbarItems={[
+            // 툴바 옵션 설정
+            ['heading', 'bold', 'italic', 'strike'],
+            ['hr', 'quote'],
+            ['ul', 'ol', 'task', 'indent', 'outdent'],
+            ['table', 'image', 'link'],
+            ['code', 'codeblock']
+          ]}
+          plugins={[colorSyntax]}
+          ref={newLearnRef}
+          onChange={newLearnResultChange}
+          onBeforeConvertWysiwygToMarkdown={newLearnMarkdownToWysiwyg}
+        />
       </div>
       <SubmitBtn
         btnProps={{

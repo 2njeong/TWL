@@ -6,32 +6,32 @@ export type Database = {
       algorithm: {
         Row: {
           algorithm_id: string;
-          content: string;
           created_at: string;
           creator: string;
+          explanation: string;
           level: string;
           link: string;
-          newLearn: string | null;
+          newLearn: string;
           title: string;
         };
         Insert: {
           algorithm_id?: string;
-          content: string;
           created_at?: string;
           creator?: string;
+          explanation: string;
           level: string;
           link: string;
-          newLearn?: string | null;
+          newLearn: string;
           title: string;
         };
         Update: {
           algorithm_id?: string;
-          content?: string;
           created_at?: string;
           creator?: string;
+          explanation?: string;
           level?: string;
           link?: string;
-          newLearn?: string | null;
+          newLearn?: string;
           title?: string;
         };
         Relationships: [

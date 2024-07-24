@@ -10,18 +10,19 @@ const supabase = serverSupabase();
 
 type SubmitAlgorithmObj = {
   creator: string;
-  content: string | null;
+  explanation: string | null;
+  newLearn: string | null;
 };
 
 export const submitAlgorithm = async (submitAlgorithmObj: SubmitAlgorithmObj, data: FormData) => {
   const level = data.get('level');
   const title = data.get('title');
   const link = data.get('link');
-  const newLearn = data.get('newLearn');
-  const { content } = submitAlgorithmObj;
+  // const newLearn = data.get('newLearn');
+  const { explanation, newLearn } = submitAlgorithmObj;
   const algorithmObj = { ...submitAlgorithmObj, level, title, link, newLearn };
 
-  const result = algorithmSchema.safeParse({ level, title, link, content });
+  const result = algorithmSchema.safeParse({ level, title, link, explanation, newLearn });
   if (!result.success) {
     const errors = result.error.errors;
     return errors[0];

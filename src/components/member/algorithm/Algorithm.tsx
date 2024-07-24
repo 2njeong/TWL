@@ -48,7 +48,7 @@ const Algorithm = ({ id }: { id: string }) => {
       <div className="h-full overflow-y-auto px-2 py-4">
         {data.user_id === currentUserID ? (
           writeNewPost ? (
-            <MakeNewAlgorithm userData={data} />
+            <MakeNewAlgorithm id={id} setWriteNewPost={setWriteNewPost} />
           ) : (
             <AlgorithmList algorithmData={algorithmData} />
           )
