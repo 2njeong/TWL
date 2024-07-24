@@ -1,3 +1,8 @@
+import { CURRENT_USER_QUERY_KEY, THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
+import { TODOLIST_QUERY_KEY } from '@/query/member/memberQueryKey';
+import { Tables } from '@/type/database';
+import { SevenDaysTodolist } from '@/type/memberType';
+import { useQueryClient } from '@tanstack/react-query';
 import { Editor } from '@toast-ui/react-editor';
 import { useRef, useState } from 'react';
 
@@ -43,4 +48,22 @@ export const useHoverEvent = () => {
   });
 
   return { isCreatorOpen, events };
+};
+
+export const useGetCurrentUser = () => {
+  const queryClient = useQueryClient();
+  const userData = queryClient.getQueryData<Tables<'users'> | undefined>([CURRENT_USER_QUERY_KEY]);
+  return userData;
+};
+
+export const useGetThatUser = (id: string) => {
+  const queryClient = useQueryClient();
+  const [data] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
+  return data;
+};
+
+export const useGetSevenDaysTodolist = (thatUserID: string) => {
+  const queryClient = useQueryClient();
+  const sevenDaysTodolist = queryClient.getQueryData<SevenDaysTodolist[]>([TODOLIST_QUERY_KEY, thatUserID]);
+  return sevenDaysTodolist;
 };

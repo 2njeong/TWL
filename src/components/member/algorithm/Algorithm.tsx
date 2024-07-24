@@ -5,15 +5,12 @@ import { useFetchThatUsersAlgorithm } from '@/query/useQueries/useMemberQuery';
 import MakeNewAlgorithm from './MakeNewAlgorithm';
 import AlgorithmList from './AlgorithmList';
 import { MdOutlineCancel } from 'react-icons/md';
-import { useQueryClient } from '@tanstack/react-query';
-import { Tables } from '@/type/database';
-import { CURRENT_USER_QUERY_KEY, THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 import { useInView } from 'react-intersection-observer';
+import { useGetCurrentUser, useGetThatUser } from '@/customHooks/common';
 
 const Algorithm = ({ id }: { id: string }) => {
-  const queryClient = useQueryClient();
-  const { user_id: currentUserID } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
-  const [data] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
+  const { user_id: currentUserID } = useGetCurrentUser() ?? {};
+  const data = useGetThatUser(id);
   const [writeNewPost, setWriteNewPost] = useState(false);
   const { algorithmData, algorithmIsLoading, hasNextPage, isFetchingNextPage, fetchNextPage } =
     useFetchThatUsersAlgorithm(data.user_id);

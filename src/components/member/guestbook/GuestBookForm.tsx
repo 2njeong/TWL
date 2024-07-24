@@ -1,8 +1,6 @@
 import React, { useRef } from 'react';
 import AvatarImage from '../information/AvatarImage';
 import { useQueryClient } from '@tanstack/react-query';
-import { Tables } from '@/type/database';
-import { CURRENT_USER_QUERY_KEY, THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 import SubmitBtn from '@/components/makequiz/SubmitBtn';
 import { submitGuestBook } from '@/app/member/action';
 import { VscSend } from 'react-icons/vsc';
@@ -10,13 +8,13 @@ import { TbCubeSend } from 'react-icons/tb';
 import { useAtom } from 'jotai';
 import { pageAtom } from '@/atom/memberAtom';
 import { GUESTBOOK_OF_THATUSER } from '@/query/member/memberQueryKey';
+import { useGetCurrentUser, useGetThatUser } from '@/customHooks/common';
 
 const GuestBookForm = ({ id }: { id: string }) => {
   const [page, _] = useAtom(pageAtom);
   const queryClient = useQueryClient();
-  const { user_id: creator, avatar } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
-  const [{ user_id: thatUserId, nickname }] =
-    queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
+  const { user_id: creator, avatar } = useGetCurrentUser() ?? {};
+  const { user_id: thatUserId, nickname } = useGetThatUser(id);
   const guestBookRef = useRef<HTMLFormElement | null>(null);
 
   // 데이터를 삭제한 뒤 추가해야 setTotalpage가 의도대로 동작할 수 있음

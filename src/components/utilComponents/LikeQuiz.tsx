@@ -4,10 +4,9 @@ import { submitQuizLike } from '@/app/quiz/solve/action';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState, useTransition } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
-import { Tables } from '@/type/database';
-import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 import { useAtom } from 'jotai';
 import { checkLoginAtom } from '@/atom/authAtom';
+import { useGetCurrentUser } from '@/customHooks/common';
 
 type LikeQuizProps = {
   quiz_id: string | undefined;
@@ -20,7 +19,7 @@ const LikeQuiz = (likeQuizProps: LikeQuizProps) => {
   const { quiz_id, creator, quizLikeUsers, queryKey } = likeQuizProps;
   const [isLoggedIn, _] = useAtom(checkLoginAtom);
   const queryClient = useQueryClient();
-  const { user_id: currentUserID } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
+  const { user_id: currentUserID } = useGetCurrentUser() ?? {};
   const [isLiked, setIsLiked] = useState(currentUserID && quizLikeUsers && quizLikeUsers.includes(currentUserID));
   const [isPending, startTransition] = useTransition();
 

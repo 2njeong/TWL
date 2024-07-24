@@ -1,7 +1,7 @@
 import DeleteBtn from '@/components/utilComponents/DeleteBtn';
 import OpenModalBtn from '@/components/utilComponents/modal/OpenModalBtn';
+import { useGetCurrentUser } from '@/customHooks/common';
 import { QUIZLIST_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
-import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
 import { Tables } from '@/type/database';
 import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction } from 'react';
@@ -15,7 +15,7 @@ const QuizHeader = ({
   setClickList: Dispatch<SetStateAction<boolean[]>>;
   checkIfRight: () => string | undefined;
 }) => {
-  const { user_id } = useFetchCurrentUser().userData ?? {};
+  const { user_id } = useGetCurrentUser() ?? {};
   const router = useRouter();
 
   const deleteBtnProps = {

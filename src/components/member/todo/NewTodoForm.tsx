@@ -3,9 +3,8 @@
 import { submitTodolist } from '@/app/member/action';
 import { dayAtom } from '@/atom/memberAtom';
 import SubmitBtn from '@/components/makequiz/SubmitBtn';
-import { CURRENT_USER_QUERY_KEY, THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
+import { useGetCurrentUser, useGetThatUser } from '@/customHooks/common';
 import { TODOLIST_QUERY_KEY } from '@/query/member/memberQueryKey';
-import { Tables } from '@/type/database';
 import { getToday } from '@/utils/utilFns';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAtom } from 'jotai';
@@ -17,8 +16,8 @@ const NewTodoForm = ({ id }: { id: string }) => {
   const [day, _] = useAtom(dayAtom);
   const todoFormRef = useRef<HTMLFormElement | null>(null);
   const queryClient = useQueryClient();
-  const { user_id } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
-  const [{ user_id: thatUserID }] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
+  const { user_id } = useGetCurrentUser() ?? {};
+  const { user_id: thatUserID } = useGetThatUser(id);
 
   const handleSubmitTodo = async (data: FormData) => {
     const boundSubmitTodolist = submitTodolist.bind(null, user_id);

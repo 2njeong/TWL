@@ -1,6 +1,5 @@
 'use client';
 
-import { ZINDEX } from '@/constants/commonConstants';
 import { TOP_QUIZ_LIKE_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 import { HotQuizDragEventHandlers, TopLikesQuizList, TopLikesSingleQuiz } from '@/type/quizType';
 import { useQueryClient } from '@tanstack/react-query';
@@ -26,7 +25,6 @@ const HotQuizList = ({
           ref={(el: any) => (hotQuizzesRef.current[idx] = el)}
           key={quiz.quiz_id}
           className={`max-sm:w-40 w-72 h-40 flex flex-col gap-2 bg-gray-100 border-2 rounded-md select-none`}
-          style={{ zIndex: ZINDEX.hotQuizZ }}
           {...{
             ...eventHandlers,
             onMouseDown: (e) => eventHandlers.onMouseDown(e, idx),

@@ -3,17 +3,13 @@
 import AvatarImage from '@/components/member/information/AvatarImage';
 import DeleteBtn from '@/components/utilComponents/DeleteBtn';
 import HoverCreator from '@/components/utilComponents/HoverCreator';
-import { useHoverEvent } from '@/customHooks/common';
-import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
+import { useGetCurrentUser, useHoverEvent } from '@/customHooks/common';
 import { QUIZ_COMMENTS_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
-import { Tables } from '@/type/database';
 import { Comment } from '@/type/quizType';
 import { getformattedDate, getHoursDifference } from '@/utils/utilFns';
-import { useQueryClient } from '@tanstack/react-query';
 
 const SingleComment = ({ comment, quiz_id }: { comment: Comment; quiz_id: string | undefined }) => {
-  const queryClient = useQueryClient();
-  const { user_id: currentUserId } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
+  const { user_id: currentUserId } = useGetCurrentUser() ?? {};
   const { isCreatorOpen, events } = useHoverEvent();
 
   const deleteBtnProps = {

@@ -1,10 +1,8 @@
 import { updateTodolistServerAction } from '@/app/member/action';
 import { todolistAtom } from '@/atom/memberAtom';
 import SubmitBtn from '@/components/makequiz/SubmitBtn';
-import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
+import { useGetCurrentUser, useGetSevenDaysTodolist, useGetThatUser } from '@/customHooks/common';
 import { TODOLIST_QUERY_KEY } from '@/query/member/memberQueryKey';
-import { Tables } from '@/type/database';
-import { SevenDaysTodolist } from '@/type/memberType';
 import { getToday } from '@/utils/utilFns';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAtom } from 'jotai';
@@ -12,13 +10,14 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { HiEllipsisHorizontal } from 'react-icons/hi2';
 import { MdCancel } from 'react-icons/md';
 
-const Todos = ({ thatUserID }: { thatUserID: string }) => {
+const Todos = ({ id }: { id: string }) => {
   const [todolist, setTodolist] = useAtom(todolistAtom);
-  const queryClient = useQueryClient();
-  const { user_id } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
-  const sevenDaysTodolist = queryClient.getQueryData<SevenDaysTodolist[]>([TODOLIST_QUERY_KEY, thatUserID]);
-  const todos = sevenDaysTodolist?.find((todolist) => todolist.day === getToday())?.todos ?? [];
   const [animating, setAnimating] = useState(true);
+  const { user_id: thatUserID } = useGetThatUser(id);
+  const { user_id } = useGetCurrentUser() ?? {};
+  const sevenDaysTodolist = useGetSevenDaysTodolist(thatUserID);
+  const todos = sevenDaysTodolist?.find((todolist) => todolist.day === getToday())?.todos ?? [];
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     setTimeout(() => {

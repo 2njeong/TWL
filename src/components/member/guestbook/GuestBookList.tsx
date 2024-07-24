@@ -1,9 +1,6 @@
 'use client';
 
-import { CURRENT_USER_QUERY_KEY, THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 import { useFetchGuestBook } from '@/query/useQueries/useMemberQuery';
-import { Tables } from '@/type/database';
-import { useQueryClient } from '@tanstack/react-query';
 import AvatarImage from '../information/AvatarImage';
 import { getformattedDate } from '@/utils/utilFns';
 import { GUESTBOOK_OF_THATUSER } from '@/query/member/memberQueryKey';
@@ -12,12 +9,12 @@ import { useAtom } from 'jotai';
 import { pageAtom } from '@/atom/memberAtom';
 import PageNation from './PageNation';
 import { useEffect } from 'react';
+import { useGetCurrentUser, useGetThatUser } from '@/customHooks/common';
 
 const GuestBookList = ({ id }: { id: string }) => {
   const [page, setPage] = useAtom(pageAtom);
-  const queryClient = useQueryClient();
-  const { user_id: creator } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
-  const [{ user_id: thatUserId }] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
+  const { user_id: creator } = useGetCurrentUser() ?? {};
+  const { user_id: thatUserId } = useGetThatUser(id);
   const { guestbookData, guestbookLoading } = useFetchGuestBook(thatUserId, page);
 
   useEffect(() => {

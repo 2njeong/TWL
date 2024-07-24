@@ -106,18 +106,19 @@ const HotQuiz = () => {
   };
 
   return (
-    <div className="w-full h-full overflow-hidden">
-      {isLoading && (
+    <div className="w-full h-full overflow-hidden bg-white bg-opacity-50 rounded">
+      {isLoading ? (
         <div className="w-full h-full flex justify-center items-center">
-          <p>인기 있는 질문들을 불러오고 있어요!</p>
+          <p className="bg-white rounded px-2">인기 있는 질문들을 불러오고 있어요!</p>
+        </div>
+      ) : (
+        <div
+          ref={containerRef}
+          className="h-full flex items-center flex-nowrap gap-6 h-64 w-max overflow-x-visible cursor-pointer px-8"
+        >
+          <HotQuizList eventHandlers={eventHandlers} hotQuizzesRef={hotQuizzesRef} />
         </div>
       )}
-      <div
-        ref={containerRef}
-        className="h-full flex items-center flex-nowrap gap-6 h-64 w-max overflow-x-visible cursor-pointer px-8 bg-white bg-opacity-50 rounded"
-      >
-        <HotQuizList eventHandlers={eventHandlers} hotQuizzesRef={hotQuizzesRef} />
-      </div>
     </div>
   );
 };

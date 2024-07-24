@@ -1,7 +1,7 @@
 'use client';
 
 import { categoryAtom } from '@/atom/memberAtom';
-import Algorithm from '@/components/member/algorithm/Algorithm';
+// import Algorithm from '@/components/member/algorithm/Algorithm';
 import GuestBook from '@/components/member/guestbook/GuestBook';
 import UserInfo from '@/components/member/information/UserInfo';
 import QuizListOfThatUser from '@/components/member/quiz/QuizListOfThatUser';
@@ -14,7 +14,7 @@ const AlgorithmWrapper = dynamic(() => import('@/components/member/algorithm/Alg
 
 const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
   const { isThatUserLoading, thatUserData } = useFetchThatUser(id);
-  const { isLoading, userData } = useFetchCurrentUser();
+  const { isLoading } = useFetchCurrentUser();
   const [theCategory, setTheCategory] = useAtom(categoryAtom);
   const categories = ['질문', '알고리즘', 'Todo', '방명록'];
 
@@ -27,7 +27,7 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
     <>
       <div className="border border-2 rounded w-full min-h-[550px] h-full max-h-[90%] flex justify-between relative">
         <section className="w-2/6 flex flex-col justify-around items-center justify-center px-4 py-2">
-          <UserInfo thatUserData={thatUserData} currentUser={userData} />
+          <UserInfo id={id} />
         </section>
         <section className="border-l-2 w-4/6 flex flex-col justify-around">
           <div className="w-full h-full overflow-y-auto px-4 py-2 flex flex-col">

@@ -1,20 +1,15 @@
 'use client';
 
 import { dayAtom, todolistAtom } from '@/atom/memberAtom';
-import { THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
-import { TODOLIST_QUERY_KEY } from '@/query/member/memberQueryKey';
-import { Tables } from '@/type/database';
-import { SevenDaysTodolist } from '@/type/memberType';
+import { useGetSevenDaysTodolist, useGetThatUser } from '@/customHooks/common';
 import { getToday } from '@/utils/utilFns';
-import { useQueryClient } from '@tanstack/react-query';
 import { useAtom, useSetAtom } from 'jotai';
 
 const SevenDaysTodoList = ({ id }: { id: string }) => {
   const setTodolist = useSetAtom(todolistAtom);
   const [_, setDay] = useAtom(dayAtom);
-  const queryClient = useQueryClient();
-  const [{ user_id: thatUserID }] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
-  const sevenDaysTodolist = queryClient.getQueryData<SevenDaysTodolist[]>([TODOLIST_QUERY_KEY, thatUserID]);
+  const { user_id: thatUserID } = useGetThatUser(id);
+  const sevenDaysTodolist = useGetSevenDaysTodolist(thatUserID);
   const restOfTodolist =
     sevenDaysTodolist?.filter((todolist) => todolist.day !== getToday()).sort((a, b) => b.day.localeCompare(a.day)) ??
     [];

@@ -1,18 +1,15 @@
 'use client';
 
 import LikeQuiz from '@/components/utilComponents/LikeQuiz';
-import { THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
+import { useGetThatUser } from '@/customHooks/common';
 import { QUIZLIST_OF_THATUSER } from '@/query/member/memberQueryKey';
 import { useFetchQuizlistOfThatUser } from '@/query/useQueries/useMemberQuery';
-import { Tables } from '@/type/database';
 import { getformattedDate } from '@/utils/utilFns';
-import { useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
 
 const QuizListOfThatUser = ({ id }: { id: string }) => {
-  const queryClient = useQueryClient();
-  const [{ user_id: thatUserID }] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
+  const { user_id: thatUserID } = useGetThatUser(id);
   const { quizListOfThatUser, hasNextPage, isFetchingNextPage, fetchNextPage, quizListOfThatUserLoading } =
     useFetchQuizlistOfThatUser(thatUserID);
 

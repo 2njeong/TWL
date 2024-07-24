@@ -1,6 +1,5 @@
 'use client';
 
-import { Tables } from '@/type/database';
 import { useState } from 'react';
 import { GoGear } from 'react-icons/go';
 import ShowUserData from './ShowUserData';
@@ -8,14 +7,11 @@ import UpdateUserForm from './UpdateUserForm';
 import Avatar from './Avatar';
 import { useAtom } from 'jotai';
 import { avatarAtom } from '@/atom/memberAtom';
+import { useGetCurrentUser, useGetThatUser } from '@/customHooks/common';
 
-const UserInfo = ({
-  thatUserData,
-  currentUser
-}: {
-  thatUserData: Tables<'users'> | undefined;
-  currentUser: Tables<'users'> | undefined;
-}) => {
+const UserInfo = ({ id }: { id: string }) => {
+  const thatUserData = useGetThatUser(id);
+  const currentUser = useGetCurrentUser();
   const [userFormOpen, setUserFormOpen] = useState(false);
   const [_, setAvatar] = useAtom(avatarAtom);
   const userDataList = ['nickname', 'Github', 'Email', 'Blog'];

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import QuizHeader from '@/components/quiz/detail/QuizHeader';
 import QuizFooter from '@/components/quiz/detail/QuizFooter';
 import dynamic from 'next/dynamic';
+import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
 
 const QuizContentWrapper = dynamic(() => import('@/components/quiz/detail/QuizContent'), { ssr: false });
 
@@ -13,6 +14,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
   const { data: theQuiz, isLoading } = useFetchThatQuiz(id);
   const [clickList, setClickList] = useState<boolean[]>([]);
   const [subjectiveAnswer, setSubjectiveAnswer] = useState('');
+  const { isLoading: userDataLoading } = useFetchCurrentUser();
 
   useEffect(() => {
     if (theQuiz) {
@@ -47,7 +49,7 @@ const DetailQuizPage = ({ params: { id } }: { params: { id: string } }) => {
     }
   };
 
-  if (isLoading) return <div>로딩중..</div>;
+  if (isLoading || userDataLoading) return <div>로딩중..</div>;
 
   return (
     <div className="w-full flex flex-col gap-4">

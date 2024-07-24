@@ -2,22 +2,17 @@
 import { getToday } from '@/utils/utilFns';
 import NewTodoForm from './NewTodoForm';
 import Todos from './Todos';
-import { useQueryClient } from '@tanstack/react-query';
-import { SevenDaysTodolist } from '@/type/memberType';
-import { TODOLIST_QUERY_KEY } from '@/query/member/memberQueryKey';
-import { Tables } from '@/type/database';
-import { THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 import { useEffect } from 'react';
 import { useAtom } from 'jotai';
 import { dayAtom, todolistAtom } from '@/atom/memberAtom';
+import { useGetSevenDaysTodolist, useGetThatUser } from '@/customHooks/common';
 
 const TodaysTodo = ({ id }: { id: string }) => {
-  const queryClient = useQueryClient();
-  const [{ user_id: thatUserID }] = queryClient.getQueryData<Tables<'users'>[]>([THAT_USER_QUERY_KEY, id]) ?? [];
-  const sevenDaysTodolist = queryClient.getQueryData<SevenDaysTodolist[]>([TODOLIST_QUERY_KEY, thatUserID]);
+  const { user_id: thatUserID } = useGetThatUser(id);
+  const sevenDaysTodolist = useGetSevenDaysTodolist(thatUserID);
   const todos = sevenDaysTodolist?.find((todolist) => todolist.day === getToday())?.todos ?? [];
   const [day, setDay] = useAtom(dayAtom);
-  const [todolist, setTodolist] = useAtom(todolistAtom);
+  const [_, setTodolist] = useAtom(todolistAtom);
 
   useEffect(() => {
     setTodolist(todos);
@@ -33,7 +28,7 @@ const TodaysTodo = ({ id }: { id: string }) => {
         <h1 className="text-lg font-semibold">Today&apos;s Todolist</h1>
         <h1>{day}</h1>
       </div>
-      <Todos thatUserID={thatUserID} />
+      <Todos id={id} />
       <NewTodoForm id={id} />
     </div>
   );

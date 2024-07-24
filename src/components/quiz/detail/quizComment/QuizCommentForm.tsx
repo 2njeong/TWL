@@ -11,8 +11,7 @@ import { QUIZ_COMMENTS_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 import { useAtom } from 'jotai';
 import { checkLoginAtom } from '@/atom/authAtom';
 import AvatarImage from '@/components/member/information/AvatarImage';
-import { CURRENT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
-import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
+import { useGetCurrentUser } from '@/customHooks/common';
 
 const QuizCommentForm = ({
   theQuiz,
@@ -27,8 +26,7 @@ const QuizCommentForm = ({
   const [commentValidationErr, setCommentValidationErr] = useState<QuizCommentValidationErr | null>(null);
   const commentTxtAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const queryClient = useQueryClient();
-  // const { user_id, avatar } = queryClient.getQueryData<Tables<'users'>>([CURRENT_USER_QUERY_KEY]) ?? {};
-  const { user_id, avatar } = useFetchCurrentUser().userData || {};
+  const { user_id, avatar } = useGetCurrentUser() ?? {};
   const [isLoggedIn, __] = useAtom(checkLoginAtom);
 
   useEffect(() => {
