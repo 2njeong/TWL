@@ -62,7 +62,7 @@ const QuizListOfThatUser = ({ id }: { id: string }) => {
                     quiz.quiz_like.users.length}
                 </h5>
               </div>
-              <h5>댓글 {quiz.comments.length}</h5>
+              <h5>댓글 {quiz.comments.filter((comment) => !comment.isDeleted).length}</h5>
             </div>
           </div>
         </div>

@@ -17,7 +17,7 @@ export type GuestBookObj = {
 
 export type QuizListOfThatUser = Tables<'quiz'> & {
   quiz_like: { users: string[] };
-  comments: string[];
+  comments: { isDeleted: boolean; comment_id: string }[];
 };
 
 export type ExtendedGuestBook = Tables<'guestbook'> & { avatar: string | null };

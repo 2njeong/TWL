@@ -16,7 +16,7 @@ export const GET = async (req: NextRequest) => {
       const thatUser = searchParams.get('thatUser');
       const { data, error } = await supabase
         .from('quiz')
-        .select('*, quiz_like(users), comments(comment_id)')
+        .select('*, quiz_like(users), comments(comment_id, isDeleted)')
         .eq('creator', thatUser)
         .order('created_at', { ascending: false })
         .range((page - 1) * NUM_OF_FETCHMOREQUIZLISTOFTHATUSER, page * NUM_OF_FETCHMOREQUIZLISTOFTHATUSER - 1);
