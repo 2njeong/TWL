@@ -35,7 +35,7 @@ const QuizFooter = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
         정답보기
       </OpenModalBtn>
       <Suspense>
-        <div className="flex gap-1 items-center">
+        <div className="flex gap-2 items-center">
           <LikeQuizWrapper {...likeQuizProps} />
           <ShowCreatorWrapper theQuiz={theQuiz} />
         </div>
