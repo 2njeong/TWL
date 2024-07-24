@@ -90,7 +90,9 @@ const Todos = ({ thatUserID }: { thatUserID: string }) => {
             animating && 'animate-vibration'
           } sticky bottom-0 shrink-0 bg-white`}
         >
-          <p>할 일을 수정한 뒤에는 반드시&nbsp;</p>
+          <p>할 일을&nbsp;</p>
+          <p className="font-semibold">수정&nbsp;</p>
+          <p>한 뒤에는 반드시&nbsp;</p>
           <p className="flex items-center justify-center font-semibold px-1 border-2 border-red-500 rounded-lg">
             업데이트
           </p>

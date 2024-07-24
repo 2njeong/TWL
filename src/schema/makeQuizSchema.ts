@@ -29,8 +29,8 @@ export const quizSchema = z.object({
   content: z
     .string()
     .refine((val) => val.replace(htmlTagRegex, '').trim().length > 0, { message: '문제의 내용을 알려주세요!' })
-    .refine((val) => val.replace(htmlTagRegex, '').trim().length >= 5, {
-      message: '문제는 최소 5자 이상이어야 합니다.'
+    .refine((val) => val.replace(htmlTagRegex, '').trim().length >= 3, {
+      message: '문제는 최소 3자 이상이어야 합니다.'
     })
     .optional()
 });
