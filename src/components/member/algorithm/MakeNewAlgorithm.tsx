@@ -28,12 +28,12 @@ const MakeNewAlgorithm = ({
     editorRef: explainRef,
     handleContentResultChange: explainResultChange,
     handleChangeMarkdownToWysiwyg: explainMarkdownToWysiwyg
-  } = useEditor(setExplanation);
+  } = useEditor({ setData: setExplanation });
   const {
     editorRef: newLearnRef,
     handleContentResultChange: newLearnResultChange,
     handleChangeMarkdownToWysiwyg: newLearnMarkdownToWysiwyg
-  } = useEditor(setNewLearn);
+  } = useEditor({ setData: setNewLearn });
   const queryClient = useQueryClient();
   const inputList = [
     { title: 'Lv', name: 'level', placeholder: '문제 level' },

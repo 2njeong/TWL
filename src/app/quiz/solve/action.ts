@@ -1,6 +1,6 @@
 'use server';
 
-import { quizCommentSchema } from '@/schema/quizCommentSchema';
+import { quizCommentSchema, updateSchema } from '@/schema/quizSchema';
 import { serverSupabase } from '@/supabase/server';
 
 const supabase = serverSupabase();
@@ -67,10 +67,37 @@ export const deleteItem = async (item: string, item_id: string) => {
   try {
     const { error } = await supabase.from(tableName).update({ isDeleted: true }).eq(itemName, item_id);
     if (error) {
-      console.error(error);
+      console.error(error.message);
       throw new Error(error.message);
     }
   } catch (e) {
     throw new Error(`fail to delete item, ${e}`);
+  }
+};
+
+export const updateContent = async (updateObj: {
+  item: string | undefined;
+  item_id: string | undefined;
+  answer: string[] | null;
+}) => {
+  const { item, item_id, answer } = updateObj;
+
+  const result = updateSchema.safeParse({ answer });
+  if (!result.success) {
+    const errors = result.error.errors;
+    return errors[0];
+  }
+
+  try {
+    const { error } = await supabase
+      .from(item as string)
+      .update({ answer })
+      .eq(`${item}_id`, item_id);
+    if (error) {
+      console.error(error.message);
+      throw new Error(error.message);
+    }
+  } catch (e) {
+    throw new Error(`fail to update item, ${e}`);
   }
 };

@@ -3,7 +3,7 @@
 import { Tables } from '@/type/database';
 import { Editor, Viewer } from '@toast-ui/react-editor';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
-import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '@toast-ui/editor/dist/i18n/ko-kr';
 import { useEditor } from '@/customHooks/common';
@@ -23,7 +23,7 @@ const QuizContent = ({
     editorRef: subjectiveAnswerRef,
     handleContentResultChange: handleSubjectiveAnswerChange,
     handleChangeMarkdownToWysiwyg: handleAnswerChangeMarkdownToWysiwyg
-  } = useEditor(setSubjectiveAnswer);
+  } = useEditor({ setData: setSubjectiveAnswer });
 
   const handleSelectCandidates = (idx: number) => {
     setClickList((prev) => {
@@ -41,8 +41,9 @@ const QuizContent = ({
             <h2 className="text-gray-400 font-semibold">문제내용</h2>
             <Viewer initialValue={theQuiz.content} />
           </div>
+
           <Editor
-            placeholder="문제의 정답을 맞혀보세요."
+            placeholder={'문제의 정답을 맞혀보세요.'}
             previewStyle="vertical"
             height="300px"
             initialEditType="wysiwyg"

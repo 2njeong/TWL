@@ -6,17 +6,17 @@ import { useQueryClient } from '@tanstack/react-query';
 import { Editor } from '@toast-ui/react-editor';
 import { useRef, useState } from 'react';
 
-export const useEditor = (setData: (data: any) => void) => {
+export const useEditor = ({ setData, type }: { setData: (data: any) => void; type?: string }) => {
   const [answerType, setAnswerType] = useState('wysiwyg');
   const editorRef = useRef<Editor>(null);
   const handleContentResultChange = () => {
     let data;
     if (answerType === 'wysiwyg') {
       data = editorRef.current?.getInstance().getHTML();
-      setData(data);
+      type === 'answer' ? setData([data]) : setData(data);
     } else {
       data = editorRef.current?.getInstance().getMarkdown();
-      setData(data);
+      type === 'answer' ? setData([data]) : setData(data);
     }
   };
   const handleChangeMarkdownToWysiwyg = () => {
