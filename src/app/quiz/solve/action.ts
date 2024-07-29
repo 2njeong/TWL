@@ -2,6 +2,7 @@
 
 import { quizCommentSchema, updateSchema } from '@/schema/quizSchema';
 import { serverSupabase } from '@/supabase/server';
+import { redirect } from 'next/navigation';
 
 const supabase = serverSupabase();
 

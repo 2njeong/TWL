@@ -19,6 +19,20 @@ export async function GET(req: NextRequest) {
       if (error) throw new Error(error.message);
       return Response.json(data);
     }
+    case 'search': {
+      const page = Number(searchParams.get('pageParam'));
+      const searchItem = searchParams.get('searchItem');
+      const { data, error } = await supabase
+        .from('quiz')
+        .select('*')
+        .eq('isDeleted', false)
+        .ilike('question', `%${searchItem}%`)
+        .order('created_at', { ascending: false })
+        .range((page - 1) * NUMOFFETCHMOREQUIZ, page * NUMOFFETCHMOREQUIZ - 1);
+      if (error) throw new Error(error.message);
+      return Response.json(data);
+    }
+
     case 'allLike': {
       const { data, error } = await supabase.rpc('get_top_quizzes_with_comment_ids', { limit_value: TOPLIKESQUIZZES });
       if (error) throw new Error(error.message);

@@ -9,6 +9,14 @@ export const fetchQuizList = async ({ pageParam = 1 }: any) => {
   return response.json();
 };
 
+export const fetchSearchedQuiz = async ({ pageParam = 1, searchItem }: { pageParam: number; searchItem: string }) => {
+  const response = await fetch(`/quiz/api?type=search&pageParam=${pageParam}&searchItem=${searchItem}`);
+  if (!response.ok) {
+    throw new Error('Searched Quiz response was not ok');
+  }
+  return response.json();
+};
+
 export const fetchthatQuiz = async (quiz_id: string) => {
   const response = await fetch(`/quiz/api?type=thatQuiz&quiz_id=${quiz_id}`);
   if (!response.ok) {

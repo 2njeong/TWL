@@ -5,12 +5,14 @@ import {
   fetchQuizList,
   fetchThisCreatorsQuiz,
   fetchthatQuiz,
-  fetchTopQuizLikes
+  fetchTopQuizLikes,
+  fetchSearchedQuiz
 } from '@/query/quiz/quizQueryFns';
 import {
   QUIZLIKE_QUERY_KEY,
   QUIZLIST_QUERY_KEY,
   QUIZ_COMMENTS_QUERY_KEY,
+  SEARCH_QUIZ_QUERY_KEY,
   THAT_QUIZ_QUERY_KEY,
   THE_QUIZ_OF_THIS_CREATOR,
   TOP_QUIZ_LIKE_QUERY_KEY
@@ -22,7 +24,7 @@ import { QUIZ_CREATOR_QUERY_KEY } from '../auth/authQueryKeys';
 import { fetchQuizCreator } from '../auth/authQueryFns';
 import { useCallback } from 'react';
 
-export const useQuizListQuery = () => {
+export const useQuizListQuery = (searchItem: string | null) => {
   const {
     data: quizList,
     isFetchingNextPage,
@@ -34,8 +36,9 @@ export const useQuizListQuery = () => {
     isRefetching,
     isLoading
   } = useInfiniteQuery({
-    queryKey: [QUIZLIST_QUERY_KEY],
-    queryFn: fetchQuizList,
+    queryKey: searchItem ? [SEARCH_QUIZ_QUERY_KEY] : [QUIZLIST_QUERY_KEY],
+    queryFn: ({ pageParam = 1 }) =>
+      searchItem ? fetchSearchedQuiz({ pageParam, searchItem }) : fetchQuizList({ pageParam }),
     initialPageParam: 1,
     getNextPageParam: (lastPage: any, _, allPages: any) => {
       if (lastPage.length >= NUMOFFETCHMOREQUIZ) {

@@ -1,11 +1,14 @@
 'use client';
 
-import OpenModalBtn from '@/components/utilComponents/modal/OpenModalBtn';
 import { useQuizListQuery } from '@/query/useQueries/useQuizQuery';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { useInView } from 'react-intersection-observer';
 
 const QuizList = () => {
+  const params = useSearchParams();
+  const searchItem = params.get('q');
+
   const {
     data: quizList,
     isFetchingNextPage,
@@ -16,10 +19,7 @@ const QuizList = () => {
     hasPreviousPage,
     isRefetching,
     isLoading
-  } = useQuizListQuery();
-
-  // console.log('quizList => ', quizList);
-  // console.log('hasNextPage =>', hasNextPage);
+  } = useQuizListQuery(searchItem);
 
   const { ref } = useInView({
     threshold: 0.5,
