@@ -20,9 +20,11 @@ const QuizSearch = () => {
   };
 
   return (
-    <form className="border w-full flex items-center gap-4 px-4 py-2" action={searchQuiz} ref={searchRef}>
-      <input className="w-full border-b border-red-500 focus:outline-none autofocus" name="search"></input>
-      <button className="w-20 border">{searchMode ? '검색취소' : '검색'}</button>
+    <form className="border rounded-md w-full flex items-center gap-4 px-4 py-2" action={searchQuiz} ref={searchRef}>
+      <input className="w-full border-b border-red-500 focus:outline-none" name="search" autoFocus></input>
+      <button className="w-20 h-7 border rounded-lg hover:bg-red-100 hover:border-none">
+        {searchMode ? '검색취소' : '검색'}
+      </button>
     </form>
   );
 };
