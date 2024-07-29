@@ -1,3 +1,4 @@
+import GoToTopBtn from '@/components/quiz/solve/GoToTopBtn';
 import HotQuiz from '@/components/quiz/solve/HotQuiz';
 import QuizList from '@/components/quiz/solve/QuizList';
 import QuizSearch from '@/components/quiz/solve/QuizSearch';
@@ -7,7 +8,8 @@ import Image from 'next/image';
 const QuizPage = () => {
   return (
     <div className="h-full flex flex-col items-center p-6 ">
-      <div className="flex flex-col gap-8 w-full">
+      <div className="flex flex-col gap-8 w-full relative">
+        <GoToTopBtn />
         <section className="w-full relative h-full min-h-72 flex justify-center items-center">
           <Image
             src="/banner3.png"
