@@ -22,8 +22,6 @@ const MakeQuiz = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const zodErrKeyArr: QuizField[] =
     quizType === '객관식' ? ['question', 'candidates', 'answer'] : ['question', 'content', 'answer'];
-  const [onUpdate, setOnUpdate] = useAtom(updateAtom);
-  console.log('makeQuizUpdate =>', onUpdate);
 
   const submitQuiz = async (data: FormData) => {
     const question = data.get('question');

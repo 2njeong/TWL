@@ -35,12 +35,10 @@ const DeleteBtn = (deleteBtnProps: DelteBtnProps) => {
     hoverBtnClassName,
     moreFunc
   } = deleteBtnProps;
-  const [onUpdate, setOnUpdate] = useAtom(updateAtom);
+  const [_, setOnUpdate] = useAtom(updateAtom);
   const [isCancelBtnOpen, setCancelBtnOpen] = useState(false);
   const cancelBtnRef = useRef<HTMLButtonElement | null>(null);
   const queryClient = useQueryClient();
-
-  console.log('onUpdate =>', onUpdate);
 
   useEffect(() => {
     const handleClickCancleBtn = (event: any) => {
@@ -61,9 +59,11 @@ const DeleteBtn = (deleteBtnProps: DelteBtnProps) => {
   }, []);
 
   const handleDelete = async (item_id: string) => {
-    await deleteItem(item, item_id);
-    queryClient.invalidateQueries({ queryKey: additionalKey ? [queryKey, ...additionalKey] : [queryKey] });
-    moreFunc && moreFunc();
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      await deleteItem(item, item_id);
+      queryClient.invalidateQueries({ queryKey: additionalKey ? [queryKey, ...additionalKey] : [queryKey] });
+      moreFunc && moreFunc();
+    }
   };
 
   const changeOnUpdate = () => {

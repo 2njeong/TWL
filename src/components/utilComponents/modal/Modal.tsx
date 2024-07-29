@@ -93,27 +93,30 @@ const Modal = () => {
             <h3 className="text-2xl font-bold">{title}</h3>
             {onUpdate ? (
               <>
-                <Editor
-                  placeholder="수정할 정답을 입력해주세요."
-                  previewStyle="vertical"
-                  height="300px"
-                  initialEditType="wysiwyg"
-                  useCommandShortcut={true}
-                  language="ko-KR"
-                  toolbarItems={[
-                    // 툴바 옵션 설정
-                    ['heading', 'bold', 'italic', 'strike'],
-                    ['hr', 'quote'],
-                    ['ul', 'ol', 'task', 'indent', 'outdent'],
-                    ['table', 'image', 'link'],
-                    ['code', 'codeblock']
-                  ]}
-                  plugins={[colorSyntax]}
-                  ref={updateContentRef}
-                  onChange={handleUpdateAnswerChange}
-                  onBeforeConvertWysiwygToMarkdown={handleUpdateAnswerChangeMarkdownToWysiwyg}
-                />
-                <div className="w-full flex flex-col gap-2">
+                <div className="w-full max-h-72">
+                  <Editor
+                    placeholder="수정할 정답을 입력해주세요."
+                    previewStyle="vertical"
+                    height="300px"
+                    initialEditType="wysiwyg"
+                    useCommandShortcut={true}
+                    language="ko-KR"
+                    toolbarItems={[
+                      // 툴바 옵션 설정
+                      ['heading', 'bold', 'italic', 'strike'],
+                      ['hr', 'quote'],
+                      ['ul', 'ol', 'task', 'indent', 'outdent'],
+                      ['table', 'image', 'link'],
+                      ['code', 'codeblock']
+                    ]}
+                    plugins={[colorSyntax]}
+                    ref={updateContentRef}
+                    onChange={handleUpdateAnswerChange}
+                    onBeforeConvertWysiwygToMarkdown={handleUpdateAnswerChangeMarkdownToWysiwyg}
+                  />
+                </div>
+
+                <div className="w-full flex flex-col gap-2 h-full max-h-40">
                   <h2 className="text-lg font-semibold text-gray-600">이전 내용</h2>
                   <Viewer initialValue={content} />
                 </div>
@@ -127,20 +130,21 @@ const Modal = () => {
             )}
           </div>
           <div className="flex gap-3 justify-end">
-            {onUpdate && (
+            {onUpdate ? (
               <button onClick={handleSubmitUpdateContent} className="hover:bg-gray-100 rounded-md px-2">
                 수정하기
               </button>
+            ) : (
+              <button
+                onClick={() => {
+                  onFunc();
+                  cancelModal();
+                }}
+                className="hover:bg-gray-100 rounded-md px-2"
+              >
+                확인
+              </button>
             )}
-            <button
-              onClick={() => {
-                onFunc();
-                cancelModal();
-              }}
-              className="hover:bg-gray-100 rounded-md px-2"
-            >
-              확인
-            </button>
             {type === 'alert' ? null : <button onClick={cancelModal}>취소</button>}
           </div>
         </div>
