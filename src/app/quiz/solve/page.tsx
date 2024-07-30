@@ -8,7 +8,7 @@ import Image from 'next/image';
 const QuizPage = () => {
   return (
     <div className="h-full flex flex-col items-center p-6 ">
-      <div className="flex flex-col gap-8 w-full relative">
+      <div className="flex flex-col gap-6 w-full relative">
         <GoToTopBtn />
         <section className="w-full relative h-72 max-sm:h-56 flex justify-center items-center">
           <Image

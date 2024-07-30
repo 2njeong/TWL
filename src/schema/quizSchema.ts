@@ -8,11 +8,11 @@ export const updateSchema = z.object({
     z
       .array(
         z.string().refine((val) => val.replace(htmlTagRegex, '').trim().length > 0, {
-          message: '정답란에 정답을 입력해주세요.'
+          message: '수정할 내용을 입력해주세요.'
         })
       )
       .nonempty({
-        message: '정답을 알려주세요. 도움이 필요한 질문이라도 예상하는 답변을 남겨주세요!'
+        message: '수정할 내용은 빈 칸일 수 없습니다'
       })
   )
 });
