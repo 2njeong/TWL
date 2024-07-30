@@ -10,7 +10,7 @@ const QuizPage = () => {
     <div className="h-full flex flex-col items-center p-6 ">
       <div className="flex flex-col gap-8 w-full relative">
         <GoToTopBtn />
-        <section className="w-full relative h-full min-h-72 flex justify-center items-center">
+        <section className="w-full relative h-72 max-sm:h-56 flex justify-center items-center">
           <Image
             src="/banner3.png"
             alt="질문 배너"
@@ -26,7 +26,7 @@ const QuizPage = () => {
         </section>
         <QuizSearch />
         <section className="w-full flex flex-col gap-2">
-          <h1 className="text-3xl font-bold">Quiz List</h1>
+          <h1 className="text-3xl max-sm:text-2xl font-bold">Quiz List</h1>
           <QuizList />
         </section>
       </div>

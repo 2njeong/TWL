@@ -24,7 +24,7 @@ const HotQuizList = ({
         <div
           ref={(el: any) => (hotQuizzesRef.current[idx] = el)}
           key={quiz.quiz_id}
-          className={`max-sm:w-40 w-72 h-40 flex flex-col gap-2 bg-gray-100 border-2 rounded-md select-none`}
+          className={`max-sm:w-52 w-72 h-40 flex flex-col gap-2 bg-gray-100 border-2 rounded-md select-none`}
           {...{
             ...eventHandlers,
             onMouseDown: (e) => eventHandlers.onMouseDown(e, idx),
@@ -33,7 +33,7 @@ const HotQuizList = ({
         >
           <div className="w-full h-full p-4 flex flex-col justify-around border rounded">
             <div className="flex justify-between items-center">
-              <h1 className="text-xl font-bold truncate w-9/12">Q. {quiz.question}</h1>
+              <h1 className="text-xl max-sm:lg font-bold truncate w-9/12">Q. {quiz.question}</h1>
               <Link
                 href={`/quiz/solve/${quiz.quiz_id}`}
                 className="w-3/12 flex items-center justify-center border-2 border-green-300 rounded-full hover:bg-green-100 hover:border-none p-0.5 text-sm"
@@ -42,7 +42,7 @@ const HotQuizList = ({
               </Link>
             </div>
             <div className="flex justify-between gap-1 px-1">
-              <p className="flex justify-center items-center border-2 border-gray-300 rounded w-3/12 text-sm">
+              <p className="flex justify-center items-center border-2 border-gray-300 rounded w-16 text-sm ">
                 {quiz.issubjective ? '주관식' : '객관식'}
               </p>
               <p className="text-xs text-gray-500">{quiz.needhelp && '도움이 필요해요'}</p>
