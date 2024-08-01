@@ -26,7 +26,7 @@ const GoToTopBtn = () => {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-7 right-4 bg-green-300 text-white p-3 rounded-full shadow-md transition-opacity ${
+      className={`fixed bottom-12 right-16 w-16 h-16 bg-green-300 text-white p-3 rounded-full shadow-md transition-opacity ${
         isVisible ? 'opacity-100' : 'opacity-0'
       }`}
     >
