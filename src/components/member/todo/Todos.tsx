@@ -75,7 +75,7 @@ const Todos = ({ id }: { id: string }) => {
                   disabled={user_id !== thatUserID}
                   onChange={(e) => handleTodolist({ e, todo_id: todo.todo_id })}
                 />
-                <h4>{todo.todo_item}</h4>
+                <h4 className={todo.done ? 'text-gray-400' : ''}>{todo.todo_item}</h4>
               </div>
               <MdCancel
                 className="cursor-pointer text-gray-400 hover:text-gray-300"
