@@ -3,7 +3,7 @@
 import { openModal } from '@/atom/modalAtom';
 import { useAtom } from 'jotai';
 import ModalBackground from './ModalBackground';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useTransition } from 'react';
 // import { animated, useTransition } from '@react-spring/web';
 import { ZINDEX } from '@/constants/commonConstants';
 import { Editor, Viewer } from '@toast-ui/react-editor';
@@ -16,6 +16,7 @@ import '@toast-ui/editor/dist/i18n/ko-kr';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import { updateContent } from '@/app/quiz/solve/action';
 import { useQueryClient } from '@tanstack/react-query';
+import { TbCubeSend } from 'react-icons/tb';
 
 const Modal = () => {
   const [{ elementId, item, item_id, updateItem, queryKey, isOpen, type, title, content, onFunc, offFunc }, _] =
@@ -29,6 +30,7 @@ const Modal = () => {
     handleChangeMarkdownToWysiwyg: handleUpdateAnswerChangeMarkdownToWysiwyg
   } = useEditor({ setData: setUpdatedContent, type: 'answer' });
   const queryClient = useQueryClient();
+  const [isPending, startTransition] = useTransition();
   // const transition = useTransition(isOpen, {
   //   from: { opacity: 0, transform: 'translate3d(-50%, -60%, 0)' },
   //   enter: { opacity: 1, transform: 'translate3d(-50%, -50%, 0)' },
@@ -57,14 +59,17 @@ const Modal = () => {
       updateItem,
       updatedContent
     };
-    const result = await updateContent(updateObj);
-    if (result) {
-      alert(result.message);
-      return;
-    }
-    await queryClient.invalidateQueries({ queryKey });
-    cancelModal();
-    alert('수정이 완료되었습니다.');
+    startTransition(async () => {
+      const result = await updateContent(updateObj);
+      if (result) {
+        alert(result.message);
+        return;
+      }
+
+      await queryClient.invalidateQueries({ queryKey });
+      cancelModal();
+      alert('수정이 완료되었습니다.');
+    });
   };
 
   const cancelModal = () => {
@@ -137,8 +142,12 @@ const Modal = () => {
           </div>
           <div className="flex gap-3 justify-end">
             {onUpdate.item_id === item_id && onUpdate.update ? (
-              <button onClick={handleSubmitUpdateContent} className="hover:bg-gray-100 rounded-md px-2">
-                수정하기
+              <button
+                onClick={handleSubmitUpdateContent}
+                disabled={isPending}
+                className="hover:bg-gray-100 rounded-md px-2"
+              >
+                {isPending ? <TbCubeSend /> : '수정하기'}
               </button>
             ) : (
               <button

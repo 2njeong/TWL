@@ -24,7 +24,6 @@ const SingleAlgorithm = ({ item }: { item: Tables<'algorithm'> }) => {
     hoverContainerClassName: 'w-14 h-14 p-1 -bottom-14 -left-6 flex flex-col items-center gap-1',
     hoverBtnClassName: 'text-sm'
   };
-  console.log('onUpdate =>', onUpdate);
   return (
     <div
       key={item.algorithm_id}
