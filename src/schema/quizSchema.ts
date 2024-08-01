@@ -2,7 +2,7 @@ import { htmlTagRegex } from '@/utils/common';
 import { z } from 'zod';
 
 export const updateSchema = z.object({
-  answer: z.preprocess(
+  updatedContent: z.preprocess(
     // 주관식 answer 유효성 검사
     (val) => (val === null ? [] : val), // 아무것도 제출하지 않았을 때, null 값을 빈 배열로 변환
     z
@@ -12,7 +12,7 @@ export const updateSchema = z.object({
         })
       )
       .nonempty({
-        message: '수정할 내용은 빈 칸일 수 없습니다'
+        message: '변경된 내용이 없습니다. 이전과 같은 내용이라면 이전내용을 복사해주세요.'
       })
   )
 });

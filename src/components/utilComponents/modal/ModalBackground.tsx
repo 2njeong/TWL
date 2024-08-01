@@ -3,7 +3,7 @@ import { ZINDEX } from '@/constants/commonConstants';
 import { useAtom } from 'jotai';
 import { useEffect, useRef } from 'react';
 
-const ModalBackground = () => {
+const ModalBackground = ({ cancelModal }: { cancelModal: () => void }) => {
   const [{ offFunc }, _] = useAtom(openModal);
   const backGroundRef = useRef<HTMLDivElement>(null);
 
@@ -12,14 +12,14 @@ const ModalBackground = () => {
     if (!backGroundRefElement) return;
 
     const handleModalClose = () => {
-      offFunc?.();
+      cancelModal();
     };
     backGroundRefElement.addEventListener('click', handleModalClose);
 
     return () => {
       backGroundRefElement.removeEventListener('click', handleModalClose);
     };
-  }, [offFunc]);
+  }, [cancelModal]);
 
   return (
     <div

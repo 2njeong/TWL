@@ -4,7 +4,7 @@ import ReturnQuizType from './ReturnQuizType';
 import { useAtom } from 'jotai';
 import { submitQuizAction } from '@/app/quiz/makequiz/action';
 import { useRef } from 'react';
-import { answerAtom, editorContentAtom, candidatesAtom, quizTyper, updateAtom } from '@/atom/quizAtom';
+import { answerAtom, editorContentAtom, candidatesAtom, quizTyper } from '@/atom/quizAtom';
 import SubmitBtn from './SubmitBtn';
 import Question from './Question';
 import { useQueryClient } from '@tanstack/react-query';

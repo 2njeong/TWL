@@ -2,6 +2,7 @@ export type ModalState = {
   elementId: string;
   item?: string;
   item_id?: string | undefined;
+  updateItem?: string;
   queryKey?: (string | undefined)[];
   isOpen: boolean;
   type: string;

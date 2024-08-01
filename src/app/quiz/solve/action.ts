@@ -79,24 +79,45 @@ export const deleteItem = async (item: string, item_id: string) => {
 export const updateContent = async (updateObj: {
   item: string | undefined;
   item_id: string | undefined;
-  answer: string[] | null;
+  updateItem: string | undefined;
+  updatedContent: string[] | null;
 }) => {
-  const { item, item_id, answer } = updateObj;
+  const { item, item_id, updateItem, updatedContent } = updateObj;
 
-  const result = updateSchema.safeParse({ answer });
+  const result = updateSchema.safeParse({ updatedContent });
   if (!result.success) {
     const errors = result.error.errors;
     return errors[0];
   }
 
   try {
-    const { error } = await supabase
-      .from(item as string)
-      .update({ answer })
-      .eq(`${item}_id`, item_id);
-    if (error) {
-      console.error(error.message);
-      throw new Error(error.message);
+    switch (item) {
+      case 'quiz': {
+        const { error } = await supabase
+          .from(item as string)
+          .update({ answer: updatedContent })
+          .eq(`${item}_id`, item_id);
+        if (error) {
+          console.error(error.message);
+          throw new Error(error.message);
+        }
+        break;
+      }
+      case 'algorithm': {
+        if (updateItem) {
+          const { error } = await supabase
+            .from(item as string)
+            .update({ [updateItem]: updatedContent?.join() })
+            .eq(`${item}_id`, item_id);
+          if (error) {
+            console.error(error.message);
+            throw new Error(error.message);
+          }
+          break;
+        }
+      }
+      default:
+        return;
     }
   } catch (e) {
     throw new Error(`fail to update item, ${e}`);

@@ -18,7 +18,8 @@ import { updateContent } from '@/app/quiz/solve/action';
 import { useQueryClient } from '@tanstack/react-query';
 
 const Modal = () => {
-  const [{ elementId, item, item_id, queryKey, isOpen, type, title, content, onFunc, offFunc }, _] = useAtom(openModal);
+  const [{ elementId, item, item_id, updateItem, queryKey, isOpen, type, title, content, onFunc, offFunc }, _] =
+    useAtom(openModal);
   const modalRef = useRef<HTMLDivElement>(null);
   const [onUpdate, setOnUpdate] = useAtom(updateAtom);
   const [updatedContent, setUpdatedContent] = useAtom(updateContentAtom);
@@ -53,7 +54,8 @@ const Modal = () => {
     const updateObj = {
       item,
       item_id,
-      answer: updatedContent
+      updateItem,
+      updatedContent
     };
     const result = await updateContent(updateObj);
     if (result) {
@@ -66,7 +68,11 @@ const Modal = () => {
   };
 
   const cancelModal = () => {
-    setOnUpdate(false);
+    setOnUpdate((prev) => ({
+      ...prev,
+      item_id: '',
+      update: false
+    }));
     setUpdatedContent(null);
     offFunc?.();
   };
@@ -76,7 +82,7 @@ const Modal = () => {
   return (
     <>
       <ModalPortal>
-        <ModalBackground />
+        <ModalBackground cancelModal={cancelModal} />
         <div
           ref={modalRef}
           className={`min-w-[40%]  ${elementId === 'new-root' ? 'max-w-[50%]' : `max-w-[80%]`} fixed
@@ -91,11 +97,11 @@ const Modal = () => {
           </button>
           <div className="flex flex-col gap-4 p-2 overflow-y-auto max-h-[calc(80vh-4rem)]">
             <h3 className="text-2xl font-bold">{title}</h3>
-            {onUpdate ? (
+            {onUpdate.item_id === item_id && onUpdate.update ? (
               <>
                 <div className="w-full max-h-72">
                   <Editor
-                    placeholder="수정할 정답을 입력해주세요."
+                    placeholder="수정할 내용을 입력해주세요."
                     previewStyle="vertical"
                     height="300px"
                     initialEditType="wysiwyg"
@@ -130,7 +136,7 @@ const Modal = () => {
             )}
           </div>
           <div className="flex gap-3 justify-end">
-            {onUpdate ? (
+            {onUpdate.item_id === item_id && onUpdate.update ? (
               <button onClick={handleSubmitUpdateContent} className="hover:bg-gray-100 rounded-md px-2">
                 수정하기
               </button>

@@ -32,7 +32,7 @@ const QuizFooter = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
           item: 'quiz',
           item_id: theQuiz?.quiz_id,
           queryKey: [THAT_QUIZ_QUERY_KEY, theQuiz?.quiz_id],
-          title: onUpdate ? '수정할 정답은..' : '정답은',
+          title: onUpdate.update ? '수정할 정답은..' : '정답은',
           content: theQuiz?.isSubjective
             ? theQuiz.answer[0]
             : `보기 ${theQuiz?.answer.map((item: string) => Number(item) + 1).join(', ')}번 입니다.`

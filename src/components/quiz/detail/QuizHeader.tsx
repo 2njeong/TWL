@@ -24,7 +24,7 @@ const QuizHeader = ({
   const deleteBtnProps = {
     item: 'quiz',
     item_id: theQuiz?.quiz_id as string,
-    type: 'plusModify',
+    type: '+update',
     queryKey: QUIZLIST_QUERY_KEY,
     containerClassName: 'w-10',
     btnContainerClassName: 'w-8 h-8',
@@ -57,7 +57,7 @@ const QuizHeader = ({
       </div>
 
       <div className="w-full flex justify-end items-center">
-        {onUpdate ? (
+        {onUpdate.item_id === theQuiz?.quiz_id && onUpdate.update ? (
           <h2 className="text-lg text-gray-600">정답보기를 눌러서 정답을 수정해주세요!</h2>
         ) : (
           <OpenModalBtn

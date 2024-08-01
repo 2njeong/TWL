@@ -67,7 +67,11 @@ const DeleteBtn = (deleteBtnProps: DelteBtnProps) => {
   };
 
   const changeOnUpdate = () => {
-    setOnUpdate((prev) => !prev);
+    setOnUpdate((prev) => ({
+      ...prev,
+      item_id: item_id,
+      update: !prev.update
+    }));
   };
 
   return (
@@ -86,7 +90,7 @@ const DeleteBtn = (deleteBtnProps: DelteBtnProps) => {
           >
             삭제
           </button>
-          {type === 'plusModify' && (
+          {type === '+update' && (
             <button
               className={`hover:bg-gray-200 hover:w-[90%] rounded ${hoverBtnClassName || ''}`}
               onClick={changeOnUpdate}
