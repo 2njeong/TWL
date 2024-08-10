@@ -1,3 +1,4 @@
+import IntroSlide from '@/components/mainPage/IntroSlide';
 import Image from 'next/image';
 
 const Home = () => {
@@ -11,7 +12,7 @@ const Home = () => {
   ];
   return (
     <div className="flex gap-4 w-full h-[calc(100vh-5rem)]">
-      <div className="h-full w-1/3 relative">
+      <div className="h-full w-96 relative">
         <Image
           src="/mainTree.jpg"
           alt="메인트리 이미지"
@@ -23,7 +24,8 @@ const Home = () => {
           placeholder="blur"
         />
       </div>
-      <div className="h-full w-[40%] flex flex-col gap-2">
+      <IntroSlide />
+      {/* <div className="h-full w-[40%] flex flex-col gap-2">
         {main1PictureArr.map((picture) => (
           <div key={picture.img} className="relative h-1/2 w-full flex flex-col gap-2">
             <h2 className="font-semibold text-gray-500">{picture.text}</h2>
@@ -39,8 +41,8 @@ const Home = () => {
             />
           </div>
         ))}
-      </div>
-      <div className="h-full w-[40%] flex flex-col gap-2">
+      </div> */}
+      {/* <div className="h-full w-[40%] flex flex-col gap-2">
         {main2PictureArr.map((picture) => (
           <div key={picture.img} className="relative h-1/2 w-full flex flex-col gap-2">
             <h2 className="font-semibold text-gray-500">{picture.text}</h2>
@@ -56,7 +58,7 @@ const Home = () => {
             />
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };
