@@ -29,7 +29,6 @@ export async function GET(req: NextRequest) {
       const creator = searchParams.get('creator');
       const { data, error } = await supabase.from('users').select('*').eq('user_id', creator);
       if (error) {
-        console.log('quizCreator error =>', error.message);
         throw new Error(error.message);
       }
       return Response.json(data);
@@ -38,7 +37,6 @@ export async function GET(req: NextRequest) {
       const thatUser = searchParams.get('thatUser');
       const { data, error } = await supabase.from('users').select('*').eq('user_id', thatUser);
       if (error) {
-        console.log('thatUser error =>', error);
         throw new Error(error.message);
       }
       return Response.json(data);
@@ -47,7 +45,6 @@ export async function GET(req: NextRequest) {
       const currentUserId = searchParams.get('currentUserId');
       const { data, error } = await supabase.rpc('get_unread_comments_by_quiz', { currentuserid: currentUserId });
       if (error) {
-        console.log('quizCommentsAlarm error =>', error);
         throw new Error(error.message);
       }
       return Response.json(data);
@@ -56,17 +53,25 @@ export async function GET(req: NextRequest) {
     default:
       return new Response('Invalid type', { status: 400 });
   }
+}
 
-  // if (type === 'currentUser') {
+export async function POST(req: NextRequest) {
+  const supabase = serverSupabase();
 
-  // } else if (type === 'quizCreator') {
-  //   const creator = searchParams.get('creator');
-  //   const { data, error } = await supabase.from('users').select('*').eq('user_id', creator).single();
-  //   console.log('route.ts data =>', data);
-  //   if (error) {
-  //     console.log('error =>', error);
-  //     throw new Error(error.message);
-  //   }
-  //   return Response.json(data);
-  // }
+  const { p_comment_id } = await req.json();
+
+  const { data, error } = await supabase.rpc('mark_comment_as_read', {
+    p_comment_id: p_comment_id
+  });
+
+  if (error) {
+    console.error('Error marking comment as read:', error);
+    throw new Error(error.message);
+  }
+
+  if (!data) {
+    console.error('Data returned is null');
+  }
+
+  return Response.json({ comment_id: data });
 }

@@ -1,16 +1,17 @@
 'use client';
 
 import { useGetCurrentUser } from '@/customHooks/common';
-import { useFetchQuizCommentsAlarms } from '@/query/useQueries/useAlarmQuery';
+import { useFetchQuizCommentsAlarms, useMarkAsRead } from '@/query/useQueries/useAlarmQuery';
 import { useRouter } from 'next/navigation';
 
 const QuizCommentsAlarm = () => {
   const userData = useGetCurrentUser();
   const { quizCommentsLoading, quizCommentsAlarms } = useFetchQuizCommentsAlarms(userData?.user_id);
+  const { mutate: markAsRead } = useMarkAsRead();
   const router = useRouter();
-  console.log('quizCommentsAlarm =>', quizCommentsAlarms);
 
-  const goToDetailQuiz = (quiz_id: string) => {
+  const goToDetailQuiz = (quiz_id: string, comment_id: string) => {
+    markAsRead({ comment_id });
     router.push(`/quiz/solve/${quiz_id}`);
   };
 
@@ -21,7 +22,7 @@ const QuizCommentsAlarm = () => {
       {quizCommentsAlarms?.map((alarm) => (
         <button
           key={alarm.comments.comment_id}
-          onClick={() => goToDetailQuiz(alarm.quiz_id)}
+          onClick={() => goToDetailQuiz(alarm.quiz_id, alarm.comments.comment_id)}
           className="w-full flex flex-col rounded hover:bg-gray-100 p-1 gap-0.5 text-left"
         >
           <div className="w-full flex text-sm text-gray-500 truncate">

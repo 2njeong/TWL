@@ -371,6 +371,12 @@ export type Database = {
           comments: Json;
         }[];
       };
+      mark_comment_as_read: {
+        Args: {
+          p_comment_id: string;
+        };
+        Returns: undefined;
+      };
       update_todolist: {
         Args: {
           todos: Json;

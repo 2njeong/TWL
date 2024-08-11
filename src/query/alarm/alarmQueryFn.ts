@@ -7,3 +7,21 @@ export const fetchQuizCommentsAlarm = async (currentUserId: string | undefined):
   }
   return response.json();
 };
+
+export const updateCommentsRead = async (comment_id: string) => {
+  const response = await fetch('/auth/api', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ p_comment_id: comment_id })
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to update comment read');
+  }
+  const result = await response.json();
+  console.log('API Response result:', result);
+
+  return result.comment_id;
+};
