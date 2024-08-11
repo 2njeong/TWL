@@ -43,6 +43,16 @@ export async function GET(req: NextRequest) {
       }
       return Response.json(data);
     }
+    case 'quizCommentsAlarm': {
+      const currentUserId = searchParams.get('currentUserId');
+      const { data, error } = await supabase.rpc('get_unread_comments_by_quiz', { currentuserid: currentUserId });
+      if (error) {
+        console.log('quizCommentsAlarm error =>', error);
+        throw new Error(error.message);
+      }
+      return Response.json(data);
+    }
+
     default:
       return new Response('Invalid type', { status: 400 });
   }

@@ -9,9 +9,11 @@ import Link from 'next/link';
 import { useState } from 'react';
 import AvatarImage from '../member/information/AvatarImage';
 import { openNewWindow } from '@/utils/utilFns';
+import QuizCommentsAlarm from './QuizCommentsAlarm';
 
 const My = () => {
   const { isLoading, userData } = useFetchCurrentUser();
+  // const { quizCommentsLoading, quizCommentsAlarms } = useFetchQuizCommentsAlarms(userData?.user_id);
   const [isLoggedIn, _] = useAtom(checkLoginAtom);
   const [isMyListOpen, setMyListOpen] = useState(false);
 
@@ -70,7 +72,7 @@ const My = () => {
           </div>
           {isMyListOpen && (
             <div
-              className={`w-28 h-22 bg-white rounded absolute top-full right-[-30%] flex flex-col justify-around gap-1 border rounded p-2`}
+              className={`w-72 h-22 bg-white rounded absolute top-full right-[-30%] flex flex-col gap-1 justify-around border rounded p-2`}
               style={{ zIndex: ZINDEX.navBarZ }}
             >
               {myList.map((item) => (
@@ -78,6 +80,7 @@ const My = () => {
                   {item.text}
                 </button>
               ))}
+              <QuizCommentsAlarm />
             </div>
           )}
         </div>

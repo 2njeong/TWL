@@ -55,6 +55,7 @@ export type Database = {
           created_at: string;
           isDeleted: boolean;
           quiz_id: string | null;
+          read: boolean;
         };
         Insert: {
           comment_content?: string | null;
@@ -63,6 +64,7 @@ export type Database = {
           created_at?: string;
           isDeleted: boolean;
           quiz_id?: string | null;
+          read?: boolean;
         };
         Update: {
           comment_content?: string | null;
@@ -71,6 +73,7 @@ export type Database = {
           created_at?: string;
           isDeleted?: boolean;
           quiz_id?: string | null;
+          read?: boolean;
         };
         Relationships: [
           {
@@ -356,6 +359,16 @@ export type Database = {
           created_at: string;
           users: string[];
           comment_ids: string[];
+        }[];
+      };
+      get_unread_comments_by_quiz: {
+        Args: {
+          currentuserid: string;
+        };
+        Returns: {
+          quiz_id: string;
+          question: string;
+          comments: Json;
         }[];
       };
       update_todolist: {
