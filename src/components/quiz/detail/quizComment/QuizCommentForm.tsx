@@ -1,6 +1,6 @@
 'use client';
 
-import { RefObject, useEffect, useRef, useState } from 'react';
+import { FormEvent, RefObject, useEffect, useRef, useState } from 'react';
 import QuizCommentBtn from './QuizCommentSubmitBtn';
 import { QuizCommentValidationErr } from '@/type/quizType';
 import { handleQuizComment } from '@/app/quiz/solve/action';
@@ -12,22 +12,29 @@ import { useAtom } from 'jotai';
 import { checkLoginAtom } from '@/atom/authAtom';
 import AvatarImage from '@/components/member/information/AvatarImage';
 import { useGetCurrentUser } from '@/customHooks/common';
+import { useFetchAllUsers } from '@/query/useQueries/useAuthQuery';
 
 const QuizCommentForm = ({
   theQuiz,
-
   commentFormRef
 }: {
   theQuiz: Tables<'quiz'> | undefined;
-
   commentFormRef: RefObject<HTMLFormElement> | null;
 }) => {
+  const { allUsersLoading, allUsers } = useFetchAllUsers();
   const [isCommentOpen, setCommentOpen] = useState(false);
+  const [input, setInput] = useState('');
+  const [suggestedUsers, setSuggestedUsers] = useState<Tables<'users'>[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const [commentValidationErr, setCommentValidationErr] = useState<QuizCommentValidationErr | null>(null);
   const commentTxtAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const queryClient = useQueryClient();
   const { user_id, avatar } = useGetCurrentUser() ?? {};
   const [isLoggedIn, __] = useAtom(checkLoginAtom);
+
+  // console.log('allUsers =>', allUsers);
+  // console.log('input =>', input);
+  // console.log('showSuggestions =>', showSuggestions);
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
@@ -54,6 +61,7 @@ const QuizCommentForm = ({
     if (result?.error) setCommentValidationErr(result.error);
     await queryClient.invalidateQueries({ queryKey: [QUIZ_COMMENTS_QUERY_KEY, theQuiz?.quiz_id] });
     commentFormRef?.current?.reset();
+    setInput('');
   };
 
   const [_, formAction] = useFormState(submitQuizComment, null);
@@ -66,6 +74,34 @@ const QuizCommentForm = ({
     }
   };
 
+  const handleInputChange = (e: FormEvent<HTMLTextAreaElement>) => {
+    const target = e.target as HTMLTextAreaElement;
+    const value = target.value;
+    setInput(value);
+    const lastWord = value.split(' ').pop();
+    if (lastWord?.includes('@')) {
+      setShowSuggestions(true);
+      const query = lastWord.slice(1).toLowerCase();
+      const filterdUsers = allUsers?.filter((user) => user.nickname?.toLowerCase().startsWith(query));
+      filterdUsers && setSuggestedUsers(filterdUsers);
+    } else {
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleInput = (e: FormEvent<HTMLTextAreaElement>) => {
+    handleTextareaInput();
+    handleInputChange(e);
+  };
+
+  const handleSuggestionClick = (user: string) => {
+    const words = input.split(' ');
+    words.pop();
+    words.push(`@${user}`);
+    setInput(words.join(' ') + ' ');
+    setShowSuggestions(false);
+  };
+
   return (
     <form
       ref={commentFormRef}
@@ -75,16 +111,30 @@ const QuizCommentForm = ({
       <div className="w-14 h-14">
         <AvatarImage src={avatar} alt="유저이미지" size="3.5" />
       </div>
-      <div className={`${isCommentOpen ? 'w-[80%]' : 'w-11/12'} flex flex-col gap-1`}>
+      <div className={`${isCommentOpen ? 'w-[80%]' : 'w-11/12'} flex flex-col gap-1 relative`}>
         <textarea
           name="comment_content"
           placeholder={`${isLoggedIn ? '댓글 작성...' : '로그인 후 이용 가능합니다.'}`}
+          value={input}
           ref={commentTxtAreaRef}
           disabled={!isLoggedIn}
           className="border-b-2 focus:outline-none resize-none min-h-5 overflow-y-hidden"
-          onInput={handleTextareaInput}
+          onInput={(e) => handleInput(e)}
           rows={1}
         ></textarea>
+        {!allUsersLoading && showSuggestions && (
+          <div className="absolute translate-y-[20px] w-48 max-h-56 overflow-y-auto flex flex-col gap-1 bg-white bg-opacity-70">
+            {suggestedUsers.map((user) => (
+              <button
+                key={user.user_id}
+                onClick={() => handleSuggestionClick(user.nickname as string)}
+                className="hover:bg-gray-100"
+              >
+                {user.nickname}
+              </button>
+            ))}
+          </div>
+        )}
         {<p>{commentValidationErr?.comment_content?._errors}</p>}
       </div>
       <QuizCommentBtn isCommentOpen={isCommentOpen} setCommentOpen={setCommentOpen} commentFormRef={commentFormRef} />

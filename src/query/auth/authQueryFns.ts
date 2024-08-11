@@ -23,3 +23,11 @@ export const fetchQuizCreator = async (creator: string): Promise<Tables<'users'>
   }
   return response.json();
 };
+
+export const fetchAllUsers = async (): Promise<Tables<'users'>[]> => {
+  const response = await fetch(`/auth/api?type=allUsers`);
+  if (!response.ok) {
+    throw new Error('AllUsers response was not ok');
+  }
+  return response.json();
+};

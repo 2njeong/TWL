@@ -49,6 +49,13 @@ export async function GET(req: NextRequest) {
       }
       return Response.json(data);
     }
+    case 'allUsers': {
+      const { data, error } = await supabase.from('users').select('*');
+      if (error) {
+        throw new Error(error.message);
+      }
+      return Response.json(data);
+    }
 
     default:
       return new Response('Invalid type', { status: 400 });

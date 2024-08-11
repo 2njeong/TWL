@@ -1,6 +1,6 @@
 import { checkLoginAtom } from '@/atom/authAtom';
-import { fetchCurrentUser, fetchThatUser } from '@/query/auth/authQueryFns';
-import { CURRENT_USER_QUERY_KEY, THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
+import { fetchAllUsers, fetchCurrentUser, fetchThatUser } from '@/query/auth/authQueryFns';
+import { ALL_USERS_QUERY_KEY, CURRENT_USER_QUERY_KEY, THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 import { Tables } from '@/type/database';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAtom } from 'jotai';
@@ -36,4 +36,13 @@ export const useFetchThatUser = (thatUser: string) => {
 
   const thatUserData = data ? data[0] : data;
   return { isThatUserLoading, thatUserData };
+};
+
+export const useFetchAllUsers = () => {
+  const { data: allUsers, isLoading: allUsersLoading } = useQuery<Tables<'users'>[]>({
+    queryKey: [ALL_USERS_QUERY_KEY],
+    queryFn: fetchAllUsers
+  });
+
+  return { allUsersLoading, allUsers };
 };
