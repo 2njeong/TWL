@@ -74,7 +74,7 @@ const GuestBookForm = ({ id }: { id: string }) => {
         >
           <div className="w-full flex items-center gap-6 justify-center">
             <div>
-              <AvatarImage src={avatar || '/dog_avatar.jpg'} alt="방명록 아바타" size="7" />
+              <AvatarImage src={avatar || '/basic_avatar.png'} alt="방명록 아바타" size="7" />
             </div>
             <textarea
               name="content"
