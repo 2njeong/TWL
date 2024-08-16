@@ -26,6 +26,7 @@ const QuizCommentForm = ({
   const [input, setInput] = useState('');
   const [suggestedUsers, setSuggestedUsers] = useState<Tables<'users'>[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [taggedUser, setTaggedUser] = useState<string[]>([]);
   const [commentValidationErr, setCommentValidationErr] = useState<QuizCommentValidationErr | null>(null);
   const commentTxtAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const queryClient = useQueryClient();
@@ -35,6 +36,7 @@ const QuizCommentForm = ({
   // console.log('allUsers =>', allUsers);
   // console.log('input =>', input);
   // console.log('showSuggestions =>', showSuggestions);
+  console.log('taggedUser =>', taggedUser);
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
@@ -56,8 +58,8 @@ const QuizCommentForm = ({
   }, []);
 
   const submitQuizComment = async (state: any, data: FormData) => {
-    const boundHandleQuizComment = handleQuizComment.bind(null, user_id, theQuiz?.quiz_id);
-    const result = await boundHandleQuizComment(data);
+    const quizCommentObj = { comment_creator: user_id, quiz_id: theQuiz?.quiz_id, taggedUser };
+    const result = await handleQuizComment(data, quizCommentObj);
     if (result?.error) setCommentValidationErr(result.error);
     await queryClient.invalidateQueries({ queryKey: [QUIZ_COMMENTS_QUERY_KEY, theQuiz?.quiz_id] });
     commentFormRef?.current?.reset();
@@ -94,10 +96,11 @@ const QuizCommentForm = ({
     handleInputChange(e);
   };
 
-  const handleSuggestionClick = (user: string) => {
+  const handleSuggestionClick = (user: Tables<'users'>) => {
     const words = input.split(' ');
     words.pop();
-    words.push(`@${user}`);
+    words.push(`@${user.nickname}`);
+    setTaggedUser((prev) => [...prev, user.user_id]);
     setInput(words.join(' ') + ' ');
     setShowSuggestions(false);
   };
@@ -125,11 +128,7 @@ const QuizCommentForm = ({
         {!allUsersLoading && showSuggestions && (
           <div className="absolute translate-y-[20px] w-48 max-h-56 overflow-y-auto flex flex-col gap-1 bg-white bg-opacity-70">
             {suggestedUsers.map((user) => (
-              <button
-                key={user.user_id}
-                onClick={() => handleSuggestionClick(user.nickname as string)}
-                className="hover:bg-gray-100"
-              >
+              <button key={user.user_id} onClick={() => handleSuggestionClick(user)} className="hover:bg-gray-100">
                 {user.nickname}
               </button>
             ))}

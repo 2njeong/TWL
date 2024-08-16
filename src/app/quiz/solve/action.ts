@@ -12,19 +12,19 @@ export const submitQuizLike = async (quiz_id: string | undefined, user_id: strin
 };
 
 export const handleQuizComment = async (
-  comment_creator: string | undefined,
-  quiz_id: string | undefined,
-  data: FormData
+  data: FormData,
+  quizCommentObj: { comment_creator: string | undefined; quiz_id: string | undefined; taggedUser: string[] }
 ) => {
+  const { comment_creator, quiz_id, taggedUser } = quizCommentObj;
   const comment_content = data.get('comment_content');
   const { error: zodErr } = quizCommentSchema.safeParse({ comment_content });
   if (zodErr) {
     return { error: zodErr.format() };
   }
-  const quizCommnetObj = { comment_creator, quiz_id, comment_content, isDeleted: false };
+  const dbCommentObj = { comment_creator, quiz_id, comment_content, isDeleted: false, taggedUser };
 
   try {
-    const { error } = await supabase.from('comments').insert(quizCommnetObj);
+    const { error } = await supabase.from('comments').insert(dbCommentObj);
     if (error) {
       console.error(error);
       throw new Error(error.message);
