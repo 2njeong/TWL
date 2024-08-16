@@ -12,6 +12,7 @@ import { HiOutlineHome } from 'react-icons/hi';
 const NavBar = () => {
   const [quizDropOpen, setQuizDropOpen] = useState(false);
   const pathname = usePathname();
+
   const navBarList = [
     { href: '/', name: 'Home', icon: <HiOutlineHome className="text-blue-900" /> },
     { href: '/', name: 'Quiz', icon: <TbChristmasBall className="text-red-500" /> },

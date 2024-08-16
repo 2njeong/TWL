@@ -6,16 +6,37 @@ import { useFetchCurrentUser } from '@/query/useQueries/useAuthQuery';
 import { clientSupabase } from '@/supabase/client';
 import { useAtom } from 'jotai';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AvatarImage from '../member/information/AvatarImage';
 import { openNewWindow } from '@/utils/utilFns';
 import QuizCommentsAlarm from './QuizCommentsAlarm';
+import { useQueryClient } from '@tanstack/react-query';
+import { ALARM_QUIZ_COMMENTS_QUERY_KEY } from '@/query/alarm/alarmQueryKey';
+import { useFetchQuizCommentsAlarms } from '@/query/useQueries/useAlarmQuery';
 
 const My = () => {
-  const { isLoading, userData } = useFetchCurrentUser();
-  // const { quizCommentsLoading, quizCommentsAlarms } = useFetchQuizCommentsAlarms(userData?.user_id);
   const [isLoggedIn, _] = useAtom(checkLoginAtom);
   const [isMyListOpen, setMyListOpen] = useState(false);
+  const queryClient = useQueryClient();
+  const { isLoading, userData } = useFetchCurrentUser();
+  const { quizCommentsLoading, quizCommentsAlarms } = useFetchQuizCommentsAlarms(userData?.user_id);
+
+  useEffect(() => {
+    // 채팅방 isActive 상태 구독
+    const channel = clientSupabase
+      .channel('quizCommentsAlarm')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'comments' }, (payload) => {
+        console.log('payload =>', payload);
+
+        queryClient.invalidateQueries({
+          queryKey: [ALARM_QUIZ_COMMENTS_QUERY_KEY]
+        });
+      })
+      .subscribe();
+    return () => {
+      clientSupabase.removeChannel(channel);
+    };
+  }, []);
 
   const handleMouse = () => {
     setMyListOpen((prev) => !prev);
@@ -36,8 +57,7 @@ const My = () => {
   });
 
   const handleSignOut = async () => {
-    const supabase = clientSupabase();
-    const { error } = await supabase.auth.signOut();
+    const { error } = await clientSupabase.auth.signOut();
     if (error) throw new Error(error.message);
     location.replace('/auth');
   };
@@ -80,7 +100,7 @@ const My = () => {
                   {item.text}
                 </button>
               ))}
-              <QuizCommentsAlarm />
+              <QuizCommentsAlarm quizCommentsLoading={quizCommentsLoading} quizCommentsAlarms={quizCommentsAlarms} />
             </div>
           )}
         </div>

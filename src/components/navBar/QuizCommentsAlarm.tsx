@@ -1,12 +1,16 @@
 'use client';
 
-import { useGetCurrentUser } from '@/customHooks/common';
-import { useFetchQuizCommentsAlarms, useMarkAsRead } from '@/query/useQueries/useAlarmQuery';
+import { useMarkAsRead } from '@/query/useQueries/useAlarmQuery';
 import { useRouter } from 'next/navigation';
+import type { QuizCommentsAlarm } from '@/type/alarmType';
 
-const QuizCommentsAlarm = () => {
-  const userData = useGetCurrentUser();
-  const { quizCommentsLoading, quizCommentsAlarms } = useFetchQuizCommentsAlarms(userData?.user_id);
+const QuizCommentsAlarm = ({
+  quizCommentsLoading,
+  quizCommentsAlarms
+}: {
+  quizCommentsLoading: boolean;
+  quizCommentsAlarms: QuizCommentsAlarm[] | undefined;
+}) => {
   const { mutate: markAsRead } = useMarkAsRead();
   const router = useRouter();
 
