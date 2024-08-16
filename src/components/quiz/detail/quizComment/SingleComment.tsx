@@ -47,7 +47,9 @@ const SingleComment = ({ comment, quiz_id }: { comment: Comment; quiz_id: string
               <p className="text-xs text-gray-500">
                 {getHoursDifference(comment.created_at).hours > 0 &&
                   `${getHoursDifference(comment.created_at).hours}시간`}{' '}
-                {getHoursDifference(comment.created_at).minutes}분 전
+                {getHoursDifference(comment.created_at).minutes > 0
+                  ? `${getHoursDifference(comment.created_at).minutes}분 전`
+                  : '지금'}
               </p>
             ) : (
               <p className="text-xs">{getformattedDate(comment.created_at)}</p>
