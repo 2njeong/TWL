@@ -23,12 +23,7 @@ const ShowCreator = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
 
   return (
     <div className={`relative w-12 ml-2 flex items-center`} {...events()}>
-      <AvatarImage
-        src={creatorData.avatar ?? ''}
-        alt="quiz creator"
-        size="2.5"
-        className="pointer-events-none border-2"
-      />
+      <AvatarImage src={creatorData.avatar} alt="quiz creator" size="2.5" className="pointer-events-none border-2" />
       <HoverCreator {...creatorProps} />
     </div>
   );

@@ -6,6 +6,7 @@ type AlarmComment = Omit<Tables<'comments'>, 'quiz_id' | 'isDeleted' | 'read'> &
 };
 
 export type QuizCommentsAlarm = {
+  item_uuid: string;
   quiz_id: string;
   question: string;
   comments: AlarmComment;

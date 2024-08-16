@@ -369,6 +369,7 @@ export type Database = {
           currentuserid: string;
         };
         Returns: {
+          item_uuid: string;
           quiz_id: string;
           question: string;
           comments: Json;

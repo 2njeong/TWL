@@ -25,8 +25,6 @@ const My = () => {
     const channel = clientSupabase
       .channel('quizCommentsAlarm')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'comments' }, (payload) => {
-        console.log('payload =>', payload);
-
         queryClient.invalidateQueries({
           queryKey: [ALARM_QUIZ_COMMENTS_QUERY_KEY]
         });
