@@ -319,6 +319,7 @@ export type Database = {
           guestbook_id: string;
           isDeleted: boolean;
           avatar: string;
+          nickname: string;
         }[];
       };
       get_recent_algorithms_with_user: {

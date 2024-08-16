@@ -20,6 +20,6 @@ export type QuizListOfThatUser = Tables<'quiz'> & {
   comments: { isDeleted: boolean; comment_id: string }[];
 };
 
-export type ExtendedGuestBook = Tables<'guestbook'> & { avatar: string | null };
+export type ExtendedGuestBook = Tables<'guestbook'> & { avatar: string | null; nickname: string };
 
 export type SevenDaysTodolist = { day: string; todos: Tables<'todolist'>[] };

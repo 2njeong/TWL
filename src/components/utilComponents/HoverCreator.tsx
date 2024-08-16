@@ -10,17 +10,18 @@ type CreatorProps = {
   creator: string | undefined;
   avatar: string | null;
   nickname: string | null;
+  position?: string;
   quizzes?: Tables<'quiz'>[];
 };
 
 const HoverCreator = (creatorProps: CreatorProps) => {
-  const { isCreatorOpen, creator, avatar, nickname, quizzes } = creatorProps;
+  const { isCreatorOpen, creator, avatar, nickname, position, quizzes } = creatorProps;
 
   return (
     <>
       {isCreatorOpen && (
         <div
-          className={`absolute translate-x-[30%] -translate-y-[40%] flex drop-shadow-xl`}
+          className={`absolute ${position ? position : 'translate-x-[30%] -translate-y-[40%]'} flex drop-shadow-xl`}
           style={{ zIndex: ZINDEX.hoverZ }}
         >
           <div className={`w-40 h-58 bg-white bg-opacity-80 rounded-xl p-2 flex flex-col gap-2`}>
