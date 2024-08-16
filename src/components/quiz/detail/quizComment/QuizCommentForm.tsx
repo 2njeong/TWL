@@ -102,7 +102,7 @@ const QuizCommentForm = ({
     <form
       ref={commentFormRef}
       action={formAction}
-      className="w-full flex items-center border rounded justify-between h-auto p-4"
+      className="w-full flex items-center border rounded justify-between h-auto p-4 gap-3"
     >
       <div className="w-14 h-14">
         <AvatarImage src={avatar} alt="유저이미지" size="3.5" />

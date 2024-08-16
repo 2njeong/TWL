@@ -38,7 +38,7 @@ const QuizHeader = ({
   };
 
   return (
-    <div className="w-4/5 flex flex-col gap-1">
+    <div className="w-[54rem] flex flex-col gap-1">
       <div className="flex flex-col gap-2">
         <div className="w-full flex justify-between items-center">
           <h1 className="font-bold text-3xl">Q. {theQuiz?.question}</h1>

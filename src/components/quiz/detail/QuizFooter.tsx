@@ -23,7 +23,7 @@ const QuizFooter = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
     queryKey: [QUIZLIKE_QUERY_KEY, theQuiz?.quiz_id]
   };
   return (
-    <div className="w-4/5 flex items-center justify-between">
+    <div className="w-[54rem] flex items-center justify-between">
       <OpenModalBtn
         className="flex justify-center items-center w-[12%] max-sm:w-20 px-1 py-1 rounded-lg bg-blue-500 hover:bg-blue-400 text-white"
         modalProps={{
