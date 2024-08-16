@@ -84,19 +84,25 @@ const My = () => {
       )}
       {isLoggedIn && (
         <div {...events()} className="relative">
-          <div className="my-2">
+          <div className="my-2 relative">
             <AvatarImage src={userData?.avatar} alt="current user Img" size="3" className="border-2" />
+            {quizCommentsAlarms && quizCommentsAlarms.length > 0 && (
+              <div className="absolute -top-1.5 right-0 w-2.5 h-2.5 rounded-full animate-pulse bg-red-500 flex items-center justify-center"></div>
+            )}
           </div>
           {isMyListOpen && (
             <div
-              className={`w-72 h-22 bg-white rounded absolute top-full right-[-30%] flex flex-col gap-1 justify-around border rounded p-2`}
+              className={`w-72 h-22 bg-white rounded absolute top-full right-[-30%] flex flex-col gap-2 justify-around border rounded p-2 h-[32rem] overflow-y-auto`}
               style={{ zIndex: ZINDEX.navBarZ }}
             >
-              {myList.map((item) => (
-                <button key={item.text} onClick={item.func} className="rounded hover:bg-gray-100 p-1">
-                  {item.text}
-                </button>
-              ))}
+              <div className="flex flex-col gap-1 border-b-2">
+                {myList.map((item) => (
+                  <button key={item.text} onClick={item.func} className="rounded hover:bg-gray-100 p-1">
+                    {item.text}
+                  </button>
+                ))}
+              </div>
+
               <QuizCommentsAlarm quizCommentsLoading={quizCommentsLoading} quizCommentsAlarms={quizCommentsAlarms} />
             </div>
           )}

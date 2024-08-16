@@ -47,9 +47,9 @@ const QuizCommentsAlarm = ({
               event.stopPropagation();
               turnOffAlarm(alarm.item_uuid, alarm.comments.comment_id);
             }}
-            className="w-4 h-4 rounded-full absolute top-[5px] right-[5px] z-[5] hover:bg-gray-300"
+            className="w-4 h-4 rounded-full absolute top-[5px] right-[5px] z-[5]"
           >
-            <MdCancel className="text-gray-500" />
+            <MdCancel className="text-gray-300 hover:text-gray-400" />
           </button>
           <div className="w-full flex text-sm text-gray-500 truncate">
             <p
@@ -65,8 +65,8 @@ const QuizCommentsAlarm = ({
                 : '님이 회원님을 언급했습니다.'}
             </p>
           </div>
-          <h4 className="text-xs font-semiblod text-gray-500">Q. {alarm.question}</h4>
-          <p className="text-xs text-gray-400 break-all whitespace-normal line-clamp-2">
+          <h4 className="text-xs font-semiblod text-gray-500">Q . {alarm.question}</h4>
+          <p className="text-xs text-black break-all whitespace-normal line-clamp-2">
             {alarm.comments.comment_content}
           </p>
         </div>
