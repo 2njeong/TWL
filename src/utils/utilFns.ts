@@ -17,7 +17,7 @@ export const getHoursDifference = (dateStr: string) => {
   const differenceInMs = currentDate.getTime() - givenDate.getTime(); // 시간 차이 (밀리초 단위)
   const differenceInMinutes = differenceInMs / (1000 * 60); // 밀리초를 분으로 변환
   const differenceInHours = Math.floor(differenceInMinutes / 60); // 분을 시간으로 변환하고 소수점 버림
-  const remainingMinutes = Math.floor(differenceInMinutes % 60); // 남은 분 계산
+  const remainingMinutes = Math.floor(differenceInMinutes > 0 ? differenceInMinutes % 60 : 0); // 남은 분 계산
 
   return {
     hours: differenceInHours,
