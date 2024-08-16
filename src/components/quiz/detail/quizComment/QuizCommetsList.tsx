@@ -4,8 +4,12 @@ import { useEffect, useRef, useCallback } from 'react';
 import { useQuizCommentsQuery } from '@/query/useQueries/useQuizQuery';
 import { Tables } from '@/type/database';
 import SingleComment from './SingleComment';
+import { clientSupabase } from '@/supabase/client';
+import { useQueryClient } from '@tanstack/react-query';
+import { QUIZ_COMMENTS_QUERY_KEY } from '@/query/quiz/quizQueryKeys';
 
 const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) => {
+  const queryClient = useQueryClient();
   const {
     data: quizComments,
     isFetchingNextPage,
@@ -45,6 +49,20 @@ const QuizCommentsList = ({ theQuiz }: { theQuiz: Tables<'quiz'> | undefined }) 
       window.removeEventListener('resize', handleScroll);
     };
   }, [handleScroll]);
+
+  useEffect(() => {
+    const channel = clientSupabase
+      .channel('insertQuizComments')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'comments' }, (payload) => {
+        queryClient.invalidateQueries({
+          queryKey: [QUIZ_COMMENTS_QUERY_KEY, theQuiz?.quiz_id]
+        });
+      })
+      .subscribe();
+    return () => {
+      clientSupabase.removeChannel(channel);
+    };
+  }, [queryClient, theQuiz?.quiz_id]);
 
   if (isLoading) return <div>댓글 로딩중..</div>;
   return (
