@@ -65,8 +65,8 @@ const QuizCommentsAlarm = ({
                 : '님이 회원님을 언급했습니다.'}
             </p>
           </div>
-          <h4 className="text-xs font-semiblod text-gray-500">Q . {alarm.question}</h4>
-          <p className="text-xs text-black break-all whitespace-normal line-clamp-2">
+          <h4 className="text-xs font-semiblod text-gray-400">Q . {alarm.question}</h4>
+          <p className="text-xs text-gray-600 break-all whitespace-normal line-clamp-2">
             {alarm.comments.comment_content}
           </p>
         </div>
