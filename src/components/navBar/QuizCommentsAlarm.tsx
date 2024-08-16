@@ -23,11 +23,12 @@ const QuizCommentsAlarm = ({
     router.push(`/quiz/solve/${quiz_id}`);
   };
 
-  const turnOffAlarm = (item_uuid: string) => {
+  const turnOffAlarm = (item_uuid: string, comment_id: string) => {
     queryClient.setQueryData<QuizCommentsAlarm[] | undefined>(
       [ALARM_QUIZ_COMMENTS_QUERY_KEY],
       (prev) => prev && prev.filter((comment) => comment.item_uuid !== item_uuid)
     );
+    markAsRead({ comment_id });
   };
 
   if (quizCommentsLoading)
@@ -44,7 +45,7 @@ const QuizCommentsAlarm = ({
           <button
             onClick={(event) => {
               event.stopPropagation();
-              turnOffAlarm(alarm.item_uuid);
+              turnOffAlarm(alarm.item_uuid, alarm.comments.comment_id);
             }}
             className="w-4 h-4 rounded-full absolute top-[5px] right-[5px] z-[5] hover:bg-gray-300"
           >
