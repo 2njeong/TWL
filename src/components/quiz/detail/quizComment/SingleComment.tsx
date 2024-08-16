@@ -41,7 +41,7 @@ const SingleComment = ({ comment, quiz_id }: { comment: Comment; quiz_id: string
       <div className="w-full flex flex-col gap-2">
         <div className="w-full flex gap-2 items-center justify-between min-h-8">
           <div className="w-full flex gap-2 items-center justify-between">
-            <p className="text-sm text-gray-500 font-bold">@&nbsp;{comment.nickname ?? '익명의 유저'}</p>
+            <p className="text-sm text-gray-500 font-bold">{comment.nickname ?? '익명의 유저'}</p>
 
             {getHoursDifference(comment.created_at).hours < 48 ? (
               <p className="text-xs text-gray-500">

@@ -56,6 +56,7 @@ export type Database = {
           isDeleted: boolean;
           quiz_id: string | null;
           read: boolean;
+          taggedUser: string[];
         };
         Insert: {
           comment_content?: string | null;
@@ -65,6 +66,7 @@ export type Database = {
           isDeleted: boolean;
           quiz_id?: string | null;
           read?: boolean;
+          taggedUser?: string[];
         };
         Update: {
           comment_content?: string | null;
@@ -74,6 +76,7 @@ export type Database = {
           isDeleted?: boolean;
           quiz_id?: string | null;
           read?: boolean;
+          taggedUser?: string[];
         };
         Relationships: [
           {

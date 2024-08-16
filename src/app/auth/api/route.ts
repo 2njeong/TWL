@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
   const { p_comment_id } = await req.json();
 
   const { data, error } = await supabase.rpc('mark_comment_as_read', {
-    p_comment_id: p_comment_id
+    p_comment_id
   });
 
   if (error) {

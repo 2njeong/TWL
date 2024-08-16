@@ -27,7 +27,11 @@ const QuizCommentsAlarm = () => {
         >
           <div className="w-full flex text-sm text-gray-500 truncate">
             <p className="text-green-500">{alarm.comments.creator_nickname}</p>
-            <p>님이 댓글을 남겼습니다.</p>
+            <p>
+              {alarm.comments.selected_due_to === 'quiz_creator'
+                ? '님이 댓글을 남겼습니다.'
+                : '님이 회원님을 언급했습니다.'}
+            </p>
           </div>
 
           <h4 className="text-xs font-semiblod text-gray-500">Q. {alarm.question}</h4>

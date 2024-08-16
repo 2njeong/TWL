@@ -33,11 +33,6 @@ const QuizCommentForm = ({
   const { user_id, avatar } = useGetCurrentUser() ?? {};
   const [isLoggedIn, __] = useAtom(checkLoginAtom);
 
-  // console.log('allUsers =>', allUsers);
-  // console.log('input =>', input);
-  // console.log('showSuggestions =>', showSuggestions);
-  console.log('taggedUser =>', taggedUser);
-
   useEffect(() => {
     const handleClickOutside = (event: any) => {
       if (commentFormRef) {
@@ -49,9 +44,7 @@ const QuizCommentForm = ({
         setCommentValidationErr(null);
       }
     };
-
     document.addEventListener('click', handleClickOutside);
-
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
