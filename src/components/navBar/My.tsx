@@ -22,7 +22,6 @@ const My = () => {
   const { quizCommentsLoading, quizCommentsAlarms } = useFetchQuizCommentsAlarms(userData?.user_id);
 
   useEffect(() => {
-    // 채팅방 isActive 상태 구독
     const channel = clientSupabase
       .channel('quizCommentsAlarm')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'comments' }, (payload) => {

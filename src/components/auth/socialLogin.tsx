@@ -5,7 +5,6 @@ import { clientSupabase } from '@/supabase/client';
 import { useAtom } from 'jotai';
 
 const SocialLogin = () => {
-  const supabase = clientSupabase();
   const [authType] = useAtom(authSelectAtom);
   if (authType !== 'signIn') return;
 
@@ -15,7 +14,7 @@ const SocialLogin = () => {
   ];
 
   const socialLoginIn = async (name: 'google' | 'github') => {
-    const { error } = await supabase.auth.signInWithOAuth({
+    const { error } = await clientSupabase.auth.signInWithOAuth({
       provider: name,
       options: {
         queryParams: {
