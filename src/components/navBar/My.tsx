@@ -92,7 +92,9 @@ const My = () => {
           </div>
           {isMyListOpen && (
             <div
-              className={`w-72 h-22 max-h-[32rem] bg-white rounded absolute top-full right-[-30%] flex flex-col gap-2 justify-around border rounded p-2 overflow-y-auto`}
+              className={`${
+                quizCommentsAlarms && quizCommentsAlarms?.length > 0 ? 'w-72' : 'w-36'
+              } h-22 max-h-[32rem] bg-white rounded absolute top-full right-[-30%] flex flex-col gap-2 justify-around border rounded p-2 overflow-y-auto`}
               style={{ zIndex: ZINDEX.navBarZ }}
             >
               <div

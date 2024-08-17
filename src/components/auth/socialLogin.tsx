@@ -21,8 +21,8 @@ const SocialLogin = () => {
           access_type: 'offline',
           prompt: 'consent'
         },
-        redirectTo: process.env.NEXT_PUBLIC_REDIRECT_URL
-        // redirectTo: 'http://localhost:3000/auth/callback'
+        // redirectTo: process.env.NEXT_PUBLIC_REDIRECT_URL
+        redirectTo: 'http://localhost:3000/auth/callback'
       }
     });
     if (error) throw new Error(error?.message);
