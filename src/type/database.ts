@@ -97,6 +97,7 @@ export type Database = {
           dear: string;
           guestbook_id: string;
           isDeleted: boolean;
+          read: boolean;
         };
         Insert: {
           allowShow: boolean;
@@ -106,6 +107,7 @@ export type Database = {
           dear: string;
           guestbook_id?: string;
           isDeleted?: boolean;
+          read?: boolean;
         };
         Update: {
           allowShow?: boolean;
@@ -115,6 +117,7 @@ export type Database = {
           dear?: string;
           guestbook_id?: string;
           isDeleted?: boolean;
+          read?: boolean;
         };
         Relationships: [
           {
@@ -322,6 +325,16 @@ export type Database = {
           nickname: string;
         }[];
       };
+      get_more_todolist: {
+        Args: {
+          last_day: string;
+          input_user_id: string;
+        };
+        Returns: {
+          day: string;
+          todos: Json;
+        }[];
+      };
       get_recent_algorithms_with_user: {
         Args: {
           p_days_ago: unknown;
@@ -374,6 +387,22 @@ export type Database = {
           quiz_id: string;
           question: string;
           comments: Json;
+        }[];
+      };
+      get_unread_guestbook: {
+        Args: {
+          current_user_id: string;
+        };
+        Returns: {
+          allowShow: boolean;
+          content: string;
+          created_at: string;
+          creator: string;
+          dear: string;
+          guestbook_id: string;
+          isDeleted: boolean;
+          read: boolean;
+          nickname: string;
         }[];
       };
       mark_comment_as_read: {
