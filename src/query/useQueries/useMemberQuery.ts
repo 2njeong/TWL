@@ -20,7 +20,7 @@ import {
 } from '@/constants/memberConstants';
 import { useAtom } from 'jotai';
 import { totalPageAtom } from '@/atom/memberAtom';
-import { ExtendedGuestBook, QuizListOfThatUser, SevenDaysTodolist } from '@/type/memberType';
+import { ExtendedGuestBook, QuizListOfThatUser } from '@/type/memberType';
 
 export const useFetchQuizlistOfThatUser = (thatUser: string | undefined) => {
   const {

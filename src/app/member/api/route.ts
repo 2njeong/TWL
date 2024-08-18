@@ -59,7 +59,15 @@ export const GET = async (req: NextRequest) => {
       }
       return Response.json(data);
     }
-
+    case 'fetchMoretodolist': {
+      const last_day = searchParams.get('day');
+      const user_id = searchParams.get('user_id');
+      const { data, error } = await supabase.rpc('get_more_todolist', { last_day, input_user_id: user_id });
+      if (error) {
+        throw new Error(error.message);
+      }
+      return Response.json(data);
+    }
     case 'guestbook': {
       const thatUser = searchParams.get('thatUser');
       const page = Number(searchParams.get('page'));

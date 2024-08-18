@@ -22,4 +22,4 @@ export type QuizListOfThatUser = Tables<'quiz'> & {
 
 export type ExtendedGuestBook = Tables<'guestbook'> & { avatar: string | null; nickname: string };
 
-export type SevenDaysTodolist = { day: string; todos: Tables<'todolist'>[] };
+export type Todolist = { day: string; todos: Tables<'todolist'>[] };

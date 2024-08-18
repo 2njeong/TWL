@@ -1,7 +1,7 @@
 import { CURRENT_USER_QUERY_KEY, THAT_USER_QUERY_KEY } from '@/query/auth/authQueryKeys';
 import { TODOLIST_QUERY_KEY } from '@/query/member/memberQueryKey';
 import { Tables } from '@/type/database';
-import { SevenDaysTodolist } from '@/type/memberType';
+import { Todolist } from '@/type/memberType';
 import { useQueryClient } from '@tanstack/react-query';
 import { Editor } from '@toast-ui/react-editor';
 import { useRef, useState } from 'react';
@@ -62,6 +62,6 @@ export const useGetThatUser = (id: string) => {
 
 export const useGetSevenDaysTodolist = (thatUserID: string) => {
   const queryClient = useQueryClient();
-  const sevenDaysTodolist = queryClient.getQueryData<SevenDaysTodolist[]>([TODOLIST_QUERY_KEY, thatUserID]);
+  const sevenDaysTodolist = queryClient.getQueryData<Todolist[]>([TODOLIST_QUERY_KEY, thatUserID]);
   return sevenDaysTodolist;
 };
