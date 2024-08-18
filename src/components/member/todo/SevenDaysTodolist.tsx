@@ -32,7 +32,6 @@ const SevenDaysTodoList = ({ id }: { id: string }) => {
         throw new Error('ThatUser_s todolist response was not ok');
       }
       const data = await response.json();
-      console.log(data);
       if (data.length > 0) {
         queryClient.setQueryData([TODOLIST_QUERY_KEY, thatUserID], (prev: Todolist[]) =>
           [...prev, ...data].sort((a, b) => a.day.localeCompare(b.day))
