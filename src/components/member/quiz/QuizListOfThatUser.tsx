@@ -52,12 +52,6 @@ const QuizListOfThatUser = ({ id }: { id: string }) => {
                   quizLikeUsers={quiz.quiz_like?.users ?? []}
                   queryKey={[QUIZLIST_OF_THATUSER, thatUserID]}
                 />
-                <h5>
-                  {quiz.quiz_like &&
-                    quiz.quiz_like.users &&
-                    quiz.quiz_like.users.length > 0 &&
-                    quiz.quiz_like.users.length}
-                </h5>
               </div>
               <h5>댓글 {quiz.comments.filter((comment) => !comment.isDeleted).length}</h5>
             </div>
