@@ -1,5 +1,5 @@
 import { Tables } from '@/type/database';
-import { SevenDaysTodolist } from '@/type/memberType';
+import { Todolist } from '@/type/memberType';
 
 export const getformattedDate = (date: string) =>
   new Date(date).toLocaleString('ko', {
@@ -37,7 +37,7 @@ export const getToday = () => {
   return formattedDate;
 };
 
-export const getTodos = (day: string, sevenDaysTodolist: SevenDaysTodolist[] | undefined): Tables<'todolist'>[] => {
+export const getTodos = (day: string, sevenDaysTodolist: Todolist[] | undefined): Tables<'todolist'>[] => {
   const todolist = sevenDaysTodolist?.find((todolist) => todolist.day === day);
   return todolist?.todos ?? [];
 };
