@@ -1,20 +1,14 @@
 'use client';
 
-import { useMarkAsRead } from '@/query/useQueries/useAlarmQuery';
+import { useMarkCommentsAsRead } from '@/query/useQueries/useAlarmQuery';
 import { useRouter } from 'next/navigation';
 import type { QuizCommentsAlarm } from '@/type/alarmType';
 import { MdCancel } from 'react-icons/md';
 import { useQueryClient } from '@tanstack/react-query';
 import { ALARM_QUIZ_COMMENTS_QUERY_KEY } from '@/query/alarm/alarmQueryKey';
 
-const QuizCommentsAlarm = ({
-  quizCommentsLoading,
-  quizCommentsAlarms
-}: {
-  quizCommentsLoading: boolean;
-  quizCommentsAlarms: QuizCommentsAlarm[] | undefined;
-}) => {
-  const { mutate: markAsRead } = useMarkAsRead();
+const QuizCommentsAlarm = ({ quizCommentsAlarms }: { quizCommentsAlarms: QuizCommentsAlarm[] | undefined }) => {
+  const { mutate: markAsRead } = useMarkCommentsAsRead();
   const router = useRouter();
   const queryClient = useQueryClient();
 
@@ -30,9 +24,6 @@ const QuizCommentsAlarm = ({
     );
     markAsRead({ comment_id });
   };
-
-  if (quizCommentsLoading)
-    return <div className="w-full flex items-center justify-center text-gray-500">새로운 알림 로딩중..</div>;
 
   return (
     <div className="flex flex-col gap-1">

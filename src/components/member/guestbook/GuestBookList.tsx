@@ -1,15 +1,11 @@
 'use client';
 
 import { useFetchGuestBook } from '@/query/useQueries/useMemberQuery';
-import AvatarImage from '../information/AvatarImage';
-import { getformattedDate } from '@/utils/utilFns';
-import { GUESTBOOK_OF_THATUSER } from '@/query/member/memberQueryKey';
-import DeleteBtn from '@/components/utilComponents/DeleteBtn';
 import { useAtom } from 'jotai';
 import { pageAtom } from '@/atom/memberAtom';
 import PageNation from './PageNation';
 import { useEffect } from 'react';
-import { useGetCurrentUser, useGetThatUser, useHoverEvent } from '@/customHooks/common';
+import { useGetThatUser } from '@/customHooks/common';
 import SingleGuestBook from './SingleGuestBook';
 
 const GuestBookList = ({ id }: { id: string }) => {

@@ -11,6 +11,14 @@ export const GET = async (req: NextRequest) => {
   const type = searchParams.get('type');
   const supabase = serverSupabase();
   switch (type) {
+    case 'guestbookAlarm': {
+      const currentUserId = searchParams.get('currentUserId');
+      const { data, error } = await supabase.rpc('get_unread_guestbook', { current_user_id: currentUserId });
+      if (error) {
+        throw new Error(error.message);
+      }
+      return Response.json(data);
+    }
     case 'thatUsersQuizList': {
       const page = Number(searchParams.get('pageParam'));
       const thatUser = searchParams.get('thatUser');
@@ -70,3 +78,18 @@ export const GET = async (req: NextRequest) => {
       return new Response('Invalid type', { status: 400 });
   }
 };
+
+export async function POST(req: NextRequest) {
+  const supabase = serverSupabase();
+  const { guestbook_id } = await req.json();
+  const { data, error } = await supabase.from('guestbook').update({ read: true }).eq('guestbook_id', guestbook_id);
+
+  if (error) {
+    console.error('Error marking comment as read:', error);
+    throw new Error(error.message);
+  }
+  if (!data) {
+    console.error('Data returned is null');
+  }
+  return Response.json({ comment_id: data });
+}

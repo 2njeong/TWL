@@ -22,7 +22,7 @@ const UserInfo = ({ id }: { id: string }) => {
   };
 
   return (
-    <>
+    <section className="w-2/6 flex flex-col justify-around items-center justify-center px-4 py-2">
       <div className="w-full flex items-center justify-between">
         <div className="flex items-center">
           <h2 className="text-lg font-bold">{thatUserData?.nickname}님의&nbsp;</h2>
@@ -55,7 +55,7 @@ const UserInfo = ({ id }: { id: string }) => {
           />
         )}
       </div>
-    </>
+    </section>
   );
 };
 

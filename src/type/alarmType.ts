@@ -11,3 +11,7 @@ export type QuizCommentsAlarm = {
   question: string;
   comments: AlarmComment;
 };
+
+export type GuestbookAlarm = Tables<'guestbook'> & {
+  nickname: string;
+};

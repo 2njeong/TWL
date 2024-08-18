@@ -12,14 +12,16 @@ import { openNewWindow } from '@/utils/utilFns';
 import QuizCommentsAlarm from './QuizCommentsAlarm';
 import { useQueryClient } from '@tanstack/react-query';
 import { ALARM_QUIZ_COMMENTS_QUERY_KEY } from '@/query/alarm/alarmQueryKey';
-import { useFetchQuizCommentsAlarms } from '@/query/useQueries/useAlarmQuery';
+import { useFetchGuestbookAlarm, useFetchQuizCommentsAlarms } from '@/query/useQueries/useAlarmQuery';
+import GuestbookAlarm from './GuestbookAlarm';
 
 const My = () => {
   const [isLoggedIn, _] = useAtom(checkLoginAtom);
   const [isMyListOpen, setMyListOpen] = useState(false);
   const queryClient = useQueryClient();
   const { isLoading, userData } = useFetchCurrentUser();
-  const { quizCommentsLoading, quizCommentsAlarms } = useFetchQuizCommentsAlarms(userData?.user_id);
+  const { quizCommentsAlarms, quizCommentsAlarmLoading } = useFetchQuizCommentsAlarms(userData?.user_id);
+  const { guestbookAlarms, guestbookAlarmLoading } = useFetchGuestbookAlarm(userData?.user_id);
 
   useEffect(() => {
     const channel = clientSupabase
@@ -106,8 +108,14 @@ const My = () => {
                   </button>
                 ))}
               </div>
-
-              <QuizCommentsAlarm quizCommentsLoading={quizCommentsLoading} quizCommentsAlarms={quizCommentsAlarms} />
+              {quizCommentsAlarmLoading || guestbookAlarmLoading ? (
+                <div className="w-full flex items-center justify-center text-gray-500">새로운 알림 로딩중..</div>
+              ) : (
+                <div className="w-full flex flex-col gap-1">
+                  <QuizCommentsAlarm quizCommentsAlarms={quizCommentsAlarms} />
+                  <GuestbookAlarm guestbookAlarms={guestbookAlarms} />
+                </div>
+              )}
             </div>
           )}
         </div>

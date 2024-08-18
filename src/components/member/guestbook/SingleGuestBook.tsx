@@ -9,11 +9,25 @@ import { useAtom } from 'jotai';
 import AvatarImage from '../information/AvatarImage';
 import { getformattedDate } from '@/utils/utilFns';
 import HoverCreator from '@/components/utilComponents/HoverCreator';
+import { useQueryClient } from '@tanstack/react-query';
+import { GuestbookAlarm } from '@/type/alarmType';
+import { ALARM_GUESTBOOK_QUERY_KEY } from '@/query/alarm/alarmQueryKey';
+import { useEffect } from 'react';
+import { useMarkGuestbookAsRead } from '@/query/useQueries/useAlarmQuery';
 
 const SingleGuestBook = ({ book, thatUserId }: { book: ExtendedGuestBook; thatUserId: string }) => {
-  const { user_id: creator } = useGetCurrentUser() ?? {};
   const [page, _] = useAtom(pageAtom);
+  const queryClient = useQueryClient();
+  const { user_id: creator } = useGetCurrentUser() ?? {};
   const { isCreatorOpen, events } = useHoverEvent();
+  const guestbookAlarms = queryClient.getQueryData<GuestbookAlarm[]>([ALARM_GUESTBOOK_QUERY_KEY]);
+  const { mutate: markAsRead } = useMarkGuestbookAsRead();
+
+  useEffect(() => {
+    return () => {
+      if (guestbookAlarms && guestbookAlarms.length > 0) markAsRead({ guestbook_id: book.guestbook_id });
+    };
+  }, []);
 
   const deleteBtnProps = {
     item: 'guestbook',
@@ -34,7 +48,10 @@ const SingleGuestBook = ({ book, thatUserId }: { book: ExtendedGuestBook; thatUs
     position: '-top-12 -left-16'
   };
   return (
-    <div className="border-2 w-full flex flex-col items-center gap-2 pt-4 pb-2 px-2 rounded-md">
+    <div className="relative border-2 w-full flex flex-col items-center gap-2 pt-4 pb-2 px-2 rounded-md">
+      {guestbookAlarms?.map((alarm) => alarm.guestbook_id).includes(book.guestbook_id) && (
+        <div className="absolute top-1 left-1 rounded-md bg-red-400 px-1 text-white flex items-center">New</div>
+      )}
       {creator === book.creator && <DeleteBtn item_id={book.guestbook_id} {...deleteBtnProps} />}
       <div className="w-full flex items-center gap-6 justify-center">
         <div className="w-28 h-28 relative ml-2 flex items-center" {...events()}>
