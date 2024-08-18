@@ -11,7 +11,7 @@ import AvatarImage from '../member/information/AvatarImage';
 import { openNewWindow } from '@/utils/utilFns';
 import QuizCommentsAlarm from './QuizCommentsAlarm';
 import { useQueryClient } from '@tanstack/react-query';
-import { ALARM_QUIZ_COMMENTS_QUERY_KEY } from '@/query/alarm/alarmQueryKey';
+import { ALARM_GUESTBOOK_QUERY_KEY, ALARM_QUIZ_COMMENTS_QUERY_KEY } from '@/query/alarm/alarmQueryKey';
 import { useFetchGuestbookAlarm, useFetchQuizCommentsAlarms } from '@/query/useQueries/useAlarmQuery';
 import GuestbookAlarm from './GuestbookAlarm';
 
@@ -36,6 +36,20 @@ const My = () => {
       clientSupabase.removeChannel(channel);
     };
   }, []);
+
+  useEffect(() => {
+    const channel = clientSupabase
+      .channel('guestbookAlarm')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'guestbook' }, (payload) => {
+        queryClient.invalidateQueries({
+          queryKey: [ALARM_GUESTBOOK_QUERY_KEY]
+        });
+      })
+      .subscribe();
+    return () => {
+      clientSupabase.removeChannel(channel);
+    };
+  }, [queryClient]);
 
   const handleMouse = () => {
     setMyListOpen((prev) => !prev);

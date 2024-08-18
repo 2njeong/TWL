@@ -2,7 +2,6 @@
 
 import { useGetCurrentUser } from '@/customHooks/common';
 import { ALARM_GUESTBOOK_QUERY_KEY } from '@/query/alarm/alarmQueryKey';
-import { useMarkGuestbookAsRead } from '@/query/useQueries/useAlarmQuery';
 import { Tables } from '@/type/database';
 import { openNewWindow } from '@/utils/utilFns';
 import { useQueryClient } from '@tanstack/react-query';
@@ -10,7 +9,6 @@ import { MdCancel } from 'react-icons/md';
 import type { GuestbookAlarm } from '@/type/alarmType';
 
 const GuestbookAlarm = ({ guestbookAlarms }: { guestbookAlarms: GuestbookAlarm[] | undefined }) => {
-  // const { mutate: markAsRead } = useMarkGuestbookAsRead();
   const userData = useGetCurrentUser();
   const queryClient = useQueryClient();
 
