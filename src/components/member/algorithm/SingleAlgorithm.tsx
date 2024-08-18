@@ -3,6 +3,7 @@
 import { updateAtom } from '@/atom/quizAtom';
 import DeleteBtn from '@/components/utilComponents/DeleteBtn';
 import OpenModalBtn from '@/components/utilComponents/modal/OpenModalBtn';
+import { useGetCurrentUser } from '@/customHooks/common';
 import { ALGORITHM_OF_THATUSER } from '@/query/member/memberQueryKey';
 import { Tables } from '@/type/database';
 import { htmlTagRegex } from '@/utils/common';
@@ -13,6 +14,8 @@ import Link from 'next/link';
 
 const SingleAlgorithm = ({ item }: { item: Tables<'algorithm'> }) => {
   const [onUpdate, _] = useAtom(updateAtom);
+  const { user_id: currentUser } = useGetCurrentUser() || {};
+
   const deleteBtnProps = {
     item: 'algorithm',
     item_id: item.algorithm_id,
@@ -32,7 +35,7 @@ const SingleAlgorithm = ({ item }: { item: Tables<'algorithm'> }) => {
       <div className="flex flex-col gap-1">
         <div className="w-full flex justify-between">
           <h2 className="font-bold text-xl truncate">{item.title}</h2>
-          <DeleteBtn {...deleteBtnProps} />
+          {item.creator === currentUser && <DeleteBtn {...deleteBtnProps} />}
         </div>
 
         <div className="flex gap-1 items-center">
