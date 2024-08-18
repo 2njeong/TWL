@@ -12,7 +12,8 @@ const TodaysTodo = ({ id }: { id: string }) => {
   const [_, setTodolist] = useAtom(todolistAtom);
   const { user_id: thatUserID } = useGetThatUser(id);
   const sevenDaysTodolist = useGetSevenDaysTodolist(thatUserID);
-  const todos = sevenDaysTodolist?.find((todolist) => todolist.day === day)?.todos ?? [];
+  const todos =
+    sevenDaysTodolist?.find((todolist) => todolist.day === day)?.todos.filter((todo) => !todo.isDeleted) ?? [];
 
   useEffect(() => {
     setTodolist(todos);

@@ -1,7 +1,7 @@
 'use client';
 
 import { dayAtom, todolistAtom } from '@/atom/memberAtom';
-import { useGetSevenDaysTodolist, useGetThatUser } from '@/customHooks/common';
+import { useGetCurrentUser, useGetSevenDaysTodolist, useGetThatUser } from '@/customHooks/common';
 import { TODOLIST_QUERY_KEY } from '@/query/member/memberQueryKey';
 import { Todolist } from '@/type/memberType';
 import { getToday } from '@/utils/utilFns';
@@ -12,6 +12,7 @@ const SevenDaysTodoList = ({ id }: { id: string }) => {
   const queryClient = useQueryClient();
   const setTodolist = useSetAtom(todolistAtom);
   const [_, setDay] = useAtom(dayAtom);
+  const { user_id } = useGetCurrentUser() || {};
   const { user_id: thatUserID } = useGetThatUser(id);
   const sevenDaysTodolist = useGetSevenDaysTodolist(thatUserID);
   const restOfTodolist =
@@ -44,9 +45,11 @@ const SevenDaysTodoList = ({ id }: { id: string }) => {
 
   return (
     <div className="border w-full h-44 relative">
-      <button onClick={fetchMoreTodolist} className="absolute right-2 top-2 border rounded-md px-1 hover:bg-gray-200">
-        이전 7일
-      </button>
+      {user_id === id && (
+        <button onClick={fetchMoreTodolist} className="absolute right-2 top-2 border rounded-md px-1 hover:bg-gray-200">
+          이전 7일
+        </button>
+      )}
       <div className="overflow-x-auto w-full h-full flex items-center">
         <div className="flex gap-4 w-full px-4">
           <button

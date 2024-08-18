@@ -63,26 +63,32 @@ const Todos = ({ id }: { id: string }) => {
       style={{ paddingTop: user_id !== thatUserID ? '1.5rem' : '' }}
     >
       {user_id === thatUserID && todolist.length > 0 && <SubmitBtn btnProps={btnProps} />}
-      {todolist.map(
-        (todo) =>
-          !todo.isDeleted && (
-            <div key={todo.todo_id} className="w-full flex items-center justify-between px-2">
-              <div className="flex gap-1">
-                <input
-                  type="checkbox"
-                  name="check"
-                  checked={todo.done}
-                  disabled={user_id !== thatUserID}
-                  onChange={(e) => handleTodolist({ e, todo_id: todo.todo_id })}
+      {todolist.length > 0 ? (
+        todolist.map(
+          (todo) =>
+            !todo.isDeleted && (
+              <div key={todo.todo_id} className="w-full flex items-center justify-between px-2">
+                <div className="flex gap-1">
+                  <input
+                    type="checkbox"
+                    name="check"
+                    checked={todo.done}
+                    disabled={user_id !== thatUserID}
+                    onChange={(e) => handleTodolist({ e, todo_id: todo.todo_id })}
+                  />
+                  <h4 className={todo.done ? 'text-gray-400' : ''}>{todo.todo_item}</h4>
+                </div>
+                <MdCancel
+                  className="cursor-pointer text-gray-400 hover:text-gray-300"
+                  onClick={() => handleTodolist({ todo_id: todo.todo_id })}
                 />
-                <h4 className={todo.done ? 'text-gray-400' : ''}>{todo.todo_item}</h4>
               </div>
-              <MdCancel
-                className="cursor-pointer text-gray-400 hover:text-gray-300"
-                onClick={() => handleTodolist({ todo_id: todo.todo_id })}
-              />
-            </div>
-          )
+            )
+        )
+      ) : (
+        <div className="w-full h-full flex items-center justify-center">
+          <p className="text-gray-500">쥔장 오늘 todolist 안 씀..!</p>
+        </div>
       )}
       {user_id === thatUserID && (
         <div

@@ -82,8 +82,8 @@ const GuestBookForm = ({ id }: { id: string }) => {
               className="border rounded w-4/6 h-full resize-none p-2 focus:outline-none"
             ></textarea>
           </div>
-          <div className="w-full flex items-center justify-between gap-1">
-            <div className="w-full flex gap-2">
+          <div className="w-full flex items-center justify-end gap-2">
+            <div className="flex gap-1.5">
               <input type="checkbox" name="allowShow"></input>
               <p className="text-gray-500">비공개</p>
             </div>
