@@ -44,7 +44,7 @@ const SevenDaysTodoList = ({ id }: { id: string }) => {
   };
 
   return (
-    <div className="border w-full h-40 relative">
+    <div className="border w-full h-44 relative">
       <button onClick={fetchMoreTodolist} className="absolute right-2 top-2 border rounded-md px-1 hover:bg-gray-200">
         이전 7일
       </button>
