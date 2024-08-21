@@ -25,7 +25,8 @@ const SingleGuestBook = ({ book, thatUserId }: { book: ExtendedGuestBook; thatUs
 
   useEffect(() => {
     return () => {
-      if (guestbookAlarms && guestbookAlarms.length > 0) markAsRead({ guestbook_id: book.guestbook_id });
+      if (thatUserId === creator && guestbookAlarms && guestbookAlarms.length > 0)
+        markAsRead({ guestbook_id: book.guestbook_id });
     };
   }, []);
 

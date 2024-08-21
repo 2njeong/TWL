@@ -18,7 +18,7 @@ const MemberPage = ({ params: { id } }: { params: { id: string } }) => {
       <div className="border border-2 rounded w-full min-h-[550px] h-full max-h-[90%] flex justify-between relative">
         <UserInfo id={id} />
         <TheCategory id={id} categories={categories} />
-        <SetCategory categories={categories} />
+        <SetCategory id={id} categories={categories} />
       </div>
     </>
   );
